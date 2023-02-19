@@ -1,0 +1,31 @@
+.customized-menu {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.customized-menu .navbar-light .navbar-brand, .nav-link {
+  color: white;
+}
+
+.customized-menu .navbar-light .navbar-brand:hover, .nav-link:hover {
+  color: var(--primary-hover-color);
+}
+
+.customized-menu .navbar-light .navbar-brand:focus, .nav-link:focus {
+  color: var(--primary-hover-color);
+}
+
+.customized-menu .account-options .btn {
+  color: white;
+}
+
+.customized-menu .account-options .account-sm-img {
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 992px) {
+  .customized-menu .account-options {
+    position: absolute; 
+    right: 0.75em;
+  }
+}
