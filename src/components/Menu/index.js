@@ -23,13 +23,13 @@ export default function Menu() {
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="gameDropdown">
                                     <li>
-                                        <Link className="dropdown-item" to="/dashboard">Vocabulary training</Link>
+                                        <Link className="dropdown-item" to="/vocabulary-game/setup">Vocabulary training</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" to="/dashboard">Guess the article</Link>
+                                        <Link className="dropdown-item" to="/article-game/setup">Guess the article</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" to="/dashboard">Conjugation game</Link>
+                                        <Link className="dropdown-item" to="/conjugation-game/setup">Conjugation game</Link>
                                     </li>
                                     <li>
                                         <Link className="dropdown-item" to="/dashboard">Rankings</Link>

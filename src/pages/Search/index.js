@@ -15,7 +15,7 @@ export default function Search() {
 
     return (
         <form action="{% url 'search-done' %}" method="GET">
-            <Input id="searchInput" type="search" name="search">Search for...</Input>
+            <Input id="searchInput" type="search" name="search" label="Search for..."></Input>
             {languages.map(item => <Checkbox key={item.id} id={item.id} value={item.language_name}>{item.language_name}</Checkbox>)}
             <Button id="searchSubmitButton" colorStyle="success" type="submit">Search</Button>
         </form>
