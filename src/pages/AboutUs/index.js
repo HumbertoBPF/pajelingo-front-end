@@ -3,6 +3,6 @@ import data from "./data.json"
 
 export default function AboutUs() {
     return (
-        data.items.map(item => <AboutUsCard key={item.id} image={item.image} text={item.text}/>)
+        data.items.map(item => <AboutUsCard key={item.id} image={item.image}>{item.text}</AboutUsCard>)
     );
 }

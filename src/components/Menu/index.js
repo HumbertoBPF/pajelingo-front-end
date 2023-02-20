@@ -15,7 +15,7 @@ export default function Menu() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className={`nav-link ${styles["nav-link"]}`} aria-current="page" to="/dashboard">Search tool</Link>
+                                <Link className={`nav-link ${styles["nav-link"]}`} aria-current="page" to="/search">Search tool</Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <a id="gameDropdown" className={`nav-link dropdown-toggle ${styles["nav-link"]}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
