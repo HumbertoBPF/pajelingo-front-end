@@ -32,7 +32,7 @@ export default function Menu() {
                                         <Link className="dropdown-item" to="/conjugation-game/setup">Conjugation game</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" to="/dashboard">Rankings</Link>
+                                        <Link className="dropdown-item" to="/rankings">Rankings</Link>
                                     </li>
                                 </ul>
                             </li>
