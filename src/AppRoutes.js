@@ -6,6 +6,7 @@ import VocabularyGameSetup from 'pages/Games/VocabularyGame/VocabularyGameSetup'
 import Index from 'pages/Index';
 import Rankings from 'pages/Rankings';
 import Search from 'pages/Search';
+import SearchResults from 'pages/SearchResults';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function AppRoutes() {
@@ -20,6 +21,7 @@ export default function AppRoutes() {
           <Route path="/conjugation-game/setup" element={<ConjugationGameSetup/>}/>
           <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
           <Route path="/rankings" element={<Rankings/>}/>
+          <Route path="/search-results" element={<SearchResults/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
