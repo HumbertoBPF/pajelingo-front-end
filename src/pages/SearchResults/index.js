@@ -18,8 +18,7 @@ export default function SearchResults() {
 
     useEffect(() => {
         // Preparing language map
-        let temp = languagesFlag;
-        temp.clear();
+        let temp = new Map();
         languages.forEach(item => {
             temp.set(item.language_name, item.flag_image);
         });
@@ -30,30 +29,29 @@ export default function SearchResults() {
             data.page = 1;
             setSearchResults(data);
         });
-    }, [languages]);
+    }, [languages, searchParams]);
 
     return (
         <>
             <div className="row justify-content-center mb-4">
                 { searchResults.results.map((item) => <SearchResultCard 
-                                                key={item.id} 
-                                                word={item.word_name} 
-                                                language={item.language} 
-                                                flagImage={languagesFlag.get(item.language)}/>) }
+                                                        key={item.id} 
+                                                        word={item}
+                                                        flagImage={languagesFlag.get(item.language)}/>) }
             </div>
             <Pagination 
-                    previous={searchResults.previous} 
-                    next={searchResults.next} 
-                    count={searchResults.count} 
-                    resultsPerPage={12} 
-                    page={searchResults.page} 
-                    callback={(page) => {
-                        const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
-                        fetch(url).then((response) => response.json()).then((data) => {
-                            data.page = page;
-                            setSearchResults(data);
-                        });
-                    }}/>
+                previous={searchResults.previous} 
+                next={searchResults.next} 
+                count={searchResults.count} 
+                resultsPerPage={12} 
+                page={searchResults.page} 
+                callback={(page) => {
+                    const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
+                    fetch(url).then((response) => response.json()).then((data) => {
+                        data.page = page;
+                        setSearchResults(data);
+                    });
+                }}/>
         </>
     );
 }

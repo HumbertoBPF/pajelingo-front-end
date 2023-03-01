@@ -4,6 +4,7 @@ import ArticleGameSetup from 'pages/Games/ArticleGame/ArticleGameSetup';
 import ConjugationGameSetup from 'pages/Games/ConjugationGame/ConjugationGameSetup';
 import VocabularyGameSetup from 'pages/Games/VocabularyGame/VocabularyGameSetup';
 import Index from 'pages/Index';
+import Meanings from 'pages/Meanings';
 import Rankings from 'pages/Rankings';
 import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
@@ -22,6 +23,7 @@ export default function AppRoutes() {
           <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
           <Route path="/rankings" element={<Rankings/>}/>
           <Route path="/search-results" element={<SearchResults/>}/>
+          <Route path="/meanings/:pk" element={<Meanings/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
