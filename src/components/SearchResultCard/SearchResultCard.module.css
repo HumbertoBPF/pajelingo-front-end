@@ -1,0 +1,8 @@
+.search-card {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.search-card:hover {
+    background-color: var(--primary-color);
+}
