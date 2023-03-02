@@ -33,9 +33,7 @@ export default function Meanings() {
                 null:
                 (
                     <div className="row g-0 justify-content-center mb-4">
-                        <div className="col-md-2 col-sm-3 col-6">
-                            <img src={`data:image/jpeg;base64,${word.image}`} className="img-fluid rounded" alt="Word image"/>
-                        </div>
+                        <img src={`data:image/jpeg;base64,${word.image}`} className="img-fluid rounded col-md-2 col-sm-3 col-6" alt="Word image"/>
                     </div>
                 )
             }
