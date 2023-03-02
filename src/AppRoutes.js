@@ -1,5 +1,6 @@
 import AboutUs from 'pages/AboutUs';
 import Base from 'pages/Base';
+import ArticleGame from 'pages/Games/ArticleGame/ArticleGame';
 import ArticleGameSetup from 'pages/Games/ArticleGame/ArticleGameSetup';
 import ConjugationGameSetup from 'pages/Games/ConjugationGame/ConjugationGameSetup';
 import VocabularyGameSetup from 'pages/Games/VocabularyGame/VocabularyGameSetup';
@@ -19,6 +20,7 @@ export default function AppRoutes() {
           <Route path="/about-us" element={<AboutUs/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/article-game/setup" element={<ArticleGameSetup/>}/>
+          <Route path="/article-game/play" element={<ArticleGame/>}/>
           <Route path="/conjugation-game/setup" element={<ConjugationGameSetup/>}/>
           <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
           <Route path="/rankings" element={<Rankings/>}/>

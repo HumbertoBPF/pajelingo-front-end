@@ -1,6 +1,6 @@
 import Button from "components/Button";
 import Checkbox from "components/Checkbox";
-import Input from "components/Input";
+import FormInput from "components/FormInput";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ export default function Search() {
                 navigator(`${baseUrl}?${queryParams}`);
             }
         }>
-            <Input 
+            <FormInput 
                 id="searchInput" 
                 type="search" 
                 name="search" 

@@ -25,10 +25,10 @@ export default function VocabularyGameSetup() {
                     in other language, but whose meaning is not the same. Let’s start?</p>
             </section>
             <form action="{% url 'vocabulary-game' %}" method="GET">
-                <div class="mb-4">
+                <div className="mb-4">
                     <SelectLanguage id="selectBaseLanguage" name="base_language" items={languages} defaultItem="Choose a base language"/>
                 </div>
-                <div class="mb-4">
+                <div className="mb-4">
                     <SelectLanguage id="selectTargetLanguage" name="target_language" items={languages} defaultItem="Choose a target language"/>
                 </div>
                 <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>

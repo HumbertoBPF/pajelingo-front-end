@@ -23,7 +23,7 @@ export default function ConjugationGameSetup() {
                     mastering them requires practice, so let’s start! </p>
             </section>
             <form action="{% url 'conjugation-game' %}" method="GET">
-                <div class="mb-4">
+                <div className="mb-4">
                     <SelectLanguage id="selectLanguage" name="language" items={languages} defaultItem="Choose a language"/>
                 </div>
                 <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>

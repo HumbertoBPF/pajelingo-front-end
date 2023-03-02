@@ -1,12 +1,15 @@
 import Button from "components/Button";
 import SelectLanguage from "components/SelectLanguage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
 
 export default function ArticleGameSetup() {
     let languages = useSelector(state => state.languages);
     const dispatch = useDispatch();
+    const [language, setLanguage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchLanguages());
@@ -25,9 +28,18 @@ export default function ArticleGameSetup() {
                 <p>For the languages concerned by this game, the article indicates the gender and the number of the word. This might be
                     a bit weird for English speakers, but it’s just about getting used. Let’s start?</p>
             </section>
-            <form action="{% url 'article-game' %}" method="GET">
-                <div class="mb-4">
-                    <SelectLanguage id="selectLanguage" name="language" items={languages} defaultItem="Choose a language"/>
+            <form onSubmit={(event) => {
+                event.preventDefault();
+                console.log(language);
+                navigate(`/article-game/play?language=${language}`);
+            }}>
+                <div className="mb-4">
+                    <SelectLanguage 
+                        id="selectLanguage" 
+                        name="language" 
+                        items={languages} 
+                        defaultItem="Choose a language"
+                        onClick={(value) => setLanguage(value)}/>
                 </div>
                 <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>
             </form>
