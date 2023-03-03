@@ -1,4 +1,5 @@
 import Button from "components/Button";
+import FeedbackCard from "components/FeedbackCard";
 import GameInput from "components/GameInput";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -11,15 +12,34 @@ export default function ArticleGame() {
         word: ""
     });
     const [answer, setAnswer] = useState("");
+    const [feedback, setFeedback] = useState({
+        result: null,
+        correct_answer:null,
+        state: "idle"
+    });
 
     useEffect(() => {
-        console.log(searchParams);
-        fetch(`${baseUrl}/article-game?${searchParams}`).then((response) => response.json()).then((data) => setWord(data));
+        fetch(`${baseUrl}/article-game?${searchParams}`)
+            .then((response) => response.json())
+            .then((data) => setWord(data));
     }, [searchParams]);
 
     return (
+        (feedback.state === "succeeded")?
+        <FeedbackCard 
+            colorStyle={(feedback.result?"success":"danger")}
+            onClick={(event) => window.location.reload()}>
+                {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+                <br/>
+                {feedback.correct_answer}
+        </FeedbackCard>:
         <form className="text-center" onSubmit={(event) => {
             event.preventDefault();
+            setFeedback({
+                result: null,
+                correct_answer: null,
+                state: "pending"
+            });
             fetch(`${baseUrl}/article-game`, {
                 method:"POST",
                 headers: {
@@ -30,13 +50,21 @@ export default function ArticleGame() {
                     "answer": answer
                 })
             }).then((response) => response.json()).then((data) => {
-                console.log(data.result);
-                console.log(data.correct_answer);
+                setFeedback({
+                    result: data.result,
+                    correct_answer: data.correct_answer,
+                    state: "succeeded"
+                });
             })
         }}>
             <div className="mb-4 row">
                 <div className="col-4 col-lg-2">
-                    <GameInput id="article" type="text" placeholder="Article" onChange={(value) => setAnswer(value)}/>
+                    <GameInput 
+                        id="article" 
+                        type="text" 
+                        placeholder="Article" 
+                        onChange={(value) => setAnswer(value)}
+                        disabled={feedback.state !== "idle"}/>
                 </div>
                 <div className="col-8 col-lg-10">
                     <GameInput id="word" type="text" placeholder={word.word} disabled />
