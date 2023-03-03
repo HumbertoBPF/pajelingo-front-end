@@ -30,8 +30,10 @@ export default function ArticleGameSetup() {
             </section>
             <form onSubmit={(event) => {
                 event.preventDefault();
-                console.log(language);
-                navigate(`/article-game/play?language=${language}`);
+                const queryParams = new URLSearchParams({
+                    language: language
+                })
+                navigate(`/article-game/play?${queryParams}`);
             }}>
                 <div className="mb-4">
                     <SelectLanguage 

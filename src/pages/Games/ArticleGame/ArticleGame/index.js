@@ -28,7 +28,19 @@ export default function ArticleGame() {
         (feedback.state === "succeeded")?
         <FeedbackCard 
             colorStyle={(feedback.result?"success":"danger")}
-            onClick={(event) => window.location.reload()}>
+            onClick={(event) => {
+                fetch(`${baseUrl}/article-game?${searchParams}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        setWord(data);
+                        setAnswer("");
+                        setFeedback({
+                                result: null,
+                                correct_answer:null,
+                                state: "idle"
+                            });
+                    });
+            }}>
                 {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
                 <br/>
                 {feedback.correct_answer}
