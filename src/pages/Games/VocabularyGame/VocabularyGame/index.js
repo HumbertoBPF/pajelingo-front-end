@@ -1,4 +1,5 @@
 import Button from "components/Button";
+import FeedbackCard from "components/FeedbackCard";
 import GameInput from "components/GameInput";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -10,9 +11,14 @@ export default function VocabularyGame(){
         id: null,
         word: ""
     });
+    const [answer, setAnswer] = useState("");
+    const [feedback, setFeedback] = useState({
+        result: null,
+        correct_answer:null,
+        state: "idle"
+    });
 
     useEffect(() => {
-        console.log(searchParams);
         const queryParams = new URLSearchParams({
             language: searchParams.get("target_language")
         });
@@ -20,9 +26,65 @@ export default function VocabularyGame(){
     }, [searchParams]);
 
     return (
-        <form className="text-center">
-            <GameInput id="wordToTranslate" type="text" placeholder={word.word} disabled/>
-            <GameInput id="translationWord" type="text" placeholder={`Provide the translation in ${searchParams.get("base_language")}`}/>
+        (feedback.state === "succeeded")?
+        <FeedbackCard
+            colorStyle={(feedback.result?"success":"danger")}
+            onClick={(event) => {
+                const queryParams = new URLSearchParams({
+                    language: searchParams.get("target_language")
+                });
+                fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        setWord(data);
+                        setAnswer("");
+                        setFeedback({
+                                result: null,
+                                correct_answer:null,
+                                state: "idle"
+                            });
+                    });
+            }}>
+                {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+                <br/>
+                {feedback.correct_answer}
+        </FeedbackCard>:
+        <form 
+            className="text-center" 
+            onSubmit={(event) => {
+                event.preventDefault();
+                setFeedback({
+                    result: null,
+                    correct_answer: null,
+                    state: "pending"
+                });
+                fetch(`${baseUrl}/vocabulary-game`, {
+                    method:"POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "word_id": word.id,
+                        "base_language": searchParams.get("base_language"),
+                        "answer": answer
+                    })
+                }).then((response) => response.json()).then((data) => {
+                    setFeedback({
+                        result: data.result,
+                        correct_answer: data.correct_answer,
+                        state: "succeeded"
+                    });
+                })
+            }}>
+            <GameInput 
+                id="wordToTranslate" 
+                type="text" 
+                placeholder={word.word} disabled/>
+            <GameInput 
+                id="translationWord" 
+                type="text" 
+                placeholder={`Provide the translation in ${searchParams.get("base_language")}`}
+                onChange={(value) => setAnswer(value)}/>
             <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
         </form>
     );
