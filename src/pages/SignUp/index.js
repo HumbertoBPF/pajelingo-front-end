@@ -2,6 +2,7 @@ import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useState } from "react";
 import { baseUrl } from "services/base";
+import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ export default function SignUp() {
     const [confirmationPassword, setConfirmationPassword] = useState("");
 
     return (
-        <form onSubmit={(event) => {
+        <form noValidate onSubmit={(event) => {
             event.preventDefault();
             fetch(`${baseUrl}/user/`, {
                 method:"POST",
@@ -31,25 +32,33 @@ export default function SignUp() {
                 name="email" 
                 type="email" 
                 label="Email address" 
-                onChange={(target) => setEmail(target.value)}/>
+                required
+                onChange={(value) => setEmail(value)}
+                validators={getEmailValidators()}/>
             <FloatingLabelInput 
                 id="username" 
                 name="username" 
                 type="text" 
                 label="Username"
-                onChange={(target) => setUsername(target.value)}/>
+                required
+                onChange={(value) => setUsername(value)}
+                validators={getUsernameValidators()}/>
             <FloatingLabelInput 
                 id="password" 
                 name="password" 
                 type="password" 
                 label="Password"
-                onChange={(target) => setPassword(target.value)}/>
+                required
+                onChange={(value) => setPassword(value)}
+                validators={getPasswordValidators()}/>
             <FloatingLabelInput 
                 id="confirm_password" 
                 name="confirm_password" 
                 type="password" 
                 label="Confirm your password"
-                onChange={(target) => setConfirmationPassword(target.value)}/>
+                required
+                onChange={(value) => setConfirmationPassword(value)}
+                validators={getConfirmPasswordValidators(password)}/>
             <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign up</Button> 
         </form>
     );

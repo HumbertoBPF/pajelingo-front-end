@@ -40,9 +40,8 @@ export default function Search() {
                 type="search" 
                 name="search" 
                 label="Search for..." 
-                onChange={(target) => {
-                    console.log(target.value);
-                    setSearchPattern(target.value);  
+                onChange={(value) => {
+                    setSearchPattern(value);  
                 }}/>
             {languages.map(item => <Checkbox 
                                         key={item.id} 
@@ -51,7 +50,6 @@ export default function Search() {
                                         onChange={
                                             (target) => {
                                                 if (target.checked) {
-                                                    console.log([...languagesSelected, target.value]);
                                                     setLanguagesSelected([...languagesSelected, target.value]);
                                                 }else {
                                                     setLanguagesSelected(languagesSelected.filter((value) => {
