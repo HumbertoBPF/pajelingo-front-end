@@ -7,10 +7,12 @@ import ConjugationGameSetup from 'pages/Games/ConjugationGame/ConjugationGameSet
 import VocabularyGame from 'pages/Games/VocabularyGame/VocabularyGame';
 import VocabularyGameSetup from 'pages/Games/VocabularyGame/VocabularyGameSetup';
 import Index from 'pages/Index';
+import Login from 'pages/Login';
 import Meanings from 'pages/Meanings';
 import Rankings from 'pages/Rankings';
 import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
+import SignUp from 'pages/SignUp';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function AppRoutes() {
@@ -30,6 +32,8 @@ export default function AppRoutes() {
           <Route path="/rankings" element={<Rankings/>}/>
           <Route path="/search-results" element={<SearchResults/>}/>
           <Route path="/meanings/:pk" element={<Meanings/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/login" element={<Login/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
