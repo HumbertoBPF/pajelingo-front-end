@@ -1,3 +1,4 @@
+import AlertCard from "components/AlertCard";
 import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useState } from "react";
@@ -8,11 +9,23 @@ export default function SignUp() {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmationPassword, setConfirmationPassword] = useState("");
+    const [feedback, setFeedback] = useState({
+        result: null,
+        state: "idle"
+    });
 
     return (
+        (feedback.state === "succeeded")?
+        <AlertCard colorStyle="success">
+            <p>Account successfully created. Please check your email to activate it.</p>
+            <img src="images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
+        </AlertCard>:
         <form noValidate onSubmit={(event) => {
             event.preventDefault();
+            setFeedback({
+                result: null,
+                state: "pending"
+            });
             fetch(`${baseUrl}/user/`, {
                 method:"POST",
                 headers: {
@@ -24,7 +37,10 @@ export default function SignUp() {
                     "password": password
                 })
             }).then((response) => response.json()).then((data) => {
-                console.log(data);
+                setFeedback({
+                    result: true,
+                    state: "succeeded"
+                });
             });
         }}>
             <FloatingLabelInput 
@@ -57,7 +73,6 @@ export default function SignUp() {
                 type="password" 
                 label="Confirm your password"
                 required
-                onChange={(value) => setConfirmationPassword(value)}
                 validators={getConfirmPasswordValidators(password)}/>
             <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign up</Button> 
         </form>

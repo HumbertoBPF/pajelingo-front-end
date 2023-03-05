@@ -1,4 +1,5 @@
 import AboutUs from 'pages/AboutUs';
+import Activation from 'pages/Activation';
 import Base from 'pages/Base';
 import ArticleGame from 'pages/Games/ArticleGame/ArticleGame';
 import ArticleGameSetup from 'pages/Games/ArticleGame/ArticleGameSetup';
@@ -34,6 +35,7 @@ export default function AppRoutes() {
           <Route path="/meanings/:pk" element={<Meanings/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/activate/:uid/:token" element={<Activation/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
