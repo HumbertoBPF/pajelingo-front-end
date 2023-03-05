@@ -3,17 +3,17 @@ import Ranking from "components/Ranking";
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
-import { fetchRankings } from "services/rankings";
 
 export default function Rankings() {
     const languages = useSelector(state => state.languages);
-    const ranking = useSelector(state => state.ranking);
+    const [ranking, setRanking] = useState({results:[], page: 1});
     const [language, setLanguage] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchLanguages());
+        dispatch(fetchLanguages())
     }, [dispatch]);
 
     useEffect(() => {
@@ -23,12 +23,11 @@ export default function Rankings() {
     
     useEffect(() => {
         if (language != null) {
-            const payload = {
-                language: language
-            }
-            dispatch(fetchRankings(payload));
+            fetch(`${baseUrl}/rankings?language=${language}`)
+                .then((data) => data.json())
+                .then((data) => setRanking({...data, page: 1}));
         }
-    }, [dispatch, language]);
+    }, [language]);
 
     return (
         <>
@@ -39,10 +38,6 @@ export default function Rankings() {
             <div className="mb-4">
                 <SelectLanguage id="selectLanguage" name="language" items={languages} onClick={(value) => {
                     setLanguage(value);
-                    const payload = {
-                        language: value
-                    }
-                    dispatch(fetchRankings(payload));
                 }}/>
             </div>
             <Ranking ranking={ranking}/>
@@ -53,11 +48,9 @@ export default function Rankings() {
                 resultsPerPage={10} 
                 page={ranking.page} 
                 callback={(page) => {
-                    const payload = {
-                        language: language,
-                        page: page
-                    }
-                    dispatch(fetchRankings(payload));
+                    fetch(`${baseUrl}/rankings?language=${language}&page=${page}`)
+                        .then((data) => data.json())
+                        .then((data) => setRanking({...data, page: page}));
                 }}/>
         </>
     )
