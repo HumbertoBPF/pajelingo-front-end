@@ -1,6 +1,6 @@
 import Button from "components/Button";
 import FeedbackCard from "components/FeedbackCard";
-import GameInput from "components/GameInput";
+import Input from "components/Input";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -76,11 +76,11 @@ export default function VocabularyGame(){
                     });
                 })
             }}>
-            <GameInput 
+            <Input 
                 id="wordToTranslate" 
                 type="text" 
                 placeholder={word.word} disabled/>
-            <GameInput 
+            <Input 
                 id="translationWord" 
                 type="text" 
                 placeholder={`Provide the translation in ${searchParams.get("base_language")}`}

@@ -1,4 +1,4 @@
-export default function GameInput( { id, type, placeholder="", disabled=false, onChange=((value) => {}) } ) {
+export default function Input( { id, type, placeholder="", disabled=false, onChange=((value) => {}) } ) {
     return (
         <input 
             id={id} 

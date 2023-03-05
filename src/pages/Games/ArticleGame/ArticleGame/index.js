@@ -1,6 +1,6 @@
 import Button from "components/Button";
 import FeedbackCard from "components/FeedbackCard";
-import GameInput from "components/GameInput";
+import Input from "components/Input";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -71,7 +71,7 @@ export default function ArticleGame() {
         }}>
             <div className="mb-4 row">
                 <div className="col-4 col-lg-2">
-                    <GameInput 
+                    <Input 
                         id="article" 
                         type="text" 
                         placeholder="Article" 
@@ -79,7 +79,7 @@ export default function ArticleGame() {
                         disabled={feedback.state !== "idle"}/>
                 </div>
                 <div className="col-8 col-lg-10">
-                    <GameInput id="word" type="text" placeholder={word.word} disabled />
+                    <Input id="word" type="text" placeholder={word.word} disabled />
                 </div>
             </div>
             <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>

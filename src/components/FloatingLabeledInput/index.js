@@ -1,4 +1,4 @@
-export default function FormInput({ id, name, type, label, onChange=((target)=>{}) }) {
+export default function FloatingLabelInput({ id, name, type, label, onChange=((target)=>{}) }) {
     return (
         <div className="form-floating mb-4">
             <input id={id} type={type} className="form-control" name={name} placeholder={label} onChange={
