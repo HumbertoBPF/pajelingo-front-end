@@ -29,7 +29,7 @@ export default function Pagination({ previous, next, count, resultsPerPage, page
     }
 
     return (
-        <nav aria-label="Page navigation example">
+        <nav className="mt-4" aria-label="Page navigation example">
             <ul className={`pagination ${styles["pagination"]}`}>
                 { (previous != null)?<PaginationButton page={page-1} callback={callback}>&laquo;</PaginationButton>:null }
                 { paginationArray.map(item => getPageButtons(item, page, numberPages, callback)) }

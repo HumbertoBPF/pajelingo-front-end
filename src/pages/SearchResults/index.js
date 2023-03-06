@@ -31,27 +31,34 @@ export default function SearchResults() {
         });
     }, [languages, searchParams]);
 
-    return (
+    return (    
+        (searchResults.count === 0)?
+        <div className="row justify-content-center">
+            <div className="text-center col-sm-8 col-md-4">
+                <img id="noResultImg" src="/images/no_result.jpg" className="img-fluid rounded" alt="No results image"/>
+                <p>No result matching your search was found</p>
+            </div>
+        </div>:
         <>
-            <div className="row justify-content-center mb-4">
-                { searchResults.results.map((item) => <SearchResultCard 
+            <div className="row justify-content-center">
+                {searchResults.results.map((item) => <SearchResultCard 
                                                         key={item.id} 
                                                         word={item}
-                                                        flagImage={languagesFlag.get(item.language)}/>) }
+                                                        flagImage={languagesFlag.get(item.language)}/>)}
             </div>
             <Pagination 
-                previous={searchResults.previous} 
-                next={searchResults.next} 
-                count={searchResults.count} 
-                resultsPerPage={12} 
-                page={searchResults.page} 
-                callback={(page) => {
-                    const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
-                    fetch(url).then((response) => response.json()).then((data) => {
-                        data.page = page;
-                        setSearchResults(data);
-                    });
-                }}/>
+            previous={searchResults.previous} 
+            next={searchResults.next} 
+            count={searchResults.count} 
+            resultsPerPage={12} 
+            page={searchResults.page} 
+            callback={(page) => {
+                const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
+                fetch(url).then((response) => response.json()).then((data) => {
+                    data.page = page;
+                    setSearchResults(data);
+                });
+            }}/> 
         </>
     );
 }
