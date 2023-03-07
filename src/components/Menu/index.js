@@ -10,7 +10,7 @@ export default function Menu() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUser())
+        dispatch(fetchUser());
     }, [dispatch]);
 
     return (
@@ -23,12 +23,12 @@ export default function Menu() {
                     {
                         (user)?
                         <div className={`dropdown ${styles["account-options"]}`}>
-                            <Link className={`btn btn-account-options ${styles["btn"]}`} role="button" id="dropdownAccountOptions" data-bs-toggle="dropdown" aria-expanded="false">
-                                {(user.picture === null)?
-                                <img src="/images/profile.jpg" className={`${styles["account-sm-img"]}`} alt="Default profile picture" height="48"/>:
-                                <img src={`data:image/jpeg;base64,${user.picture}`} className={`${styles["account-sm-img"]}`} alt="User profile picture" height="48"/>}
+                            <button className={`btn btn-account-options ${styles["btn"]}`} id="dropdownAccountOptions" data-bs-toggle="dropdown" aria-expanded="false">
+                                {(user.picture)?
+                                <img src={`data:image/jpeg;base64,${user.picture}`} className={`${styles["account-sm-img"]}`} alt="User profile" height="48"/>:
+                                <img src="/images/profile.jpg" className={`${styles["account-sm-img"]}`} alt="User profile" height="48"/>}
                                 <span> {user.username}</span>
-                            </Link>
+                            </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownAccountOptions">
                                 <li>
                                     <Link className="dropdown-item" to="/profile">
@@ -70,9 +70,9 @@ export default function Menu() {
                                 <Link className={`nav-link ${styles["nav-link"]}`} aria-current="page" to="/search">Search tool</Link>
                             </li>
                             <li className="nav-item dropdown">
-                                <a id="gameDropdown" className={`nav-link dropdown-toggle ${styles["nav-link"]}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <Link id="gameDropdown" className={`nav-link dropdown-toggle ${styles["nav-link"]}`} role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Games
-                                </a>
+                                </Link>
                                 <ul className="dropdown-menu" aria-labelledby="gameDropdown">
                                     <li>
                                         <Link className="dropdown-item" to="/vocabulary-game/setup">Vocabulary training</Link>

@@ -15,6 +15,7 @@ import Rankings from 'pages/Rankings';
 import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
 import SignUp from 'pages/SignUp';
+import UpdateAccount from 'pages/UpdateAccount';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function AppRoutes() {
@@ -38,6 +39,7 @@ export default function AppRoutes() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/activate/:uid/:token" element={<Activation/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/update-account" element={<UpdateAccount/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

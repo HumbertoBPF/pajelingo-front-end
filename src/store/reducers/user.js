@@ -3,11 +3,11 @@ import { fetchUser } from "services/user";
 
 const userSlice = createSlice({
     name: "user",
-    initialState: localStorage.getItem("user"),
+    initialState: JSON.parse(localStorage.getItem("user")),
     reducers: {
         saveToken: (state, action) => {
             localStorage.setItem("user", JSON.stringify({token: action.payload}));
-            return localStorage.getItem("user");
+            return JSON.parse(localStorage.getItem("user"));
         },
         deleteUser: state => {
             localStorage.removeItem("user");

@@ -1,14 +1,9 @@
 import AlertCard from "components/AlertCard";
-import Button from "components/Button";
-import FloatingLabelInput from "components/FloatingLabeledInput";
+import UserForm from "components/UserForm";
 import { useState } from "react";
 import { baseUrl } from "services/base";
-import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function SignUp() {
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [feedback, setFeedback] = useState({
         result: null,
         state: "idle"
@@ -20,8 +15,7 @@ export default function SignUp() {
             <p>Account successfully created. Please check your email to activate it.</p>
             <img src="images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
         </AlertCard>:
-        <form noValidate onSubmit={(event) => {
-            event.preventDefault();
+        <UserForm buttonColorStyle="success" buttonText="Sign up" onSubmit={(email, username, password) => {
             setFeedback({
                 result: null,
                 state: "pending"
@@ -42,41 +36,6 @@ export default function SignUp() {
                     state: "succeeded"
                 });
             });
-        }}>
-            <FloatingLabelInput 
-                id="email" 
-                name="email" 
-                type="email" 
-                label="Email address" 
-                required
-                onChange={(value) => setEmail(value)}
-                validators={getEmailValidators()}/>
-            <FloatingLabelInput 
-                id="username" 
-                name="username" 
-                type="text" 
-                label="Username"
-                required
-                onChange={(value) => setUsername(value)}
-                validators={getUsernameValidators()}/>
-            <FloatingLabelInput 
-                id="password" 
-                name="password" 
-                type="password" 
-                label="Password"
-                required
-                onChange={(value) => setPassword(value)}
-                validators={getPasswordValidators()}/>
-            <FloatingLabelInput 
-                id="confirm_password" 
-                name="confirm_password" 
-                type="password" 
-                label="Confirm your password"
-                required
-                validators={getConfirmPasswordValidators(password)}/>
-            <div className="text-center">
-                <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign up</Button> 
-            </div>
-        </form>
+        }}/>
     );
 }

@@ -2,7 +2,7 @@ import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
 import { fetchUser } from "services/user";
 import { saveToken } from "store/reducers/user";
@@ -51,7 +51,7 @@ export default function Login() {
                 required 
                 validators={getPasswordValidators()}
                 onChange={(value) => setPassword(value)}/>
-            <a id="reset_account_link" href="#">I forgot my username/password</a>
+            <Link>I forgot my username/password</Link>
             <br/>
             <div className="text-center mt-4">
                 <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign in</Button> 

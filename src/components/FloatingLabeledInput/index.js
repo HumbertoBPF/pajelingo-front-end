@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-export default function FloatingLabelInput({ id, name, type, label, required=false, onChange=((value)=>{}), validators=[] }) {
+export default function FloatingLabelInput({ id, name, type, label, initialValue="", required=false, onChange=((value)=>{}), validators=[] }) {
     const [errors, setErrors] = useState([]);
+    const [value, setValue] = useState(initialValue);
 
     function validate(target) {
         let errorList = [];
@@ -21,9 +22,13 @@ export default function FloatingLabelInput({ id, name, type, label, required=fal
                 className={(errors.length === 0)?"form-control":"form-control is-invalid"} 
                 name={name} 
                 placeholder={label} 
+                value={value}
                 required={required}
                 onChange={
-                    (event) => onChange(event.target.value)
+                    (event) => {
+                        setValue(event.target.value);
+                        onChange(event.target.value);
+                    }
                 }
                 onInput={
                     (event) => validate(event.target)
