@@ -59,7 +59,9 @@ export default function Search() {
                                             }
                                         }
                                         >{item.language_name}</Checkbox>)}
-            <Button id="searchSubmitButton" colorStyle="success" type="submit">Search</Button>
+            <div className="text-center">
+                <Button id="searchSubmitButton" colorStyle="success" type="submit">Search</Button>
+            </div>
         </form>
     )
 }

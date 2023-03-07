@@ -76,16 +76,13 @@ export default function VocabularyGame(){
                     });
                 })
             }}>
-            <Input 
-                id="wordToTranslate" 
-                type="text" 
-                placeholder={word.word} disabled/>
-            <Input 
-                id="translationWord" 
-                type="text" 
+            <Input id="wordToTranslate" className="text-center mb-4" type="text" placeholder={word.word} disabled center/>
+            <Input id="translationWord" className="text-center mb-4" type="text" 
                 placeholder={`Provide the translation in ${searchParams.get("base_language")}`}
-                onChange={(value) => setAnswer(value)}/>
-            <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+                onChange={(value) => setAnswer(value)} center/>
+            <div className="text-center">
+                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+            </div>
         </form>
     );
 }

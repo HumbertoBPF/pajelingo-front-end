@@ -21,7 +21,7 @@ export const fetchUser = createAsyncThunk(
                 email: data.email
             }
             localStorage.setItem("user", JSON.stringify(updatedUser));
-            return updatedUser;
+            return {...updatedUser, picture: data.picture};
         }
     }
 )

@@ -71,18 +71,16 @@ export default function ArticleGame() {
         }}>
             <div className="mb-4 row">
                 <div className="col-4 col-lg-2">
-                    <Input 
-                        id="article" 
-                        type="text" 
-                        placeholder="Article" 
-                        onChange={(value) => setAnswer(value)}
-                        disabled={feedback.state !== "idle"}/>
+                    <Input id="article" className="text-center mb-4" type="text" placeholder="Article" 
+                        onChange={(value) => setAnswer(value)} disabled={feedback.state !== "idle"}/>
                 </div>
                 <div className="col-8 col-lg-10">
-                    <Input id="word" type="text" placeholder={word.word} disabled />
+                    <Input id="word" className="text-center mb-4" type="text" placeholder={word.word} disabled/>
                 </div>
             </div>
-            <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+            <div className="text-center">
+                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+            </div>
         </form>
     );
 }

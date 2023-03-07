@@ -10,6 +10,7 @@ import VocabularyGameSetup from 'pages/Games/VocabularyGame/VocabularyGameSetup'
 import Index from 'pages/Index';
 import Login from 'pages/Login';
 import Meanings from 'pages/Meanings';
+import Profile from 'pages/Profile';
 import Rankings from 'pages/Rankings';
 import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
@@ -36,6 +37,7 @@ export default function AppRoutes() {
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/activate/:uid/:token" element={<Activation/>}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

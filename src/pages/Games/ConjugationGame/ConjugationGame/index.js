@@ -141,7 +141,9 @@ export default function ConjugationGame() {
                 type="text" 
                 label={language.personal_pronoun_6}
                 onChange={(value) => setConjugation({...conjugation, "conjugation_6": value})}/>
-            <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+            <div className="text-center">
+                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+            </div>
         </form>
     );
 }

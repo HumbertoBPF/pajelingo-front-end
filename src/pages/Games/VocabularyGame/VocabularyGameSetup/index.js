@@ -54,7 +54,9 @@ export default function VocabularyGameSetup() {
                         defaultItem="Choose a target language"
                         onClick={(value) => setTargetLanguage(value)}/>
                 </div>
-                <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>
+                <div className="text-center">
+                    <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>
+                </div>
             </form>
         </>
     )

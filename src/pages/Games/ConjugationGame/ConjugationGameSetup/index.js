@@ -41,7 +41,9 @@ export default function ConjugationGameSetup() {
                         defaultItem="Choose a language"
                         onClick={(value) => setLanguage(value)}/>
                 </div>
-                <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>
+                <div className="text-center">
+                    <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>
+                </div>
             </form>
         </>
     )

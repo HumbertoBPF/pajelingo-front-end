@@ -1,9 +1,10 @@
-export default function Button({ id, colorStyle, type, children, onClick=((event) => {}) }) {
+import styles from "./Button.module.css";
+
+export default function Button({ id, colorStyle, type, children, onClick=((event) => {}), ...dataAttr }) {
+    
     return (
-        <div className="text-center">
-            <button id={id} className={`btn btn-${colorStyle}`} type={type} onClick={
-                (event) => onClick(event)
-            }>{children}</button>
-        </div>
+        <button id={id} className={`btn btn-${colorStyle} ${styles["btn"]}`} type={type} onClick={
+            (event) => onClick(event) 
+        } {...dataAttr}>{children}</button>
     );
 }

@@ -52,8 +52,10 @@ export default function Login() {
                 validators={getPasswordValidators()}
                 onChange={(value) => setPassword(value)}/>
             <a id="reset_account_link" href="#">I forgot my username/password</a>
-            <br className="mb-4"/>
-            <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign in</Button> 
+            <br/>
+            <div className="text-center mt-4">
+                <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign in</Button> 
+            </div>
         </form>
     );
 }

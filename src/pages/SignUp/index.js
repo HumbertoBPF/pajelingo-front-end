@@ -74,7 +74,9 @@ export default function SignUp() {
                 label="Confirm your password"
                 required
                 validators={getConfirmPasswordValidators(password)}/>
-            <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign up</Button> 
+            <div className="text-center">
+                <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign up</Button> 
+            </div>
         </form>
     );
 }
