@@ -35,25 +35,18 @@ export default function Search() {
                 navigator(`${baseUrl}?${queryParams}`);
             }
         }>
-            <FloatingLabelInput 
-                id="searchInput" 
-                type="search" 
-                name="search" 
-                label="Search for..." 
-                onChange={(value) => {
-                    setSearchPattern(value);  
+            <FloatingLabelInput id="searchInput" type="search" name="search" label="Search for..." 
+                onChange={(target) => {
+                    setSearchPattern(target.value);  
                 }}/>
-            {languages.map(item => <Checkbox 
-                                        key={item.id} 
-                                        id={item.id} 
-                                        value={item.language_name}
+            {languages.map(item => <Checkbox key={item.id} id={item.id} value={item.language_name}
                                         onChange={
                                             (target) => {
                                                 if (target.checked) {
                                                     setLanguagesSelected([...languagesSelected, target.value]);
                                                 }else {
-                                                    setLanguagesSelected(languagesSelected.filter((value) => {
-                                                        return (value !== target.value);
+                                                    setLanguagesSelected(languagesSelected.filter((item) => {
+                                                        return (item !== target.value);
                                                     }));
                                                 }
                                             }

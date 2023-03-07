@@ -1,4 +1,4 @@
-export default function LabeledInput({ id, name, type, label, disabled=false, placeholder="", onChange=((value)=>{}) }) {
+export default function LabeledInput({ id, name, type, label, disabled=false, placeholder="", onChange=((target)=>{}) }) {
     return (
         <div className="mb-4 row">
             <label htmlFor={name} className="col-5 col-sm-3 col-lg-2 col-form-label">{label}</label>
@@ -8,7 +8,7 @@ export default function LabeledInput({ id, name, type, label, disabled=false, pl
                     type={type} 
                     className="text-center form-control" 
                     name={name} 
-                    onChange={(event) => onChange(event.target.value)}
+                    onChange={(event) => onChange(event.target)}
                     disabled={disabled}
                     placeholder={placeholder}/>
             </div>

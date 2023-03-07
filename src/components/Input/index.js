@@ -1,4 +1,4 @@
-export default function Input( { id, className=null, type, placeholder="", disabled=false, onChange=((value) => {}) } ) {
+export default function Input( { id, className=null, type, placeholder="", disabled=false, onChange=((target) => {}) } ) {
     return (
         <input 
             id={id} 
@@ -6,6 +6,6 @@ export default function Input( { id, className=null, type, placeholder="", disab
             className={`form-control${(className !== null)?` ${className}`:""}`}
             placeholder={placeholder} 
             disabled={disabled}
-            onChange={(event) => onChange(event.target.value)}/>
+            onChange={(event) => onChange(event.target)}/>
     );
 }

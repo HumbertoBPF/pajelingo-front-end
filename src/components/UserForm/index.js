@@ -21,7 +21,7 @@ export default function UserForm({ user={email:"", username:""},
                 label="Email address" 
                 initialValue={user.email}
                 required
-                onChange={(value) => setEmail(value)}
+                onChange={(target) => setEmail(target.value)}
                 validators={getEmailValidators()}/>
             <FloatingLabelInput 
                 id="username" 
@@ -30,7 +30,7 @@ export default function UserForm({ user={email:"", username:""},
                 label="Username"
                 initialValue={user.username}
                 required
-                onChange={(value) => setUsername(value)}
+                onChange={(target) => setUsername(target.value)}
                 validators={getUsernameValidators()}/>
             <FloatingLabelInput 
                 id="password" 
@@ -38,7 +38,7 @@ export default function UserForm({ user={email:"", username:""},
                 type="password" 
                 label="Password"
                 required
-                onChange={(value) => setPassword(value)}
+                onChange={(target) => setPassword(target.value)}
                 validators={getPasswordValidators()}/>
             <FloatingLabelInput 
                 id="confirm_password" 

@@ -41,7 +41,7 @@ export default function ArticleGameSetup() {
                         name="language" 
                         items={languages} 
                         defaultItem="Choose a language"
-                        onClick={(value) => setLanguage(value)}/>
+                        onClick={(target) => setLanguage(target.value)}/>
                 </div>
                 <div className="text-center">
                     <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>

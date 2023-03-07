@@ -1,4 +1,4 @@
-export default function SelectLanguage({ id, name, items, defaultItem=null, onClick=((value) => {})}) {
+export default function SelectLanguage({ id, name, items, defaultItem=null, onClick=((target) => {})}) {
     return (
         <div>
             <select id={id} className="form-select" aria-label=".form-select-sm example" name={name} defaultValue="defaultItem">
@@ -13,7 +13,7 @@ export default function SelectLanguage({ id, name, items, defaultItem=null, onCl
                                 id={`${item.language_name}Item`} 
                                 value={item.language_name}
                                 onClick={(event) => {
-                                    onClick(event.target.value);
+                                    onClick(event.target);
                                 }}>
                             {item.language_name}
                         </option>) 

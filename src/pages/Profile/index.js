@@ -18,6 +18,7 @@ export default function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [scores, setScores] = useState([]);
+    const [profilePicture, setProfilePicture] = useState();
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -60,11 +61,32 @@ export default function Profile() {
                         <Modal 
                             id="updateProfilePictureModal" 
                             title="Update profile picture" 
-                            body={<Input id="imageFileInput" type="file"/>}
+                            body={<Input id="imageFileInput" type="file" onChange={(target) => {
+                                if (target.files) {
+                                    setProfilePicture(target.files[0]);
+                                }
+                            }}/>}
                             footer={
                                 <>
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button className="btn btn-success" type="submit">Update</button>
+                                    <Button colorStyle="secondary" type="button" data-bs-dismiss="modal">Cancel</Button>
+                                    <form encType="multipart/form-data" onSubmit={
+                                        (event) => {
+                                            event.preventDefault();
+
+                                            const formData = new FormData();
+                                            formData.append("picture", profilePicture);
+
+                                            fetch(`${baseUrl}/user/picture`, {
+                                                method:"PUT",
+                                                headers: {
+                                                    "Authorization": `Token ${user.token}`
+                                                },
+                                                body: formData
+                                            }).then((response) => window.location.reload());
+                                        }
+                                    }>
+                                        <Button colorStyle="success" type="submit">Update</Button>
+                                    </form>
                                 </>
                             }/>
                     </div>
@@ -88,13 +110,11 @@ export default function Profile() {
                         <Modal 
                             id="deleteModal" 
                             title="Are you sure?" 
-                            body={
-                                <p>Are you sure that you want to delete your profile? All information such as scores in the games is going to be permanently lost!</p>
-                            }
+                            body="Are you sure that you want to delete your profile? All information such as scores in the games is going to be permanently lost!"
                             footer={
                                 <>
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Decline</button>
-                                    <button type="submit" className="btn btn-danger" >Yes, I want to delete my profile</button>
+                                    <Button colorStyle="secondary" type="button" data-bs-dismiss="modal">Decline</Button>
+                                    <Button colorStyle="danger" type="button">Yes, I want to delete my profile</Button>
                                 </>
                             }/>
                     </section>
@@ -102,8 +122,8 @@ export default function Profile() {
             </section>
             <section>
                 <h5 className="my-4">Your performance in our games:</h5>
-                <SelectLanguage id="selectLanguage" name="selectLanguage" items={languages} onClick={(value) => {
-                    fetch(`${baseUrl}/scores/?language=${value}&user=${user.username}`)
+                <SelectLanguage id="selectLanguage" name="selectLanguage" items={languages} onClick={(target) => {
+                    fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
                         .then((response) => response.json())
                         .then((data) => setScores(data));
                 }}/>

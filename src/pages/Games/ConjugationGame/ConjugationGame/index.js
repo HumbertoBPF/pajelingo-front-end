@@ -110,37 +110,37 @@ export default function ConjugationGame() {
                 name="conjugation_1" 
                 type="text" 
                 label={language.personal_pronoun_1}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_1": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_1": target.value})}/>
             <LabeledInput 
                 id="conjugation_2" 
                 name="conjugation_2" 
                 type="text" 
                 label={language.personal_pronoun_2}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_2": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_2": target.value})}/>
             <LabeledInput 
                 id="conjugation_3" 
                 name="conjugation_3" 
                 type="text" 
                 label={language.personal_pronoun_3}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_3": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_3": target.value})}/>
             <LabeledInput 
                 id="conjugation_4" 
                 name="conjugation_4" 
                 type="text" 
                 label={language.personal_pronoun_4}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_4": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_4": target.value})}/>
             <LabeledInput 
                 id="conjugation_5" 
                 name="conjugation_5" 
                 type="text" 
                 label={language.personal_pronoun_5}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_5": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_5": target.value})}/>
             <LabeledInput 
                 id="conjugation_6" 
                 name="conjugation_6" 
                 type="text" 
                 label={language.personal_pronoun_6}
-                onChange={(value) => setConjugation({...conjugation, "conjugation_6": value})}/>
+                onChange={(target) => setConjugation({...conjugation, "conjugation_6": target.value})}/>
             <div className="text-center">
                 <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
             </div>

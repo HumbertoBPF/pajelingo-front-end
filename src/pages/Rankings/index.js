@@ -36,8 +36,8 @@ export default function Rankings() {
                 </svg> <span>Rankings</span>
             </h5>
             <div className="mb-4">
-                <SelectLanguage id="selectLanguage" name="language" items={languages} onClick={(value) => {
-                    setLanguage(value);
+                <SelectLanguage id="selectLanguage" name="language" items={languages} onClick={(target) => {
+                    setLanguage(target.value);
                 }}/>
             </div>
             <Ranking ranking={ranking}/>

@@ -44,7 +44,7 @@ export default function VocabularyGameSetup() {
                         name="base_language" 
                         items={languages} 
                         defaultItem="Choose a base language"
-                        onClick={(value) => setBaseLanguage(value)}/>
+                        onClick={(target) => setBaseLanguage(target.value)}/>
                 </div>
                 <div className="mb-4">
                     <SelectLanguage 
@@ -52,7 +52,7 @@ export default function VocabularyGameSetup() {
                         name="target_language" 
                         items={languages} 
                         defaultItem="Choose a target language"
-                        onClick={(value) => setTargetLanguage(value)}/>
+                        onClick={(target) => setTargetLanguage(target.value)}/>
                 </div>
                 <div className="text-center">
                     <Button id="submitButtonSetupForm" colorStyle="success" type="submit">Start</Button>

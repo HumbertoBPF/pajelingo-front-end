@@ -42,7 +42,7 @@ export default function Login() {
                 label="Username" 
                 required 
                 validators={getUsernameValidators()}
-                onChange={(value) => setUsername(value)}/>
+                onChange={(target) => setUsername(target.value)}/>
             <FloatingLabelInput 
                 id="password" 
                 name="password" 
@@ -50,7 +50,7 @@ export default function Login() {
                 label="Password" 
                 required 
                 validators={getPasswordValidators()}
-                onChange={(value) => setPassword(value)}/>
+                onChange={(target) => setPassword(target.value)}/>
             <Link>I forgot my username/password</Link>
             <br/>
             <div className="text-center mt-4">
