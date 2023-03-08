@@ -53,7 +53,7 @@ export default function ArticleGame() {
                 state: "pending"
             });
             fetch(`${baseUrl}/article-game`, {
-                method:"POST",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },

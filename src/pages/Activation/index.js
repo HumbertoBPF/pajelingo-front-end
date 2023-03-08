@@ -13,7 +13,9 @@ export default function Activation() {
     });
     
     useEffect(() => {
-        fetch(`${baseUrl}/activate/${params.uid}/${params.token}`)
+        fetch(`${baseUrl}/activate/${params.uid}/${params.token}`, {
+            method: "PUT"
+        })
             .then((response) => setFeedback({
                 result: "success",
                 message: "Thank you for your email confirmation. Now you can sign in your account."           

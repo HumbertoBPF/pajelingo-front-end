@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-export default function FloatingLabelInput({ id, name, type, label, initialValue="", required=false, onChange=((target)=>{}), validators=[] }) {
+export default function FloatingLabelInput({ id, name, type, label, initialValue="", required=false, 
+        onChange=((target)=>{}), validators=[] }) {
     const [errors, setErrors] = useState([]);
     const [value, setValue] = useState(initialValue);
 

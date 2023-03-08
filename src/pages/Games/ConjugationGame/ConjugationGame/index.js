@@ -86,7 +86,7 @@ export default function ConjugationGame() {
                     state: "pending"
                 });
                 fetch(`${baseUrl}/conjugation-game`, {
-                    method:"POST",
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },

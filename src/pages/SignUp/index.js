@@ -21,7 +21,7 @@ export default function SignUp() {
                 state: "pending"
             });
             fetch(`${baseUrl}/user/`, {
-                method:"POST",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },

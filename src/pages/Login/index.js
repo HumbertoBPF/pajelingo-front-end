@@ -19,7 +19,7 @@ export default function Login() {
             (event) => {
                 event.preventDefault();
                 fetch(`${baseUrl}/user-token`, {
-                    method:"POST",
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
@@ -51,7 +51,7 @@ export default function Login() {
                 required 
                 validators={getPasswordValidators()}
                 onChange={(target) => setPassword(target.value)}/>
-            <Link>I forgot my username/password</Link>
+            <Link to="/request-reset-account">I forgot my username/password</Link>
             <br/>
             <div className="text-center mt-4">
                 <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign in</Button> 
