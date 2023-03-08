@@ -13,6 +13,7 @@ import Meanings from 'pages/Meanings';
 import Profile from 'pages/Profile';
 import Rankings from 'pages/Rankings';
 import RequestResetAccount from 'pages/RequestResetAccount';
+import ResetAccount from 'pages/ResetAccount';
 import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
 import SignUp from 'pages/SignUp';
@@ -42,6 +43,7 @@ export default function AppRoutes() {
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/update-account" element={<UpdateAccount/>}/>
           <Route path="/request-reset-account" element={<RequestResetAccount/>}/>
+          <Route path="/reset-account/:uid/:token" element={<ResetAccount/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
