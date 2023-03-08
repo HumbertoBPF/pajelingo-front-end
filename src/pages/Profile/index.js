@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 import { fetchUser } from "services/user";
+import { deleteUser } from "store/reducers/user";
 
 export default function Profile() {
     const user = useSelector(store => store.user);
@@ -114,7 +115,20 @@ export default function Profile() {
                             footer={
                                 <>
                                     <Button colorStyle="secondary" type="button" data-bs-dismiss="modal">Decline</Button>
-                                    <Button colorStyle="danger" type="button">Yes, I want to delete my profile</Button>
+                                    <Button colorStyle="danger" type="button" onClick={
+                                        (event) => {
+                                            fetch(`${baseUrl}/user`, {
+                                                method: "DELETE",
+                                                headers: {
+                                                    "Authorization": `Token ${user.token}`
+                                                }
+                                            })
+                                            .then((response) => {
+                                                dispatch(deleteUser());
+                                                window.location.reload();
+                                            });
+                                        }
+                                    }>Yes, I want to delete my profile</Button>
                                 </>
                             }/>
                     </section>
