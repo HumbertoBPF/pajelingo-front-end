@@ -1,6 +1,8 @@
+import { Table } from "react-bootstrap";
+
 export default function UserScores({ scores }) {
     return (
-        <table className="table table-striped mt-4">
+        <Table striped className="mt-4">
             <thead>
                 <tr>
                     <th scope="col">Game</th>
@@ -15,6 +17,6 @@ export default function UserScores({ scores }) {
                     </tr>
                 )}
             </tbody>
-        </table>
+        </Table>
     );
 }

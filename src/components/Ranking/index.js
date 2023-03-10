@@ -1,8 +1,9 @@
 import RankingItem from "components/RankingItem";
+import { Table } from "react-bootstrap";
 
 export default function Ranking({ ranking }) {
     return (
-        <table className="table table-striped">
+        <Table striped>
             <thead>
                 <tr>
                     <th scope="col">Position</th>
@@ -18,6 +19,6 @@ export default function Ranking({ ranking }) {
                                                             score={item.score}/>
                 ) }
             </tbody>
-        </table>
+        </Table>
     )
 }
