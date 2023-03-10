@@ -1,6 +1,6 @@
-import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -26,13 +26,31 @@ export default function Login() {
                     body: JSON.stringify({
                         "username": username,
                         "password": password
-                    })})
-                    .then((response) => response.json())
-                    .then((data) => {
+                })})
+                .then((response) => {
+                    if ((response.ok) || (response.status === 400)) {
+                        return response.json();
+                    }
+                    
+                    throw Error(response);
+                })
+                .then((data) => {
+                    if (data.token){
+                        console.log("doesn't have errors");
                         dispatch(saveToken(data.token));
                         dispatch(fetchUser());
                         navigate("/dashboard");
-                    });
+                    }else {
+                        console.log("validation error");
+                        console.log(data.username);
+                        console.log(data.password);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    console.error(err.name);
+                    console.error(err.message);
+                });
             }
         }>
             <FloatingLabelInput 
@@ -54,7 +72,7 @@ export default function Login() {
             <Link to="/request-reset-account">I forgot my username/password</Link>
             <br/>
             <div className="text-center mt-4">
-                <Button id="formUserSubmitButton" colorStyle="success" type="submit">Sign in</Button> 
+                <Button variant="success" type="submit">Sign in</Button> 
             </div>
         </form>
     );

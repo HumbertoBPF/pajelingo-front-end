@@ -1,7 +1,7 @@
-import Button from "components/Button";
 import Checkbox from "components/Checkbox";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -53,7 +53,7 @@ export default function Search() {
                                         }
                                         >{item.language_name}</Checkbox>)}
             <div className="text-center">
-                <Button id="searchSubmitButton" colorStyle="success" type="submit">Search</Button>
+                <Button variant="success" type="submit">Search</Button>
             </div>
         </form>
     )

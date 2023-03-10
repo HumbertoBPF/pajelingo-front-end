@@ -3,15 +3,15 @@
     color: white;
 }
 
-.customized-menu .navbar-light .navbar-brand, .nav-link {
+.nav-link {
   color: white;
 }
 
-.customized-menu .navbar-light .navbar-brand:hover, .nav-link:hover {
+.nav-link:hover {
   color: var(--primary-hover-color);
 }
 
-.customized-menu .navbar-light .navbar-brand:focus, .nav-link:focus {
+.nav-link:focus {
   color: var(--primary-hover-color);
 }
 

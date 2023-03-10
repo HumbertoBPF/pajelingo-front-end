@@ -1,7 +1,7 @@
-import Button from "components/Button";
 import FeedbackCard from "components/FeedbackCard";
 import Input from "components/Input";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -28,7 +28,7 @@ export default function VocabularyGame(){
     return (
         (feedback.state === "succeeded")?
         <FeedbackCard
-            colorStyle={(feedback.result?"success":"danger")}
+            variant={(feedback.result?"success":"danger")}
             onClick={(event) => {
                 const queryParams = new URLSearchParams({
                     language: searchParams.get("target_language")
@@ -81,7 +81,7 @@ export default function VocabularyGame(){
                 placeholder={`Provide the translation in ${searchParams.get("base_language")}`}
                 onChange={(target) => setAnswer(target.value)} center/>
             <div className="text-center">
-                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+                <Button variant="success" type="submit">Verify answer</Button>
             </div>
         </form>
     );

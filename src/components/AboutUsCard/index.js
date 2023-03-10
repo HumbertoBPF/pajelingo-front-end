@@ -4,7 +4,7 @@ export default function AboutUsCard({ image, children }) {
             <div className="row g-0">
                 <div className="col-6 col-sm-4 col-md-3 d-flex align-items-center justify-content-center">
                 <div>
-                    <img src={image} className="img-fluid rounded-start" alt="Welcome to Pajelingo image"/>
+                    <img src={image} className="img-fluid rounded-start" alt="Welcome to Pajelingo"/>
                 </div>
                 </div>
                 <div className="col-6 col-sm-8 col-md-9 row">

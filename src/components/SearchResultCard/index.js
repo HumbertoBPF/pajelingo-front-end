@@ -6,7 +6,9 @@ export default function SearchResultCard({ word, flagImage }) {
 
     return (
         <div className="col-6 col-sm-4 my-1">
-            <a className="text-reset text-decoration-none" href="#" onClick={() => navigate(`/meanings/${word.id}`)}>
+            {
+                // eslint-disable-next-line
+            }<a className="text-reset text-decoration-none" href="#" onClick={() => navigate(`/meanings/${word.id}`)}>
                 <div className={`card ${styles["search-card"]}`}>
                     <div className="row g-0">
                         <div className="col-md-4 px-4 d-flex align-items-center justify-content-center">

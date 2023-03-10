@@ -1,7 +1,7 @@
-import Button from "components/Button";
 import FeedbackCard from "components/FeedbackCard";
 import Input from "components/Input";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -27,7 +27,7 @@ export default function ArticleGame() {
     return (
         (feedback.state === "succeeded")?
         <FeedbackCard 
-            colorStyle={(feedback.result?"success":"danger")}
+            variant={(feedback.result?"success":"danger")}
             onClick={(event) => {
                 fetch(`${baseUrl}/article-game?${searchParams}`)
                     .then((response) => response.json())
@@ -79,7 +79,7 @@ export default function ArticleGame() {
                 </div>
             </div>
             <div className="text-center">
-                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+                <Button variant="success" type="submit">Verify answer</Button>
             </div>
         </form>
     );

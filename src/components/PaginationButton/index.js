@@ -6,7 +6,9 @@ export default function PaginationButton({ page=null, active=false, children, ca
                 callback(page);
             }
         }}>
-            <a className="page-link" href="#" >
+            {
+                // eslint-disable-next-line
+            }<a className="page-link" href="#">
                 <span>{children}</span>
             </a>
         </li>

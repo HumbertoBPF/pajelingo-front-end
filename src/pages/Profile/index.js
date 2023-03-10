@@ -1,11 +1,11 @@
 import AccountDetails from "components/AccountDetails";
-import Button from "components/Button";
 import Input from "components/Input";
 import Modal from "components/Modal";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import Login from "pages/Login";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -86,7 +86,7 @@ export default function Profile() {
                                             }).then((response) => window.location.reload());
                                         }
                                     }>
-                                        <Button colorStyle="success" type="submit">Update</Button>
+                                        <Button variant="success" type="submit">Update</Button>
                                     </form>
                                 </>
                             }/>

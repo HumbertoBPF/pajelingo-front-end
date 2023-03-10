@@ -1,6 +1,6 @@
-import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function UserForm({ user={email:"", username:""}, 
@@ -48,7 +48,7 @@ export default function UserForm({ user={email:"", username:""},
                 required
                 validators={getConfirmPasswordValidators(password)}/>
             <div className="text-center">
-                <Button id="formUserSubmitButton" colorStyle={buttonColorStyle} type="submit">{buttonText}</Button> 
+                <Button variant={buttonColorStyle} type="submit">{buttonText}</Button> 
             </div>
         </form>
     );

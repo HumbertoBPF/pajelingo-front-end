@@ -1,9 +1,8 @@
-import AlertCard from "components/AlertCard";
-import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -19,9 +18,9 @@ export default function ResetAccount() {
         <>
             {(feedback.result)?
             <>              
-                <AlertCard colorStyle="success">
+                <Alert variant="success">
                     <p>Password successfully updated!</p>
-                </AlertCard>
+                </Alert>
                 <ShortcutButtons/>
             </>:
             <section>
@@ -59,7 +58,7 @@ export default function ResetAccount() {
                         required
                         validators={getConfirmPasswordValidators(password)}/>
                     <div className="text-center">
-                        <Button id="submitResetAccountButton" colorStyle="success" type="submit">Submit</Button>
+                        <Button variant="success" type="submit">Submit</Button>
                     </div>
                 </form>
             </section>}

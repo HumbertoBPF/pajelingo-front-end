@@ -1,6 +1,6 @@
-import AlertCard from "components/AlertCard";
 import ShortcutButtons from "components/ShortcutButtons";
 import { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -25,9 +25,9 @@ export default function Activation() {
         <>  
             {
                 (feedback.result)?
-                    <AlertCard colorStyle="success">
-                        <p>Thank you for your email confirmation. Now you can sign in your account.</p>
-                    </AlertCard>:
+                    <Alert variant="success" className="text-center">
+                        Thank you for your email confirmation. Now you can sign in your account.
+                    </Alert>:
                     null
             }
             <ShortcutButtons/>

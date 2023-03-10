@@ -1,4 +1,3 @@
-import Button from "components/Button";
 import LabeledInput from "components/LabeledInput";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -6,6 +5,7 @@ import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 import FeedbackCard from "components/FeedbackCard";
+import { Button } from "react-bootstrap";
 
 export default function ConjugationGame() {
     const dispatch = useDispatch();
@@ -49,7 +49,7 @@ export default function ConjugationGame() {
     return (
         (feedback.state === "succeeded")?
         <FeedbackCard 
-            colorStyle={(feedback.result?"success":"danger")}
+            variant={(feedback.result?"success":"danger")}
             onClick={(event) => {
                 fetch(`${baseUrl}/conjugation-game?${searchParams}`)
                     .then((response) => response.json())
@@ -142,7 +142,7 @@ export default function ConjugationGame() {
                 label={language.personal_pronoun_6}
                 onChange={(target) => setConjugation({...conjugation, "conjugation_6": target.value})}/>
             <div className="text-center">
-                <Button id="answerSubmitButton" colorStyle="success" type="submit">Verify answer</Button>
+                <Button variant="success" type="submit">Verify answer</Button>
             </div>
         </form>
     );

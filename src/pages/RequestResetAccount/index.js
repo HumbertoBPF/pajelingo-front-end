@@ -1,8 +1,7 @@
-import AlertCard from "components/AlertCard";
-import Button from "components/Button";
 import FloatingLabelInput from "components/FloatingLabeledInput";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
@@ -16,11 +15,11 @@ export default function RequestResetAccount() {
         <>
             {
                 (feedback.result)?
-                <AlertCard colorStyle="success">
+                <Alert variant="success">
                     <p>Check the specified email to reset your account. If there is an email associated with a Pajelingo account, you
                         should have received an email with a reset link.</p>
                     <img src="/images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
-                </AlertCard>:
+                </Alert>:
                 <form noValidate onSubmit={
                     (event) => {
                         event.preventDefault();
@@ -45,7 +44,7 @@ export default function RequestResetAccount() {
                             }
                         }/>
                     <div className="text-center">
-                        <Button id="submitRequestResetAccountButton" colorStyle="success" type="submit">Reset password</Button>
+                        <Button variant="success" type="submit">Reset password</Button>
                     </div>
                 </form>
             }
