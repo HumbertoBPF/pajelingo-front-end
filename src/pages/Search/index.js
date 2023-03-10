@@ -1,5 +1,5 @@
 import Checkbox from "components/Checkbox";
-import FloatingLabelInput from "components/FloatingLabeledInput";
+import FloatingLabelInput from "components/FloatingLabelInput";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,10 +35,8 @@ export default function Search() {
                 navigator(`${baseUrl}?${queryParams}`);
             }
         }>
-            <FloatingLabelInput id="searchInput" type="search" name="search" label="Search for..." 
-                onChange={(target) => {
-                    setSearchPattern(target.value);  
-                }}/>
+            <FloatingLabelInput controlId="floatingSearch" type="text" 
+                label="Search for..." placeholder="Search for..." onChange={(event) => setSearchPattern(event.target.value)}/>
             {languages.map(item => <Checkbox key={item.id} id={item.id} value={item.language_name}
                                         onChange={
                                             (target) => {

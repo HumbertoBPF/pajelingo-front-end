@@ -1,7 +1,7 @@
-import FloatingLabelInput from "components/FloatingLabeledInput";
+import FloatingLabelInput from "components/FloatingLabelInput";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, FloatingLabel, Form } from "react-bootstrap";
 import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
@@ -15,7 +15,7 @@ export default function RequestResetAccount() {
         <>
             {
                 (feedback.result)?
-                <Alert variant="success">
+                <Alert variant="success" className="text-center">
                     <p>Check the specified email to reset your account. If there is an email associated with a Pajelingo account, you
                         should have received an email with a reset link.</p>
                     <img src="/images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
@@ -37,12 +37,8 @@ export default function RequestResetAccount() {
                         }));
                     }
                 }>
-                    <FloatingLabelInput id="emailInput" name="email" type="email" label="Your email address" required 
-                        validators={getEmailValidators()} onChange={
-                            (target) => {
-                                setEmail(target.value);
-                            }
-                        }/>
+                    <FloatingLabelInput controlId="floatingEmail" type="email" 
+                        label="Email" placeholder="Email" onChange={(event) => setEmail(event.target.value)}/>
                     <div className="text-center">
                         <Button variant="success" type="submit">Reset password</Button>
                     </div>

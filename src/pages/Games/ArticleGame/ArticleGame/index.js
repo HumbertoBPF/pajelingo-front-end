@@ -1,7 +1,6 @@
 import FeedbackCard from "components/FeedbackCard";
-import Input from "components/Input";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -70,13 +69,13 @@ export default function ArticleGame() {
             })
         }}>
             <div className="mb-4 row">
-                <div className="col-4 col-lg-2">
-                    <Input id="article" className="text-center mb-4" type="text" placeholder="Article" 
-                        onChange={(target) => setAnswer(target.value)} disabled={feedback.state !== "idle"}/>
-                </div>
-                <div className="col-8 col-lg-10">
-                    <Input id="word" className="text-center mb-4" type="text" placeholder={word.word} disabled/>
-                </div>
+                <Form.Group className="col-4 col-lg-2" controlId="articleInput">
+                    <Form.Control className="text-center mb-4" type="text" placeholder="Article" 
+                        onChange={(event) => setAnswer(event.target.value)} />
+                </Form.Group>
+                <Form.Group className="col-8 col-lg-10" controlId="wordInput">
+                    <Form.Control className="text-center mb-4" type="text" placeholder={word.word} disabled />
+                </Form.Group>
             </div>
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>

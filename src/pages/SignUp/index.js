@@ -11,7 +11,7 @@ export default function SignUp() {
 
     return (
         (feedback.state === "succeeded")?
-        <Alert variant="success">
+        <Alert variant="success" className="text-center">
             <p>Account successfully created. Please check your email to activate it.</p>
             <img src="images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
         </Alert>:

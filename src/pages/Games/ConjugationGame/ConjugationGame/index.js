@@ -1,4 +1,3 @@
-import LabeledInput from "components/LabeledInput";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -6,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 import FeedbackCard from "components/FeedbackCard";
 import { Button } from "react-bootstrap";
+import LabeledInput from "components/LabeledInput";
 
 export default function ConjugationGame() {
     const dispatch = useDispatch();
@@ -103,44 +103,20 @@ export default function ConjugationGame() {
                     });
                 })
             }
-        }>
-            <LabeledInput id="word" name="word" type="text" label="" disabled placeholder={`${verb.word} - ${verb.tense}`}/>
-            <LabeledInput 
-                id="conjugation_1" 
-                name="conjugation_1" 
-                type="text" 
-                label={language.personal_pronoun_1}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_1": target.value})}/>
-            <LabeledInput 
-                id="conjugation_2" 
-                name="conjugation_2" 
-                type="text" 
-                label={language.personal_pronoun_2}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_2": target.value})}/>
-            <LabeledInput 
-                id="conjugation_3" 
-                name="conjugation_3" 
-                type="text" 
-                label={language.personal_pronoun_3}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_3": target.value})}/>
-            <LabeledInput 
-                id="conjugation_4" 
-                name="conjugation_4" 
-                type="text" 
-                label={language.personal_pronoun_4}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_4": target.value})}/>
-            <LabeledInput 
-                id="conjugation_5" 
-                name="conjugation_5" 
-                type="text" 
-                label={language.personal_pronoun_5}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_5": target.value})}/>
-            <LabeledInput 
-                id="conjugation_6" 
-                name="conjugation_6" 
-                type="text" 
-                label={language.personal_pronoun_6}
-                onChange={(target) => setConjugation({...conjugation, "conjugation_6": target.value})}/>
+        }>  
+            <LabeledInput controlId="word" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
+            <LabeledInput controlId="conjugation1" label={language.personal_pronoun_1} 
+                onChange={(event) => setConjugation({...conjugation, "conjugation_1": event.target.value})} />
+            <LabeledInput controlId="conjugation2" label={language.personal_pronoun_2}
+                onChange={(event) => setConjugation({...conjugation, "conjugation_2": event.target.value})}/>
+            <LabeledInput controlId="conjugation3" label={language.personal_pronoun_3}
+                onChange={(event) => setConjugation({...conjugation, "conjugation_3": event.target.value})}/>
+            <LabeledInput controlId="conjugation4" label={language.personal_pronoun_4}
+                onChange={(event) => setConjugation({...conjugation, "conjugation_4": event.target.value})}/>
+            <LabeledInput controlId="conjugation5" label={language.personal_pronoun_5}
+                onChange={(event) => setConjugation({...conjugation, "conjugation_5": event.target.value})}/>
+            <LabeledInput controlId="conjugation6" label={language.personal_pronoun_6}
+                onChange={(event) => setConjugation({...conjugation, "conjugation_6": event.target.value})}/>
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>
             </div>

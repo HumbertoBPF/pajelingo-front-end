@@ -1,4 +1,4 @@
-import FloatingLabelInput from "components/FloatingLabeledInput";
+import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -53,22 +53,10 @@ export default function Login() {
                 });
             }
         }>
-            <FloatingLabelInput 
-                id="username" 
-                name="username" 
-                type="text" 
-                label="Username" 
-                required 
-                validators={getUsernameValidators()}
-                onChange={(target) => setUsername(target.value)}/>
-            <FloatingLabelInput 
-                id="password" 
-                name="password" 
-                type="password" 
-                label="Password" 
-                required 
-                validators={getPasswordValidators()}
-                onChange={(target) => setPassword(target.value)}/>
+            <FloatingLabelInput controlId="floatingUsername" type="text" 
+                label="Username" placeholder="Username" onChange={(event) => setUsername(event.target.value)}/>
+            <FloatingLabelInput controlId="floatingPassword" type="password" 
+                label="Password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
             <Link to="/request-reset-account">I forgot my username/password</Link>
             <br/>
             <div className="text-center mt-4">

@@ -1,4 +1,4 @@
-import FloatingLabelInput from "components/FloatingLabeledInput";
+import FloatingLabelInput from "components/FloatingLabelInput";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function ResetAccount() {
         <>
             {(feedback.result)?
             <>              
-                <Alert variant="success">
+                <Alert variant="success" className="text-center">
                     <p>Password successfully updated!</p>
                 </Alert>
                 <ShortcutButtons/>
@@ -42,21 +42,10 @@ export default function ResetAccount() {
                         }));
                     }
                 }>
-                    <FloatingLabelInput 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        label="Password"
-                        required
-                        onChange={(target) => setPassword(target.value)}
-                        validators={getPasswordValidators()}/>
-                    <FloatingLabelInput 
-                        id="confirm_password" 
-                        name="confirm_password" 
-                        type="password" 
-                        label="Confirm your password"
-                        required
-                        validators={getConfirmPasswordValidators(password)}/>
+                    <FloatingLabelInput controlId="floatingPassword" type="password" 
+                        label="Password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+                    <FloatingLabelInput controlId="floatingPasswordConfirm" type="password" 
+                        label="Confirm your password" placeholder="Confirm your password"/>
                     <div className="text-center">
                         <Button variant="success" type="submit">Submit</Button>
                     </div>

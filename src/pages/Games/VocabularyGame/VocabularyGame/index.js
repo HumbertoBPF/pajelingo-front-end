@@ -1,7 +1,6 @@
 import FeedbackCard from "components/FeedbackCard";
-import Input from "components/Input";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -76,10 +75,13 @@ export default function VocabularyGame(){
                     });
                 })
             }}>
-            <Input id="wordToTranslate" className="text-center mb-4" type="text" placeholder={word.word} disabled center/>
-            <Input id="translationWord" className="text-center mb-4" type="text" 
-                placeholder={`Provide the translation in ${searchParams.get("base_language")}`}
-                onChange={(target) => setAnswer(target.value)} center/>
+            <Form.Group className="text-center mb-4" controlId="wordInput">
+                <Form.Control type="text" placeholder={word.word} disabled />
+            </Form.Group>
+            <Form.Group className="text-center mb-4" controlId="answerInput">
+                <Form.Control type="text" placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
+                    onChange={(event) => setAnswer(event.target.value)}/>
+            </Form.Group>
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>
             </div>

@@ -1,10 +1,9 @@
 import AccountDetails from "components/AccountDetails";
-import Input from "components/Input";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import Login from "pages/Login";
 import { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -69,11 +68,13 @@ export default function Profile() {
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Input id="imageFileInput" type="file" onChange={(target) => {
-                                    if (target.files) {
-                                        setProfilePicture(target.files[0]);
+                                <Form.Group controlId="imageFileInput" onChange={(event) => {
+                                    if (event.target.files) {
+                                        setProfilePicture(event.target.files[0]);
                                     }
-                                }}/>
+                                }}>
+                                    <Form.Control type="file" />
+                                </Form.Group>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={() => setShowProfilePictureModal(false)}>Cancel</Button>
