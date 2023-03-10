@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom"
 import { fetchUser } from "services/user";
-import { deleteUser } from "store/reducers/user";
 import styles from "./Menu.module.css"
 
 export default function Menu() {
