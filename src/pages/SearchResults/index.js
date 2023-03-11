@@ -1,4 +1,4 @@
-import Pagination from "components/Pagination";
+import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/SearchResultCard";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +46,7 @@ export default function SearchResults() {
                                                         word={item}
                                                         flagImage={languagesFlag.get(item.language)}/>)}
             </div>
-            <Pagination 
+            <PaginationBar 
             previous={searchResults.previous} 
             next={searchResults.next} 
             count={searchResults.count} 

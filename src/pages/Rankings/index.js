@@ -1,4 +1,4 @@
-import Pagination from "components/Pagination";
+import PaginationBar from "components/PaginationBar";
 import Ranking from "components/Ranking";
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export default function Rankings() {
                 }}/>
             </div>
             <Ranking ranking={ranking}/>
-            <Pagination 
+            <PaginationBar 
                 previous={ranking.previous} 
                 next={ranking.next} 
                 count={ranking.count} 
