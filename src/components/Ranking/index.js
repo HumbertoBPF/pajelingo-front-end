@@ -1,4 +1,3 @@
-import RankingItem from "components/RankingItem";
 import { Table } from "react-bootstrap";
 
 export default function Ranking({ ranking }) {
@@ -12,12 +11,12 @@ export default function Ranking({ ranking }) {
                 </tr>
             </thead>
             <tbody>
-                { ranking.results.map((item, index) => <RankingItem 
-                                                            key={index} 
-                                                            position={(ranking.page-1)*10 + index + 1}
-                                                            user={item.user} 
-                                                            score={item.score}/>
-                ) }
+                {ranking.results.map((item, index) => 
+                    <tr key={index}>
+                        <td>{(ranking.page-1)*10 + index + 1}</td>
+                        <td>{item.user}</td>
+                        <td>{item.score}</td>
+                    </tr>)}
             </tbody>
         </Table>
     )

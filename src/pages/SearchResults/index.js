@@ -47,18 +47,18 @@ export default function SearchResults() {
                                                         flagImage={languagesFlag.get(item.language)}/>)}
             </div>
             <PaginationBar 
-            previous={searchResults.previous} 
-            next={searchResults.next} 
-            count={searchResults.count} 
-            resultsPerPage={12} 
-            page={searchResults.page} 
-            callback={(page) => {
-                const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
-                fetch(url).then((response) => response.json()).then((data) => {
-                    data.page = page;
-                    setSearchResults(data);
-                });
-            }}/> 
+                previous={searchResults.previous} 
+                next={searchResults.next} 
+                count={searchResults.count} 
+                resultsPerPage={12} 
+                page={searchResults.page} 
+                callback={(page) => {
+                    const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
+                    fetch(url).then((response) => response.json()).then((data) => {
+                        data.page = page;
+                        setSearchResults(data);
+                    });
+                }}/> 
         </>
     );
 }

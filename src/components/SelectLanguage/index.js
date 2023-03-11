@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 export default function SelectLanguage({ items, defaultItem=null, onClick=((target) => {})}) {
     return (
-        <Form.Select defaultValue="defaultItem">
+        <Form.Select className="mb-4" defaultValue="defaultItem">
             { 
                 (defaultItem != null)?
                     <option>{defaultItem}</option>:

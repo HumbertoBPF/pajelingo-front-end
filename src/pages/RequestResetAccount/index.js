@@ -1,7 +1,7 @@
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
-import { Alert, Button, FloatingLabel, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {

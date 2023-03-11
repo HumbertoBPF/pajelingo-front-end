@@ -17,6 +17,8 @@
 
 .customized-menu .account-options .btn {
   color: white;
+  background-color: var(--primary-color);
+  border-style: none;
 }
 
 .customized-menu .account-options .account-sm-img {
