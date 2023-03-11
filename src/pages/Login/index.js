@@ -1,6 +1,6 @@
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -15,7 +15,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     return (
-        <form noValidate onSubmit={
+        <Form noValidate onSubmit={
             (event) => {
                 event.preventDefault();
                 fetch(`${baseUrl}/user-token`, {
@@ -62,6 +62,6 @@ export default function Login() {
             <div className="text-center mt-4">
                 <Button variant="success" type="submit">Sign in</Button> 
             </div>
-        </form>
+        </Form>
     );
 }

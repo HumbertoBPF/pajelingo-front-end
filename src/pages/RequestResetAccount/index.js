@@ -20,7 +20,7 @@ export default function RequestResetAccount() {
                         should have received an email with a reset link.</p>
                     <img src="/images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
                 </Alert>:
-                <form noValidate onSubmit={
+                <Form noValidate onSubmit={
                     (event) => {
                         event.preventDefault();
                         fetch(`${baseUrl}/request-reset-account/`, {
@@ -42,7 +42,7 @@ export default function RequestResetAccount() {
                     <div className="text-center">
                         <Button variant="success" type="submit">Reset password</Button>
                     </div>
-                </form>
+                </Form>
             }
         </>
     );

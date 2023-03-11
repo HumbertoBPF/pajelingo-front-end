@@ -1,6 +1,6 @@
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -28,7 +28,7 @@ export default function ArticleGameSetup() {
                 <p>For the languages concerned by this game, the article indicates the gender and the number of the word. This might be
                     a bit weird for English speakers, but it’s just about getting used. Let’s start?</p>
             </section>
-            <form onSubmit={(event) => {
+            <Form onSubmit={(event) => {
                 event.preventDefault();
                 const queryParams = new URLSearchParams({
                     language: language
@@ -36,17 +36,13 @@ export default function ArticleGameSetup() {
                 navigate(`/article-game/play?${queryParams}`);
             }}>
                 <div className="mb-4">
-                    <SelectLanguage 
-                        id="selectLanguage" 
-                        name="language" 
-                        items={languages} 
-                        defaultItem="Choose a language"
+                    <SelectLanguage items={languages} defaultItem="Choose a language"
                         onClick={(target) => setLanguage(target.value)}/>
                 </div>
                 <div className="text-center">
                     <Button variant="success" type="submit">Start</Button>
                 </div>
-            </form>
+            </Form>
         </>
     )
 }

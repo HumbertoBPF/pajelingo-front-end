@@ -4,7 +4,7 @@ import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 import FeedbackCard from "components/FeedbackCard";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import LabeledInput from "components/LabeledInput";
 
 export default function ConjugationGame() {
@@ -77,7 +77,7 @@ export default function ConjugationGame() {
                         <span key={index}>{item}</span>:
                         <span key={index}>{item}<br/></span>))}
         </FeedbackCard>:
-        <form className="text-center" onSubmit={
+        <Form className="text-center" onSubmit={
             (event) => {
                 event.preventDefault();
                 setFeedback({
@@ -120,6 +120,6 @@ export default function ConjugationGame() {
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>
             </div>
-        </form>
+        </Form>
     );
 }

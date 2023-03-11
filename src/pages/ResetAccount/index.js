@@ -2,7 +2,7 @@ import FloatingLabelInput from "components/FloatingLabelInput";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -25,7 +25,7 @@ export default function ResetAccount() {
             </>:
             <section>
                 <p>Fill the form below to reset your password:</p>
-                <form noValidate onSubmit={
+                <Form noValidate onSubmit={
                     (event) => {
                         event.preventDefault();
                         fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
@@ -49,7 +49,7 @@ export default function ResetAccount() {
                     <div className="text-center">
                         <Button variant="success" type="submit">Submit</Button>
                     </div>
-                </form>
+                </Form>
             </section>}
         </>
     );

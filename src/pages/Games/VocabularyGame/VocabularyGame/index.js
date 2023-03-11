@@ -48,7 +48,7 @@ export default function VocabularyGame(){
                 <br/>
                 {feedback.correct_answer}
         </FeedbackCard>:
-        <form 
+        <Form 
             className="text-center" 
             onSubmit={(event) => {
                 event.preventDefault();
@@ -85,6 +85,6 @@ export default function VocabularyGame(){
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>
             </div>
-        </form>
+        </Form>
     );
 }

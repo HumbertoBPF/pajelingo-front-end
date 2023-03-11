@@ -1,6 +1,6 @@
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -25,7 +25,7 @@ export default function ConjugationGameSetup() {
                     but there are still some patterns that can be identified. The common point between all tenses and kind of verbs is that
                     mastering them requires practice, so let’s start! </p>
             </section>
-            <form onSubmit={(event) => {
+            <Form onSubmit={(event) => {
                 event.preventDefault();
                 console.log(language);
                 const queryParams = new URLSearchParams({
@@ -34,17 +34,13 @@ export default function ConjugationGameSetup() {
                 navigate(`/conjugation-game/play?${queryParams}`);
             }}>
                 <div className="mb-4">
-                    <SelectLanguage 
-                        id="selectLanguage" 
-                        name="language" 
-                        items={languages} 
-                        defaultItem="Choose a language"
+                    <SelectLanguage items={languages} defaultItem="Choose a language"
                         onClick={(target) => setLanguage(target.value)}/>
                 </div>
                 <div className="text-center">
                     <Button variant="success" type="submit">Start</Button>
                 </div>
-            </form>
+            </Form>
         </>
     )
 }

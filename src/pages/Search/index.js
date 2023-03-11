@@ -1,7 +1,6 @@
-import Checkbox from "components/Checkbox";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -19,7 +18,7 @@ export default function Search() {
     }, [dispatch]);
 
     return (
-        <form method="GET" onSubmit={
+        <Form method="GET" onSubmit={
             (event) => {
                 event.preventDefault();
                 let searchFilters = {
@@ -37,22 +36,20 @@ export default function Search() {
         }>
             <FloatingLabelInput controlId="floatingSearch" type="text" 
                 label="Search for..." placeholder="Search for..." onChange={(event) => setSearchPattern(event.target.value)}/>
-            {languages.map(item => <Checkbox key={item.id} id={item.id} value={item.language_name}
-                                        onChange={
-                                            (target) => {
-                                                if (target.checked) {
-                                                    setLanguagesSelected([...languagesSelected, target.value]);
-                                                }else {
-                                                    setLanguagesSelected(languagesSelected.filter((item) => {
-                                                        return (item !== target.value);
-                                                    }));
-                                                }
-                                            }
+            {languages.map(item => <Form.Check key={item.id} id={item.id} value={item.language_name} 
+                                    type="checkbox" label={item.language_name} 
+                                    onChange={(event) => {
+                                        if (event.target.checked) {
+                                            setLanguagesSelected([...languagesSelected, event.target.value]);
+                                        }else {
+                                            setLanguagesSelected(languagesSelected.filter((item) => {
+                                                return (item !== event.target.value);
+                                            }));
                                         }
-                                        >{item.language_name}</Checkbox>)}
+                                    }}/>)}
             <div className="text-center">
                 <Button variant="success" type="submit">Search</Button>
             </div>
-        </form>
+        </Form>
     )
 }

@@ -78,7 +78,7 @@ export default function Profile() {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={() => setShowProfilePictureModal(false)}>Cancel</Button>
-                                <form encType="multipart/form-data" onSubmit={
+                                <Form encType="multipart/form-data" onSubmit={
                                     (event) => {
                                         event.preventDefault();
 
@@ -95,7 +95,7 @@ export default function Profile() {
                                     }
                                 }>
                                     <Button variant="success" type="submit">Update</Button>
-                                </form>
+                                </Form>
                             </Modal.Footer>
                         </Modal>
                     </div>
@@ -150,7 +150,7 @@ export default function Profile() {
             </section>
             <section>
                 <h5 className="my-4">Your performance in our games:</h5>
-                <SelectLanguage id="selectLanguage" name="selectLanguage" items={languages} onClick={(target) => {
+                <SelectLanguage items={languages} onClick={(target) => {
                     fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
                         .then((response) => response.json())
                         .then((data) => setScores(data));

@@ -1,6 +1,6 @@
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function UserForm({ user={email:"", username:""}, 
@@ -10,7 +10,7 @@ export default function UserForm({ user={email:"", username:""},
     const [password, setPassword] = useState("");
     
     return (
-        <form noValidate onSubmit={(event) => {
+        <Form noValidate onSubmit={(event) => {
             event.preventDefault();
             onSubmit(email, username, password)
         }}>
@@ -25,6 +25,6 @@ export default function UserForm({ user={email:"", username:""},
             <div className="text-center">
                 <Button variant={buttonColorStyle} type="submit">{buttonText}</Button> 
             </div>
-        </form>
+        </Form>
     );
 }

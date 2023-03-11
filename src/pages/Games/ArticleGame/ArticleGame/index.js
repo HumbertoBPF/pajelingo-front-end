@@ -44,7 +44,7 @@ export default function ArticleGame() {
                 <br/>
                 {feedback.correct_answer}
         </FeedbackCard>:
-        <form className="text-center" onSubmit={(event) => {
+        <Form className="text-center" onSubmit={(event) => {
             event.preventDefault();
             setFeedback({
                 result: null,
@@ -80,6 +80,6 @@ export default function ArticleGame() {
             <div className="text-center">
                 <Button variant="success" type="submit">Verify answer</Button>
             </div>
-        </form>
+        </Form>
     );
 }
