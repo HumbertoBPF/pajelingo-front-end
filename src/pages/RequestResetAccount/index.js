@@ -37,8 +37,14 @@ export default function RequestResetAccount() {
                         }));
                     }
                 }>
-                    <FloatingLabelInput controlId="floatingEmail" type="email" 
-                        label="Email" placeholder="Email" onChange={(event) => setEmail(event.target.value)}/>
+                    <FloatingLabelInput 
+                        controlId="floatingEmail" 
+                        type="email" 
+                        label="Email" 
+                        placeholder="Email"
+                        required
+                        validators={getEmailValidators()} 
+                        onChange={(event) => setEmail(event.target.value)}/>
                     <div className="text-center">
                         <Button variant="success" type="submit">Reset password</Button>
                     </div>

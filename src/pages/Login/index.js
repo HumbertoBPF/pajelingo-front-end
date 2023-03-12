@@ -18,6 +18,7 @@ export default function Login() {
         <Form noValidate onSubmit={
             (event) => {
                 event.preventDefault();
+
                 fetch(`${baseUrl}/user-token`, {
                     method: "POST",
                     headers: {
@@ -53,12 +54,23 @@ export default function Login() {
                 });
             }
         }>
-            <FloatingLabelInput controlId="floatingUsername" type="text" 
-                label="Username" placeholder="Username" onChange={(event) => setUsername(event.target.value)}/>
-            <FloatingLabelInput controlId="floatingPassword" type="password" 
-                label="Password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+            <FloatingLabelInput 
+                controlId="floatingUsername" 
+                type="text" 
+                label="Username" 
+                placeholder="Username" 
+                required
+                onChange={(event) => setUsername(event.target.value)}
+                validators={getUsernameValidators()}/>
+            <FloatingLabelInput 
+                controlId="floatingPassword" 
+                type="password" 
+                label="Password" 
+                placeholder="Password" 
+                required
+                onChange={(event) => setPassword(event.target.value)}
+                validators={getPasswordValidators()}/>
             <Link to="/request-reset-account">I forgot my username/password</Link>
-            <br/>
             <div className="text-center mt-4">
                 <Button variant="success" type="submit">Sign in</Button> 
             </div>

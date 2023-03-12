@@ -42,10 +42,21 @@ export default function ResetAccount() {
                         }));
                     }
                 }>
-                    <FloatingLabelInput controlId="floatingPassword" type="password" 
-                        label="Password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
-                    <FloatingLabelInput controlId="floatingPasswordConfirm" type="password" 
-                        label="Confirm your password" placeholder="Confirm your password"/>
+                    <FloatingLabelInput 
+                        controlId="floatingPassword" 
+                        type="password" 
+                        label="Password" 
+                        placeholder="Password" 
+                        required
+                        onChange={(event) => setPassword(event.target.value)}
+                        validators={getPasswordValidators()}/>
+                    <FloatingLabelInput 
+                        controlId="floatingPasswordConfirm" 
+                        type="password" 
+                        label="Confirm your password" 
+                        required
+                        placeholder="Confirm your password"
+                        validators={getConfirmPasswordValidators(password)}/>
                     <div className="text-center">
                         <Button variant="success" type="submit">Submit</Button>
                     </div>
