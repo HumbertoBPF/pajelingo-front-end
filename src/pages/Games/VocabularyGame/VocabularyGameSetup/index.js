@@ -31,8 +31,6 @@ export default function VocabularyGameSetup() {
             </section>
             <Form onSubmit={(event) => {
                 event.preventDefault();
-                console.log(baseLanguage);
-                console.log(targetLanguage);
                 const queryParams = new URLSearchParams({
                     base_language: baseLanguage,
                     target_language: targetLanguage

@@ -28,7 +28,6 @@ export default function ConjugationGameSetup() {
             </section>
             <Form onSubmit={(event) => {
                 event.preventDefault();
-                console.log(language);
                 const queryParams = new URLSearchParams({
                     language: language
                 })

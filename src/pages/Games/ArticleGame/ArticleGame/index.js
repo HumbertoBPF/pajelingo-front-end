@@ -1,12 +1,14 @@
 import CustomizedButton from "components/CustomizedButton";
 import FeedbackCard from "components/FeedbackCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function ArticleGame() {
     const [searchParams] = useSearchParams();
+    const user = useSelector(state => state.user);
     const [word, setWord] = useState({
         id: null,
         word: ""
@@ -15,60 +17,74 @@ export default function ArticleGame() {
     const [feedback, setFeedback] = useState({
         result: null,
         correct_answer:null,
+        score: null,
         state: "idle"
     });
-
-    useEffect(() => {
+    const playAgain = useCallback(() => {
         fetch(`${baseUrl}/article-game?${searchParams}`)
-            .then((response) => response.json())
-            .then((data) => setWord(data));
+        .then((response) => response.json())
+        .then((data) => {
+            setWord(data);
+            setAnswer("");
+            setFeedback({
+                result: null,
+                correct_answer:null,
+                score: null,
+                state: "idle"
+            });
+        });
     }, [searchParams]);
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        setFeedback({
+            result: null,
+            correct_answer: null,
+            score: null,
+            state: "pending"
+        });
+        
+        let authHeaders = {}
+
+        if (user) {
+            authHeaders["Authorization"] = `Token ${user.token}`;
+        }
+
+        fetch(`${baseUrl}/article-game`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...authHeaders
+            },
+            body: JSON.stringify({
+                "word_id": word.id,
+                "answer": answer
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setFeedback({
+                result: data.result,
+                correct_answer: data.correct_answer,
+                score: data.score,
+                state: "succeeded"
+            });
+        });
+    }
+
+    useEffect(() => playAgain(), [playAgain]);
 
     return (
         (feedback.state === "succeeded")?
-        <FeedbackCard 
-            variant={(feedback.result?"success":"danger")}
-            onClick={(event) => {
-                fetch(`${baseUrl}/article-game?${searchParams}`)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        setWord(data);
-                        setAnswer("");
-                        setFeedback({
-                                result: null,
-                                correct_answer:null,
-                                state: "idle"
-                            });
-                    });
-            }}>
-                {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                <br/>
-                {feedback.correct_answer}
+        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>
+            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+            <br/>
+            {feedback.correct_answer}
+            <br/>
+            {(feedback.score)?`Your score is ${feedback.score}`:null}
         </FeedbackCard>:
-        <Form className="text-center" onSubmit={(event) => {
-            event.preventDefault();
-            setFeedback({
-                result: null,
-                correct_answer: null,
-                state: "pending"
-            });
-            fetch(`${baseUrl}/article-game`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "word_id": word.id,
-                    "answer": answer
-                })
-            }).then((response) => response.json()).then((data) => {
-                setFeedback({
-                    result: data.result,
-                    correct_answer: data.correct_answer,
-                    state: "succeeded"
-                });
-            })
-        }}>
+        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
             <div className="mb-4 row">
                 <Form.Group className="col-4 col-lg-2" controlId="articleInput">
                     <Form.Control className="text-center mb-4" type="text" placeholder="Article" 

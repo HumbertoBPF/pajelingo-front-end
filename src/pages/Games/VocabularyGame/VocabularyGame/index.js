@@ -1,12 +1,14 @@
 import CustomizedButton from "components/CustomizedButton";
 import FeedbackCard from "components/FeedbackCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function VocabularyGame(){
     const [searchParams] = useSearchParams();
+    const user = useSelector(state => state.user);
     const [word, setWord] = useState({
         id: null,
         word: ""
@@ -15,67 +17,76 @@ export default function VocabularyGame(){
     const [feedback, setFeedback] = useState({
         result: null,
         correct_answer:null,
+        score: null,
         state: "idle"
     });
-
-    useEffect(() => {
+    const playAgain = useCallback(() => {
         const queryParams = new URLSearchParams({
             language: searchParams.get("target_language")
         });
-        fetch(`${baseUrl}/vocabulary-game?${queryParams}`).then((data) => data.json()).then((data) => setWord(data));
+        fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setWord(data);
+            setAnswer("");
+            setFeedback({
+                result: null,
+                correct_answer:null,
+                score: null,
+                state: "idle"
+            });
+        });
     }, [searchParams]);
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        let authHeaders = {}
+
+        if (user) {
+            authHeaders["Authorization"] = `Token ${user.token}`;
+        }
+
+        setFeedback({
+            result: null,
+            correct_answer: null,
+            score: null,
+            state: "pending"
+        });
+
+        fetch(`${baseUrl}/vocabulary-game`, {
+            method: "POST",
+            headers: {
+                ...authHeaders,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "word_id": word.id,
+                "base_language": searchParams.get("base_language"),
+                "answer": answer
+            })
+        }).then((response) => response.json()).then((data) => {
+            setFeedback({
+                result: data.result,
+                correct_answer: data.correct_answer,
+                score: data.score,
+                state: "succeeded"
+            });
+        });
+    }
+
+    useEffect(() => playAgain(), [playAgain]);
 
     return (
         (feedback.state === "succeeded")?
-        <FeedbackCard
-            variant={(feedback.result?"success":"danger")}
-            onClick={(event) => {
-                const queryParams = new URLSearchParams({
-                    language: searchParams.get("target_language")
-                });
-                fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        setWord(data);
-                        setAnswer("");
-                        setFeedback({
-                                result: null,
-                                correct_answer:null,
-                                state: "idle"
-                            });
-                    });
-            }}>
-                {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                <br/>
-                {feedback.correct_answer}
+        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>
+            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+            <br/>
+            {`${word.word}: ${feedback.correct_answer}`}
+            <br/>
+            {(feedback.score)?`Your score is ${feedback.score}`:null}
         </FeedbackCard>:
-        <Form 
-            className="text-center" 
-            onSubmit={(event) => {
-                event.preventDefault();
-                setFeedback({
-                    result: null,
-                    correct_answer: null,
-                    state: "pending"
-                });
-                fetch(`${baseUrl}/vocabulary-game`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "word_id": word.id,
-                        "base_language": searchParams.get("base_language"),
-                        "answer": answer
-                    })
-                }).then((response) => response.json()).then((data) => {
-                    setFeedback({
-                        result: data.result,
-                        correct_answer: data.correct_answer,
-                        state: "succeeded"
-                    });
-                })
-            }}>
+        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
             <Form.Group className="text-center mb-4" controlId="wordInput">
                 <Form.Control type="text" placeholder={word.word} disabled />
             </Form.Group>
