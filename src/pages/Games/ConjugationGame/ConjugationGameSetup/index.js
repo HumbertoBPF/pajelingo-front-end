@@ -1,6 +1,7 @@
+import CustomizedButton from "components/CustomizedButton";
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -38,7 +39,7 @@ export default function ConjugationGameSetup() {
                         onClick={(target) => setLanguage(target.value)}/>
                 </div>
                 <div className="text-center">
-                    <Button variant="success" type="submit">Start</Button>
+                    <CustomizedButton variant="success" type="submit">Start</CustomizedButton>
                 </div>
             </Form>
         </>

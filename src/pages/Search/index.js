@@ -1,6 +1,7 @@
+import CustomizedButton from "components/CustomizedButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -48,7 +49,7 @@ export default function Search() {
                                         }
                                     }}/>)}
             <div className="text-center">
-                <Button variant="success" type="submit">Search</Button>
+                <CustomizedButton variant="success" type="submit">Search</CustomizedButton>
             </div>
         </Form>
     )

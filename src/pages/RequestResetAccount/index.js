@@ -1,8 +1,9 @@
+import CustomizedButton from "components/CustomizedButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
@@ -55,7 +56,7 @@ export default function RequestResetAccount() {
                         validators={getEmailValidators()} 
                         onChange={(event) => setEmail(event.target.value)}/>
                     <div className="text-center">
-                        <Button variant="success" type="submit">Reset password</Button>
+                        <CustomizedButton variant="success" type="submit">Reset password</CustomizedButton>
                     </div>
                 </Form>
             }

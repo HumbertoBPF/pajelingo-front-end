@@ -1,6 +1,7 @@
+import CustomizedButton from "components/CustomizedButton";
 import FeedbackCard from "components/FeedbackCard";
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -83,7 +84,7 @@ export default function VocabularyGame(){
                     onChange={(event) => setAnswer(event.target.value)}/>
             </Form.Group>
             <div className="text-center">
-                <Button variant="success" type="submit">Verify answer</Button>
+                <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>
             </div>
         </Form>
     );

@@ -4,8 +4,9 @@ import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 import FeedbackCard from "components/FeedbackCard";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import LabeledInput from "components/LabeledInput";
+import CustomizedButton from "components/CustomizedButton";
 
 export default function ConjugationGame() {
     const dispatch = useDispatch();
@@ -118,7 +119,7 @@ export default function ConjugationGame() {
             <LabeledInput controlId="conjugation6" label={language.personal_pronoun_6}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_6": event.target.value})}/>
             <div className="text-center">
-                <Button variant="success" type="submit">Verify answer</Button>
+                <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>
             </div>
         </Form>
     );

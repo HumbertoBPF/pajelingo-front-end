@@ -1,7 +1,8 @@
+import CustomizedButton from "components/CustomizedButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -66,7 +67,7 @@ export default function Login() {
                     validators={getPasswordValidators()}/>
                 <Link to="/request-reset-account">I forgot my username/password</Link>
                 <div className="text-center mt-4">
-                    <Button variant="success" type="submit">Sign in</Button> 
+                    <CustomizedButton variant="success" type="submit">Sign in</CustomizedButton> 
                 </div>
             </Form>
             <NotificationToast 

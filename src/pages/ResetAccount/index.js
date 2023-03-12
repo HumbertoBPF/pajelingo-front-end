@@ -1,9 +1,10 @@
+import CustomizedButton from "components/CustomizedButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
@@ -67,7 +68,7 @@ export default function ResetAccount() {
                         placeholder="Confirm your password"
                         validators={getConfirmPasswordValidators(password)}/>
                     <div className="text-center">
-                        <Button variant="success" type="submit">Submit</Button>
+                        <CustomizedButton variant="success" type="submit">Submit</CustomizedButton>
                     </div>
                 </Form>
             </section>}

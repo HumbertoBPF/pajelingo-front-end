@@ -1,6 +1,7 @@
+import CustomizedButton from "components/CustomizedButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , 
@@ -48,7 +49,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 required
                 validators={getConfirmPasswordValidators(password)}/>
             <div className="text-center">
-                <Button variant={buttonColorStyle} type="submit">{buttonText}</Button> 
+                <CustomizedButton variant={buttonColorStyle} type="submit">{buttonText}</CustomizedButton> 
             </div>
         </Form>
     );
