@@ -4,7 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , 
-        onSubmit=((email, username, password) => {}) }) {
+        onSubmit=(() => {}) }) {
     const [email, setEmail] = useState(user.email);
     const [username, setUsername] = useState(user.username);
     const [password, setPassword] = useState("");
@@ -12,7 +12,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
     return (
         <Form noValidate onSubmit={(event) => {
             event.preventDefault();
-            onSubmit(email, username, password)
+            onSubmit(email, username, password);
         }}>
             <FloatingLabelInput 
                 controlId="floatingEmail" 

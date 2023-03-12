@@ -1,4 +1,5 @@
 import FloatingLabelInput from "components/FloatingLabelInput";
+import NotificationToast from "components/NotificationToast";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
@@ -6,10 +7,34 @@ import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
     const [email, setEmail] = useState("");
+    const [showToast, setShowToast] = useState(false);
     const [feedback, setFeedback] = useState({
         result: null,
         state: "idle"
     });
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        fetch(`${baseUrl}/request-reset-account/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "email": email
+            })
+        }).then((response) => {
+            if (response.ok){
+                setFeedback({
+                    result: true, 
+                    state: "succeeded"
+                })
+                return;
+            }
+
+            throw Error(response);
+        }).catch(() => setShowToast(true));
+    }
 
     return (
         <>
@@ -20,23 +45,7 @@ export default function RequestResetAccount() {
                         should have received an email with a reset link.</p>
                     <img src="/images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
                 </Alert>:
-                <Form noValidate onSubmit={
-                    (event) => {
-                        event.preventDefault();
-                        fetch(`${baseUrl}/request-reset-account/`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                "email": email
-                            })
-                        }).then((response) => setFeedback({
-                            result: true,
-                            state: "succeeded"
-                        }));
-                    }
-                }>
+                <Form noValidate onSubmit={(event) => handleFormSubmit(event)}>
                     <FloatingLabelInput 
                         controlId="floatingEmail" 
                         type="email" 
@@ -50,6 +59,11 @@ export default function RequestResetAccount() {
                     </div>
                 </Form>
             }
+            <NotificationToast 
+                show={showToast} 
+                onClose={() => setShowToast(false)}
+                variant="danger" 
+                message="It was not possible to request the account reset. Please check the information provided."/>
         </>
     );
 }

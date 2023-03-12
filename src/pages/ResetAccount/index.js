@@ -1,4 +1,5 @@
 import FloatingLabelInput from "components/FloatingLabelInput";
+import NotificationToast from "components/NotificationToast";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
@@ -9,10 +10,34 @@ import { baseUrl } from "services/base";
 export default function ResetAccount() {
     const params = useParams();
     const [password, setPassword] = useState("");
+    const [showToast, setShowToast] = useState(false);
     const [feedback, setFeedback] = useState({
         result: null,
         state: "idle"
     });
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "password": password
+            })
+        }).then((response) => {
+            if (response.ok) {
+                setFeedback({
+                    result: true,
+                    state: "succeeded"
+                });
+                return;
+            }
+
+            throw Error(response);
+        }).catch(() => setShowToast(true));
+    }
 
     return (
         <>
@@ -25,23 +50,7 @@ export default function ResetAccount() {
             </>:
             <section>
                 <p>Fill the form below to reset your password:</p>
-                <Form noValidate onSubmit={
-                    (event) => {
-                        event.preventDefault();
-                        fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                "password": password
-                            })
-                        }).then((response) => setFeedback({
-                            result: true,
-                            state: "succeeded"
-                        }));
-                    }
-                }>
+                <Form noValidate onSubmit={(event) => handleFormSubmit(event)}>
                     <FloatingLabelInput 
                         controlId="floatingPassword" 
                         type="password" 
@@ -62,6 +71,11 @@ export default function ResetAccount() {
                     </div>
                 </Form>
             </section>}
+            <NotificationToast 
+                show={showToast} 
+                onClose={() => setShowToast(false)} 
+                variant="danger" 
+                message="It was not possible to update account. Please check the information provided."/>
         </>
     );
 }
