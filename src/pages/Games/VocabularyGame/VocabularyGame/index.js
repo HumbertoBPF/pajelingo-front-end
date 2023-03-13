@@ -87,11 +87,11 @@ export default function VocabularyGame(){
             {(feedback.score)?`Your score is ${feedback.score}`:null}
         </FeedbackCard>:
         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
-            <Form.Group className="text-center mb-4" controlId="wordInput">
-                <Form.Control type="text" placeholder={word.word} disabled />
+            <Form.Group className="mb-4" controlId="wordInput">
+                <Form.Control className="text-center" type="text" placeholder={word.word} disabled />
             </Form.Group>
-            <Form.Group className="text-center mb-4" controlId="answerInput">
-                <Form.Control type="text" placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
+            <Form.Group className="mb-4" controlId="answerInput">
+                <Form.Control className="text-center" type="text" placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
                     onChange={(event) => setAnswer(event.target.value)}/>
             </Form.Group>
             <div className="text-center">
