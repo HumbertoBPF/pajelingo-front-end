@@ -1,4 +1,5 @@
 import CustomizedButton from "components/CustomizedButton";
+import NotificationToast from "components/NotificationToast";
 import SelectLanguage from "components/SelectLanguage";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
@@ -8,9 +9,27 @@ import { fetchLanguages } from "services/languages";
 
 export default function ConjugationGameSetup() {
     let languages = useSelector(state => state.languages);
+    const [error, setError] = useState({
+        showToast: false,
+        message: ""
+    });
     const dispatch = useDispatch();
     const [language, setLanguage] = useState(null);
     const navigate = useNavigate();
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        if (language === null) {
+            setError({showToast: true, message: "You must choose a language."});
+            return;
+        }
+
+        const queryParams = new URLSearchParams({
+            language: language
+        });
+        navigate(`/conjugation-game/play?${queryParams}`);
+    }
 
     useEffect(() => {
         dispatch(fetchLanguages());
@@ -26,21 +45,18 @@ export default function ConjugationGameSetup() {
                     but there are still some patterns that can be identified. The common point between all tenses and kind of verbs is that
                     mastering them requires practice, so let’s start! </p>
             </section>
-            <Form onSubmit={(event) => {
-                event.preventDefault();
-                const queryParams = new URLSearchParams({
-                    language: language
-                })
-                navigate(`/conjugation-game/play?${queryParams}`);
-            }}>
-                <div className="mb-4">
-                    <SelectLanguage items={languages} defaultItem="Choose a language"
-                        onClick={(target) => setLanguage(target.value)}/>
-                </div>
+            <Form onSubmit={(event) => handleFormSubmit(event)}>
+                <SelectLanguage items={languages} defaultItem="Choose a language"
+                    onClick={(target) => setLanguage(target.value)}/>
                 <div className="text-center">
                     <CustomizedButton variant="success" type="submit">Start</CustomizedButton>
                 </div>
             </Form>
+            <NotificationToast 
+                show={error.showToast} 
+                onClose={() => setError({...error, showToast: false})} 
+                variant="danger" 
+                message={error.message}/>
         </>
     )
 }
