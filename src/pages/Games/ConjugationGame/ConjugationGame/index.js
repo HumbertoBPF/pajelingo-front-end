@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
@@ -33,9 +33,17 @@ export default function ConjugationGame() {
         score: null,
         state: "idle"
     });
+    const navigate = useNavigate();
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/conjugation-game?${searchParams}`)
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.status === 404) {
+                    navigate("/conjugation-game/setup");
+                    return;
+                }
+
+                return response.json();
+            })
             .then((data) => {
                 setVerb(data);
                 setConjugation({
@@ -53,7 +61,7 @@ export default function ConjugationGame() {
                     state: "idle"
                 });
             });
-    }, [searchParams]);
+    }, [searchParams, navigate]);
 
     function handleFormSubmit(event) {
         event.preventDefault();

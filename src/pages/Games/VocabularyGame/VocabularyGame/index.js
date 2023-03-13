@@ -3,7 +3,7 @@ import FeedbackCard from "components/FeedbackCard";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function VocabularyGame(){
@@ -20,12 +20,20 @@ export default function VocabularyGame(){
         score: null,
         state: "idle"
     });
+    const navigate = useNavigate();
     const playAgain = useCallback(() => {
         const queryParams = new URLSearchParams({
             language: searchParams.get("target_language")
         });
         fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
-        .then((response) => response.json())
+        .then((response) => {
+            if (response.status === 404) {
+                navigate("/vocabulary-game/setup");
+                return;
+            }
+
+            return response.json();
+        })
         .then((data) => {
             setWord(data);
             setAnswer("");
@@ -36,7 +44,7 @@ export default function VocabularyGame(){
                 state: "idle"
             });
         });
-    }, [searchParams]);
+    }, [searchParams, navigate]);
 
     function handleFormSubmit(event) {
         event.preventDefault();

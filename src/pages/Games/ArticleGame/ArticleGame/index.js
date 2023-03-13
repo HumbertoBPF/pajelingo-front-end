@@ -3,7 +3,7 @@ import FeedbackCard from "components/FeedbackCard";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function ArticleGame() {
@@ -20,9 +20,17 @@ export default function ArticleGame() {
         score: null,
         state: "idle"
     });
+    const navigate = useNavigate();
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/article-game?${searchParams}`)
-        .then((response) => response.json())
+        .then((response) => {
+            if (response.status === 404) {
+                navigate("/article-game/setup");
+                return;
+            }
+
+            return response.json();
+        })
         .then((data) => {
             setWord(data);
             setAnswer("");
@@ -33,7 +41,7 @@ export default function ArticleGame() {
                 state: "idle"
             });
         });
-    }, [searchParams]);
+    }, [searchParams, navigate]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
