@@ -27,12 +27,11 @@ export default function VocabularyGame(){
         });
         fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
         .then((response) => {
-            if (response.status === 404) {
-                navigate("/vocabulary-game/setup");
-                return;
+            if (response.ok) {
+                return response.json();
             }
 
-            return response.json();
+            navigate("/vocabulary-game/setup");
         })
         .then((data) => {
             setWord(data);

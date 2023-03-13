@@ -24,12 +24,11 @@ export default function ArticleGame() {
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/article-game?${searchParams}`)
         .then((response) => {
-            if (response.status === 404) {
-                navigate("/article-game/setup");
-                return;
+            if (response.ok) {
+                return response.json();
             }
 
-            return response.json();
+            navigate("/article-game/setup");
         })
         .then((data) => {
             setWord(data);

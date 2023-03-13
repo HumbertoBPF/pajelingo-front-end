@@ -37,12 +37,11 @@ export default function ConjugationGame() {
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/conjugation-game?${searchParams}`)
             .then((response) => {
-                if (response.status === 404) {
-                    navigate("/conjugation-game/setup");
-                    return;
+                if (response.ok) {
+                    return response.json();
                 }
 
-                return response.json();
+                navigate("/conjugation-game/setup");
             })
             .then((data) => {
                 setVerb(data);
