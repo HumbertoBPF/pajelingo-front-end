@@ -1,15 +1,29 @@
 import PaginationBar from "components/PaginationBar";
 import Ranking from "components/Ranking";
 import SelectLanguage from "components/SelectLanguage";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 
 export default function Rankings() {
     const languages = useSelector(state => state.languages);
+    const user = useSelector(state => state.user);
     const [ranking, setRanking] = useState({results:[], page: 1});
     const [language, setLanguage] = useState(null);
+    const getRankings = useCallback((language, page, user=null) => {
+        if (language != null) {
+            let url = `${baseUrl}/rankings?language=${language}&page=${page}`;
+
+            if (user) {
+                url += `&user=${user.username}`;
+            }
+
+            fetch(url)
+            .then((data) => data.json())
+            .then((data) => setRanking({...data, page: page}));
+        }
+    }, []);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,13 +35,7 @@ export default function Rankings() {
         setLanguage(defaultLanguage);
     }, [languages]);
     
-    useEffect(() => {
-        if (language != null) {
-            fetch(`${baseUrl}/rankings?language=${language}`)
-                .then((data) => data.json())
-                .then((data) => setRanking({...data, page: 1}));
-        }
-    }, [language]);
+    useEffect(() => getRankings(language, 1, user), [language, getRankings, user]);
 
     return (
         <>
@@ -47,11 +55,7 @@ export default function Rankings() {
                 count={ranking.count} 
                 resultsPerPage={10} 
                 page={ranking.page} 
-                callback={(page) => {
-                    fetch(`${baseUrl}/rankings?language=${language}&page=${page}`)
-                        .then((data) => data.json())
-                        .then((data) => setRanking({...data, page: page}));
-                }}/>
+                callback={(page) => getRankings(language, page, user)}/>
         </>
     )
 }

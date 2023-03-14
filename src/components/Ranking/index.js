@@ -17,6 +17,19 @@ export default function Ranking({ ranking }) {
                         <td>{item.user}</td>
                         <td>{item.score}</td>
                     </tr>)}
+                {(ranking.user_score)?
+                <>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">(You) {ranking.user_score.position}</th>
+                        <th scope="row">{ranking.user_score.user}</th>
+                        <th scope="row">{ranking.user_score.score}</th>
+                    </tr>
+                </>:null}
             </tbody>
         </Table>
     )
