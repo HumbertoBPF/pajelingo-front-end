@@ -98,7 +98,8 @@ export default function VocabularyGame(){
                 <Form.Control className="text-center" type="text" placeholder={word.word} disabled />
             </Form.Group>
             <Form.Group className="mb-4" controlId="answerInput">
-                <Form.Control className="text-center" type="text" placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
+                <Form.Control className="text-center" type="text" 
+                    placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
                     onChange={(event) => setAnswer(event.target.value)}/>
             </Form.Group>
             <div className="text-center">

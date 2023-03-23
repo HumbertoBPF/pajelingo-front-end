@@ -21,7 +21,7 @@ export default function VocabularyGameSetup() {
     function handleFormSubmit(event) {
         event.preventDefault();
 
-        if ((baseLanguage === null) || (targetLanguage === null)) {
+        if ((baseLanguage === null) || (baseLanguage === "") || (targetLanguage === null) || (targetLanguage === "")) {
             setError({
                 showToast: true,
                 message: "You must set both base and target languages."

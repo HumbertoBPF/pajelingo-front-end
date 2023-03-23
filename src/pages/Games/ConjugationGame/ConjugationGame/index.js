@@ -106,12 +106,12 @@ export default function ConjugationGame() {
     useEffect(() => {
         languages.forEach(item => {
             if (item.language_name === searchParams.get("language")){
-                setLanguage(item);
+                setLanguage(item);        
+                playAgain();
             }
         });
-        playAgain();
     }, [playAgain, searchParams, languages]);
-
+    
     return (
         (feedback.state === "succeeded")?
         <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>

@@ -16,7 +16,7 @@ export default function Activation() {
             method: "PUT"
         })
         .then((response) => setFeedback({
-                result: true,
+                result: response.ok,
                 state: "succeeded"
             }))
     }, [params])
@@ -28,7 +28,9 @@ export default function Activation() {
                     <Alert variant="success" className="text-center">
                         Thank you for your email confirmation. Now you can sign in your account.
                     </Alert>:
-                    null
+                    <Alert variant="danger" className="text-center">
+                        Invalid token!
+                    </Alert>
             }
             <ShortcutButtons/>
         </>

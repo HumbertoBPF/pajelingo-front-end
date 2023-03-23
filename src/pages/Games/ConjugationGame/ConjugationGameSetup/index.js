@@ -20,7 +20,7 @@ export default function ConjugationGameSetup() {
     function handleFormSubmit(event) {
         event.preventDefault();
 
-        if (language === null) {
+        if ((language === null) || (language === "")) {
             setError({showToast: true, message: "You must choose a language."});
             return;
         }
