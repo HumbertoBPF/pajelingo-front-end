@@ -2,6 +2,7 @@ import MeaningCard from "components/MeaningCard";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
+import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 
 export default function Meanings() {
@@ -17,10 +18,10 @@ export default function Meanings() {
 
     useEffect(() => {
         // Fetching word
-        let url = `http://localhost:8000/api/words/${params.pk}`;
+        let url = `${baseUrl}/words/${params.pk}`;
         fetch(url).then((response) => response.json()).then((data) => setWord(data));
         // Fetching meanings
-        url = `http://localhost:8000/api/meanings/${params.pk}`;
+        url = `${baseUrl}/meanings/${params.pk}`;
         fetch(url).then((response) => response.json()).then((data) => setMeanings(data));
     }, [languages, params.pk]);
 

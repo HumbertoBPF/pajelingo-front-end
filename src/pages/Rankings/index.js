@@ -27,12 +27,13 @@ export default function Rankings() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchLanguages())
+        dispatch(fetchLanguages());
     }, [dispatch]);
 
     useEffect(() => {
-        const defaultLanguage = (languages.length > 0)?languages[0].language_name:null;
-        setLanguage(defaultLanguage);
+        if (languages.length > 0){
+            setLanguage(languages[0].language_name);
+        }
     }, [languages]);
     
     useEffect(() => getRankings(language, 1, user), [language, getRankings, user]);
@@ -44,18 +45,16 @@ export default function Rankings() {
                 </svg> <span>Rankings</span>
             </h5>
             <div className="mb-4">
-                <SelectLanguage items={languages} onClick={(target) => {
-                    setLanguage(target.value);
-                }}/>
+                <SelectLanguage items={languages} onClick={(target) => setLanguage(target.value)}/>
             </div>
-            <Ranking ranking={ranking}/>
-            <PaginationBar 
-                previous={ranking.previous} 
-                next={ranking.next} 
-                count={ranking.count} 
-                resultsPerPage={10} 
-                page={ranking.page} 
-                callback={(page) => getRankings(language, page, user)}/>
+                <Ranking ranking={ranking}/>
+                <PaginationBar 
+                    previous={ranking.previous} 
+                    next={ranking.next} 
+                    count={ranking.count} 
+                    resultsPerPage={10} 
+                    page={ranking.page} 
+                    callback={(page) => getRankings(language, page, user)}/>
         </>
     )
 }

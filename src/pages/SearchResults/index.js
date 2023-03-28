@@ -3,6 +3,7 @@ import SearchResultCard from "components/SearchResultCard";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 
 export default function SearchResults() {
@@ -24,7 +25,7 @@ export default function SearchResults() {
         });
         setLanguagesFlag(temp);
         // Fetching results
-        const url = `http://localhost:8000/api/search?${searchParams}`;
+        const url = `${baseUrl}/search?${searchParams}`;
         fetch(url).then((response) => response.json()).then((data) => {
             data.page = 1;
             setSearchResults(data);
@@ -53,7 +54,7 @@ export default function SearchResults() {
                 resultsPerPage={12} 
                 page={searchResults.page} 
                 callback={(page) => {
-                    const url = `http://localhost:8000/api/search?${searchParams}&page=${page}`;
+                    const url = `${baseUrl}/search?${searchParams}&page=${page}`;
                     fetch(url).then((response) => response.json()).then((data) => {
                         data.page = page;
                         setSearchResults(data);
