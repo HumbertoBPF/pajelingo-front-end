@@ -62,8 +62,8 @@ export default function Profile() {
                             </svg> <span>Update picture</span>
                         </CustomizedButton>
 
-                        <Modal show={showProfilePictureModal} onHide={() => setShowProfilePictureModal(false)}>
-                            <Modal.Header closeButton>
+                        <Modal show={showProfilePictureModal}>
+                            <Modal.Header>
                                 <Modal.Title>
                                     Update profile picture
                                 </Modal.Title>
@@ -118,8 +118,8 @@ export default function Profile() {
                             </CustomizedButton>
                         </div>
 
-                        <Modal show={showDeleteAccountModal} onHide={() => setShowDeleteAccountModal(false)}>
-                            <Modal.Header closeButton>
+                        <Modal show={showDeleteAccountModal}>
+                            <Modal.Header>
                                 <Modal.Title>
                                     Are you sure?
                                 </Modal.Title>
@@ -128,7 +128,7 @@ export default function Profile() {
                                 Are you sure that you want to delete your profile? All information such as scores in the games is going to be permanently lost!
                             </Modal.Body>
                             <Modal.Footer>
-                                <CustomizedButton variant="secondary" onClick={() => setShowDeleteAccountModal(false)}>Decline</CustomizedButton>
+                                <CustomizedButton variant="secondary" onClick={() => setShowDeleteAccountModal(false)}>Cancel</CustomizedButton>
                                 <CustomizedButton variant="danger" onClick={
                                     (event) => {
                                         fetch(`${baseUrl}/user`, {

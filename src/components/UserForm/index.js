@@ -6,14 +6,16 @@ import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators
 
 export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , 
         onSubmit=(() => {}) }) {
-    const [email, setEmail] = useState(user.email);
-    const [username, setUsername] = useState(user.username);
-    const [password, setPassword] = useState("");
+    const [personalData, setPersonalData] = useState({
+        email: user.email,
+        username: user.username, 
+        password: ""
+    });
     
     return (
         <Form noValidate onSubmit={(event) => {
             event.preventDefault();
-            onSubmit(email, username, password);
+            onSubmit(event, personalData);
         }}>
             <FloatingLabelInput 
                 controlId="floatingEmail" 
@@ -22,7 +24,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 placeholder="Email address" 
                 defaultValue={user.email}
                 required
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) => setPersonalData({...personalData, email: event.target.value})}
                 validators={getEmailValidators()}/>
             <FloatingLabelInput 
                 controlId="floatingUsername" 
@@ -31,7 +33,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 placeholder="Username" 
                 defaultValue={user.username}
                 required
-                onChange={(event) => setUsername(event.target.value)}
+                onChange={(event) => setPersonalData({...personalData, username: event.target.value})}
                 validators={getUsernameValidators()}/>
             <FloatingLabelInput 
                 controlId="floatingPassword" 
@@ -39,7 +41,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 label="Password" 
                 placeholder="Password" 
                 required
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={(event) => setPersonalData({...personalData, password: event.target.value})}
                 validators={getPasswordValidators()}/>
             <FloatingLabelInput 
                 controlId="floatingPasswordConfirmation" 
@@ -47,7 +49,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 label="Confirm your password" 
                 placeholder="Confirm your password"
                 required
-                validators={getConfirmPasswordValidators(password)}/>
+                validators={getConfirmPasswordValidators(personalData.password)}/>
             <div className="text-center">
                 <CustomizedButton variant={buttonColorStyle} type="submit">{buttonText}</CustomizedButton> 
             </div>

@@ -27,32 +27,38 @@ export default function UpdateAccount() {
         return (<Login/>);
     }
 
-    function handleFormSubmit(email, username, password) {
-        fetch(`${baseUrl}/user/`, {
-            method:"PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${user.token}`
-            },
-            body: JSON.stringify({
-                "email": email,
-                "username": username,
-                "password": password
-            })
-        }).then((response) => {
-            if (response.ok) {
-                navigate("/profile");
-                return;
-            }
+    function handleFormSubmit(event, personalData) {
+        const form = event.currentTarget;
 
-            throw Error(response);
-        }).catch(() => setShowToast(true));
+        if (form.checkValidity()) {
+            fetch(`${baseUrl}/user/`, {
+                method:"PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${user.token}`
+                },
+                body: JSON.stringify({
+                    "email": personalData.email,
+                    "username": personalData.username,
+                    "password": personalData.password
+                })
+            }).then((response) => {
+                if (response.ok) {
+                    navigate("/profile");
+                    return;
+                }
+    
+                throw Error(response);
+            }).catch(() => setShowToast(true));
+        }else {
+            setShowToast(true);
+        }
     }
 
     return (
         <>
             <UserForm buttonColorStyle="info" buttonText="Update" user={user} 
-                onSubmit={(email, username, password) => handleFormSubmit(email, username, password)}/>
+                onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>
             <NotificationToast 
                 show={showToast} 
                 onClose={() => setShowToast(false)} 
