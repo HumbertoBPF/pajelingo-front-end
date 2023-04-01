@@ -124,18 +124,18 @@ export default function ConjugationGame() {
                 {(feedback.score)?`Your score is ${feedback.score}`:null}
         </FeedbackCard>:
         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>  
-            <LabeledInput controlId="word" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
-            <LabeledInput controlId="conjugation1" label={language.personal_pronoun_1} 
+            <LabeledInput controlId="word" type="text" label="" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
+            <LabeledInput controlId="conjugation1" type="text" label={language.personal_pronoun_1} 
                 onChange={(event) => setConjugation({...conjugation, "conjugation_1": event.target.value})} />
-            <LabeledInput controlId="conjugation2" label={language.personal_pronoun_2}
+            <LabeledInput controlId="conjugation2" type="text" label={language.personal_pronoun_2}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_2": event.target.value})}/>
-            <LabeledInput controlId="conjugation3" label={language.personal_pronoun_3}
+            <LabeledInput controlId="conjugation3" type="text" label={language.personal_pronoun_3}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_3": event.target.value})}/>
-            <LabeledInput controlId="conjugation4" label={language.personal_pronoun_4}
+            <LabeledInput controlId="conjugation4" type="text" label={language.personal_pronoun_4}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_4": event.target.value})}/>
-            <LabeledInput controlId="conjugation5" label={language.personal_pronoun_5}
+            <LabeledInput controlId="conjugation5" type="text" label={language.personal_pronoun_5}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_5": event.target.value})}/>
-            <LabeledInput controlId="conjugation6" label={language.personal_pronoun_6}
+            <LabeledInput controlId="conjugation6" type="text" label={language.personal_pronoun_6}
                 onChange={(event) => setConjugation({...conjugation, "conjugation_6": event.target.value})}/>
             <div className="text-center">
                 <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>

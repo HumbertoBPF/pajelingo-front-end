@@ -1,5 +1,6 @@
 import AccountDetails from "components/AccountDetails";
 import CustomizedButton from "components/CustomizedButton";
+import LabeledInput from "components/LabeledInput";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import Login from "pages/Login";
@@ -11,6 +12,7 @@ import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 import { fetchUser } from "services/user";
 import { deleteUser } from "store/reducers/user";
+import { getImageFileValidators } from "./validators";
 
 export default function Profile() {
     const user = useSelector(store => store.user);
@@ -69,13 +71,11 @@ export default function Profile() {
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form.Group controlId="imageFileInput" onChange={(event) => {
+                                <LabeledInput controlId="imageFileInput" type="file" onChange={(event) => {
                                     if (event.target.files) {
                                         setProfilePicture(event.target.files[0]);
                                     }
-                                }}>
-                                    <Form.Control type="file" />
-                                </Form.Group>
+                                }} validators={getImageFileValidators()}/>
                             </Modal.Body>
                             <Modal.Footer>
                                 <CustomizedButton variant="secondary" onClick={() => setShowProfilePictureModal(false)}>Cancel</CustomizedButton>

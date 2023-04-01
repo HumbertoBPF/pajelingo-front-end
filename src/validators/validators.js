@@ -8,6 +8,7 @@ export const errorLengthPassword = "The password must have a length between 8 an
 export const errorInvalidUsername = "Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters.";
 export const errorImageFileFormat = "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
 export const errorTooShortUsername = "The username must be at least 8 characters-long.";
+export const errorFileIsNotImage = "The selected file is not an image"; 
 
 export function searchPattern(pattern, text) {
     return pattern.test(text);
