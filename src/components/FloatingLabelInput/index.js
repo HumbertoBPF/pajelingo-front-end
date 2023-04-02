@@ -23,7 +23,7 @@ export default function FloatingLabelInput({ controlId, type, label="", placehol
             onChange={(event) => onChange(event)} 
             onInput={(event) => validate(event.target)}
             onFocus={(event) => validate(event.target)}>
-            <Form.Control className={(errors.length === 0)?"form-control":"form-control is-invalid"}
+            <Form.Control className={(errors.length === 0)?"":"is-invalid"}
                 type={type} placeholder={placeholder} defaultValue={defaultValue} required={required}/>
             <Form.Control.Feedback className="mt-4" type="invalid">
                 <ul>

@@ -19,25 +19,32 @@ export default function ResetAccount() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "password": password
-            })
-        }).then((response) => {
-            if (response.ok) {
-                setFeedback({
-                    result: true,
-                    state: "succeeded"
-                });
-                return;
-            }
 
-            throw Error(response);
-        }).catch(() => setShowToast(true));
+        const form = event.currentTarget;
+
+        if (form.checkValidity()) {
+            fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "password": password
+                })
+            }).then((response) => {
+                if (response.ok) {
+                    setFeedback({
+                        result: true,
+                        state: "succeeded"
+                    });
+                    return;
+                }
+    
+                throw Error(response);
+            }).catch(() => setShowToast(true));
+        }else {
+            setShowToast(true);
+        }
     }
 
     return (

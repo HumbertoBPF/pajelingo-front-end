@@ -21,7 +21,7 @@ export default function LabeledInput({ controlId, type, label=null, placeholder=
     function renderInput(className) {
         return (
             <>
-                <Form.Control className={`form-control${(errors.length === 0)?"":" is-invalid"} ${className}`} 
+                <Form.Control className={`${(errors.length === 0)?"":" is-invalid"} ${className}`} 
                     type={type} placeholder={placeholder} disabled={disabled}/>
                 <Form.Control.Feedback className="mt-4" type="invalid">
                     <ul>
