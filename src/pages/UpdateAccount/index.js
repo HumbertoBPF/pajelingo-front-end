@@ -15,7 +15,7 @@ export default function UpdateAccount() {
 
     useEffect(() => {
         dispatch(fetchUser());
-    }, [dispatch, navigate, user]);
+    }, [dispatch]);
 
     useEffect(() => {
         if (!user) {
@@ -47,9 +47,15 @@ export default function UpdateAccount() {
                     navigate("/profile");
                     return;
                 }
-    
-                throw Error(response);
-            }).catch(() => setShowToast(true));
+                
+                console.log(response);
+                return response.json();
+            }).then((data) => {
+                console.log(data);
+                throw Error(data);
+            }).catch(() => {
+                setShowToast(true);
+            });
         }else {
             setShowToast(true);
         }
