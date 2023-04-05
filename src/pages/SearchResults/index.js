@@ -9,6 +9,7 @@ import { fetchLanguages } from "services/languages";
 export default function SearchResults() {
     const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
     const languages = useSelector(state => state.languages);
     const [searchResults, setSearchResults] = useState({results: []});
     const [languagesFlag, setLanguagesFlag] = useState(new Map());
@@ -17,6 +18,7 @@ export default function SearchResults() {
         dispatch(fetchLanguages());
     }, [dispatch]);
 
+
     useEffect(() => {
         // Preparing language map
         let temp = new Map();
@@ -24,13 +26,26 @@ export default function SearchResults() {
             temp.set(item.language_name, item.flag_image);
         });
         setLanguagesFlag(temp);
+    }, [languages])
+
+    useEffect(() => {
         // Fetching results
         const url = `${baseUrl}/search?${searchParams}`;
-        fetch(url).then((response) => response.json()).then((data) => {
+        let options = {}
+
+        if (user) {
+            options = {
+                headers: {
+                    Authorization: `Token ${user.token}`,
+                }
+            };
+        }
+
+        fetch(url, options).then((response) => response.json()).then((data) => {
             data.page = 1;
             setSearchResults(data);
         });
-    }, [languages, searchParams]);
+    }, [user, searchParams]);
 
     return (    
         (searchResults.count === 0)?
@@ -55,7 +70,17 @@ export default function SearchResults() {
                 page={searchResults.page} 
                 callback={(page) => {
                     const url = `${baseUrl}/search?${searchParams}&page=${page}`;
-                    fetch(url).then((response) => response.json()).then((data) => {
+                    let options = {};
+
+                    if (user) {
+                        options = {
+                            headers: {
+                                Authorization: `Token ${user.token}`,
+                            }
+                        };
+                    }
+
+                    fetch(url, options).then((response) => response.json()).then((data) => {
                         data.page = page;
                         setSearchResults(data);
                     });
