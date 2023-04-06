@@ -8,10 +8,7 @@
 }
 
 .icon-heart {
-    color: red;
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 1.5em;
-    height:1.5em;
 }

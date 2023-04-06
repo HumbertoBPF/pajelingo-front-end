@@ -1,6 +1,7 @@
 import AboutUs from 'pages/AboutUs';
 import Activation from 'pages/Activation';
 import Base from 'pages/Base';
+import FavoriteWords from 'pages/FavoriteWords';
 import ArticleGame from 'pages/Games/ArticleGame/ArticleGame';
 import ArticleGameSetup from 'pages/Games/ArticleGame/ArticleGameSetup';
 import ConjugationGame from 'pages/Games/ConjugationGame/ConjugationGame';
@@ -41,6 +42,7 @@ export default function AppRoutes() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/activate/:uid/:token" element={<Activation/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/profile/favorite-words" element={<FavoriteWords/>}/>
           <Route path="/update-account" element={<UpdateAccount/>}/>
           <Route path="/request-reset-account" element={<RequestResetAccount/>}/>
           <Route path="/reset-account/:uid/:token" element={<ResetAccount/>}/>

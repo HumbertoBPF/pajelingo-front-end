@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { baseUrl } from "services/base";
-import styles from "./Meanings.module.css";
 import CustomizedButton from "components/CustomizedButton";
+import HeartIcon from "components/HeartIcon";
 
 export default function Meanings() {
     const params = useParams();
@@ -56,20 +56,9 @@ export default function Meanings() {
     }
 
     function renderFavoriteButton(word) {
-        if (word.is_favorite) {
-            return (
-                <>
-                    {<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className={`bi bi-heart ${styles["icon-heart"]}`} viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>} Remove from favorite words
-                </>
-            );
-        }
         return (
             <>
-                {<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className={`bi bi-heart-fill ${styles["icon-heart"]}`} viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg>} Add to favorite words
+                <HeartIcon fill={!word.is_favorite}/> <span>{word.is_favorite?"Remove from favorite words":"Add to favorite words"}</span>
             </>
         );
     }
@@ -97,7 +86,7 @@ export default function Meanings() {
 
             {(user)?
             <div className="text-center">
-                <CustomizedButton onClick={() => toggleFavoriteButton()} variant="info">
+                <CustomizedButton variant="info" onClick={() => toggleFavoriteButton()}>
                     {renderFavoriteButton(word)}
                 </CustomizedButton>
             </div>:

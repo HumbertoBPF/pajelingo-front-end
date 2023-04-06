@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 
-export default function CustomizedButton({ type, variant, onClick=((event) => {}), children }) {
+export default function CustomizedButton({ className="", type, variant, onClick=((event) => {}), children }) {
     let styles = {}
     
     if (variant === "info") {
@@ -8,6 +8,11 @@ export default function CustomizedButton({ type, variant, onClick=((event) => {}
     }
 
     return (
-        <Button style={styles} type={type} variant={variant} onClick={(event) => onClick(event)}>{children}</Button>
+        <Button 
+            className={className} 
+            style={styles} 
+            type={type} 
+            variant={variant} 
+            onClick={(event) => onClick(event)}>{children}</Button>
     );
 }
