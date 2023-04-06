@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function SearchResultCard({ word, flagImage }) {
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
-    const [isFavorite, setIsFavorite] = useState(word.is_favorite);
+    const [result, setResult] = useState(word);
 
     function toogleHeartIcon() {
         if (user) {
@@ -18,20 +18,22 @@ export default function SearchResultCard({ word, flagImage }) {
                     Authorization: `Token ${user.token}`,
                 },
                 body: JSON.stringify({
-                    is_favorite: !isFavorite
+                    is_favorite: !result.is_favorite
                 })
             }).then(
-                response => {
-                    if (response.ok) {
-                        setIsFavorite(!isFavorite);
+                response => response.ok?response.json():null
+            ).then(
+                data => {
+                    if (data !== null) {
+                        setResult(data);
                     }
                 }
             );
         }
     }
 
-    function renderHeartIcon(isFavorite) {
-        if (isFavorite) {
+    function renderHeartIcon() {
+        if (result.is_favorite) {
             return (
                 <svg onClick={() => toogleHeartIcon()} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className={`bi bi-heart-fill ${styles["icon-heart"]}`} viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
@@ -51,7 +53,7 @@ export default function SearchResultCard({ word, flagImage }) {
                 // eslint-disable-next-line
             }<a className="text-reset text-decoration-none" href="#">
                 <div className={`card ${styles["search-card"]}`}>
-                    {(user)?renderHeartIcon(isFavorite):null}
+                    {(user)?renderHeartIcon():null}
                     <div className="row g-0" onClick={() => navigate(`/meanings/${word.id}`)}>
                         <div className="col-md-4 px-4 d-flex align-items-center justify-content-center">
                             <div>

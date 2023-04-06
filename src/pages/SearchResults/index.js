@@ -1,6 +1,6 @@
 import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/SearchResultCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -13,6 +13,23 @@ export default function SearchResults() {
     const languages = useSelector(state => state.languages);
     const [searchResults, setSearchResults] = useState({results: []});
     const [languagesFlag, setLanguagesFlag] = useState(new Map());
+    const getSearchResultsPage = useCallback((page) => {
+        const url = `${baseUrl}/search?${searchParams}&page=${page}`;
+        let options = {};
+
+        if (user) {
+            options = {
+                headers: {
+                    Authorization: `Token ${user.token}`,
+                }
+            };
+        }
+
+        fetch(url, options).then((response) => response.json()).then((data) => {
+            data.page = page;
+            setSearchResults(data);
+        });
+    }, [searchParams, user]);
 
     useEffect(() => {
         dispatch(fetchLanguages());
@@ -30,22 +47,8 @@ export default function SearchResults() {
 
     useEffect(() => {
         // Fetching results
-        const url = `${baseUrl}/search?${searchParams}`;
-        let options = {}
-
-        if (user) {
-            options = {
-                headers: {
-                    Authorization: `Token ${user.token}`,
-                }
-            };
-        }
-
-        fetch(url, options).then((response) => response.json()).then((data) => {
-            data.page = 1;
-            setSearchResults(data);
-        });
-    }, [user, searchParams]);
+        getSearchResultsPage(1);
+    }, [user, searchParams, getSearchResultsPage]);
 
     return (    
         (searchResults.count === 0)?
@@ -68,23 +71,7 @@ export default function SearchResults() {
                 count={searchResults.count} 
                 resultsPerPage={12} 
                 page={searchResults.page} 
-                callback={(page) => {
-                    const url = `${baseUrl}/search?${searchParams}&page=${page}`;
-                    let options = {};
-
-                    if (user) {
-                        options = {
-                            headers: {
-                                Authorization: `Token ${user.token}`,
-                            }
-                        };
-                    }
-
-                    fetch(url, options).then((response) => response.json()).then((data) => {
-                        data.page = page;
-                        setSearchResults(data);
-                    });
-                }}/> 
+                callback={(page) => getSearchResultsPage(page)}/> 
         </>
     );
 }
