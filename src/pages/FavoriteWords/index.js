@@ -1,15 +1,25 @@
 import WordListWithFilters from "components/WordListWithFilters";
 import HeartIcon from "components/HeartIcon";
 import NotificationToast from "components/NotificationToast";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { baseUrl } from "services/base";
+import { useNavigate } from "react-router-dom";
+import Login from "pages/Login";
 
 export default function FavoriteWords() {
     const user = useSelector(state => state.user);
 
     const [favoriteWords, setFavoriteWords] = useState({results: []});
     const [showToast, setShowToast] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [navigate, user]);
     
     const getSearchResultsPage = useCallback((searchPattern, languages, page) => {
         if (user) {
@@ -37,10 +47,13 @@ export default function FavoriteWords() {
             }).then(data => {
                 data.page = page;
                 setFavoriteWords(data);
-                console.log(data);
             }).catch(error => setShowToast(true));
         }
     }, [user]);
+
+    if (!user) {
+        return  <Login/>
+    }
 
     return (
         <>

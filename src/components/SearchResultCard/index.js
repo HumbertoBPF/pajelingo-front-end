@@ -39,8 +39,12 @@ export default function SearchResultCard({ word, flagImage }) {
                 // eslint-disable-next-line
             }<a className="text-reset text-decoration-none" href="#">
                 <div className={`card ${styles["search-card"]}`}>
-                    <HeartIcon className={styles["icon-heart"]} width="1.5em" height="1.5em" 
-                        fill={result.is_favorite} onClick={(event) => toogleHeartIcon()}/>
+                    {
+                        (result.is_favorite === null)?
+                        null:
+                        <HeartIcon className={styles["icon-heart"]} width="1.5em" height="1.5em" 
+                            fill={result.is_favorite} onClick={(event) => toogleHeartIcon()}/>
+                    }
                     <div className="row g-0" onClick={() => navigate(`/meanings/${word.id}`)}>
                         <div className="col-md-4 px-4 d-flex align-items-center justify-content-center">
                             <div>

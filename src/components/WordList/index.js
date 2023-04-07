@@ -38,6 +38,6 @@ export default function WordList({ words, callback=((page) => {}) }) {
                 resultsPerPage={12} 
                 page={words.page} 
                 callback={(page) => callback(page)}/> 
-        </>
+        </>   
     );
 }

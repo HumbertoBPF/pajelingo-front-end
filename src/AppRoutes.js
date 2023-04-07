@@ -15,7 +15,6 @@ import Profile from 'pages/Profile';
 import Rankings from 'pages/Rankings';
 import RequestResetAccount from 'pages/RequestResetAccount';
 import ResetAccount from 'pages/ResetAccount';
-import Search from 'pages/Search';
 import SearchResults from 'pages/SearchResults';
 import SignUp from 'pages/SignUp';
 import UpdateAccount from 'pages/UpdateAccount';
@@ -28,7 +27,6 @@ export default function AppRoutes() {
         <Route path="/" element={<Base/>}>
           <Route path="/dashboard" element={<Index/>}/>
           <Route path="/about-us" element={<AboutUs/>}/>
-          <Route path="/search" element={<Search/>}/>
           <Route path="/article-game/setup" element={<ArticleGameSetup/>}/>
           <Route path="/article-game/play" element={<ArticleGame/>}/>
           <Route path="/conjugation-game/setup" element={<ConjugationGameSetup/>}/>
@@ -36,7 +34,7 @@ export default function AppRoutes() {
           <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
           <Route path="/vocabulary-game/play" element={<VocabularyGame/>}/>
           <Route path="/rankings" element={<Rankings/>}/>
-          <Route path="/search-results" element={<SearchResults/>}/>
+          <Route path="/search" element={<SearchResults/>}/>
           <Route path="/meanings/:pk" element={<Meanings/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<Login/>}/>
