@@ -1,17 +1,11 @@
 import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/SearchResultCard";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLanguages } from "services/languages";
+import { useSelector } from "react-redux";
 
-export default function ListWords({ words, callback=((page) => {}) }) {
+export default function WordList({ words, callback=((page) => {}) }) {
     const languages = useSelector(state => state.languages);
     const [languagesFlag, setLanguagesFlag] = useState(new Map());
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchLanguages());
-    }, [dispatch]);
 
     useEffect(() => {
         // Preparing language map

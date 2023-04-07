@@ -48,10 +48,8 @@ export default function UpdateAccount() {
                     return;
                 }
                 
-                console.log(response);
                 return response.json();
             }).then((data) => {
-                console.log(data);
                 throw Error(data);
             }).catch(() => {
                 setShowToast(true);
