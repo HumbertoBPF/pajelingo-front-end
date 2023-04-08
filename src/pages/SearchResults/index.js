@@ -6,6 +6,8 @@ import { baseUrl } from "services/base";
 export default function SearchResults() {
     const user = useSelector(state => state.user);
     const [words, setWords] = useState({results: []});
+    const [isFiltering, setIsFiltering] = useState(false);
+    const [isPaginating, setIsPaginating] = useState(false);
 
     const getSearchResultsPage = useCallback((searchPattern, languages, page) => {
         let searchFilters = {
@@ -34,8 +36,22 @@ export default function SearchResults() {
         .then((data) => {
             data.page = page;
             setWords(data);
+            setTimeout(() => {
+                setIsFiltering(false);
+                setIsPaginating(false);
+            }, 2000);
         });
     }, [user]);
+
+    const filterCallback = useCallback((searchPattern, languages) => {
+        setIsFiltering(true);
+        getSearchResultsPage(searchPattern, languages, 1);
+    }, [getSearchResultsPage]);
+
+    const paginationCallback = useCallback((searchPattern, languages, page) => {
+        setIsPaginating(true);
+        getSearchResultsPage(searchPattern, languages, page);
+    }, [getSearchResultsPage]);
 
     return (    
         <>
@@ -44,7 +60,12 @@ export default function SearchResults() {
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg> <span>Search results</span>
             </h5>
-            <WordListWithFilters words={words} filterCallback={getSearchResultsPage}/>
+            <WordListWithFilters 
+                words={words} 
+                isFiltering={isFiltering}
+                isPaginating={isPaginating}
+                filterCallback={filterCallback} 
+                paginationCallback={paginationCallback}/>
         </>
     );
 }

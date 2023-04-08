@@ -1,4 +1,5 @@
 import CustomizedButton from "components/CustomizedButton";
+import CustomizedSpinner from "components/CustomizedSpinner";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import WordList from "components/WordList";
 import { useEffect, useState } from "react";
@@ -6,7 +7,8 @@ import { Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 
-export default function WordListWithFilters({ words, filterCallback=((searchPattern, languagesSelected, page) => {}) }) {
+export default function WordListWithFilters({ words, isFiltering=false, isPaginating=false,
+        filterCallback, paginationCallback }) {
     const languages = useSelector(state => state.languages);
     const dispatch = useDispatch();
 
@@ -24,19 +26,32 @@ export default function WordListWithFilters({ words, filterCallback=((searchPatt
             let languageMap = new Map();
             languages.forEach(language => languageMap.set(language.language_name, true));
             setLanguagesSelected(languageMap);
-            filterCallback("", languageMap, 1);
+            paginationCallback("", languageMap, 1);
         }
-    }, [languages, filterCallback]);
+    }, [languages, paginationCallback]);
 
     return (
         <>
             <div className="mb-4 text-center">
-                <CustomizedButton variant="info" onClick={() => setShowFilterWordsModal(true)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-funnel-fill" viewBox="0 0 16 16">
-                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
-                    </svg> Filter results</CustomizedButton>
+                <CustomizedButton variant="info" 
+                    disabled={isFiltering} 
+                    isLoading={isFiltering} 
+                    onClick={() => setShowFilterWordsModal(true)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-funnel-fill" viewBox="0 0 16 16">
+                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+                        </svg> Filter results
+                </CustomizedButton>
             </div>
-            <WordList words={words} callback={(page) => filterCallback(searchPattern, languagesSelected, page)}/>
+            {
+                isFiltering?
+                <div className="text-center">
+                    <CustomizedSpinner animation="border"/>
+                </div>:
+                <WordList 
+                    words={words} 
+                    isLoading={isPaginating} 
+                    callback={(page) => paginationCallback(searchPattern, languagesSelected, page)}/>
+            }
             <Modal show={showFilterWordsModal}>
                 <Modal.Header>
                     <Modal.Title>
@@ -67,7 +82,7 @@ export default function WordListWithFilters({ words, filterCallback=((searchPatt
                     <CustomizedButton variant="secondary" onClick={() => setShowFilterWordsModal(false)}>Cancel</CustomizedButton>
                     <CustomizedButton variant="success" 
                         onClick={() => {
-                            filterCallback(searchPattern, languagesSelected, 1);
+                            filterCallback(searchPattern, languagesSelected);
                             setShowFilterWordsModal(false);    
                         }}>Apply</CustomizedButton>
                 </Modal.Footer>

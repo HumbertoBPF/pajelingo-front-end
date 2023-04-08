@@ -11,6 +11,8 @@ export default function FavoriteWords() {
     const user = useSelector(state => state.user);
 
     const [favoriteWords, setFavoriteWords] = useState({results: []});
+    const [isFiltering, setIsFiltering] = useState(false);
+    const [isPaginating, setIsPaginating] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
     const navigate = useNavigate();
@@ -47,9 +49,23 @@ export default function FavoriteWords() {
             }).then(data => {
                 data.page = page;
                 setFavoriteWords(data);
+                setTimeout(() => {
+                    setIsFiltering(false);
+                    setIsPaginating(false);
+                }, 2000);
             }).catch(error => setShowToast(true));
         }
     }, [user]);
+
+    const filterCallback = useCallback((searchPattern, languages) => {
+        setIsFiltering(true);
+        getSearchResultsPage(searchPattern, languages, 1);
+    }, [getSearchResultsPage]);
+
+    const paginationCallback = useCallback((searchPattern, languages, page) => {
+        setIsPaginating(true);
+        getSearchResultsPage(searchPattern, languages, page);
+    }, [getSearchResultsPage]);
 
     if (!user) {
         return  <Login/>
@@ -59,8 +75,11 @@ export default function FavoriteWords() {
         <>
             <h5 className="mb-4"><HeartIcon fill/> <span>Favorite words</span></h5>
             <WordListWithFilters 
-                words={favoriteWords} 
-                filterCallback={getSearchResultsPage}/>
+                words={favoriteWords}
+                isFiltering={isFiltering}
+                isPaginating={isPaginating}
+                filterCallback={filterCallback}
+                paginationCallback={paginationCallback}/>
             <NotificationToast 
                 show={showToast} 
                 onClose={() => setShowToast(false)} 

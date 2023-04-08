@@ -1,6 +1,7 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 
-export default function CustomizedButton({ className="", type, variant, onClick=((event) => {}), children }) {
+export default function CustomizedButton({ className="", type, variant, disabled=false, isLoading=false,
+        onClick=((event) => {}), children }) {
     let styles = {}
     
     if (variant === "info") {
@@ -13,6 +14,9 @@ export default function CustomizedButton({ className="", type, variant, onClick=
             style={styles} 
             type={type} 
             variant={variant} 
-            onClick={(event) => onClick(event)}>{children}</Button>
+            disabled={disabled}
+            onClick={(event) => onClick(event)}>
+                {isLoading?<Spinner as="span" animation="border" size="sm"/>:null}{children}
+        </Button>
     );
 }

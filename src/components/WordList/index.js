@@ -1,9 +1,10 @@
+import CustomizedSpinner from "components/CustomizedSpinner";
 import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/SearchResultCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function WordList({ words, callback=((page) => {}) }) {
+export default function WordList({ words, isLoading=false, callback=((page) => {}) }) {
     const languages = useSelector(state => state.languages);
     const [languagesFlag, setLanguagesFlag] = useState(new Map());
 
@@ -24,12 +25,18 @@ export default function WordList({ words, callback=((page) => {}) }) {
                 <p>No result matching your search was found</p>
             </div>
         </div>:
-        <>
+        <>  
             <div className="row justify-content-center">
-                {words.results.map((word) => <SearchResultCard 
-                                                key={word.id} 
-                                                word={word}
-                                                flagImage={languagesFlag.get(word.language)}/>)}
+                {
+                    isLoading?
+                    <CustomizedSpinner animation="border"/>:
+                    <>
+                        {words.results.map((word) => <SearchResultCard 
+                                                        key={word.id} 
+                                                        word={word}
+                                                        flagImage={languagesFlag.get(word.language)}/>)}
+                    </>
+                }
             </div>
             <PaginationBar 
                 previous={words.previous} 
