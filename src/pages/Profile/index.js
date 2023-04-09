@@ -14,6 +14,7 @@ import { fetchUser } from "services/user";
 import { deleteUser } from "store/reducers/user";
 import { getImageFileValidators } from "./validators";
 import HeartIcon from "components/HeartIcon";
+import NotificationToast from "components/NotificationToast";
 
 export default function Profile() {
     const user = useSelector(store => store.user);
@@ -22,6 +23,9 @@ export default function Profile() {
     const navigate = useNavigate();
     const [scores, setScores] = useState([]);
     const [profilePicture, setProfilePicture] = useState();
+    const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] = useState(false);
+    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+    const [showToast, setShowToast] = useState(false);
     const [showProfilePictureModal, setShowProfilePictureModal] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
 
@@ -83,6 +87,7 @@ export default function Profile() {
                                 <Form encType="multipart/form-data" onSubmit={
                                     (event) => {
                                         event.preventDefault();
+                                        setIsUpdatingProfilePicture(true);
 
                                         const formData = new FormData();
                                         formData.append("picture", profilePicture);
@@ -93,10 +98,26 @@ export default function Profile() {
                                                 "Authorization": `Token ${user.token}`
                                             },
                                             body: formData
-                                        }).then((response) => window.location.reload());
+                                        }).then((response) => {
+                                            if (response.ok) {
+                                                setShowToast(false);
+                                                setIsUpdatingProfilePicture(false);
+                                                window.location.reload();
+                                                return;
+                                            }
+
+                                            throw Error();
+                                        }).catch(() => {
+                                            setShowToast(true);
+                                            setIsUpdatingProfilePicture(false);
+                                        });
                                     }
                                 }>
-                                    <CustomizedButton variant="success" type="submit">Update</CustomizedButton>
+                                    <CustomizedButton 
+                                        variant="success" 
+                                        type="submit" 
+                                        isLoading={isUpdatingProfilePicture}
+                                        disabled={isUpdatingProfilePicture}>Update</CustomizedButton>
                                 </Form>
                             </Modal.Footer>
                         </Modal>
@@ -131,19 +152,36 @@ export default function Profile() {
                                 Are you sure that you want to delete your profile? All information such as scores in the games is going to be permanently lost!
                             </Modal.Body>
                             <Modal.Footer>
-                                <CustomizedButton variant="secondary" onClick={() => setShowDeleteAccountModal(false)}>Cancel</CustomizedButton>
-                                <CustomizedButton variant="danger" onClick={
-                                    (event) => {
-                                        fetch(`${baseUrl}/user`, {
-                                            method: "DELETE",
-                                            headers: {
-                                                "Authorization": `Token ${user.token}`
-                                            }
-                                        })
-                                        .then((response) => {
-                                            dispatch(deleteUser());
-                                            window.location.reload();
-                                        });
+                                <CustomizedButton 
+                                    variant="secondary" 
+                                    onClick={() => setShowDeleteAccountModal(false)}>Cancel</CustomizedButton>
+                                <CustomizedButton 
+                                    variant="danger" 
+                                    isLoading={isDeletingAccount} 
+                                    disabled={isDeletingAccount} 
+                                    onClick={
+                                        (event) => {
+                                            setIsDeletingAccount(true);
+
+                                            fetch(`${baseUrl}/user`, {
+                                                method: "DELETE",
+                                                headers: {
+                                                    "Authorization": `Token ${user.token}`
+                                                }
+                                            }).then((response) => {
+                                                if (response.ok) {
+                                                    setIsDeletingAccount(false);
+                                                    setShowToast(false);
+                                                    dispatch(deleteUser);
+                                                    window.location.reload();
+                                                    return;
+                                                }
+
+                                                throw Error();
+                                            }).catch(() => {
+                                                setIsDeletingAccount(false);
+                                                setShowToast(true);
+                                            });
                                     }
                                 }>Yes, I want to delete my profile</CustomizedButton>
                             </Modal.Footer>
@@ -160,6 +198,11 @@ export default function Profile() {
                 }}/>
                 <UserScores scores={scores}/>
             </section>
+            <NotificationToast 
+                show={showToast} 
+                variant="danger" 
+                message="An error occurred when processing the request. Please try again." 
+                onClose={() => setShowToast(false)}/>
         </>
     );
 }

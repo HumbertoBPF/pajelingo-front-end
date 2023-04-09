@@ -8,6 +8,7 @@ import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
     const [email, setEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [feedback, setFeedback] = useState({
         result: null,
@@ -16,6 +17,8 @@ export default function RequestResetAccount() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
+        setIsLoading(true);
+
         fetch(`${baseUrl}/request-reset-account/`, {
             method: "POST",
             headers: {
@@ -26,6 +29,7 @@ export default function RequestResetAccount() {
             })
         }).then((response) => {
             if (response.ok){
+                setIsLoading(false);
                 setFeedback({
                     result: true, 
                     state: "succeeded"
@@ -34,7 +38,10 @@ export default function RequestResetAccount() {
             }
 
             throw Error(response);
-        }).catch(() => setShowToast(true));
+        }).catch(() => {
+            setIsLoading(false);
+            setShowToast(true);
+        });
     }
 
     return (
@@ -56,7 +63,10 @@ export default function RequestResetAccount() {
                         validators={getEmailValidators()} 
                         onChange={(event) => setEmail(event.target.value)}/>
                     <div className="text-center">
-                        <CustomizedButton variant="success" type="submit">Reset password</CustomizedButton>
+                        <CustomizedButton variant="success" type="submit" 
+                            isLoading={isLoading} disabled={isLoading}>
+                                Reset password
+                        </CustomizedButton>
                     </div>
                 </Form>
             }

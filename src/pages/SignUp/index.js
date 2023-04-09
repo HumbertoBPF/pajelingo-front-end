@@ -5,6 +5,7 @@ import { Alert } from "react-bootstrap";
 import { baseUrl } from "services/base";
 
 export default function SignUp() {
+    const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [feedback, setFeedback] = useState({
         result: null,
@@ -13,6 +14,7 @@ export default function SignUp() {
 
     function handleFormSubmit(event, personalData) {
         const form = event.currentTarget;
+        setIsLoading(true);
 
         if (form.checkValidity()) {
             setFeedback({
@@ -36,12 +38,17 @@ export default function SignUp() {
     
                 throw Error(response);
             }).then((data) => {
+                setIsLoading(false);
                 setFeedback({
                     result: true,
                     state: "succeeded"
                 });
-            }).catch(() => setShowToast(true));
+            }).catch(() => {
+                setIsLoading(false);
+                setShowToast(true);
+            });
         }else{
+            setIsLoading(false);
             setShowToast(true);
         }
     }
@@ -53,7 +60,7 @@ export default function SignUp() {
                 <p>Account successfully created. Please check your email to activate it.</p>
                 <img src="images/send_email.png" className="img-fluid rounded col-6 col-sm-4 col-md-4 col-lg-3" alt="Email being sent"/>
             </Alert>:
-            <UserForm buttonColorStyle="success" buttonText="Sign up" 
+            <UserForm buttonColorStyle="success" buttonText="Sign up" isLoading={isLoading}
                 onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>}
             <NotificationToast 
                 show={showToast} 

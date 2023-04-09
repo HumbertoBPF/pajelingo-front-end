@@ -13,12 +13,14 @@ import { getPasswordValidators, getUsernameValidators } from "./validators";
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     function handleFormSubmit(event) {
         event.preventDefault();
+        setIsLoading(true);
 
         fetch(`${baseUrl}/user-token`, {
             method: "POST",
@@ -36,14 +38,18 @@ export default function Login() {
             
             throw Error(response);
         })
-        .then((data) => {
+        .then((data) => {        
+            setIsLoading(false);
             if (data.token){
                 dispatch(saveToken(data.token));
                 dispatch(fetchUser());
                 navigate("/dashboard");
             }
         })
-        .catch(() => setShowToast(true));
+        .catch(() => {
+            setIsLoading(false);
+            setShowToast(true)
+        });
     } 
 
     return (
@@ -67,7 +73,11 @@ export default function Login() {
                     validators={getPasswordValidators()}/>
                 <Link to="/request-reset-account">I forgot my username/password</Link>
                 <div className="text-center mt-4">
-                    <CustomizedButton variant="success" type="submit">Sign in</CustomizedButton> 
+                    <CustomizedButton 
+                        variant="success" 
+                        disabled={isLoading} 
+                        isLoading={isLoading} 
+                        type="submit">Sign in</CustomizedButton> 
                 </div>
             </Form>
             <NotificationToast 

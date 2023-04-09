@@ -9,6 +9,7 @@ import { fetchUser } from "services/user";
 
 export default function UpdateAccount() {
     const user = useSelector(store => store.user);
+    const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,6 +30,7 @@ export default function UpdateAccount() {
 
     function handleFormSubmit(event, personalData) {
         const form = event.currentTarget;
+        setIsLoading(true);
 
         if (form.checkValidity()) {
             fetch(`${baseUrl}/user/`, {
@@ -44,6 +46,7 @@ export default function UpdateAccount() {
                 })
             }).then((response) => {
                 if (response.ok) {
+                    setIsLoading(false);
                     navigate("/profile");
                     return;
                 }
@@ -52,16 +55,18 @@ export default function UpdateAccount() {
             }).then((data) => {
                 throw Error(data);
             }).catch(() => {
+                setIsLoading(false);
                 setShowToast(true);
             });
         }else {
+            setIsLoading(false);
             setShowToast(true);
         }
     }
 
     return (
         <>
-            <UserForm buttonColorStyle="info" buttonText="Update" user={user} 
+            <UserForm buttonColorStyle="info" buttonText="Update" user={user} isLoading={isLoading}
                 onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>
             <NotificationToast 
                 show={showToast} 

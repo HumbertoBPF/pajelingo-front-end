@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
-export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , 
+export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , isLoading=false, 
         onSubmit=(() => {}) }) {
     const [personalData, setPersonalData] = useState({
         email: user.email,
@@ -51,7 +51,8 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 required
                 validators={getConfirmPasswordValidators(personalData.password)}/>
             <div className="text-center">
-                <CustomizedButton variant={buttonColorStyle} type="submit">{buttonText}</CustomizedButton> 
+                <CustomizedButton variant={buttonColorStyle} type="submit" 
+                    disabled={isLoading} isLoading={isLoading}>{buttonText}</CustomizedButton> 
             </div>
         </Form>
     );

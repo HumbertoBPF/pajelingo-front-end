@@ -11,6 +11,7 @@ import { baseUrl } from "services/base";
 export default function ResetAccount() {
     const params = useParams();
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [feedback, setFeedback] = useState({
         result: null,
@@ -19,6 +20,7 @@ export default function ResetAccount() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
+        setIsLoading(true);
 
         const form = event.currentTarget;
 
@@ -33,6 +35,7 @@ export default function ResetAccount() {
                 })
             }).then((response) => {
                 if (response.ok) {
+                    setIsLoading(false);
                     setFeedback({
                         result: true,
                         state: "succeeded"
@@ -41,7 +44,10 @@ export default function ResetAccount() {
                 }
     
                 throw Error(response);
-            }).catch(() => setShowToast(true));
+            }).catch(() => {
+                setIsLoading(false);
+                setShowToast(true);
+            });
         }else {
             setShowToast(true);
         }
@@ -75,7 +81,10 @@ export default function ResetAccount() {
                         placeholder="Confirm your password"
                         validators={getConfirmPasswordValidators(password)}/>
                     <div className="text-center">
-                        <CustomizedButton variant="success" type="submit">Submit</CustomizedButton>
+                        <CustomizedButton variant="success" type="submit" 
+                            isLoading={isLoading} disabled={isLoading}>
+                                Submit
+                        </CustomizedButton>
                     </div>
                 </Form>
             </section>}
