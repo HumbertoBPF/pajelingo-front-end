@@ -1,3 +1,4 @@
+import CustomizedSpinner from "components/CustomizedSpinner";
 import PaginationBar from "components/PaginationBar";
 import Ranking from "components/Ranking";
 import SelectLanguage from "components/SelectLanguage";
@@ -11,6 +12,7 @@ export default function Rankings() {
     const user = useSelector(state => state.user);
     const [ranking, setRanking] = useState({results:[], page: 1});
     const [language, setLanguage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const getRankings = useCallback((language, page, user=null) => {
         if (language != null) {
             let url = `${baseUrl}/rankings?language=${language}&page=${page}`;
@@ -19,9 +21,22 @@ export default function Rankings() {
                 url += `&user=${user.username}`;
             }
 
+            setIsLoading(true);
+
             fetch(url)
-            .then((data) => data.json())
-            .then((data) => setRanking({...data, page: page}));
+            .then(response => {
+                if (response.ok){
+                    return response.json();
+                }
+
+                throw Error();
+            })
+            .then((data) => {
+                setRanking({...data, page: page});
+                setTimeout(() => setIsLoading(false), 2000);
+            }).catch(error => {
+                setTimeout(() => setIsLoading(false), 2000);
+            });
         }
     }, []);
     const dispatch = useDispatch();
@@ -47,14 +62,20 @@ export default function Rankings() {
             <div className="mb-4">
                 <SelectLanguage items={languages} onClick={(target) => setLanguage(target.value)}/>
             </div>
+            {
+                isLoading?
+                <div className="text-center">
+                    <CustomizedSpinner/>
+                </div>:
                 <Ranking ranking={ranking}/>
-                <PaginationBar 
-                    previous={ranking.previous} 
-                    next={ranking.next} 
-                    count={ranking.count} 
-                    resultsPerPage={10} 
-                    page={ranking.page} 
-                    callback={(page) => getRankings(language, page, user)}/>
+            }
+            <PaginationBar 
+                previous={ranking.previous} 
+                next={ranking.next} 
+                count={ranking.count} 
+                resultsPerPage={10} 
+                page={ranking.page} 
+                callback={(page) => getRankings(language, page, user)}/>
         </>
     )
 }
