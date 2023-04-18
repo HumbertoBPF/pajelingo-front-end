@@ -1,4 +1,4 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import { useState } from "react";
@@ -73,11 +73,11 @@ export default function Login() {
                     validators={getPasswordValidators()}/>
                 <Link to="/request-reset-account">I forgot my username/password</Link>
                 <div className="text-center mt-4">
-                    <CustomizedButton 
+                    <CustomButton 
                         variant="success" 
                         disabled={isLoading} 
                         isLoading={isLoading} 
-                        type="submit">Sign in</CustomizedButton> 
+                        type="submit">Sign in</CustomButton> 
                 </div>
             </Form>
             <NotificationToast 

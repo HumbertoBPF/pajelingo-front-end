@@ -1,7 +1,7 @@
 import { Spinner } from "react-bootstrap";
-import styles from "./CustomizedSpinner.module.css";
+import styles from "./CustomSpinner.module.css";
 
-export default function CustomizedSpinner() {
+export default function CustomSpinner() {
     return (
         <Spinner className={`${styles["spinner"]}`} animation="border"/>
     );

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { baseUrl } from "services/base";
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import HeartIcon from "components/HeartIcon";
 
 export default function Meanings() {
@@ -86,9 +86,9 @@ export default function Meanings() {
 
             {(user)?
             <div className="text-center">
-                <CustomizedButton variant="info" onClick={() => toggleFavoriteButton()}>
+                <CustomButton variant="info" onClick={() => toggleFavoriteButton()}>
                     {renderFavoriteButton(word)}
-                </CustomizedButton>
+                </CustomButton>
             </div>:
             null}
         </>

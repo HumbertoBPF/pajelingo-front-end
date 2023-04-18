@@ -1,4 +1,4 @@
-import CustomizedSpinner from "components/CustomizedSpinner";
+import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
 import Ranking from "components/Ranking";
 import SelectLanguage from "components/SelectLanguage";
@@ -65,7 +65,7 @@ export default function Rankings() {
             {
                 isLoading?
                 <div className="text-center">
-                    <CustomizedSpinner/>
+                    <CustomSpinner/>
                 </div>:
                 <Ranking ranking={ranking}/>
             }

@@ -1,6 +1,8 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
+import CustomSpinner from "components/CustomSpinner";
 import NotificationToast from "components/NotificationToast";
 import SelectLanguage from "components/SelectLanguage";
+import useGame from "hooks/useGame";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +11,16 @@ import { fetchLanguages } from "services/languages";
 
 export default function VocabularyGameSetup() {
     let languages = useSelector(state => state.languages);
+    const [vocabularyGame] = useGame(1);
+
     const [error, setError] = useState({
         showToast: false,
         message: ""
     });
-    const dispatch = useDispatch();
     const [baseLanguage, setBaseLanguage] = useState(null);
     const [targetLanguage, setTargetLanguage] = useState(null);
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     function handleFormSubmit(event) {
@@ -50,30 +55,33 @@ export default function VocabularyGameSetup() {
 
     return (
         <>
-            <h5>Vocabulary training</h5>
-            <br/>
-            <section>
-                <p>This game will test your vocabulary. </p>
-
-                <p>When learning a language, it is tricky to increase your repertory. For languages
-                    different from the languages that you know, everything may seem random and unexpected. Even languages that share similarities,
-                    such as Spanish and Portuguese, there are several “false friends”, that is words that seem to be a synonym of a word
-                    in other language, but whose meaning is not the same. Let’s start?</p>
-            </section>
-            <Form onSubmit={(event) => handleFormSubmit(event)}>
-                <SelectLanguage items={languages} defaultItem="Choose a base language"
-                    onClick={(target) => setBaseLanguage(target.value)}/>
-                <SelectLanguage items={languages} defaultItem="Choose a target language"
-                    onClick={(target) => setTargetLanguage(target.value)}/>
+            {
+                (Object.keys(vocabularyGame).length === 0)?
                 <div className="text-center">
-                    <CustomizedButton variant="success" type="submit">Start</CustomizedButton>
-                </div>
-            </Form>
-            <NotificationToast 
-                show={error.showToast} 
-                onClose={() => setError({...error, showToast: false})} 
-                variant="danger" 
-                message={error.message}/>
+                    <CustomSpinner/>
+                </div>:
+                <>
+                    <h5>{vocabularyGame.game_name}</h5>
+                    <br/>
+                    <section>
+                        <p>{vocabularyGame.instructions}</p>
+                    </section>
+                    <Form onSubmit={(event) => handleFormSubmit(event)}>
+                        <SelectLanguage items={languages} defaultItem="Choose a base language"
+                            onClick={(target) => setBaseLanguage(target.value)}/>
+                        <SelectLanguage items={languages} defaultItem="Choose a target language"
+                            onClick={(target) => setTargetLanguage(target.value)}/>
+                        <div className="text-center">
+                            <CustomButton variant="success" type="submit">Start</CustomButton>
+                        </div>
+                    </Form>
+                    <NotificationToast 
+                        show={error.showToast} 
+                        onClose={() => setError({...error, showToast: false})} 
+                        variant="danger" 
+                        message={error.message}/>
+                </>
+            }
         </>
     )
 }

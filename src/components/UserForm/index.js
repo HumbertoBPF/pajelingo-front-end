@@ -1,4 +1,4 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
@@ -51,8 +51,8 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 required
                 validators={getConfirmPasswordValidators(personalData.password)}/>
             <div className="text-center">
-                <CustomizedButton variant={buttonColorStyle} type="submit" 
-                    disabled={isLoading} isLoading={isLoading}>{buttonText}</CustomizedButton> 
+                <CustomButton variant={buttonColorStyle} type="submit" 
+                    disabled={isLoading} isLoading={isLoading}>{buttonText}</CustomButton> 
             </div>
         </Form>
     );

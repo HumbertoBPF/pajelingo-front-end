@@ -6,19 +6,23 @@ import { fetchLanguages } from "services/languages";
 import FeedbackCard from "components/FeedbackCard";
 import { Form } from "react-bootstrap";
 import LabeledInput from "components/LabeledInput";
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
+import useGame from "hooks/useGame";
+import CustomSpinner from "components/CustomSpinner";
 
 export default function ConjugationGame() {
-    const [searchParams] = useSearchParams();
     const user = useSelector(state => state.user);
-    const dispatch = useDispatch();
+    const languages = useSelector(state => state.languages);
+    const [conjugationGame] = useGame(3);
+
+    const [searchParams] = useSearchParams();
+
     const [verb, setVerb] = useState({
         id: null,
         word: "",
         tense: ""
     });
     const [language, setLanguage] = useState({});
-    const languages = useSelector(state => state.languages);
     const [conjugation, setConjugation] = useState({
         "conjugation_1":"", 
         "conjugation_2":"", 
@@ -33,7 +37,10 @@ export default function ConjugationGame() {
         score: null,
         state: "idle"
     });
+    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/conjugation-game?${searchParams}`)
             .then((response) => {
@@ -41,7 +48,7 @@ export default function ConjugationGame() {
                     return response.json();
                 }
 
-                navigate("/conjugation-game/setup");
+                navigate(`${conjugationGame.link}setup`);
             })
             .then((data) => {
                 setVerb(data);
@@ -60,7 +67,7 @@ export default function ConjugationGame() {
                     state: "idle"
                 });
             });
-    }, [searchParams, navigate]);
+    }, [searchParams, navigate, conjugationGame]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -113,33 +120,41 @@ export default function ConjugationGame() {
     }, [playAgain, searchParams, languages]);
     
     return (
-        (feedback.state === "succeeded")?
-        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>
-                {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                <br/>
-                {feedback.correct_answer.split("\n").map(
-                    (item, index) => ((index === 5)?
-                        <span key={index}>{item}</span>:
-                        <span key={index}>{item}<br/></span>))}
-                {(feedback.score)?`Your score is ${feedback.score}`:null}
-        </FeedbackCard>:
-        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>  
-            <LabeledInput controlId="word" type="text" label="" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
-            <LabeledInput controlId="conjugation1" type="text" label={language.personal_pronoun_1} 
-                onChange={(event) => setConjugation({...conjugation, "conjugation_1": event.target.value})} />
-            <LabeledInput controlId="conjugation2" type="text" label={language.personal_pronoun_2}
-                onChange={(event) => setConjugation({...conjugation, "conjugation_2": event.target.value})}/>
-            <LabeledInput controlId="conjugation3" type="text" label={language.personal_pronoun_3}
-                onChange={(event) => setConjugation({...conjugation, "conjugation_3": event.target.value})}/>
-            <LabeledInput controlId="conjugation4" type="text" label={language.personal_pronoun_4}
-                onChange={(event) => setConjugation({...conjugation, "conjugation_4": event.target.value})}/>
-            <LabeledInput controlId="conjugation5" type="text" label={language.personal_pronoun_5}
-                onChange={(event) => setConjugation({...conjugation, "conjugation_5": event.target.value})}/>
-            <LabeledInput controlId="conjugation6" type="text" label={language.personal_pronoun_6}
-                onChange={(event) => setConjugation({...conjugation, "conjugation_6": event.target.value})}/>
-            <div className="text-center">
-                <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>
-            </div>
-        </Form>
+        <>
+            {
+                (Object.keys(conjugationGame).length === 0)?
+                <div className="text-center">
+                    <CustomSpinner/>
+                </div>:
+                (feedback.state === "succeeded")?
+                <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                        {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+                        <br/>
+                        {feedback.correct_answer.split("\n").map(
+                            (item, index) => ((index === 5)?
+                                <span key={index}>{item}</span>:
+                                <span key={index}>{item}<br/></span>))}
+                        {(feedback.score)?`Your score is ${feedback.score}`:null}
+                </FeedbackCard>:
+                <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>  
+                    <LabeledInput controlId="word" type="text" label="" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
+                    <LabeledInput controlId="conjugation1" type="text" label={language.personal_pronoun_1} 
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_1": event.target.value})} />
+                    <LabeledInput controlId="conjugation2" type="text" label={language.personal_pronoun_2}
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_2": event.target.value})}/>
+                    <LabeledInput controlId="conjugation3" type="text" label={language.personal_pronoun_3}
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_3": event.target.value})}/>
+                    <LabeledInput controlId="conjugation4" type="text" label={language.personal_pronoun_4}
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_4": event.target.value})}/>
+                    <LabeledInput controlId="conjugation5" type="text" label={language.personal_pronoun_5}
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_5": event.target.value})}/>
+                    <LabeledInput controlId="conjugation6" type="text" label={language.personal_pronoun_6}
+                        onChange={(event) => setConjugation({...conjugation, "conjugation_6": event.target.value})}/>
+                    <div className="text-center">
+                        <CustomButton variant="success" type="submit">Verify answer</CustomButton>
+                    </div>
+                </Form>
+            }
+        </>
     );
 }

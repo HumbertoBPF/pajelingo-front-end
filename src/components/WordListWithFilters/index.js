@@ -1,5 +1,5 @@
-import CustomizedButton from "components/CustomizedButton";
-import CustomizedSpinner from "components/CustomizedSpinner";
+import CustomButton from "components/CustomButton";
+import CustomSpinner from "components/CustomSpinner";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import WordList from "components/WordList";
 import { useEffect, useState } from "react";
@@ -33,19 +33,19 @@ export default function WordListWithFilters({ words, isFiltering=false, isPagina
     return (
         <>
             <div className="mb-4 text-center">
-                <CustomizedButton variant="info" 
+                <CustomButton variant="info" 
                     disabled={isFiltering} 
                     isLoading={isFiltering} 
                     onClick={() => setShowFilterWordsModal(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-funnel-fill" viewBox="0 0 16 16">
                             <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
                         </svg> Filter results
-                </CustomizedButton>
+                </CustomButton>
             </div>
             {
                 isFiltering?
                 <div className="text-center">
-                    <CustomizedSpinner animation="border"/>
+                    <CustomSpinner animation="border"/>
                 </div>:
                 <WordList 
                     words={words} 
@@ -79,12 +79,12 @@ export default function WordListWithFilters({ words, isFiltering=false, isPagina
                                                 }}/>)}
                 </Modal.Body>
                 <Modal.Footer>
-                    <CustomizedButton variant="secondary" onClick={() => setShowFilterWordsModal(false)}>Cancel</CustomizedButton>
-                    <CustomizedButton variant="success" 
+                    <CustomButton variant="secondary" onClick={() => setShowFilterWordsModal(false)}>Cancel</CustomButton>
+                    <CustomButton variant="success" 
                         onClick={() => {
                             filterCallback(searchPattern, languagesSelected);
                             setShowFilterWordsModal(false);    
-                        }}>Apply</CustomizedButton>
+                        }}>Apply</CustomButton>
                 </Modal.Footer>
             </Modal>
         </>

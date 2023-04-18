@@ -1,6 +1,6 @@
 import { Button, Spinner } from "react-bootstrap";
 
-export default function CustomizedButton({ className="", type, variant, disabled=false, isLoading=false,
+export default function CustomButton({ className="", type, variant, disabled=false, isLoading=false,
         onClick=((event) => {}), children }) {
     let styles = {}
     

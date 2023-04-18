@@ -1,4 +1,4 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import { Alert } from "react-bootstrap";
 
 export default function FeedbackCard({ variant, children, onClick=((event) => {}) }) {
@@ -6,7 +6,7 @@ export default function FeedbackCard({ variant, children, onClick=((event) => {}
         <>
             <Alert className="text-center" variant={variant}>{children}</Alert>
             <div className="text-center">
-                <CustomizedButton  variant="success" onClick={(event) => onClick(event)}>New word</CustomizedButton>
+                <CustomButton  variant="success" onClick={(event) => onClick(event)}>New word</CustomButton>
             </div>
         </>
     );

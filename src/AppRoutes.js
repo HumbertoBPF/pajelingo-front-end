@@ -27,12 +27,6 @@ export default function AppRoutes() {
         <Route path="/" element={<Base/>}>
           <Route path="/dashboard" element={<Index/>}/>
           <Route path="/about-us" element={<AboutUs/>}/>
-          <Route path="/article-game/setup" element={<ArticleGameSetup/>}/>
-          <Route path="/article-game/play" element={<ArticleGame/>}/>
-          <Route path="/conjugation-game/setup" element={<ConjugationGameSetup/>}/>
-          <Route path="/conjugation-game/play" element={<ConjugationGame/>}/>
-          <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
-          <Route path="/vocabulary-game/play" element={<VocabularyGame/>}/>
           <Route path="/rankings" element={<Rankings/>}/>
           <Route path="/search" element={<SearchResults/>}/>
           <Route path="/meanings/:pk" element={<Meanings/>}/>
@@ -44,6 +38,15 @@ export default function AppRoutes() {
           <Route path="/update-account" element={<UpdateAccount/>}/>
           <Route path="/request-reset-account" element={<RequestResetAccount/>}/>
           <Route path="/reset-account/:uid/:token" element={<ResetAccount/>}/>
+          {
+            // Games routes
+          }
+          <Route path="/article-game/setup" element={<ArticleGameSetup/>}/>
+          <Route path="/article-game/play" element={<ArticleGame/>}/>
+          <Route path="/conjugation-game/setup" element={<ConjugationGameSetup/>}/>
+          <Route path="/conjugation-game/play" element={<ConjugationGame/>}/>
+          <Route path="/vocabulary-game/setup" element={<VocabularyGameSetup/>}/>
+          <Route path="/vocabulary-game/play" element={<VocabularyGame/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import CustomizedSpinner from "components/CustomizedSpinner";
+import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/SearchResultCard";
 import { useEffect, useState } from "react";
@@ -29,7 +29,7 @@ export default function WordList({ words, isLoading=false, callback=((page) => {
             <div className="row justify-content-center">
                 {
                     isLoading?
-                    <CustomizedSpinner animation="border"/>:
+                    <CustomSpinner animation="border"/>:
                     <>
                         {words.results.map((word) => <SearchResultCard 
                                                         key={word.id} 

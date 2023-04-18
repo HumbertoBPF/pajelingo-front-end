@@ -2,7 +2,7 @@ import styles from "./Footer.module.css"
 
 export default function Footer() {
     return (
-        <footer className={`mt-4 ${styles["customized-footer"]}`}>
+        <footer className={`mt-4 ${styles["custom-footer"]}`}>
             <section>
                 
                 <p>Author of this app and his other projects:</p>

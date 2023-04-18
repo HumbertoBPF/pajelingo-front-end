@@ -1,4 +1,4 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import { getEmailValidators } from "components/UserForm/validators";
@@ -63,10 +63,10 @@ export default function RequestResetAccount() {
                         validators={getEmailValidators()} 
                         onChange={(event) => setEmail(event.target.value)}/>
                     <div className="text-center">
-                        <CustomizedButton variant="success" type="submit" 
+                        <CustomButton variant="success" type="submit" 
                             isLoading={isLoading} disabled={isLoading}>
                                 Reset password
-                        </CustomizedButton>
+                        </CustomButton>
                     </div>
                 </Form>
             }

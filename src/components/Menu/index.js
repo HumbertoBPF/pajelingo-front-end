@@ -5,17 +5,20 @@ import { Link } from "react-router-dom";
 import { fetchUser } from "services/user";
 import { deleteUser } from "store/reducers/user";
 import styles from "./Menu.module.css"
+import { fetchGames } from "services/games";
 
 export default function Menu() {
     const user = useSelector(state => state.user);
+    const games = useSelector(state => state.games);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchUser());
+        dispatch(fetchGames());
     }, [dispatch]);
 
     return (
-        <header className={styles["customized-menu"]}>
+        <header className={styles["custom-menu"]}>
             <Navbar className="mb-4" expand="lg">
                 <Container fluid>
                     <Navbar.Brand href="/dashboard">
@@ -63,9 +66,9 @@ export default function Menu() {
                         <Nav className="me-auto">
                             <Nav.Link href="/search" className={`${styles["nav-link"]}`}>Search tool</Nav.Link>
                             <NavDropdown title="Games" id="basic-nav-dropdown" className={`${styles["nav-link"]}`}>
-                                <NavDropdown.Item href="/vocabulary-game/setup">Vocabulary training</NavDropdown.Item>
-                                <NavDropdown.Item href="/article-game/setup">Guess the article</NavDropdown.Item>
-                                <NavDropdown.Item href="/conjugation-game/setup">Conjugation game</NavDropdown.Item>
+                                {Object.values(games).map(game => 
+                                    <NavDropdown.Item key={game.game_name} href={`${game.link}setup`}>{game.game_name}</NavDropdown.Item>
+                                )}
                                 <NavDropdown.Item href="/rankings">Rankings</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="/about-us" className={`${styles["nav-link"]}`}>About us</Nav.Link>

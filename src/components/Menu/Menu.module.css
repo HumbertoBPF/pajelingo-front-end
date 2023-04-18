@@ -1,4 +1,4 @@
-.customized-menu {
+.custom-menu {
     background-color: var(--primary-color);
     color: white;
 }
@@ -15,18 +15,18 @@
   color: var(--primary-hover-color);
 }
 
-.customized-menu .account-options .btn {
+.custom-menu .account-options .btn {
   color: white;
   background-color: var(--primary-color);
   border-style: none;
 }
 
-.customized-menu .account-options .account-sm-img {
+.custom-menu .account-options .account-sm-img {
   border-radius: 50%;
 }
 
 @media screen and (min-width: 992px) {
-  .customized-menu .account-options {
+  .custom-menu .account-options {
     position: absolute; 
     right: 0.75em;
   }

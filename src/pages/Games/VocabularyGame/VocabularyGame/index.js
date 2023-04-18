@@ -1,5 +1,7 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
+import CustomSpinner from "components/CustomSpinner";
 import FeedbackCard from "components/FeedbackCard";
+import useGame from "hooks/useGame";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -7,8 +9,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function VocabularyGame(){
-    const [searchParams] = useSearchParams();
     const user = useSelector(state => state.user);
+    const [vocabularyGame] = useGame(1);
+
+    const [searchParams] = useSearchParams();
+
     const [word, setWord] = useState({
         id: null,
         word: ""
@@ -20,7 +25,9 @@ export default function VocabularyGame(){
         score: null,
         state: "idle"
     });
+
     const navigate = useNavigate();
+
     const playAgain = useCallback(() => {
         const queryParams = new URLSearchParams({
             language: searchParams.get("target_language")
@@ -31,7 +38,7 @@ export default function VocabularyGame(){
                 return response.json();
             }
 
-            navigate("/vocabulary-game/setup");
+            navigate(`${vocabularyGame.link}setup`);
         })
         .then((data) => {
             setWord(data);
@@ -43,7 +50,7 @@ export default function VocabularyGame(){
                 state: "idle"
             });
         });
-    }, [searchParams, navigate]);
+    }, [searchParams, navigate, vocabularyGame]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -85,26 +92,38 @@ export default function VocabularyGame(){
     useEffect(() => playAgain(), [playAgain]);
 
     return (
-        (feedback.state === "succeeded")?
-        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>
-            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-            <br/>
-            {`${word.word}: ${feedback.correct_answer}`}
-            <br/>
-            {(feedback.score)?`Your score is ${feedback.score}`:null}
-        </FeedbackCard>:
-        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
-            <Form.Group className="mb-4" controlId="wordInput">
-                <Form.Control className="text-center" type="text" placeholder={word.word} disabled />
-            </Form.Group>
-            <Form.Group className="mb-4" controlId="answerInput">
-                <Form.Control className="text-center" type="text" 
-                    placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
-                    onChange={(event) => setAnswer(event.target.value)}/>
-            </Form.Group>
-            <div className="text-center">
-                <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>
-            </div>
-        </Form>
+        <>
+            {
+                (Object.keys(vocabularyGame).length === 0)?
+                <div>
+                    <CustomSpinner/>
+                </div>:
+                <>
+                    {
+                        (feedback.state === "succeeded")?
+                        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+                            <br/>
+                            {`${word.word}: ${feedback.correct_answer}`}
+                            <br/>
+                            {(feedback.score)?`Your score is ${feedback.score}`:null}
+                        </FeedbackCard>:
+                        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
+                            <Form.Group className="mb-4" controlId="wordInput">
+                                <Form.Control className="text-center" type="text" placeholder={word.word} disabled />
+                            </Form.Group>
+                            <Form.Group className="mb-4" controlId="answerInput">
+                                <Form.Control className="text-center" type="text" 
+                                    placeholder={`Provide the translation in ${searchParams.get("base_language")}`} 
+                                    onChange={(event) => setAnswer(event.target.value)}/>
+                            </Form.Group>
+                            <div className="text-center">
+                                <CustomButton variant="success" type="submit">Verify answer</CustomButton>
+                            </div>
+                        </Form>
+                    }
+                </>
+            }
+        </>
     );
 }

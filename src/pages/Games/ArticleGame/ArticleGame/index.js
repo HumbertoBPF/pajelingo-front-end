@@ -1,5 +1,7 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
+import CustomSpinner from "components/CustomSpinner";
 import FeedbackCard from "components/FeedbackCard";
+import useGame from "hooks/useGame";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -7,8 +9,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 
 export default function ArticleGame() {
-    const [searchParams] = useSearchParams();
     const user = useSelector(state => state.user);
+
+    const [searchParams] = useSearchParams();
+    
+    const [articleGame] = useGame(2);
     const [word, setWord] = useState({
         id: null,
         word: ""
@@ -20,7 +25,9 @@ export default function ArticleGame() {
         score: null,
         state: "idle"
     });
+    
     const navigate = useNavigate();
+    
     const playAgain = useCallback(() => {
         fetch(`${baseUrl}/article-game?${searchParams}`)
         .then((response) => {
@@ -28,7 +35,7 @@ export default function ArticleGame() {
                 return response.json();
             }
 
-            navigate("/article-game/setup");
+            navigate(`${articleGame}setup`);
         })
         .then((data) => {
             setWord(data);
@@ -40,7 +47,7 @@ export default function ArticleGame() {
                 state: "idle"
             });
         });
-    }, [searchParams, navigate]);
+    }, [searchParams, navigate, articleGame]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -83,27 +90,39 @@ export default function ArticleGame() {
     useEffect(() => playAgain(), [playAgain]);
 
     return (
-        (feedback.state === "succeeded")?
-        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={() => playAgain()}>
-            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-            <br/>
-            {feedback.correct_answer}
-            <br/>
-            {(feedback.score)?`Your score is ${feedback.score}`:null}
-        </FeedbackCard>:
-        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
-            <div className="mb-4 row">
-                <Form.Group className="col-4 col-lg-2" controlId="articleInput">
-                    <Form.Control className="text-center mb-4" type="text" placeholder="Article" 
-                        onChange={(event) => setAnswer(event.target.value)} />
-                </Form.Group>
-                <Form.Group className="col-8 col-lg-10" controlId="wordInput">
-                    <Form.Control className="text-center mb-4" type="text" placeholder={word.word} disabled />
-                </Form.Group>
-            </div>
-            <div className="text-center">
-                <CustomizedButton variant="success" type="submit">Verify answer</CustomizedButton>
-            </div>
-        </Form>
+        <>
+            {
+                (Object.keys(articleGame).length === 0)?
+                <div className="text-center">
+                    <CustomSpinner/>
+                </div>:
+                <>
+                    {
+                        (feedback.state === "succeeded")?
+                        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
+                            <br/>
+                            {feedback.correct_answer}
+                            <br/>
+                            {(feedback.score)?`Your score is ${feedback.score}`:null}
+                        </FeedbackCard>:
+                        <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
+                            <div className="mb-4 row">
+                                <Form.Group className="col-4 col-lg-2" controlId="articleInput">
+                                    <Form.Control className="text-center mb-4" type="text" placeholder="Article" 
+                                        onChange={(event) => setAnswer(event.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="col-8 col-lg-10" controlId="wordInput">
+                                    <Form.Control className="text-center mb-4" type="text" placeholder={word.word} disabled />
+                                </Form.Group>
+                            </div>
+                            <div className="text-center">
+                                <CustomButton variant="success" type="submit">Verify answer</CustomButton>
+                            </div>
+                        </Form>
+                    }
+                </>
+            }
+        </>
     );
 }

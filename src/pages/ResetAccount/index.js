@@ -1,4 +1,4 @@
-import CustomizedButton from "components/CustomizedButton";
+import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import NotificationToast from "components/NotificationToast";
 import ShortcutButtons from "components/ShortcutButtons";
@@ -81,10 +81,10 @@ export default function ResetAccount() {
                         placeholder="Confirm your password"
                         validators={getConfirmPasswordValidators(password)}/>
                     <div className="text-center">
-                        <CustomizedButton variant="success" type="submit" 
+                        <CustomButton variant="success" type="submit" 
                             isLoading={isLoading} disabled={isLoading}>
                                 Submit
-                        </CustomizedButton>
+                        </CustomButton>
                     </div>
                 </Form>
             </section>}
