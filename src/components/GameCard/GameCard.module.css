@@ -1,0 +1,11 @@
+.game-card {
+    background-color: var(--secondary-color);
+}
+
+.game-card p {
+    color: white;
+}
+
+.game-card:hover {
+    background-color: var(--primary-color);
+}

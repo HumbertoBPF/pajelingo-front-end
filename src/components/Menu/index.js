@@ -9,7 +9,6 @@ import { fetchGames } from "services/games";
 
 export default function Menu() {
     const user = useSelector(state => state.user);
-    const games = useSelector(state => state.games);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -66,9 +65,7 @@ export default function Menu() {
                         <Nav className="me-auto">
                             <Nav.Link href="/search" className={`${styles["nav-link"]}`}>Search tool</Nav.Link>
                             <NavDropdown title="Games" id="basic-nav-dropdown" className={`${styles["nav-link"]}`}>
-                                {Object.values(games).map(game => 
-                                    <NavDropdown.Item key={game.game_name} href={`${game.link}setup`}>{game.game_name}</NavDropdown.Item>
-                                )}
+                                <NavDropdown.Item href="/games">Play</NavDropdown.Item>
                                 <NavDropdown.Item href="/rankings">Rankings</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="/about-us" className={`${styles["nav-link"]}`}>About us</Nav.Link>
