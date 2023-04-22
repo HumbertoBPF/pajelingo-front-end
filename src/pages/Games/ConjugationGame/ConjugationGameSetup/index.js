@@ -5,6 +5,7 @@ import SelectLanguage from "components/SelectLanguage";
 import useGame from "hooks/useGame";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -50,7 +51,7 @@ export default function ConjugationGameSetup() {
                     <h5>{conjugationGame.game_name}</h5>
                     <br/>
                     <section>
-                        <p>{conjugationGame.instructions}</p>
+                        <ReactMarkdown>{conjugationGame.instructions}</ReactMarkdown>
                     </section>
                     <Form onSubmit={(event) => handleFormSubmit(event)}>
                         <SelectLanguage items={languages} defaultItem="Choose a language"
