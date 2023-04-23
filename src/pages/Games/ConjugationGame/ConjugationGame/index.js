@@ -42,7 +42,19 @@ export default function ConjugationGame() {
     const navigate = useNavigate();
     
     const playAgain = useCallback(() => {
-        fetch(`${baseUrl}/conjugation-game?${searchParams}`)
+        if (conjugationGame.link) {
+            let authHeaders = {}
+
+            if (user) {
+                authHeaders["Authorization"] = `Token ${user.token}`;
+            }
+
+            fetch(`${baseUrl}/conjugation-game?${searchParams}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...authHeaders
+                }  
+            })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -67,7 +79,8 @@ export default function ConjugationGame() {
                     state: "idle"
                 });
             });
-    }, [searchParams, navigate, conjugationGame]);
+        }
+    }, [searchParams, navigate, conjugationGame.link, user]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -95,7 +108,7 @@ export default function ConjugationGame() {
                 "word_id": verb.id,
                 "tense": verb.tense,
                 ...conjugation   
-            })
+        })
         }).then((response) => response.json()).then((data) => {
             setFeedback({
                 result: data.result,

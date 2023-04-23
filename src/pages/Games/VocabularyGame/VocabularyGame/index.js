@@ -29,28 +29,42 @@ export default function VocabularyGame(){
     const navigate = useNavigate();
 
     const playAgain = useCallback(() => {
-        const queryParams = new URLSearchParams({
-            language: searchParams.get("target_language")
-        });
-        fetch(`${baseUrl}/vocabulary-game?${queryParams}`)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-
-            navigate(`${vocabularyGame.link}setup`);
-        })
-        .then((data) => {
-            setWord(data);
-            setAnswer("");
-            setFeedback({
-                result: null,
-                correct_answer:null,
-                score: null,
-                state: "idle"
+        if (vocabularyGame.link) {
+            const queryParams = new URLSearchParams({
+                language: searchParams.get("target_language")
             });
-        });
-    }, [searchParams, navigate, vocabularyGame]);
+    
+            let authHeaders = {}
+    
+            if (user) {
+                authHeaders["Authorization"] = `Token ${user.token}`;
+            }
+    
+            fetch(`${baseUrl}/vocabulary-game?${queryParams}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...authHeaders
+                }
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+    
+                navigate(`${vocabularyGame.link}setup`);
+            })
+            .then((data) => {
+                setWord(data);
+                setAnswer("");
+                setFeedback({
+                    result: null,
+                    correct_answer:null,
+                    score: null,
+                    state: "idle"
+                });
+            });
+        }
+    }, [searchParams, navigate, vocabularyGame.link, user]);
 
     function handleFormSubmit(event) {
         event.preventDefault();

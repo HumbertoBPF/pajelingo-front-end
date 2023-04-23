@@ -29,25 +29,38 @@ export default function ArticleGame() {
     const navigate = useNavigate();
     
     const playAgain = useCallback(() => {
-        fetch(`${baseUrl}/article-game?${searchParams}`)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
+        if (articleGame.link) {
+            let authHeaders = {};
+
+            if (user) {
+                authHeaders["Authorization"] = `Token ${user.token}`;
             }
 
-            navigate(`${articleGame}setup`);
-        })
-        .then((data) => {
-            setWord(data);
-            setAnswer("");
-            setFeedback({
-                result: null,
-                correct_answer:null,
-                score: null,
-                state: "idle"
+            fetch(`${baseUrl}/article-game?${searchParams}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...authHeaders
+                }
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                navigate(`${articleGame.link}setup`);
+            })
+            .then((data) => {
+                setWord(data);
+                setAnswer("");
+                setFeedback({
+                    result: null,
+                    correct_answer:null,
+                    score: null,
+                    state: "idle"
+                });
             });
-        });
-    }, [searchParams, navigate, articleGame]);
+        }
+    }, [searchParams, navigate, articleGame.link, user]);
 
     function handleFormSubmit(event) {
         event.preventDefault();
