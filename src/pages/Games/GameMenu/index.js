@@ -1,4 +1,4 @@
-import GameCard from "components/GameCard";
+import GameCard from "components/cards/GameCard";
 import { useSelector } from "react-redux";
 
 export default function GameMenu() {

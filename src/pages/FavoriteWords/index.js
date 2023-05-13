@@ -1,5 +1,5 @@
 import WordListWithFilters from "components/WordListWithFilters";
-import HeartIcon from "components/HeartIcon";
+import HeartIcon from "components/icons/HeartIcon";
 import NotificationToast from "components/NotificationToast";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";

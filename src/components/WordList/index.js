@@ -1,6 +1,6 @@
 import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
-import SearchResultCard from "components/SearchResultCard";
+import SearchResultCard from "components/cards/SearchResultCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -44,7 +44,8 @@ export default function WordList({ words, isLoading=false, callback=((page) => {
                 count={words.count} 
                 resultsPerPage={12} 
                 page={words.page} 
-                callback={(page) => callback(page)}/> 
+                callback={(page) => callback(page)}
+            /> 
         </>   
     );
 }

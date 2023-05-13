@@ -7,7 +7,7 @@ export default function GameCard({ game }) {
             <div className="row g-0">
                 <div className="col-4 col-md-3 col-lg-2 d-flex align-items-center justify-content-center">
                     <div>
-                        <img src={`data:image/jpeg;base64,${game.image}`} className="img-fluid rounded-start" alt="Welcome to Pajelingo"/>
+                        <img src={`data:image/jpeg;base64,${game.image}`} className="img-fluid rounded-start" alt={game.game_name}/>
                     </div>
                 </div>
                 <div className="col-8 col-md-9 col-lg-10 row p-4">

@@ -1,4 +1,4 @@
-import AboutUsCard from "components/AboutUsCard";
+import AboutUsCard from "components/cards/AboutUsCard";
 import data from "./data.json"
 
 export default function AboutUs() {

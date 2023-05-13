@@ -1,0 +1,7 @@
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    opacity: 0.5;
+}

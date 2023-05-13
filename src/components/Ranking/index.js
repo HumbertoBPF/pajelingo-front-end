@@ -1,6 +1,10 @@
 import { Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import styles from "./Ranking.module.css";
 
 export default function Ranking({ ranking }) {
+    const navigate = useNavigate();
+
     return (
         <Table striped>
             <thead>
@@ -12,11 +16,13 @@ export default function Ranking({ ranking }) {
             </thead>
             <tbody>
                 {ranking.results.map((item, index) => 
-                    <tr key={index}>
-                        <td>{(ranking.page-1)*10 + index + 1}</td>
-                        <td>{item.user}</td>
-                        <td>{item.score}</td>
-                    </tr>)}
+                        <tr className={styles["clickable-row"]} onClick={() => navigate(`/accounts/${item.user}`)} key={index}>
+                            <td>{(ranking.page-1)*10 + index + 1}</td>
+                            <td>{item.user}</td>
+                            <td>{item.score}</td>
+                        </tr>
+                    )
+                }
                 {(ranking.user_score)?
                 <>
                     <tr>

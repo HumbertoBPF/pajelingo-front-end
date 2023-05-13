@@ -1,6 +1,6 @@
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
-import FeedbackCard from "components/FeedbackCard";
+import FeedbackAlert from "components/FeedbackAlert";
 import useGame from "hooks/useGame";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
@@ -31,7 +31,8 @@ export default function VocabularyGame(){
     const playAgain = useCallback(() => {
         if (vocabularyGame.link) {
             const queryParams = new URLSearchParams({
-                language: searchParams.get("target_language")
+                base_language: searchParams.get("base_language"),
+                target_language: searchParams.get("target_language")
             });
     
             let authHeaders = {}
@@ -109,19 +110,19 @@ export default function VocabularyGame(){
         <>
             {
                 (Object.keys(vocabularyGame).length === 0)?
-                <div>
+                <div className="text-center">
                     <CustomSpinner/>
                 </div>:
                 <>
                     {
                         (feedback.state === "succeeded")?
-                        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                        <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
                             {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
                             <br/>
                             {`${word.word}: ${feedback.correct_answer}`}
                             <br/>
                             {(feedback.score)?`Your score is ${feedback.score}`:null}
-                        </FeedbackCard>:
+                        </FeedbackAlert>:
                         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
                             <Form.Group className="mb-4" controlId="wordInput">
                                 <Form.Control className="text-center" type="text" placeholder={word.word} disabled />

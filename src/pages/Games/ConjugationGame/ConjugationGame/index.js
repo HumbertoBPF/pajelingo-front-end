@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
-import FeedbackCard from "components/FeedbackCard";
+import FeedbackAlert from "components/FeedbackAlert";
 import { Form } from "react-bootstrap";
 import LabeledInput from "components/LabeledInput";
 import CustomButton from "components/CustomButton";
@@ -140,7 +140,7 @@ export default function ConjugationGame() {
                     <CustomSpinner/>
                 </div>:
                 (feedback.state === "succeeded")?
-                <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
                         {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
                         <br/>
                         {feedback.correct_answer.split("\n").map(
@@ -148,7 +148,7 @@ export default function ConjugationGame() {
                                 <span key={index}>{item}</span>:
                                 <span key={index}>{item}<br/></span>))}
                         {(feedback.score)?`Your score is ${feedback.score}`:null}
-                </FeedbackCard>:
+                </FeedbackAlert>:
                 <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>  
                     <LabeledInput controlId="word" type="text" label="" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
                     <LabeledInput controlId="conjugation1" type="text" label={language.personal_pronoun_1} 

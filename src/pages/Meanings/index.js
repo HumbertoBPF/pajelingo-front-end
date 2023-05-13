@@ -1,10 +1,10 @@
-import MeaningCard from "components/MeaningCard";
+import MeaningCard from "components/cards/MeaningCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { baseUrl } from "services/base";
 import CustomButton from "components/CustomButton";
-import HeartIcon from "components/HeartIcon";
+import HeartIcon from "components/icons/HeartIcon";
 
 export default function Meanings() {
     const params = useParams();

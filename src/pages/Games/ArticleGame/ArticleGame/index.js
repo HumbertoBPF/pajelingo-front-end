@@ -1,6 +1,6 @@
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
-import FeedbackCard from "components/FeedbackCard";
+import FeedbackAlert from "components/FeedbackAlert";
 import useGame from "hooks/useGame";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
@@ -112,13 +112,13 @@ export default function ArticleGame() {
                 <>
                     {
                         (feedback.state === "succeeded")?
-                        <FeedbackCard variant={(feedback.result?"success":"danger")} onClick={playAgain}>
+                        <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
                             {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
                             <br/>
                             {feedback.correct_answer}
                             <br/>
                             {(feedback.score)?`Your score is ${feedback.score}`:null}
-                        </FeedbackCard>:
+                        </FeedbackAlert>:
                         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
                             <div className="mb-4 row">
                                 <Form.Group className="col-4 col-lg-2" controlId="articleInput">

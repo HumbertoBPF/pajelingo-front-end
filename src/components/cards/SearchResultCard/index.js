@@ -3,7 +3,7 @@ import styles from "./SearchResultCard.module.css";
 import { useState } from "react";
 import { baseUrl } from "services/base";
 import { useSelector } from "react-redux";
-import HeartIcon from "components/HeartIcon";
+import HeartIcon from "components/icons/HeartIcon";
 
 export default function SearchResultCard({ word, flagImage }) {
     const user = useSelector(state => state.user);
@@ -47,7 +47,8 @@ export default function SearchResultCard({ word, flagImage }) {
                             <img 
                                 src={`data:image/jpeg;base64,${flagImage}`} 
                                 className="img-fluid rounded-start" 
-                                alt={`${word.language} language flag`}/>
+                                alt={`${word.language} language flag`}
+                            />
                         </div>
                     </div>
                     <div className="col-md-8 d-flex align-items-center justify-content-center">

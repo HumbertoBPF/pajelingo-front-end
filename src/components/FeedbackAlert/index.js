@@ -1,7 +1,7 @@
 import CustomButton from "components/CustomButton";
 import { Alert } from "react-bootstrap";
 
-export default function FeedbackCard({ variant, children, onClick=((event) => {}) }) {
+export default function FeedbackAlert({ variant, children, onClick=((event) => {}) }) {
     return (
         <>
             <Alert className="text-center" variant={variant}>{children}</Alert>
