@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import styles from "./AccountCard.module.css";
 
 export default function AccountCard({ user }) {
     function renderProfilePicture() {
@@ -22,7 +23,7 @@ export default function AccountCard({ user }) {
     }
 
     return (
-        <Link className={`card text-reset text-decoration-none mb-4`} to={`/accounts/${user.username}`}>
+        <Link className={`card ${styles["account-card"]} text-reset text-decoration-none mb-4`} to={`/accounts/${user.username}`}>
             <div className="row g-0">
                 <div className="col-6 col-sm-4 col-md-2 d-flex align-items-center justify-content-center">
                     <div>

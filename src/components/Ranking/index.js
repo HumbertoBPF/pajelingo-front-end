@@ -30,7 +30,7 @@ export default function Ranking({ ranking }) {
                         <td>...</td>
                         <td>...</td>
                     </tr>
-                    <tr>
+                    <tr className={styles["clickable-row"]} onClick={() => navigate(`/accounts/${ranking.user_score.user}`)}>
                         <th scope="row">(You) {ranking.user_score.position}</th>
                         <th scope="row">{ranking.user_score.user}</th>
                         <th scope="row">{ranking.user_score.score}</th>

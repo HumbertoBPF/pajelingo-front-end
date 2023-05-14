@@ -1,5 +1,6 @@
 .clickable-row {
     cursor: pointer;
+    word-break: break-all;
 }
 
 .clickable-row:hover {
