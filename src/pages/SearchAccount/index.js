@@ -1,5 +1,6 @@
 import AccountCard from "components/cards/AccountCard";
 import CustomButton from "components/CustomButton";
+import CustomSpinner from "components/CustomSpinner";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import PaginationBar from "components/PaginationBar";
 import { useCallback, useState } from "react";
@@ -23,16 +24,20 @@ export default function SearchAccount() {
         .then((response) => response.json())
         .then((data) => {
             setUsers({...data, page: page});
-            setIsLoading(false);
+            setTimeout(() => setIsLoading(false), 2000);
         });
     }, [searchPattern]);
 
     function renderAccounts() {
         if (users) {
             return (
-                <>
-                    <div className="mt-4">
-                        {users.results.map(item => <AccountCard key={item.username} user={item}/>)}
+                <>       
+                    <div className="mt-4 text-center">
+                        {
+                            isLoading?
+                            <CustomSpinner />:
+                            users.results.map(item => <AccountCard key={item.username} user={item}/>)
+                        }
                     </div>
                     <PaginationBar 
                         previous={users.previous} 
@@ -70,8 +75,6 @@ export default function SearchAccount() {
                     <CustomButton
                         variant="success"
                         type="submit"
-                        disabled={isLoading}
-                        isLoading={isLoading}
                     >
                         Search account
                     </CustomButton> 
