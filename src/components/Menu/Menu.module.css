@@ -14,20 +14,3 @@
 .nav-link:focus {
   color: var(--primary-hover-color);
 }
-
-.custom-menu .account-options .btn {
-  color: white;
-  background-color: var(--primary-color);
-  border-style: none;
-}
-
-.custom-menu .account-options .account-sm-img {
-  border-radius: 50%;
-}
-
-@media screen and (min-width: 992px) {
-  .custom-menu .account-options {
-    position: absolute; 
-    right: 0.75em;
-  }
-}

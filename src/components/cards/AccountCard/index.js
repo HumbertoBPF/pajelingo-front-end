@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./AccountCard.module.css";
+import { Ratio } from "react-bootstrap";
 
 export default function AccountCard({ user }) {
     function renderProfilePicture() {
@@ -26,9 +27,9 @@ export default function AccountCard({ user }) {
         <Link className={`card ${styles["account-card"]} text-reset text-decoration-none mb-4`} to={`/accounts/${user.username}`}>
             <div className="row g-0">
                 <div className="col-6 col-sm-4 col-md-2 d-flex align-items-center justify-content-center">
-                    <div>
+                    <Ratio aspectRatio="1x1">
                         {renderProfilePicture()}
-                    </div>
+                    </Ratio>
                 </div>
                 <div className="col-6 col-sm-8 col-md-10 row">
                     <div className="card-body d-flex align-items-center justify-content-center">

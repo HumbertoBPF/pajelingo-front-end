@@ -1,3 +1,7 @@
 .account-card p {
     word-break: break-all;
 }
+
+.account-card img {
+    object-fit: cover;
+}

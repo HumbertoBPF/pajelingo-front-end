@@ -1,15 +1,10 @@
 import { useEffect } from "react";
-import { Container, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { fetchUser } from "services/user";
-import { deleteUser } from "store/reducers/user";
 import styles from "./Menu.module.css"
 import { fetchGames } from "services/games";
-import UserIcon from "components/icons/UserIcon";
-import LogoutIcon from "components/icons/LogoutIcon";
-import SignUpIcon from "components/icons/SignUpIcon";
-import SignInIcon from "components/icons/SignInIcon";
+import AccountMenu from "components/AccountMenu";
 
 export default function Menu() {
     const user = useSelector(state => state.user);
@@ -27,31 +22,7 @@ export default function Menu() {
                     <Navbar.Brand href="/dashboard">
                         <img src="/images/brand.png" alt="Pajelingo logo" height="48"/>
                     </Navbar.Brand>
-                    {
-                        (user)?
-                        <Dropdown className={`${styles["account-options"]}`}>
-                            <Dropdown.Toggle className={`btn btn-account-options ${styles["btn"]}`}>
-                                {(user.picture)?
-                                <img src={`data:image/jpeg;base64,${user.picture}`} className={`${styles["account-sm-img"]}`} alt="User profile" height="48"/>:
-                                <img src="/images/profile.jpg" className={`${styles["account-sm-img"]}`} alt="User profile" height="48"/>}
-                                <span> {user.username}</span>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item className="dropdown-item" href="/profile">
-                                    <UserIcon /> <span>Profile</span></Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item" onClick={() => dispatch(deleteUser())}>
-                                    <LogoutIcon /> <span>Logout</span></Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>:
-                        <div className={`${styles["account-options"]}`}>
-                            <Link className="btn btn-success" to="/signup" role="button">
-                                <SignUpIcon /> <span>Sign up</span>
-                            </Link>
-                            <Link className="btn btn-primary ms-2" to="/login" role="button">
-                                <SignInIcon /> <span>Sign in</span>
-                            </Link>
-                        </div>
-                    }
+                    <AccountMenu user={user} />
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

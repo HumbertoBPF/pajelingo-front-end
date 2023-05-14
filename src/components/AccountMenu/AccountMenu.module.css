@@ -1,0 +1,19 @@
+.account-options .btn {
+    color: white;
+    background-color: var(--primary-color);
+    border-style: none;
+  }
+  
+.account-options img {
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    object-fit: cover;
+}
+
+@media screen and (min-width: 992px) {
+    .account-options {
+        position: absolute; 
+        right: 0.75em;
+    }
+}

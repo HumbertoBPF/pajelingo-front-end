@@ -21,7 +21,7 @@ export default function Profile() {
             setUser(data);
         })
         .catch(() => navigate("/accounts"));
-    }, [params]);
+    }, [params, navigate]);
 
     return (
         <Account user={user} />
