@@ -26,11 +26,11 @@ export default function Menu() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <NavDropdown title="Search" id="basic-nav-dropdown" className={`${styles["nav-link"]}`}>
+                            <NavDropdown title="Search" className={`${styles["nav-link"]}`}>
                                 <NavDropdown.Item href="/dictionary">Dictionary</NavDropdown.Item>
                                 <NavDropdown.Item href="/accounts">Account</NavDropdown.Item>
                             </NavDropdown>
-                            <NavDropdown title="Games" id="basic-nav-dropdown" className={`${styles["nav-link"]}`}>
+                            <NavDropdown title="Games" className={`${styles["nav-link"]}`}>
                                 <NavDropdown.Item href="/games">Play</NavDropdown.Item>
                                 <NavDropdown.Item href="/rankings">Rankings</NavDropdown.Item>
                             </NavDropdown>

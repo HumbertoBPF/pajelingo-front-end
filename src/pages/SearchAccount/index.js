@@ -60,6 +60,7 @@ export default function SearchAccount() {
                 onSubmit={
                     (event) => {
                         event.preventDefault();
+                        setUsers(undefined);
                         paginationCallback(1);
                     }
                 }

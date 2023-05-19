@@ -3,14 +3,14 @@
     color: white;
 }
 
-.nav-link, .nav-link a {
+.nav-link, .nav-link > a {
   color: white;
 }
 
-.nav-link:hover, .nav-link a:hover {
+.nav-link:hover, .nav-link > a:hover {
   color: var(--primary-hover-color);
 }
 
-.nav-link:focus, .nav-link a:focus {
+.nav-link:focus, .nav-link > a:focus {
   color: var(--primary-hover-color);
 }
