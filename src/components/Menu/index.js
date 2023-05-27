@@ -26,15 +26,15 @@ export default function Menu() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <NavDropdown title="Search" className={`${styles["nav-link"]}`}>
+                            <NavDropdown title="Search" className={`${styles["nav-link"]} text-center`}>
                                 <NavDropdown.Item href="/dictionary">Dictionary</NavDropdown.Item>
                                 <NavDropdown.Item href="/accounts">Account</NavDropdown.Item>
                             </NavDropdown>
-                            <NavDropdown title="Games" className={`${styles["nav-link"]}`}>
+                            <NavDropdown title="Games" className={`${styles["nav-link"]} text-center`}>
                                 <NavDropdown.Item href="/games">Play</NavDropdown.Item>
                                 <NavDropdown.Item href="/rankings">Rankings</NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Link href="/about-us" className={`${styles["nav-link"]}`}>About us</Nav.Link>
+                            <Nav.Link href="/about-us" className={`${styles["nav-link"]} text-center`}>About us</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

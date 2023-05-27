@@ -5,6 +5,7 @@
 
 .search-card:hover {
     background-color: var(--primary-color);
+    cursor: pointer;
 }
 
 .icon-heart {

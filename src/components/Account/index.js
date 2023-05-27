@@ -8,7 +8,7 @@ import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import { getImageFileValidators } from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Col, Form, ListGroup, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -162,9 +162,6 @@ export default function Account({ user }) {
         if (user.token) {
             return (
                 <>
-                    <CustomButton className="mt-4" variant="danger" onClick={() => setShowDeleteAccountModal(true)}>
-                        <DeleteUserIcon /> <span>Delete account</span>
-                    </CustomButton>
                     <Modal show={showDeleteAccountModal}>
                         <Modal.Header>
                             <Modal.Title>
@@ -197,39 +194,46 @@ export default function Account({ user }) {
 
     return (
         <>
-            <section className="row">
-                <div className="col-12 col-md-5 col-lg-3">
-                    {renderProfilePicture()}
-                    {renderUpdatePictureSection()}
-                </div>
-                <div className="col-12 col-md-7 col-lg-9 mt-4">
-                    <AccountDetails user={user}/>
-                    {
-                        user.token?
-                        <section>      
-                            <CustomButton variant="info" onClick={() => navigate("/update-account")}>
+            <Row>
+                {
+                    user.token?
+                    <Col className="mb-4" md={4} lg={3}>
+                        <ListGroup>
+                            <ListGroup.Item action onClick={() => navigate("/update-account")}>
                                 <UpdateUserIcon /> <span>Edit account</span>
-                            </CustomButton>
-                            <br/>                      
-                            {renderDeleteAccountSection()}
-                            <br/>
-                            <CustomButton className="mt-4" variant="info" onClick={() => navigate("/profile/favorite-words")}>
+                            </ListGroup.Item>
+                            <ListGroup.Item action onClick={() => setShowDeleteAccountModal(true)}>
+                                <DeleteUserIcon /> <span>Delete account</span>
+                            </ListGroup.Item>
+                            <ListGroup.Item action onClick={() => navigate("/profile/favorite-words")}>
                                 <HeartIcon fill/> <span>Favorite words</span>
-                            </CustomButton>                            
-                        </section>:
-                        null
-                    }
-                </div>
-            </section>
-            <section>
-                <h5 className="my-4">Your performance in our games:</h5>
-                <SelectLanguage items={languages} onClick={(target) => {
-                    fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
-                    .then((response) => response.json())
-                    .then((data) => setScores(data));
-                }}/>
-                <UserScores scores={scores}/>
-            </section>
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Col>:
+                    null
+                }
+                <Col md={user.token?8:12} lg={user.token?9:12}>
+                    <Row>
+                        <Col md={5} lg={3}>
+                            {renderProfilePicture()}
+                            {renderUpdatePictureSection()}
+                        </Col>
+                        <Col md={7} lg={9} className="mt-4">
+                            <AccountDetails user={user}/>
+                        </Col>
+                        <Col>
+                            <h5 className="my-4">Your performance in our games:</h5>
+                            <SelectLanguage items={languages} onClick={(target) => {
+                                fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
+                                .then((response) => response.json())
+                                .then((data) => setScores(data));
+                            }}/>
+                            <UserScores scores={scores}/>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+            {renderDeleteAccountSection()}
             <NotificationToast 
                 show={showToast} 
                 variant="danger" 

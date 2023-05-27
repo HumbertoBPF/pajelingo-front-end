@@ -2,6 +2,7 @@ import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
 import SearchResultCard from "components/cards/SearchResultCard";
 import { useEffect, useState } from "react";
+import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 export default function WordList({ words, isLoading=false, callback=((page) => {}) }) {
@@ -26,7 +27,7 @@ export default function WordList({ words, isLoading=false, callback=((page) => {
             </div>
         </div>:
         <>  
-            <div className="row justify-content-center">
+            <Row className="justify-content-center" xs={2} sm={2} md={3}>
                 {
                     isLoading?
                     <CustomSpinner animation="border"/>:
@@ -37,7 +38,7 @@ export default function WordList({ words, isLoading=false, callback=((page) => {
                                                         flagImage={languagesFlag.get(word.language)}/>)}
                     </>
                 }
-            </div>
+            </Row>
             <PaginationBar 
                 previous={words.previous} 
                 next={words.next} 

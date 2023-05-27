@@ -1,7 +1,7 @@
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import { useState } from "react";
-import { Form } from "react-bootstrap";
+import { FloatingLabel, Form } from "react-bootstrap";
 import { getConfirmPasswordValidators, getEmailValidators, getPasswordValidators, getUsernameValidators } from "./validators";
 
 export default function UserForm({ user={email:"", username:""}, buttonColorStyle, buttonText , isLoading=false, 
@@ -9,6 +9,7 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
     const [personalData, setPersonalData] = useState({
         email: user.email,
         username: user.username, 
+        bio: user.bio?user.bio:"",
         password: ""
     });
     
@@ -35,6 +36,23 @@ export default function UserForm({ user={email:"", username:""}, buttonColorStyl
                 required
                 onChange={(event) => setPersonalData({...personalData, username: event.target.value})}
                 validators={getUsernameValidators()}/>
+            <FloatingLabel
+                controlId="floatingTextareaBio"
+                label="Bio"
+                className="mb-4"
+                onChange={(event) => setPersonalData({...personalData, bio: event.target.value})}
+            >
+                <Form.Control 
+                    as="textarea" 
+                    placeholder="Bio" 
+                    maxLength={500}
+                    style={{ height: '100px' }}
+                    defaultValue={personalData.bio}
+                />
+                    <Form.Text muted>
+                        {`${personalData.bio.length}/500 (The bio can have 500 characters at most)`}
+                    </Form.Text>
+            </FloatingLabel>
             <FloatingLabelInput 
                 controlId="floatingPassword" 
                 type="password"  

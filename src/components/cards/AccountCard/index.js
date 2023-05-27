@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./AccountCard.module.css";
-import { Ratio } from "react-bootstrap";
+import { Card, Col, Ratio, Row } from "react-bootstrap";
+import { showFirstCharacters } from "utils";
 
 export default function AccountCard({ user }) {
+    const navigate = useNavigate();
+
     function renderProfilePicture() {
         if (user.picture) {
             return (
@@ -24,19 +27,27 @@ export default function AccountCard({ user }) {
     }
 
     return (
-        <Link className={`card ${styles["account-card"]} text-reset text-decoration-none mb-4`} to={`/accounts/${user.username}`}>
-            <div className="row g-0">
-                <div className="col-6 col-sm-4 col-md-2 d-flex align-items-center justify-content-center">
+        <Card className={`${styles["account-card"]} mb-4`} onClick={() => navigate(`/accounts/${user.username}`)}>
+            <Row className="g-0">
+                <Col sm={3} md={2}>
                     <Ratio aspectRatio="1x1">
                         {renderProfilePicture()}
                     </Ratio>
-                </div>
-                <div className="col-6 col-sm-8 col-md-10 row">
-                    <div className="card-body d-flex align-items-center justify-content-center">
-                        <p className="card-text text-center">{user.username}</p>
+                </Col>
+                <Col className="row" sm={9} md={10}>
+                    <div className="d-flex align-items-center justify-content-center">
+                        <Card.Body>
+                            <Card.Text>
+                                {user.username}
+                            </Card.Text>
+                            <Card.Text>
+                                <strong className="text-secondary">Bio:</strong>
+                                <span className="text-secondary text-opacity-20"> {showFirstCharacters(user.bio, 75)}</span>
+                            </Card.Text>
+                        </Card.Body>
                     </div>
-                </div>
-            </div>
-        </Link>
+                </Col>
+            </Row>
+        </Card>
     );
 }

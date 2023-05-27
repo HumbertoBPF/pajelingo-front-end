@@ -1,21 +1,24 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./GameCard.module.css";
+import { Card, Col, Row } from "react-bootstrap";
 
 export default function GameCard({ game }) {
+    const navigate = useNavigate();
+
     return (
-        <Link className={`card ${styles["game-card"]} text-reset text-decoration-none mb-4`} to={`${game.link}setup`}>
-            <div className="row g-0">
-                <div className="col-4 col-md-3 col-lg-2 d-flex align-items-center justify-content-center">
-                    <div>
-                        <img src={`data:image/jpeg;base64,${game.image}`} className="img-fluid rounded-start" alt={game.game_name}/>
-                    </div>
-                </div>
-                <div className="col-8 col-md-9 col-lg-10 row p-4">
-                    <div className="card-body d-flex align-items-center justify-content-center">
-                        <p className="card-text text-center">{game.game_name}</p>
-                    </div>
-                </div>
-            </div>
-        </Link>
+        <Card className={`${styles["game-card"]} mb-4`} onClick={() => navigate(`${game.link}setup`)}>
+            <Row className="g-0">
+                <Col className="d-flex align-items-center justify-content-center" xs={4} md={3} lg={2}>
+                    <img src={`data:image/jpeg;base64,${game.image}`} className="img-fluid rounded-start" alt={game.game_name}/>
+                </Col>
+                <Col className="row" xs={8} md={9} lg={10}>
+                    <Card.Body className="d-flex align-items-center justify-content-center">
+                        <Card.Text>
+                            {game.game_name}
+                        </Card.Text>
+                    </Card.Body>
+                </Col>
+            </Row>
+        </Card>
     );
 }

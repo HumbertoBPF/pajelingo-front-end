@@ -18,6 +18,7 @@ export const fetchUser = createAsyncThunk(
             const updatedUser = {
                 token: user.token,
                 username: data.username,
+                bio: data.bio,
                 email: data.email
             }
             localStorage.setItem("user", JSON.stringify(updatedUser));

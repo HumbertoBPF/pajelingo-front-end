@@ -1,6 +1,7 @@
 import EmailIcon from "components/icons/EmailIcon";
 import UserIcon from "components/icons/UserIcon";
 import styles from "./AccountDetails.module.css";
+import BioIcon from "components/icons/BioIcon";
 
 export default function AccountDetails({ user }) {
     return (
@@ -16,6 +17,9 @@ export default function AccountDetails({ user }) {
                 </p>:
                 null
             }
+            <p>
+                <BioIcon/> <span>Bio: {user.bio}</span>
+            </p>
         </section>
     );
 }

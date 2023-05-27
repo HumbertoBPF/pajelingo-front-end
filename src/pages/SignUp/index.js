@@ -29,6 +29,7 @@ export default function SignUp() {
                 body: JSON.stringify({
                     "email": personalData.email,
                     "username": personalData.username,
+                    "bio": personalData.bio,
                     "password": personalData.password
                 })
             }).then((response) => {

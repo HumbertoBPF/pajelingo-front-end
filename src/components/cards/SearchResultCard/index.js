@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./SearchResultCard.module.css";
 import { useState } from "react";
 import { baseUrl } from "services/base";
 import { useSelector } from "react-redux";
 import HeartIcon from "components/icons/HeartIcon";
+import { Card, Col, Row } from "react-bootstrap";
 
 export default function SearchResultCard({ word, flagImage }) {
+    const navigate = useNavigate();
     const user = useSelector(state => state.user);
     const [result, setResult] = useState(word);
 
@@ -33,31 +35,31 @@ export default function SearchResultCard({ word, flagImage }) {
     }
 
     return (
-        <div className="col-6 col-sm-4 my-1">
-            <div className={`card ${styles["search-card"]}`}>
+        <Col className="my-1">
+            <Card className={`${styles["search-card"]}`}>
                 {
                     (result.is_favorite === null)?
                     null:
                     <HeartIcon className={styles["icon-heart"]} width="1.5em" height="1.5em" 
                         fill={result.is_favorite} onClick={(event) => toogleHeartIcon()}/>
                 }
-                <Link className="row g-0 text-reset text-decoration-none" to={`/meanings/${word.id}`}>
-                    <div className="col-md-4 px-4 d-flex align-items-center justify-content-center">
-                        <div>
-                            <img 
-                                src={`data:image/jpeg;base64,${flagImage}`} 
-                                className="img-fluid rounded-start" 
-                                alt={`${word.language} language flag`}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-md-8 d-flex align-items-center justify-content-center">
-                        <div className="card-body text-center">
-                            <p className="card-text">{word.word_name}</p>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-        </div>
+                <Row className="g-0" onClick={() => navigate(`/meanings/${word.id}`)}>
+                    <Col className="px-4 d-flex align-items-center justify-content-center" md={4}>
+                        <img
+                            src={`data:image/jpeg;base64,${flagImage}`} 
+                            className="img-fluid rounded-start" 
+                            alt={`${word.language} language flag`}
+                        />
+                    </Col>
+                    <Col className="row" md={8}>
+                        <Card.Body className="d-flex align-items-center justify-content-center">
+                            <Card.Text>
+                                {word.word_name}
+                            </Card.Text>
+                        </Card.Body>
+                    </Col>
+                </Row>
+            </Card>
+        </Col>
     );
 }
