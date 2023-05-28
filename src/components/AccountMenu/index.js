@@ -23,7 +23,7 @@ export default function AccountMenu({ user }) {
 
         return (
             <img
-                src="/images/profile.jpg"
+                src="/images/profile.png"
                 alt="User profile"
             />
         );

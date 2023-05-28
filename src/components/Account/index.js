@@ -57,7 +57,7 @@ export default function Account({ user }) {
         return (
             <img
                 id="defaultPicture"
-                src="/images/profile.jpg"
+                src="/images/profile.png"
                 className="img-fluid rounded"
                 alt="User profile"
             />

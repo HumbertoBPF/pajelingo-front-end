@@ -19,7 +19,7 @@ export default function AccountCard({ user }) {
 
         return (
             <img
-                src="/images/profile.jpg"
+                src="/images/profile.png"
                 className="img-fluid rounded-start"
                 alt={user.username}
             />
