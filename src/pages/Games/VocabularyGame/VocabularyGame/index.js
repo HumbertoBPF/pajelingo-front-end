@@ -1,7 +1,7 @@
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
-import FeedbackAlert from "components/FeedbackAlert";
 import useGame from "hooks/useGame";
+import FeedbackPage from "pages/FeedbackPage";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -23,6 +23,7 @@ export default function VocabularyGame(){
         result: null,
         correct_answer:null,
         score: null,
+        new_badges: [],
         state: "idle"
     });
 
@@ -61,6 +62,7 @@ export default function VocabularyGame(){
                     result: null,
                     correct_answer:null,
                     score: null,
+                    new_badges: [],
                     state: "idle"
                 });
             });
@@ -80,6 +82,7 @@ export default function VocabularyGame(){
             result: null,
             correct_answer: null,
             score: null,
+            new_badges: [],
             state: "pending"
         });
 
@@ -99,6 +102,7 @@ export default function VocabularyGame(){
                 result: data.result,
                 correct_answer: data.correct_answer,
                 score: data.score,
+                new_badges: data.new_badges,
                 state: "succeeded"
             });
         });
@@ -116,13 +120,7 @@ export default function VocabularyGame(){
                 <>
                     {
                         (feedback.state === "succeeded")?
-                        <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
-                            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                            <br/>
-                            {`${word.word}: ${feedback.correct_answer}`}
-                            <br/>
-                            {(feedback.score)?`Your score is ${feedback.score}`:null}
-                        </FeedbackAlert>:
+                        <FeedbackPage feedback={feedback} playAgain={playAgain}/>:
                         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
                             <Form.Group className="mb-4" controlId="wordInput">
                                 <Form.Control className="text-center" type="text" placeholder={word.word} disabled />

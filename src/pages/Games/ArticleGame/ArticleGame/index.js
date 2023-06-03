@@ -1,7 +1,7 @@
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
-import FeedbackAlert from "components/FeedbackAlert";
 import useGame from "hooks/useGame";
+import FeedbackPage from "pages/FeedbackPage";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -23,6 +23,7 @@ export default function ArticleGame() {
         result: null,
         correct_answer:null,
         score: null,
+        new_badges: [],
         state: "idle"
     });
     
@@ -56,6 +57,7 @@ export default function ArticleGame() {
                     result: null,
                     correct_answer:null,
                     score: null,
+                    new_badges: [],
                     state: "idle"
                 });
             });
@@ -69,6 +71,7 @@ export default function ArticleGame() {
             result: null,
             correct_answer: null,
             score: null,
+            new_badges: [],
             state: "pending"
         });
         
@@ -95,6 +98,7 @@ export default function ArticleGame() {
                 result: data.result,
                 correct_answer: data.correct_answer,
                 score: data.score,
+                new_badges: data.new_badges,
                 state: "succeeded"
             });
         });
@@ -112,13 +116,7 @@ export default function ArticleGame() {
                 <>
                     {
                         (feedback.state === "succeeded")?
-                        <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
-                            {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                            <br/>
-                            {feedback.correct_answer}
-                            <br/>
-                            {(feedback.score)?`Your score is ${feedback.score}`:null}
-                        </FeedbackAlert>:
+                        <FeedbackPage feedback={feedback} playAgain={playAgain}/>:
                         <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>
                             <div className="mb-4 row">
                                 <Form.Group className="col-4 col-lg-2" controlId="articleInput">

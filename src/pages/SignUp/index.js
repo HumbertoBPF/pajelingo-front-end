@@ -1,4 +1,5 @@
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
+import NotificationContainer from "components/NotificationContainer";
 import UserForm from "components/UserForm";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -63,11 +64,14 @@ export default function SignUp() {
             </Alert>:
             <UserForm buttonColorStyle="success" buttonText="Sign up" isLoading={isLoading}
                 onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>}
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)} 
-                variant="danger" 
-                message="It was not possible to create account. Please check the information provided."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)} 
+                    variant="danger"
+                    error="Error"
+                    message="It was not possible to create account. Please check the information provided."/>
+            </NotificationContainer>
         </>
     );
 }

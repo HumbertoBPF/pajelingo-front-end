@@ -1,11 +1,12 @@
 import WordListWithFilters from "components/WordListWithFilters";
 import HeartIcon from "components/icons/HeartIcon";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { baseUrl } from "services/base";
 import { useNavigate } from "react-router-dom";
 import Login from "pages/Login";
+import NotificationContainer from "components/NotificationContainer";
 
 export default function FavoriteWords() {
     const user = useSelector(state => state.user);
@@ -80,11 +81,14 @@ export default function FavoriteWords() {
                 isPaginating={isPaginating}
                 filterCallback={filterCallback}
                 paginationCallback={paginationCallback}/>
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)} 
-                variant="danger" 
-                message="An error occurred when processing the request. Please try again."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)} 
+                    variant="danger"
+                    title="Error"
+                    message="An error occurred when processing the request. Please try again."/>
+            </NotificationContainer>
         </>
     );
 }

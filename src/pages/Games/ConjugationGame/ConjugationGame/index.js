@@ -3,12 +3,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
-import FeedbackAlert from "components/FeedbackAlert";
 import { Form } from "react-bootstrap";
 import LabeledInput from "components/LabeledInput";
 import CustomButton from "components/CustomButton";
 import useGame from "hooks/useGame";
 import CustomSpinner from "components/CustomSpinner";
+import FeedbackPage from "pages/FeedbackPage";
 
 export default function ConjugationGame() {
     const user = useSelector(state => state.user);
@@ -35,6 +35,7 @@ export default function ConjugationGame() {
         result: null,
         correct_answer:null,
         score: null,
+        new_badges: [],
         state: "idle"
     });
     
@@ -76,6 +77,7 @@ export default function ConjugationGame() {
                     result: null,
                     correct_answer:null,
                     score: null,
+                    new_badges: [],
                     state: "idle"
                 });
             });
@@ -89,6 +91,7 @@ export default function ConjugationGame() {
             result: null,
             correct_answer: null,
             score: null,
+            new_badges: [],
             state: "pending"
         });
 
@@ -114,7 +117,8 @@ export default function ConjugationGame() {
                 result: data.result,
                 correct_answer: data.correct_answer,
                 score: data.score,
-                state: "succeeded"
+                new_badges: [],
+                state: data.state
             });
         });
     }
@@ -140,15 +144,7 @@ export default function ConjugationGame() {
                     <CustomSpinner/>
                 </div>:
                 (feedback.state === "succeeded")?
-                <FeedbackAlert variant={(feedback.result?"success":"danger")} onClick={playAgain}>
-                        {`${feedback.result?"Correct answer :)":"Wrong answer"}`}
-                        <br/>
-                        {feedback.correct_answer.split("\n").map(
-                            (item, index) => ((index === 5)?
-                                <span key={index}>{item}</span>:
-                                <span key={index}>{item}<br/></span>))}
-                        {(feedback.score)?`Your score is ${feedback.score}`:null}
-                </FeedbackAlert>:
+                <FeedbackPage feedback={feedback} playAgain={playAgain}/>:
                 <Form className="text-center" onSubmit={(event) => handleFormSubmit(event)}>  
                     <LabeledInput controlId="word" type="text" label="" placeholder={`${verb.word} - ${verb.tense}`} disabled/>
                     <LabeledInput controlId="conjugation1" type="text" label={language.personal_pronoun_1} 

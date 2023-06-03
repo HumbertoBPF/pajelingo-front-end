@@ -1,6 +1,7 @@
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
+import NotificationContainer from "components/NotificationContainer";
 import SelectLanguage from "components/SelectLanguage";
 import useGame from "hooks/useGame";
 import { useEffect, useState } from "react";
@@ -76,11 +77,14 @@ export default function VocabularyGameSetup() {
                             <CustomButton variant="success" type="submit">Start</CustomButton>
                         </div>
                     </Form>
-                    <NotificationToast 
-                        show={error.showToast} 
-                        onClose={() => setError({...error, showToast: false})} 
-                        variant="danger" 
-                        message={error.message}/>
+                    <NotificationContainer>
+                        <Notification 
+                            show={error.showToast} 
+                            onClose={() => setError({...error, showToast: false})} 
+                            variant="danger"
+                            title="Error"
+                            message={error.message}/>
+                    </NotificationContainer>
                 </>
             }
         </>

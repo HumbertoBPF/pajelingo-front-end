@@ -1,6 +1,7 @@
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
+import NotificationContainer from "components/NotificationContainer";
 import ShortcutButtons from "components/ShortcutButtons";
 import { getPasswordValidators, getConfirmPasswordValidators } from "components/UserForm/validators";
 import { useState } from "react";
@@ -88,11 +89,14 @@ export default function ResetAccount() {
                     </div>
                 </Form>
             </section>}
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)} 
-                variant="danger" 
-                message="It was not possible to update account. Please check the information provided."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)} 
+                    variant="danger"
+                    title="Error"
+                    message="It was not possible to update account. Please check the information provided."/>
+            </NotificationContainer>
         </>
     );
 }

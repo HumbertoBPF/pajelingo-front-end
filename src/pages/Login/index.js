@@ -1,6 +1,6 @@
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import { baseUrl } from "services/base";
 import { fetchUser } from "services/user";
 import { saveToken } from "store/reducers/user";
 import { getPasswordValidators, getUsernameValidators } from "./validators";
+import NotificationContainer from "components/NotificationContainer";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -80,11 +81,14 @@ export default function Login() {
                         type="submit">Sign in</CustomButton> 
                 </div>
             </Form>
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)}
-                variant="danger" 
-                message="It was not possible to log you in. Please check your credentials."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)}
+                    variant="danger"
+                    title="Error"
+                    message="It was not possible to log you in. Please check your credentials."/>
+            </NotificationContainer>
         </>
     );
 }

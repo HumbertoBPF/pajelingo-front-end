@@ -1,4 +1,5 @@
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
+import NotificationContainer from "components/NotificationContainer";
 import UserForm from "components/UserForm";
 import Login from "pages/Login";
 import { useEffect, useState } from "react";
@@ -69,11 +70,14 @@ export default function UpdateAccount() {
         <>
             <UserForm buttonColorStyle="info" buttonText="Update" user={user} isLoading={isLoading}
                 onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)} 
-                variant="danger" 
-                message="It was not possible to update account. Please check the information provided."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)} 
+                    variant="danger"
+                    title="Error"
+                    message="It was not possible to update account. Please check the information provided."/>
+            </NotificationContainer>
         </>
     );
 }

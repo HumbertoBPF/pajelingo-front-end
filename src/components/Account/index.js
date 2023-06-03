@@ -2,13 +2,13 @@ import AccountDetails from "components/AccountDetails";
 import CustomButton from "components/CustomButton";
 import HeartIcon from "components/icons/HeartIcon";
 import LabeledInput from "components/LabeledInput";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
 import UpdateUserIcon from "components/icons/UpdateUserIcon";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import { getImageFileValidators } from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
-import { Col, Form, ListGroup, Modal, Row } from "react-bootstrap";
+import { Button, Col, Form, ListGroup, Modal, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "services/base";
@@ -16,6 +16,9 @@ import { fetchLanguages } from "services/languages";
 import { deleteUser } from "store/reducers/user";
 import DeleteUserIcon from "components/icons/DeleteUserIcon";
 import UserPictureIcon from "components/icons/UserPictureIcon";
+import BadgeIcon from "components/icons/BadgeIcon";
+import TropheeIcon from "components/icons/TropheeIcon";
+import NotificationContainer from "components/NotificationContainer";
 
 export default function Account({ user }) {
     const languages = useSelector(store => store.languages);
@@ -192,6 +195,15 @@ export default function Account({ user }) {
         return null;
     }
 
+    function getPopover(badge) {
+        return (
+            <Popover id="popover-basic">
+                <Popover.Header as="h3">{badge.name}</Popover.Header>
+                <Popover.Body>{badge.description}</Popover.Body>
+            </Popover>
+        );
+    }
+
     return (
         <>
             <Row>
@@ -221,8 +233,34 @@ export default function Account({ user }) {
                         <Col md={7} lg={9} className="mt-4">
                             <AccountDetails user={user}/>
                         </Col>
+                    </Row>
+                    <Row className="mt-4">
+                        <h5 className="mb-2"><BadgeIcon/> Your badges:</h5> 
                         <Col>
-                            <h5 className="my-4">Your performance in our games:</h5>
+                            {user.badges?
+                            user.badges.map(
+                                (badge) =>  <OverlayTrigger
+                                                key={badge.name}
+                                                placement="top"
+                                                overlay={getPopover(badge)}>
+                                                <Button style={{
+                                                    backgroundColor: `#${badge.color}`,
+                                                    borderColor: `#${badge.color}`
+                                                }} className="mt-2 ms-2">
+                                                    <img
+                                                        src={`data:image/jpeg;base64,${badge.image}`}
+                                                        alt={badge.name}
+                                                    />
+                                                    <span> {badge.name}</span>
+                                                </Button>
+                                            </OverlayTrigger>
+                            ):
+                            null}
+                        </Col>
+                    </Row>
+                    <Row className="mt-4">
+                        <Col>
+                            <h5 className="mb-4"><TropheeIcon/> Your performance in our games:</h5>
                             <SelectLanguage items={languages} onClick={(target) => {
                                 fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
                                 .then((response) => response.json())
@@ -234,11 +272,14 @@ export default function Account({ user }) {
                 </Col>
             </Row>
             {renderDeleteAccountSection()}
-            <NotificationToast 
-                show={showToast} 
-                variant="danger" 
-                message="An error occurred when processing the request. Please try again." 
-                onClose={() => setShowToast(false)}/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    variant="danger"
+                    title="Error"
+                    message="An error occurred when processing the request. Please try again." 
+                    onClose={() => setShowToast(false)}/>
+            </NotificationContainer>
         </>
     );
 }

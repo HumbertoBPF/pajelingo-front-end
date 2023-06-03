@@ -1,6 +1,7 @@
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
-import NotificationToast from "components/NotificationToast";
+import Notification from "components/Notification";
+import NotificationContainer from "components/NotificationContainer";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
 import { Alert, Form } from "react-bootstrap";
@@ -70,11 +71,14 @@ export default function RequestResetAccount() {
                     </div>
                 </Form>
             }
-            <NotificationToast 
-                show={showToast} 
-                onClose={() => setShowToast(false)}
-                variant="danger" 
-                message="It was not possible to request the account reset. Please check the information provided."/>
+            <NotificationContainer>
+                <Notification 
+                    show={showToast} 
+                    onClose={() => setShowToast(false)}
+                    variant="danger"
+                    title="Error"
+                    message="It was not possible to request the account reset. Please check the information provided."/>
+            </NotificationContainer>
         </>
     );
 }
