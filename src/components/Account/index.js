@@ -235,7 +235,7 @@ export default function Account({ user }) {
                         </Col>
                     </Row>
                     <Row className="mt-4">
-                        <h5 className="mb-2"><BadgeIcon/> Your badges:</h5> 
+                        <h5 className="mb-2"><BadgeIcon/> Badges:</h5> 
                         <Col>
                             {user.badges?
                             user.badges.map(
@@ -247,10 +247,13 @@ export default function Account({ user }) {
                                                     backgroundColor: `#${badge.color}`,
                                                     borderColor: `#${badge.color}`
                                                 }} className="mt-2 ms-2">
-                                                    <img
-                                                        src={`data:image/jpeg;base64,${badge.image}`}
-                                                        alt={badge.name}
-                                                    />
+                                                    {
+                                                        badge.image?
+                                                        <img
+                                                            src={`data:image/jpeg;base64,${badge.image}`}
+                                                            alt={badge.name}/>:
+                                                        null
+                                                    }
                                                     <span> {badge.name}</span>
                                                 </Button>
                                             </OverlayTrigger>
@@ -260,7 +263,7 @@ export default function Account({ user }) {
                     </Row>
                     <Row className="mt-4">
                         <Col>
-                            <h5 className="mb-4"><TropheeIcon/> Your performance in our games:</h5>
+                            <h5 className="mb-4"><TropheeIcon/> Performance in our games:</h5>
                             <SelectLanguage items={languages} onClick={(target) => {
                                 fetch(`${baseUrl}/scores/?language=${target.value}&user=${user.username}`)
                                 .then((response) => response.json())

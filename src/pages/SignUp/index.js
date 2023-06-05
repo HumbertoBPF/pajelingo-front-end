@@ -65,11 +65,11 @@ export default function SignUp() {
             <UserForm buttonColorStyle="success" buttonText="Sign up" isLoading={isLoading}
                 onSubmit={(event, personalData) => handleFormSubmit(event, personalData)}/>}
             <NotificationContainer>
-                <Notification 
+                <Notification
                     show={showToast} 
                     onClose={() => setShowToast(false)} 
                     variant="danger"
-                    error="Error"
+                    title="Error"
                     message="It was not possible to create account. Please check the information provided."/>
             </NotificationContainer>
         </>

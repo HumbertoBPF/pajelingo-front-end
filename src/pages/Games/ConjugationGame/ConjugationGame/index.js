@@ -117,8 +117,8 @@ export default function ConjugationGame() {
                 result: data.result,
                 correct_answer: data.correct_answer,
                 score: data.score,
-                new_badges: [],
-                state: data.state
+                new_badges: data.new_badges,
+                state: "succeeded"
             });
         });
     }

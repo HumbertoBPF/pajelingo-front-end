@@ -12,7 +12,6 @@ export default function FeedbackPage({ feedback, playAgain=() => {} }) {
     useEffect(() => {
         console.log(feedback.new_badges);
         if (feedback.new_badges) {
-            console.log("HELLO");
             setShowToast(true);
         }
     }, [feedback.new_badges]);
