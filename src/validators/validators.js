@@ -9,6 +9,7 @@ export const errorInvalidUsername = "Enter a valid username. This value may cont
 export const errorImageFileFormat = "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
 export const errorTooShortUsername = "The username must be at least 8 characters-long.";
 export const errorFileIsNotImage = "The selected file is not an image"; 
+export const errorDeletionConfirmationText = "The text does not match \"permanently delete\".";
 
 export function searchPattern(pattern, text) {
     return pattern.test(text);
@@ -28,4 +29,14 @@ export function hasDigit(text){
 
 export function hasSpecialCharacter(text){
     return searchPattern(/[!"#$%&'()*+,-./\\:;<=>[?@\]^_`{|}~]/, text);
+}
+
+export function isImageFile(target) {
+    if (!target.files) {
+        return true;
+    }
+    
+    const file = target.files[0];
+
+    return file && file['type'].split('/')[0] === 'image';
 }

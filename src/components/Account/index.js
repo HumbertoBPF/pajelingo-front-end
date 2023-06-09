@@ -6,7 +6,7 @@ import Notification from "components/Notification";
 import UpdateUserIcon from "components/icons/UpdateUserIcon";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
-import { getImageFileValidators } from "pages/MyProfile/validators";
+import { getConfirmDeletionInputValidation, getImageFileValidators } from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, ListGroup, Modal, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,18 +19,26 @@ import UserPictureIcon from "components/icons/UserPictureIcon";
 import BadgeIcon from "components/icons/BadgeIcon";
 import TropheeIcon from "components/icons/TropheeIcon";
 import NotificationContainer from "components/NotificationContainer";
+import { errorDeletionConfirmationText } from "validators/validators";
 
 export default function Account({ user }) {
     const languages = useSelector(store => store.languages);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [scores, setScores] = useState([]);
+    
+    const [toastMessage, setToastMessage] = useState("");
+
     const [profilePicture, setProfilePicture] = useState();
-    const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] = useState(false);
-    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
-    const [showToast, setShowToast] = useState(false);
     const [showProfilePictureModal, setShowProfilePictureModal] = useState(false);
+    const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] = useState(false);
+    
+    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+    const [confirmDeletionText, setConfirmDeletionText] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+
+    const genericErrorMessage = "An error occurred when processing the request. Please try again.";
 
     useEffect(() => {
         dispatch(fetchLanguages());
@@ -81,7 +89,7 @@ export default function Account({ user }) {
             body: formData
         }).then((response) => {
             if (response.ok) {
-                setShowToast(false);
+                setToastMessage(genericErrorMessage);
                 setIsUpdatingProfilePicture(false);
                 window.location.reload();
                 return;
@@ -89,7 +97,7 @@ export default function Account({ user }) {
 
             throw Error();
         }).catch(() => {
-            setShowToast(true);
+            setToastMessage(genericErrorMessage);
             setIsUpdatingProfilePicture(false);
         });
     }
@@ -140,6 +148,12 @@ export default function Account({ user }) {
     function deleteAccount() {
         setIsDeletingAccount(true);
 
+        if (confirmDeletionText !== "permanently delete") {
+            setIsDeletingAccount(false);
+            setToastMessage(errorDeletionConfirmationText);
+            return;
+        }
+
         fetch(`${baseUrl}/user`, {
             method: "DELETE",
             headers: {
@@ -148,7 +162,7 @@ export default function Account({ user }) {
         }).then((response) => {
             if (response.ok) {
                 setIsDeletingAccount(false);
-                setShowToast(false);
+                setToastMessage(genericErrorMessage);
                 dispatch(deleteUser);
                 window.location.reload();
                 return;
@@ -157,7 +171,7 @@ export default function Account({ user }) {
             throw Error();
         }).catch(() => {
             setIsDeletingAccount(false);
-            setShowToast(true);
+            setToastMessage(genericErrorMessage);
         });
     }
 
@@ -172,7 +186,14 @@ export default function Account({ user }) {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            Are you sure that you want to delete your profile? All information such as scores in the games is going to be permanently lost!
+                            <LabeledInput
+                                controlId="confirmDeletionInput"
+                                type="text"
+                                labelPosition="up"
+                                label={"Write \"permanently delete\" to confirm. Notice that personal data such as game scores will be permanently lost!"}
+                                placeholder="permanently delete"
+                                onChange={(event) => setConfirmDeletionText(event.target.value)}
+                                validators={getConfirmDeletionInputValidation()}/>
                         </Modal.Body>
                         <Modal.Footer>
                             <CustomButton 
@@ -277,11 +298,11 @@ export default function Account({ user }) {
             {renderDeleteAccountSection()}
             <NotificationContainer>
                 <Notification 
-                    show={showToast} 
+                    show={toastMessage !== ""} 
                     variant="danger"
                     title="Error"
-                    message="An error occurred when processing the request. Please try again." 
-                    onClose={() => setShowToast(false)}/>
+                    message={toastMessage} 
+                    onClose={() => setToastMessage("")}/>
             </NotificationContainer>
         </>
     );

@@ -1,8 +1,16 @@
 import { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 
-export default function LabeledInput({ controlId, type, label=null, placeholder="", disabled=false, onChange=((event)=>{}), 
-    validators=[]  }) {
+export default function LabeledInput({
+    controlId, 
+    type, 
+    label=null, 
+    labelPosition="right", 
+    placeholder="", 
+    disabled=false, 
+    onChange=((event)=>{}), 
+    validators=[]  
+}) {
     const [errors, setErrors] = useState([]);
 
     function validate(target) {
@@ -18,34 +26,41 @@ export default function LabeledInput({ controlId, type, label=null, placeholder=
         setErrors(errorList);
     }
 
-    function renderInput(className) {
-        return (
-            <>
-                <Form.Control className={`${(errors.length === 0)?"":" is-invalid"} ${className}`} 
-                    type={type} placeholder={placeholder} disabled={disabled}/>
-                <Form.Control.Feedback className="mt-4" type="invalid">
-                    <ul>
-                        {errors.map((error, index) => <li key={index}>{error}</li>)}
-                    </ul>
-                </Form.Control.Feedback>
-            </>
-        );
+    let extraPropsLabel = {};
+    let extraPropsInput = {};
+    let extraClasses = "";
+
+    if ((label === null) || (labelPosition === "up")) {
+        extraPropsLabel = { xs: "12", sm: "12" };
+        extraPropsInput = { xs: "12", sm: "12" };
+    } else if (labelPosition === "right") {
+        extraPropsLabel = { sm: "3", lg: "2" };
+        extraPropsInput = { sm: "9", lg: "10" };
+        extraClasses = "text-center";
+    }
+
+    if (errors.length !== 0) {
+        extraClasses = `${extraClasses} is-invalid`;
     }
 
     return (
         <Form.Group className="mb-4 row" controlId={controlId} 
             onInput={(event) => validate(event.target)} 
             onChange={(event) => onChange(event)}>
-            {
-                (label === null)?
-                renderInput():
-                <>
-                    <Form.Label className="text-center" column sm="3" lg="2">{label}</Form.Label>
-                    <Col sm="9" lg="10">
-                        {renderInput("text-center")}
-                    </Col>
-                </>
-            }
+            <Form.Label className={extraClasses} column {...extraPropsLabel}>{label}</Form.Label>
+            <Col {...extraPropsInput}>
+                <Form.Control
+                    className={extraClasses} 
+                    type={type}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                />
+                <Form.Control.Feedback className="mt-4" type="invalid">
+                    <ul>
+                        {errors.map((error, index) => <li key={index}>{error}</li>)}
+                    </ul>
+                </Form.Control.Feedback>
+            </Col>
         </Form.Group>
     );
 }
