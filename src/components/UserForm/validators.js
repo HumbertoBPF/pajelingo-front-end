@@ -1,99 +1,33 @@
-import { errorDigitPassword, errorEmailFormat, errorInvalidUsername, errorLengthPassword, errorLetterPassword, errorNotConfirmedPassword, errorRequiredField, errorSpecialCharacterPassword, errorTooShortUsername, hasDigit, hasLetter, hasSpecialCharacter, isValidUsername } from "validators/validators";
+import { Validator, errorDigitPassword, errorEmailFormat, errorInvalidUsername, errorLengthPassword, errorLetterPassword, errorNotConfirmedPassword, errorRequiredField, errorSpecialCharacterPassword, errorTooShortUsername, hasDigit, hasLetter, hasSpecialCharacter, isValidUsername } from "validators/validators";
 
 export function getEmailValidators() {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        },
-        {
-            validate: function(target) {
-                return !target.validity.typeMismatch;
-            },
-            errorMessage: errorEmailFormat
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField),
+        new Validator((target) => !target.validity.typeMismatch, errorEmailFormat)
     ];
 }
 
 export function getUsernameValidators() {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        },
-        {
-            validate: function(target) {
-                const username = target.value;
-                return isValidUsername(username);
-            },
-            errorMessage: errorInvalidUsername
-        },
-        {
-            validate: function(target) {
-                const username = target.value;
-                return username.length >= 8;
-            },
-            errorMessage: errorTooShortUsername
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField),
+        new Validator((target) => isValidUsername(target.value), errorInvalidUsername),
+        new Validator((target) => target.value.length >= 8, errorTooShortUsername)
     ];
 }
 
 export function getPasswordValidators() {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        },
-        {
-            validate: function(target) {
-                const password = target.value;
-                return (password.length >= 8) && (password.length <= 30);
-            },
-            errorMessage: errorLengthPassword
-        },
-        {
-            validate: function(target) {
-                const password = target.value;
-                return hasDigit(password);
-            },
-            errorMessage: errorDigitPassword
-        },
-        {
-            validate: function(target) {
-                const password = target.value;
-                return hasLetter(password);
-            },
-            errorMessage: errorLetterPassword
-        },
-        {
-            validate: function(target) {
-                const password = target.value;
-                return hasSpecialCharacter(password);
-            },
-            errorMessage: errorSpecialCharacterPassword
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField),
+        new Validator((target) => (target.value.length >= 8) && (target.value.length <= 30), errorLengthPassword),
+        new Validator((target) => hasDigit(target.value), errorDigitPassword),
+        new Validator((target) => hasLetter(target.value), errorLetterPassword),
+        new Validator((target) => hasSpecialCharacter(target.value), errorSpecialCharacterPassword)
     ];
 }
 
 export function getConfirmPasswordValidators(password) {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        },
-        {
-            validate: function(target) {
-                return (password === target.value);
-            },
-            errorMessage: errorNotConfirmedPassword
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField),
+        new Validator((target) => (password === target.value), errorNotConfirmedPassword)
     ];
 }

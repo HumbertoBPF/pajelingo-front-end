@@ -1,23 +1,13 @@
-import { errorDeletionConfirmationText, errorFileIsNotImage, isImageFile } from "validators/validators";
+import { Validator, errorDeletionConfirmationText, errorFileIsNotImage, isImageFile } from "validators/validators";
 
 export function getImageFileValidators() {
     return [
-        {
-            validate: function(target) {
-                return isImageFile(target);
-            },
-            errorMessage: errorFileIsNotImage
-        }
+        new Validator((target) => isImageFile(target), errorFileIsNotImage)
     ];
 }
 
 export function getConfirmDeletionInputValidation() {
     return [
-        {
-            validate: function(target) {
-                return target.value === "permanently delete";
-            },
-            errorMessage: errorDeletionConfirmationText
-        }
+        new Validator((target) => target.value === "permanently delete", errorDeletionConfirmationText)
     ];
 }

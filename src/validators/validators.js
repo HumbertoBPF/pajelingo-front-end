@@ -11,6 +11,13 @@ export const errorTooShortUsername = "The username must be at least 8 characters
 export const errorFileIsNotImage = "The selected file is not an image"; 
 export const errorDeletionConfirmationText = "The text does not match \"permanently delete\".";
 
+export class Validator {
+    constructor(validate, errorMessage) {
+        this.validate = validate;
+        this.errorMessage = errorMessage;
+    }
+}
+
 export function searchPattern(pattern, text) {
     return pattern.test(text);
 }

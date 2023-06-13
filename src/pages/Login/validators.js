@@ -1,23 +1,13 @@
-import { errorRequiredField } from "validators/validators";
+import { Validator, errorRequiredField } from "validators/validators";
 
 export function getUsernameValidators() {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField)
     ];
 }
 
 export function getPasswordValidators() {
     return [
-        {
-            validate: function(target) {
-                return !target.validity.valueMissing;
-            },
-            errorMessage: errorRequiredField
-        }
+        new Validator((target) => !target.validity.valueMissing, errorRequiredField)
     ];
 }
