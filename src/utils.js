@@ -1,13 +1,13 @@
 export function showFirstCharacters(text, n) {
-    const len = text.length;
-    
-    if (len === 0) {
-        return "-";
-    }
+  const len = text.length;
 
-    if (len < n) {
-        return text;
-    }
+  if (len === 0) {
+    return "-";
+  }
 
-    return `${text.slice(0, n)}...`;
+  if (len < n) {
+    return text;
+  }
+
+  return `${text.slice(0, n)}...`;
 }

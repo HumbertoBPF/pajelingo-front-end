@@ -12,65 +12,72 @@ import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
 
 export default function ConjugationGameSetup() {
-    let languages = useSelector(state => state.languages);
-    const [conjugationGame] = useGame(3);
+  let languages = useSelector((state) => state.languages);
+  const [conjugationGame] = useGame(3);
 
-    const [error, setError] = useState({
-        showToast: false,
-        message: ""
-    });
-    const [language, setLanguage] = useState(null);
-    
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const [error, setError] = useState({
+    showToast: false,
+    message: "",
+  });
+  const [language, setLanguage] = useState(null);
 
-    function handleFormSubmit(event) {
-        event.preventDefault();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-        if ((language === null) || (language === "")) {
-            setError({showToast: true, message: "You must choose a language."});
-            return;
-        }
+  function handleFormSubmit(event) {
+    event.preventDefault();
 
-        const queryParams = new URLSearchParams({
-            language: language
-        });
-        navigate(`${conjugationGame.link}play?${queryParams}`);
+    if (language === null || language === "") {
+      setError({ showToast: true, message: "You must choose a language." });
+      return;
     }
 
-    useEffect(() => {
-        dispatch(fetchLanguages());
-    }, [dispatch]);
+    const queryParams = new URLSearchParams({
+      language: language,
+    });
+    navigate(`${conjugationGame.link}play?${queryParams}`);
+  }
 
-    return (
+  useEffect(() => {
+    dispatch(fetchLanguages());
+  }, [dispatch]);
+
+  return (
+    <>
+      {Object.keys(conjugationGame).length === 0 ? (
+        <div className="text-center">
+          <CustomSpinner />
+        </div>
+      ) : (
         <>
-            {
-                (Object.keys(conjugationGame).length === 0)?
-                <div className="text-center">
-                    <CustomSpinner/>
-                </div>:<>
-                    <h5>{conjugationGame.game_name}</h5>
-                    <br/>
-                    <section>
-                        <ReactMarkdown>{conjugationGame.instructions}</ReactMarkdown>
-                    </section>
-                    <Form onSubmit={(event) => handleFormSubmit(event)}>
-                        <SelectLanguage items={languages} defaultItem="Choose a language"
-                            onClick={(target) => setLanguage(target.value)}/>
-                        <div className="text-center">
-                            <CustomButton variant="success" type="submit">Start</CustomButton>
-                        </div>
-                    </Form>
-                    <NotificationContainer>
-                        <Notification 
-                            show={error.showToast} 
-                            onClose={() => setError({...error, showToast: false})} 
-                            variant="danger"
-                            title="Error"
-                            message={error.message}/>
-                    </NotificationContainer>
-                </>
-            }  
+          <h5>{conjugationGame.game_name}</h5>
+          <br />
+          <section>
+            <ReactMarkdown>{conjugationGame.instructions}</ReactMarkdown>
+          </section>
+          <Form onSubmit={(event) => handleFormSubmit(event)}>
+            <SelectLanguage
+              items={languages}
+              defaultItem="Choose a language"
+              onClick={(target) => setLanguage(target.value)}
+            />
+            <div className="text-center">
+              <CustomButton variant="success" type="submit">
+                Start
+              </CustomButton>
+            </div>
+          </Form>
+          <NotificationContainer>
+            <Notification
+              show={error.showToast}
+              onClose={() => setError({ ...error, showToast: false })}
+              variant="danger"
+              title="Error"
+              message={error.message}
+            />
+          </NotificationContainer>
         </>
-    )
+      )}
+    </>
+  );
 }

@@ -2,21 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchGames } from "services/games";
 
 const gamesSlice = createSlice({
-    name: "games",
-    initialState: {},
-    extraReducers(builder) {
-        builder
-            .addCase(fetchGames.fulfilled, (state, action) => {
-                const newState = {};
-                const games = action.payload;
+  name: "games",
+  initialState: {},
+  extraReducers(builder) {
+    builder.addCase(fetchGames.fulfilled, (state, action) => {
+      const newState = {};
+      const games = action.payload;
 
-                games.forEach(game => {
-                    newState[game.id] = game;
-                });
+      games.forEach((game) => {
+        newState[game.id] = game;
+      });
 
-                return newState;
-            })
-    }
+      return newState;
+    });
+  },
 });
 
 const gamesSliceReducers = gamesSlice.reducer;

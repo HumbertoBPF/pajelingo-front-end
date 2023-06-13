@@ -4,11 +4,11 @@ import tokenSliceReducer from "./reducers/user";
 import gamesSliceReducers from "./reducers/games";
 
 const store = configureStore({
-    reducer: {
-        languages: languagesSliceReducers,
-        user: tokenSliceReducer,
-        games: gamesSliceReducers
-    }
+  reducer: {
+    languages: languagesSliceReducers,
+    user: tokenSliceReducer,
+    games: gamesSliceReducers,
+  },
 });
 
 export default store;

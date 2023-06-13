@@ -1,22 +1,22 @@
 {
-    "items": [
-        {
-            "id": 0,
-            "image": "/images/vocabulary_game.jpg",
-            "title": "Vocabulary training",
-            "description": "Practice your vocabulary!"
-        },
-        {
-            "id": 1,
-            "image": "/images/article_game.jpg",
-            "title": "Guess the article",
-            "description": "Guess the article that matches the showed word!"
-        },
-        {
-            "id": 2,
-            "image": "/images/conjugation_game.jpg",
-            "title": "Conjugation game",
-            "description": "Can you guess all the conjugations in any tense and mode?"
-        }
-    ]
+  "items": [
+    {
+      "id": 0,
+      "image": "/images/vocabulary_game.jpg",
+      "title": "Vocabulary training",
+      "description": "Practice your vocabulary!"
+    },
+    {
+      "id": 1,
+      "image": "/images/article_game.jpg",
+      "title": "Guess the article",
+      "description": "Guess the article that matches the showed word!"
+    },
+    {
+      "id": 2,
+      "image": "/images/conjugation_game.jpg",
+      "title": "Conjugation game",
+      "description": "Can you guess all the conjugations in any tense and mode?"
+    }
+  ]
 }

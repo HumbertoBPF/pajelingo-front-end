@@ -5,48 +5,60 @@ import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-export default function WordList({ words, isLoading=false, callback=((page) => {}) }) {
-    const languages = useSelector(state => state.languages);
-    const [languagesFlag, setLanguagesFlag] = useState(new Map());
+export default function WordList({
+  words,
+  isLoading = false,
+  callback = (page) => {},
+}) {
+  const languages = useSelector((state) => state.languages);
+  const [languagesFlag, setLanguagesFlag] = useState(new Map());
 
-    useEffect(() => {
-        // Preparing language map
-        let temp = new Map();
-        languages.forEach(item => {
-            temp.set(item.language_name, item.flag_image);
-        });
-        setLanguagesFlag(temp);
-    }, [languages])
+  useEffect(() => {
+    // Preparing language map
+    let temp = new Map();
+    languages.forEach((item) => {
+      temp.set(item.language_name, item.flag_image);
+    });
+    setLanguagesFlag(temp);
+  }, [languages]);
 
-    return (    
-        (words.count === 0)?
-        <div className="row justify-content-center">
-            <div className="text-center col-sm-8 col-md-4">
-                <img id="noResultImg" src="/images/no_result.jpg" className="img-fluid rounded" alt="No results"/>
-                <p>No result matching your search was found</p>
-            </div>
-        </div>:
-        <>  
-            <Row className="justify-content-center" xs={2} sm={2} md={3}>
-                {
-                    isLoading?
-                    <CustomSpinner animation="border"/>:
-                    <>
-                        {words.results.map((word) => <SearchResultCard 
-                                                        key={word.id} 
-                                                        word={word}
-                                                        flagImage={languagesFlag.get(word.language)}/>)}
-                    </>
-                }
-            </Row>
-            <PaginationBar 
-                previous={words.previous} 
-                next={words.next} 
-                count={words.count} 
-                resultsPerPage={12} 
-                page={words.page} 
-                callback={(page) => callback(page)}
-            /> 
-        </>   
-    );
+  return words.count === 0 ? (
+    <div className="row justify-content-center">
+      <div className="text-center col-sm-8 col-md-4">
+        <img
+          id="noResultImg"
+          src="/images/no_result.jpg"
+          className="img-fluid rounded"
+          alt="No results"
+        />
+        <p>No result matching your search was found</p>
+      </div>
+    </div>
+  ) : (
+    <>
+      <Row className="justify-content-center" xs={2} sm={2} md={3}>
+        {isLoading ? (
+          <CustomSpinner animation="border" />
+        ) : (
+          <>
+            {words.results.map((word) => (
+              <SearchResultCard
+                key={word.id}
+                word={word}
+                flagImage={languagesFlag.get(word.language)}
+              />
+            ))}
+          </>
+        )}
+      </Row>
+      <PaginationBar
+        previous={words.previous}
+        next={words.next}
+        count={words.count}
+        resultsPerPage={12}
+        page={words.page}
+        callback={(page) => callback(page)}
+      />
+    </>
+  );
 }

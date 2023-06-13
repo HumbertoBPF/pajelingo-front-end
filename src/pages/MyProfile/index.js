@@ -1,30 +1,28 @@
 import Login from "pages/Login";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "services/user";
 import Account from "components/Account";
 
 export default function MyProfile() {
-    const user = useSelector(store => store.user);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(fetchUser());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
-    useEffect(() => {
-        if (!user) {
-            navigate("/login");
-        }
-    }, [navigate, user]);
-
+  useEffect(() => {
     if (!user) {
-        return (<Login/>);
+      navigate("/login");
     }
+  }, [navigate, user]);
 
-    return (
-        <Account user={user} />
-    );
+  if (!user) {
+    return <Login />;
+  }
+
+  return <Account user={user} />;
 }

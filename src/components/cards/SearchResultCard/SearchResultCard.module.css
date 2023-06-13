@@ -1,15 +1,15 @@
 .search-card {
-    background-color: var(--secondary-color);
-    color: white;
+  background-color: var(--secondary-color);
+  color: white;
 }
 
 .search-card:hover {
-    background-color: var(--primary-color);
-    cursor: pointer;
+  background-color: var(--primary-color);
+  cursor: pointer;
 }
 
 .icon-heart {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }

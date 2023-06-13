@@ -1,12 +1,12 @@
 .account-card:hover {
-    cursor: pointer;
-    background-color: var(--secondary-hover-color);
+  cursor: pointer;
+  background-color: var(--secondary-hover-color);
 }
 
 .account-card p {
-    word-break: break-all;
+  word-break: break-all;
 }
 
 .account-card img {
-    object-fit: cover;
+  object-fit: cover;
 }

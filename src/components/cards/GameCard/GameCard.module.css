@@ -1,12 +1,12 @@
 .game-card {
-    background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 
 .game-card p {
-    color: white;
+  color: white;
 }
 
 .game-card:hover {
-    background-color: var(--primary-color);
-    cursor: pointer;
+  background-color: var(--primary-color);
+  cursor: pointer;
 }
