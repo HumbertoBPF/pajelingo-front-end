@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./GameCard.module.css";
 import { Card, Col, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function GameCard({ game }) {
   const navigate = useNavigate();
@@ -29,4 +30,12 @@ export default function GameCard({ game }) {
       </Row>
     </Card>
   );
+}
+
+GameCard.propTypes = {
+  game: PropTypes.shape({
+    link: PropTypes.string.isRequired,
+    game_name: PropTypes.string.isRequired,
+    image: PropTypes.string
+  }).isRequired
 }

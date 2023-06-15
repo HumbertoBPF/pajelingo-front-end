@@ -41,7 +41,7 @@ export default function SignUp() {
 
           throw Error(response);
         })
-        .then((data) => {
+        .then(() => {
           setIsLoading(false);
           setFeedback({
             result: true,

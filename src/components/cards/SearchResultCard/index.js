@@ -5,6 +5,7 @@ import { baseUrl } from "services/base";
 import { useSelector } from "react-redux";
 import HeartIcon from "components/icons/HeartIcon";
 import { Card, Col, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function SearchResultCard({ word, flagImage }) {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function SearchResultCard({ word, flagImage }) {
             width="1.5em"
             height="1.5em"
             fill={result.is_favorite}
-            onClick={(event) => toogleHeartIcon()}
+            onClick={() => toogleHeartIcon()}
           />
         )}
         <Row className="g-0" onClick={() => navigate(`/meanings/${word.id}`)}>
@@ -63,4 +64,13 @@ export default function SearchResultCard({ word, flagImage }) {
       </Card>
     </Col>
   );
+}
+
+SearchResultCard.propTypes = {
+  word: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    word_name: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
+  }).isRequired,
+  flagImage: PropTypes.string
 }

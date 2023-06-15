@@ -4,11 +4,12 @@ import SearchResultCard from "components/cards/SearchResultCard";
 import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 export default function WordList({
   words,
   isLoading = false,
-  callback = (page) => {},
+  callback = () => {},
 }) {
   const languages = useSelector((state) => state.languages);
   const [languagesFlag, setLanguagesFlag] = useState(new Map());
@@ -61,4 +62,16 @@ export default function WordList({
       />
     </>
   );
+}
+
+WordList.propTypes = {
+  words: PropTypes.shape({
+    results: PropTypes.array.isRequired,
+    previous: PropTypes.string,
+    next: PropTypes.string,
+    count: PropTypes.number,
+    page: PropTypes.number
+  }).isRequired,
+  isLoading: PropTypes.bool,
+  callback: PropTypes.func
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function LabeledInput({
   controlId,
@@ -8,7 +9,7 @@ export default function LabeledInput({
   labelPosition = "right",
   placeholder = "",
   disabled = false,
-  onChange = (event) => {},
+  onChange = () => {},
   validators = [],
 }) {
   const [errors, setErrors] = useState([]);
@@ -47,8 +48,8 @@ export default function LabeledInput({
 
   return (
     <Form.Group
-      className="mb-4 row"
       controlId={controlId}
+      className="mb-4 row"
       onInput={(event) => validate(event.target)}
       onChange={(event) => onChange(event)}>
       <Form.Label className={extraClasses} column {...extraPropsLabel}>
@@ -71,4 +72,15 @@ export default function LabeledInput({
       </Col>
     </Form.Group>
   );
+}
+
+LabeledInput.propTypes = {
+  controlId: PropTypes.string,
+  type: PropTypes.string,
+  label: PropTypes.string,
+  labelPosition: PropTypes.oneOf(["right", "up"]),
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  validators: PropTypes.array
 }

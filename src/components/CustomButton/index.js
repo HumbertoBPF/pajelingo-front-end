@@ -1,4 +1,5 @@
 import { Button, Spinner } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function CustomButton({
   className = "",
@@ -6,7 +7,7 @@ export default function CustomButton({
   variant,
   disabled = false,
   isLoading = false,
-  onClick = (event) => {},
+  onClick = () => {},
   children,
 }) {
   let styles = {};
@@ -27,4 +28,14 @@ export default function CustomButton({
       {children}
     </Button>
   );
+}
+
+CustomButton.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes.string,
+  variant: PropTypes.string,
+  disabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  onClick: PropTypes.func,
+  children: PropTypes.node
 }

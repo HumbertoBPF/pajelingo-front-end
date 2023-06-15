@@ -1,5 +1,6 @@
 import { Pagination } from "react-bootstrap";
 import styles from "./PaginationBar.module.css";
+import PropTypes from "prop-types";
 
 function getPageButtons(index, page, numberPages, callback) {
   // Current page button
@@ -39,7 +40,7 @@ export default function PaginationBar({
   count,
   resultsPerPage,
   page,
-  callback = (page) => {},
+  callback = () => {},
 }) {
   const numberPages = Math.ceil(count / resultsPerPage);
   let paginationArray = [];
@@ -61,4 +62,13 @@ export default function PaginationBar({
       ) : null}
     </Pagination>
   );
+}
+
+PaginationBar.propTypes = {
+  previous: PropTypes.string,
+  next: PropTypes.string,
+  count: PropTypes.number,
+  resultsPerPage: PropTypes.number.isRequired,
+  page: PropTypes.number,
+  callback: PropTypes.func
 }

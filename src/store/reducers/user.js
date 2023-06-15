@@ -9,7 +9,7 @@ const userSlice = createSlice({
       localStorage.setItem("user", JSON.stringify({ token: action.payload }));
       return JSON.parse(localStorage.getItem("user"));
     },
-    deleteUser: (state) => {
+    deleteUser: () => {
       localStorage.removeItem("user");
       return null;
     },

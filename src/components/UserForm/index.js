@@ -8,6 +8,7 @@ import {
   getPasswordValidators,
   getUsernameValidators,
 } from "./validators";
+import PropTypes from "prop-types";
 
 export default function UserForm({
   user = { email: "", username: "" },
@@ -102,4 +103,16 @@ export default function UserForm({
       </div>
     </Form>
   );
+}
+
+UserForm.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    bio: PropTypes.string
+  }),
+  buttonColorStyle: PropTypes.string,
+  buttonText: PropTypes.string,
+  isLoading: PropTypes.bool,
+  onSubmit: PropTypes.func
 }

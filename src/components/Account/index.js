@@ -32,6 +32,7 @@ import BadgeIcon from "components/icons/BadgeIcon";
 import TropheeIcon from "components/icons/TropheeIcon";
 import NotificationContainer from "components/NotificationContainer";
 import { errorDeletionConfirmationText } from "validators/validators";
+import PropTypes from "prop-types";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
@@ -355,4 +356,13 @@ export default function Account({ user }) {
       </NotificationContainer>
     </>
   );
+}
+
+Account.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    picture: PropTypes.string,
+    token: PropTypes.string,
+    badges: PropTypes.array
+  }).isRequired
 }

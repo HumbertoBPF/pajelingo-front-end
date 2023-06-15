@@ -1,4 +1,5 @@
 import { Table } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function UserScores({ scores }) {
   return (
@@ -19,4 +20,8 @@ export default function UserScores({ scores }) {
       </tbody>
     </Table>
   );
+}
+
+UserScores.propTypes = {
+  scores: PropTypes.array.isRequired
 }

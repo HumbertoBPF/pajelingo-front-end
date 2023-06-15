@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styles from "./Ranking.module.css";
+import PropTypes from "prop-types";
 
 export default function Ranking({ ranking }) {
   const navigate = useNavigate();
@@ -44,4 +45,16 @@ export default function Ranking({ ranking }) {
       </tbody>
     </Table>
   );
+}
+
+Ranking.propTypes = {
+  ranking: PropTypes.shape({
+    results: PropTypes.array.isRequired,
+    page: PropTypes.number.isRequired,
+    user_score: PropTypes.shape({
+      position: PropTypes.number,
+      user: PropTypes.string,
+      score: PropTypes.number
+    })
+  }).isRequired
 }

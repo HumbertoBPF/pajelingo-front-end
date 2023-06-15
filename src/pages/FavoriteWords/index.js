@@ -58,7 +58,7 @@ export default function FavoriteWords() {
               setIsPaginating(false);
             }, 2000);
           })
-          .catch((error) => setShowToast(true));
+          .catch(() => setShowToast(true));
       }
     },
     [user]

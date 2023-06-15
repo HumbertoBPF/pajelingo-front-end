@@ -7,13 +7,14 @@ import { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
+import PropTypes from "prop-types";
 
 export default function WordListWithFilters({
   words,
   isFiltering = false,
   isPaginating = false,
   filterCallback,
-  paginationCallback,
+  paginationCallback
 }) {
   const languages = useSelector((state) => state.languages);
   const dispatch = useDispatch();
@@ -113,4 +114,18 @@ export default function WordListWithFilters({
       </Modal>
     </>
   );
+}
+
+WordListWithFilters.propTypes = {
+  words: PropTypes.shape({
+    results: PropTypes.array.isRequired,
+    previous: PropTypes.string,
+    next: PropTypes.string,
+    count: PropTypes.number,
+    page: PropTypes.number
+  }).isRequired,
+  isFiltering: PropTypes.bool,
+  isPaginating: PropTypes.bool,
+  filterCallback: PropTypes.func,
+  paginationCallback: PropTypes.func
 }

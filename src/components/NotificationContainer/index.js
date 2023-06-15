@@ -1,4 +1,5 @@
 import { ToastContainer } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function NotificationContainer({ children }) {
   return (
@@ -9,4 +10,8 @@ export default function NotificationContainer({ children }) {
       {children}
     </ToastContainer>
   );
+}
+
+NotificationContainer.propTypes = {
+  children: PropTypes.element
 }

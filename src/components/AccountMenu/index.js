@@ -7,6 +7,7 @@ import LogoutIcon from "components/icons/LogoutIcon";
 import UserIcon from "components/icons/UserIcon";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "store/reducers/user";
+import PropTypes from "prop-types";
 
 export default function AccountMenu({ user }) {
   const dispatch = useDispatch();
@@ -55,4 +56,11 @@ export default function AccountMenu({ user }) {
       </Link>
     </div>
   );
+}
+
+AccountMenu.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    picture: PropTypes.string
+  })
 }

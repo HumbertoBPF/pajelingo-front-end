@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function FloatingLabelInput({
   controlId,
@@ -8,7 +9,7 @@ export default function FloatingLabelInput({
   placeholder = "",
   defaultValue = "",
   required = false,
-  onChange = (event) => {},
+  onChange = () => {},
   validators = [],
 }) {
   const [errors, setErrors] = useState([]);
@@ -52,4 +53,15 @@ export default function FloatingLabelInput({
       </Form.Control.Feedback>
     </FloatingLabel>
   );
+}
+
+FloatingLabelInput.propTypes = {
+  controlId: PropTypes.string,
+  type: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
+  required: PropTypes.bool,
+  onChange: PropTypes.func,
+  validators: PropTypes.array
 }

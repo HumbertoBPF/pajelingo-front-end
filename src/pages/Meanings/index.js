@@ -72,7 +72,7 @@ export default function Meanings() {
 
   return (
     <>
-      <h5 className="mb-4">Meanings of "{word.word_name}"</h5>
+      <h5 className="mb-4">Meanings of &quot;{word.word_name}&quot;</h5>
 
       {word.image === null ? null : (
         <div className="row g-0 justify-content-center mb-4">
@@ -86,10 +86,10 @@ export default function Meanings() {
 
       {meanings.length > 1
         ? meanings.map((meaning, index) => (
-            <MeaningCard key={meaning.id} index={index + 1} meaning={meaning} />
+            <MeaningCard key={meaning.id} index={index + 1} meaning={meaning.meaning} />
           ))
         : meanings.map((meaning) => (
-            <MeaningCard key={meaning.id} meaning={meaning} />
+            <MeaningCard key={meaning.id} meaning={meaning.meaning} />
           ))}
 
       {user ? (

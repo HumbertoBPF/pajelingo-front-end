@@ -1,4 +1,5 @@
 import { Card, Col, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function AboutUsCard({ image, children }) {
   return (
@@ -25,4 +26,9 @@ export default function AboutUsCard({ image, children }) {
       </Card>
     </>
   );
+}
+
+AboutUsCard.propTypes = {
+  image: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired
 }

@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function SelectLanguage({
   items,
   defaultItem = null,
-  onClick = (target) => {},
+  onClick = () => {},
 }) {
   return (
     <Form.Select
@@ -21,4 +22,10 @@ export default function SelectLanguage({
       ))}
     </Form.Select>
   );
+}
+
+SelectLanguage.propTypes = {
+  items: PropTypes.array.isRequired,
+  defaultItem: PropTypes.string,
+  onClick: PropTypes.func
 }

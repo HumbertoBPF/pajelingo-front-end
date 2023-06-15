@@ -2,6 +2,7 @@ import FeedbackAlert from "components/FeedbackAlert";
 import Notification from "components/Notification";
 import NotificationContainer from "components/NotificationContainer";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 export default function FeedbackPage({ feedback, playAgain = () => {} }) {
   const [showToast, setShowToast] = useState(false);
@@ -58,4 +59,15 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
       ) : null}
     </>
   );
+}
+
+FeedbackPage.propTypes = {
+  feedback: PropTypes.shape({
+    result: PropTypes.bool.isRequired,
+    correct_answer: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    new_badges: PropTypes.array.isRequired,
+    state: PropTypes.oneOf(["idle", "pending", "succeeded"]).isRequired
+  }).isRequired,
+  playAgain: PropTypes.func
 }

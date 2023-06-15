@@ -1,10 +1,11 @@
 import CustomButton from "components/CustomButton";
 import { Alert } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default function FeedbackAlert({
   variant,
   children,
-  onClick = (event) => {},
+  onClick = () => {},
 }) {
   return (
     <>
@@ -18,4 +19,10 @@ export default function FeedbackAlert({
       </div>
     </>
   );
+}
+
+FeedbackAlert.propTypes = {
+  variant: PropTypes.string,
+  children: PropTypes.element,
+  onClick: PropTypes.func
 }

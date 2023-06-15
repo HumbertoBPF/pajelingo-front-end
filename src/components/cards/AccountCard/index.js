@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./AccountCard.module.css";
 import { Card, Col, Ratio, Row } from "react-bootstrap";
 import { showFirstCharacters } from "utils";
+import PropTypes from "prop-types";
 
 export default function AccountCard({ user }) {
   const navigate = useNavigate();
@@ -51,4 +52,12 @@ export default function AccountCard({ user }) {
       </Row>
     </Card>
   );
+}
+
+AccountCard.propTypes = {
+  user: PropTypes.shape({
+    picture: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    bio: PropTypes.string
+  }).isRequired
 }

@@ -36,7 +36,7 @@ export default function Rankings() {
           setRanking({ ...data, page: page });
           setTimeout(() => setIsLoading(false), 2000);
         })
-        .catch((error) => {
+        .catch(() => {
           setTimeout(() => setIsLoading(false), 2000);
         });
     }

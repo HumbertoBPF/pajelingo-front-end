@@ -2,6 +2,7 @@ import EmailIcon from "components/icons/EmailIcon";
 import UserIcon from "components/icons/UserIcon";
 import styles from "./AccountDetails.module.css";
 import BioIcon from "components/icons/BioIcon";
+import PropTypes from "prop-types";
 
 export default function AccountDetails({ user }) {
   return (
@@ -20,4 +21,12 @@ export default function AccountDetails({ user }) {
       </p>
     </section>
   );
+}
+
+AccountDetails.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    bio: PropTypes.string
+  }).isRequired
 }
