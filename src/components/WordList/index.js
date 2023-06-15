@@ -16,7 +16,7 @@ export default function WordList({
 
   useEffect(() => {
     // Preparing language map
-    let temp = new Map();
+    const temp = new Map();
     languages.forEach((item) => {
       temp.set(item.language_name, item.flag_image);
     });

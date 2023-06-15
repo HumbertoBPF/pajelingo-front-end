@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
 
 export default function ConjugationGameSetup() {
-  let languages = useSelector((state) => state.languages);
+  const languages = useSelector((state) => state.languages);
   const [conjugationGame] = useGame(3);
 
   const [error, setError] = useState({
@@ -32,9 +32,7 @@ export default function ConjugationGameSetup() {
       return;
     }
 
-    const queryParams = new URLSearchParams({
-      language: language
-    });
+    const queryParams = new URLSearchParams({ language });
     navigate(`${conjugationGame.link}play?${queryParams}`);
   }
 

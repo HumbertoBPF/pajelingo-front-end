@@ -43,7 +43,7 @@ export default function PaginationBar({
   callback = () => {}
 }) {
   const numberPages = Math.ceil(count / resultsPerPage);
-  let paginationArray = [];
+  const paginationArray = [];
 
   for (let i = 1; i <= numberPages; i++) {
     paginationArray.push(i);
@@ -51,13 +51,13 @@ export default function PaginationBar({
 
   return (
     <Pagination className={`mt-4 pagination ${styles["pagination"]}`}>
-      {previous != null ? (
+      {previous !== null ? (
         <Pagination.Prev onClick={() => callback(page - 1)} />
       ) : null}
       {paginationArray.map((item) =>
         getPageButtons(item, page, numberPages, callback)
       )}
-      {next != null ? (
+      {next !== null ? (
         <Pagination.Next onClick={() => callback(page + 1)} />
       ) : null}
     </Pagination>

@@ -12,10 +12,7 @@ export default function Dictionary() {
 
   const getSearchResultsPage = useCallback(
     (searchPattern, languages, page) => {
-      let searchFilters = {
-        search: searchPattern,
-        page: page
-      };
+      const searchFilters = { search: searchPattern, page };
 
       languages.forEach((value, key) => {
         searchFilters[key] = value;

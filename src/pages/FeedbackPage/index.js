@@ -7,11 +7,11 @@ import PropTypes from "prop-types";
 export default function FeedbackPage({ feedback, playAgain = () => {} }) {
   const [showToast, setShowToast] = useState(false);
 
-  const { correct_answer, result, score } = feedback;
-  const correct_answer_formatted = correct_answer.split("\n");
+  const { result, score } = feedback;
+  const correctAnswer = feedback.correct_answer;
+  const correctAnswerFormatted = correctAnswer.split("\n");
 
   useEffect(() => {
-    console.log(feedback.new_badges);
     if (feedback.new_badges) {
       setShowToast(true);
     }
@@ -24,9 +24,9 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
         onClick={playAgain}>
         {`${result ? "Correct answer :)" : "Wrong answer"}`}
         <br />
-        {correct_answer_formatted.length > 1 ? (
-          correct_answer_formatted.map((item, index) =>
-            index === correct_answer_formatted.length - 1 ? (
+        {correctAnswerFormatted.length > 1 ? (
+          correctAnswerFormatted.map((item, index) =>
+            index === correctAnswerFormatted.length - 1 ? (
               <span key={index}>{item}</span>
             ) : (
               <span key={index}>
@@ -37,7 +37,7 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
           )
         ) : (
           <>
-            {correct_answer_formatted[0]}
+            {correctAnswerFormatted[0]}
             <br />
           </>
         )}

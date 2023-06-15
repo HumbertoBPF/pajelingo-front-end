@@ -31,7 +31,7 @@ export default function ArticleGame() {
 
   const playAgain = useCallback(() => {
     if (articleGame.link) {
-      let authHeaders = {};
+      const authHeaders = {};
 
       if (user) {
         authHeaders["Authorization"] = `Token ${user.token}`;
@@ -75,7 +75,7 @@ export default function ArticleGame() {
       state: "pending"
     });
 
-    let authHeaders = {};
+    const authHeaders = {};
 
     if (user) {
       authHeaders["Authorization"] = `Token ${user.token}`;
@@ -87,10 +87,7 @@ export default function ArticleGame() {
         "Content-Type": "application/json",
         ...authHeaders
       },
-      body: JSON.stringify({
-        word_id: word.id,
-        answer: answer
-      })
+      body: JSON.stringify({ word_id: word.id, answer })
     })
       .then((response) => response.json())
       .then((data) => {

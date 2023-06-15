@@ -25,9 +25,7 @@ export default function RequestResetAccount() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        email: email
-      })
+      body: JSON.stringify({ email })
     })
       .then((response) => {
         if (response.ok) {

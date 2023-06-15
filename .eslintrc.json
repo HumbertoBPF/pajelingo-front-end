@@ -11,6 +11,25 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": ["off"]
+    "react/react-in-jsx-scope": ["off"],
+    "no-constant-binary-expression": ["error"],
+    "no-duplicate-imports": ["error"],
+    "no-self-compare": ["error"],
+    "no-use-before-define": ["error"],
+    "camelcase": ["error", { "properties": "never" }],
+    "eqeqeq": ["error"],
+    "no-array-constructor": ["error"],
+    "no-empty": ["error"],
+    "no-new-func": ["error"],
+    "no-new-object": ["error"],
+    "no-new-wrappers": ["error"],
+    "no-useless-return": ["error"],
+    "no-useless-rename": ["error"],
+    "no-var": ["error"],
+    "prefer-arrow-callback": ["error"],
+    "prefer-const": ["error"],
+    "prefer-destructuring": ["error", { "array": false }],
+    "prefer-template": ["error"],
+    "object-shorthand": ["error"]
   }
 }

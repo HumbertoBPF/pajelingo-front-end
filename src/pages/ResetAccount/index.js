@@ -4,8 +4,8 @@ import Notification from "components/Notification";
 import NotificationContainer from "components/NotificationContainer";
 import ShortcutButtons from "components/ShortcutButtons";
 import {
-  getPasswordValidators,
-  getConfirmPasswordValidators
+  getConfirmPasswordValidators,
+  getPasswordValidators
 } from "components/UserForm/validators";
 import { useState } from "react";
 import { Alert, Form } from "react-bootstrap";
@@ -34,9 +34,7 @@ export default function ResetAccount() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          password: password
-        })
+        body: JSON.stringify({ password })
       })
         .then((response) => {
           if (response.ok) {

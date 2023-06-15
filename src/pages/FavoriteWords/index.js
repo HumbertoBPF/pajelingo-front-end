@@ -27,10 +27,7 @@ export default function FavoriteWords() {
   const getSearchResultsPage = useCallback(
     (searchPattern, languages, page) => {
       if (user) {
-        let searchFilters = {
-          search: searchPattern,
-          page: page
-        };
+        const searchFilters = { search: searchPattern, page };
 
         languages.forEach((value, key) => {
           searchFilters[key] = value;

@@ -16,15 +16,12 @@ export default function SearchAccount() {
     (page) => {
       setIsLoading(true);
 
-      const queryParams = new URLSearchParams({
-        q: searchPattern,
-        page: page
-      });
+      const queryParams = new URLSearchParams({ q: searchPattern, page });
 
       fetch(`${baseUrl}/accounts?${queryParams}`)
         .then((response) => response.json())
         .then((data) => {
-          setUsers({ ...data, page: page });
+          setUsers({ ...data, page });
           setTimeout(() => setIsLoading(false), 2000);
         });
     },

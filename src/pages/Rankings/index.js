@@ -15,7 +15,7 @@ export default function Rankings() {
   const [language, setLanguage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const getRankings = useCallback((language, page, user = null) => {
-    if (language != null) {
+    if (language !== null) {
       let url = `${baseUrl}/rankings?language=${language}&page=${page}`;
 
       if (user) {
@@ -33,7 +33,7 @@ export default function Rankings() {
           throw Error();
         })
         .then((data) => {
-          setRanking({ ...data, page: page });
+          setRanking({ ...data, page });
           setTimeout(() => setIsLoading(false), 2000);
         })
         .catch(() => {

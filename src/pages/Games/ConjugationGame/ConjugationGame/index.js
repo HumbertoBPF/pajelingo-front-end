@@ -44,7 +44,7 @@ export default function ConjugationGame() {
 
   const playAgain = useCallback(() => {
     if (conjugationGame.link) {
-      let authHeaders = {};
+      const authHeaders = {};
 
       if (user) {
         authHeaders["Authorization"] = `Token ${user.token}`;
@@ -95,7 +95,7 @@ export default function ConjugationGame() {
       state: "pending"
     });
 
-    let authHeaders = {};
+    const authHeaders = {};
 
     if (user) {
       authHeaders["Authorization"] = `Token ${user.token}`;

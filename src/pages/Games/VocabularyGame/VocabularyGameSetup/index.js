@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
 
 export default function VocabularyGameSetup() {
-  let languages = useSelector((state) => state.languages);
+  const languages = useSelector((state) => state.languages);
   const [vocabularyGame] = useGame(1);
 
   const [error, setError] = useState({

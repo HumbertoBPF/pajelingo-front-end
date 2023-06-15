@@ -11,7 +11,7 @@ export default function SelectLanguage({
       className="mb-4"
       defaultValue="defaultItem"
       onClick={(event) => onClick(event.target)}>
-      {defaultItem != null ? <option value={""}>{defaultItem}</option> : null}
+      {defaultItem !== null ? <option value={""}>{defaultItem}</option> : null}
       {items.map((item) => (
         <option
           key={item.id}

@@ -15,7 +15,7 @@ export default function LabeledInput({
   const [errors, setErrors] = useState([]);
 
   function validate(target) {
-    let errorList = [];
+    const errorList = [];
 
     validators.forEach((validator) => {
       if (!validator.validate(target)) {

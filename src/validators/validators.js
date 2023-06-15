@@ -50,7 +50,13 @@ export function isImageFile(target) {
     return true;
   }
 
-  const file = target.files[0];
+  const { files } = target;
+
+  if (files.length === 0) {
+    return true;
+  }
+
+  const file = files[0];
 
   return file && file["type"].split("/")[0] === "image";
 }

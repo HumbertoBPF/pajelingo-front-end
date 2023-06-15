@@ -30,7 +30,7 @@ export default function WordListWithFilters({
 
   useEffect(() => {
     if (languages.length > 0) {
-      let languageMap = new Map();
+      const languageMap = new Map();
       languages.forEach((language) =>
         languageMap.set(language.language_name, true)
       );

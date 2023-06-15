@@ -36,7 +36,7 @@ export default function VocabularyGame() {
         target_language: searchParams.get("target_language")
       });
 
-      let authHeaders = {};
+      const authHeaders = {};
 
       if (user) {
         authHeaders["Authorization"] = `Token ${user.token}`;
@@ -72,7 +72,7 @@ export default function VocabularyGame() {
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    let authHeaders = {};
+    const authHeaders = {};
 
     if (user) {
       authHeaders["Authorization"] = `Token ${user.token}`;
@@ -95,7 +95,7 @@ export default function VocabularyGame() {
       body: JSON.stringify({
         word_id: word.id,
         base_language: searchParams.get("base_language"),
-        answer: answer
+        answer
       })
     })
       .then((response) => response.json())

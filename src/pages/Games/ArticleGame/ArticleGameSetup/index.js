@@ -32,9 +32,7 @@ export default function ArticleGameSetup() {
       return;
     }
 
-    const queryParams = new URLSearchParams({
-      language: language
-    });
+    const queryParams = new URLSearchParams({ language });
     navigate(`${articleGame.link}play?${queryParams}`);
   }
 
