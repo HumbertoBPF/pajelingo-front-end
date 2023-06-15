@@ -31,4 +31,4 @@ export default function AboutUsCard({ image, children }) {
 AboutUsCard.propTypes = {
   image: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired
-}
+};

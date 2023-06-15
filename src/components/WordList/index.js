@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 export default function WordList({
   words,
   isLoading = false,
-  callback = () => {},
+  callback = () => {}
 }) {
   const languages = useSelector((state) => state.languages);
   const [languagesFlag, setLanguagesFlag] = useState(new Map());
@@ -74,4 +74,4 @@ WordList.propTypes = {
   }).isRequired,
   isLoading: PropTypes.bool,
   callback: PropTypes.func
-}
+};

@@ -2,7 +2,7 @@ import {
   Validator,
   errorDeletionConfirmationText,
   errorFileIsNotImage,
-  isImageFile,
+  isImageFile
 } from "validators/validators";
 
 export function getImageFileValidators() {
@@ -14,6 +14,6 @@ export function getConfirmDeletionInputValidation() {
     new Validator(
       (target) => target.value === "permanently delete",
       errorDeletionConfirmationText
-    ),
+    )
   ];
 }

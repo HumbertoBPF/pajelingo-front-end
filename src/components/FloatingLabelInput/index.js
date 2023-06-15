@@ -10,7 +10,7 @@ export default function FloatingLabelInput({
   defaultValue = "",
   required = false,
   onChange = () => {},
-  validators = [],
+  validators = []
 }) {
   const [errors, setErrors] = useState([]);
 
@@ -64,4 +64,4 @@ FloatingLabelInput.propTypes = {
   required: PropTypes.bool,
   onChange: PropTypes.func,
   validators: PropTypes.array
-}
+};

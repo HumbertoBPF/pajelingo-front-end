@@ -16,7 +16,7 @@ export default function ArticleGameSetup() {
 
   const [error, setError] = useState({
     showToast: false,
-    message: "",
+    message: ""
   });
   const [articleGame] = useGame(2);
   const [language, setLanguage] = useState(null);
@@ -33,7 +33,7 @@ export default function ArticleGameSetup() {
     }
 
     const queryParams = new URLSearchParams({
-      language: language,
+      language: language
     });
     navigate(`${articleGame.link}play?${queryParams}`);
   }

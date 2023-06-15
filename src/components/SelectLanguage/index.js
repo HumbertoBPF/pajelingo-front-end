@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export default function SelectLanguage({
   items,
   defaultItem = null,
-  onClick = () => {},
+  onClick = () => {}
 }) {
   return (
     <Form.Select
@@ -28,4 +28,4 @@ SelectLanguage.propTypes = {
   items: PropTypes.array.isRequired,
   defaultItem: PropTypes.string,
   onClick: PropTypes.func
-}
+};

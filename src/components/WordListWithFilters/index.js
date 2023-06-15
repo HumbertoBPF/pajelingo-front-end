@@ -128,4 +128,4 @@ WordListWithFilters.propTypes = {
   isPaginating: PropTypes.bool,
   filterCallback: PropTypes.func,
   paginationCallback: PropTypes.func
-}
+};

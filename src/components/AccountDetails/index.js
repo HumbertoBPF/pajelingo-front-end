@@ -29,4 +29,4 @@ AccountDetails.propTypes = {
     email: PropTypes.string,
     bio: PropTypes.string
   }).isRequired
-}
+};

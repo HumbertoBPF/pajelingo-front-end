@@ -63,4 +63,4 @@ AccountMenu.propTypes = {
     username: PropTypes.string,
     picture: PropTypes.string
   })
-}
+};

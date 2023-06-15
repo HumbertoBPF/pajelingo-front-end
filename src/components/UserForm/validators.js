@@ -12,7 +12,7 @@ import {
   hasDigit,
   hasLetter,
   hasSpecialCharacter,
-  isValidUsername,
+  isValidUsername
 } from "validators/validators";
 
 export function getEmailValidators() {
@@ -21,7 +21,7 @@ export function getEmailValidators() {
       (target) => !target.validity.valueMissing,
       errorRequiredField
     ),
-    new Validator((target) => !target.validity.typeMismatch, errorEmailFormat),
+    new Validator((target) => !target.validity.typeMismatch, errorEmailFormat)
   ];
 }
 
@@ -35,7 +35,7 @@ export function getUsernameValidators() {
       (target) => isValidUsername(target.value),
       errorInvalidUsername
     ),
-    new Validator((target) => target.value.length >= 8, errorTooShortUsername),
+    new Validator((target) => target.value.length >= 8, errorTooShortUsername)
   ];
 }
 
@@ -54,7 +54,7 @@ export function getPasswordValidators() {
     new Validator(
       (target) => hasSpecialCharacter(target.value),
       errorSpecialCharacterPassword
-    ),
+    )
   ];
 }
 
@@ -67,6 +67,6 @@ export function getConfirmPasswordValidators(password) {
     new Validator(
       (target) => password === target.value,
       errorNotConfirmedPassword
-    ),
+    )
   ];
 }

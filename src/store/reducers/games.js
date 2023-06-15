@@ -15,7 +15,7 @@ const gamesSlice = createSlice({
 
       return newState;
     });
-  },
+  }
 });
 
 const gamesSliceReducers = gamesSlice.reducer;

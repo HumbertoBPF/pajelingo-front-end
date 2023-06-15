@@ -16,7 +16,7 @@ export default function ArticleGame() {
   const [articleGame] = useGame(2);
   const [word, setWord] = useState({
     id: null,
-    word: "",
+    word: ""
   });
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState({
@@ -24,7 +24,7 @@ export default function ArticleGame() {
     correct_answer: null,
     score: null,
     new_badges: [],
-    state: "idle",
+    state: "idle"
   });
 
   const navigate = useNavigate();
@@ -40,8 +40,8 @@ export default function ArticleGame() {
       fetch(`${baseUrl}/article-game?${searchParams}`, {
         headers: {
           "Content-Type": "application/json",
-          ...authHeaders,
-        },
+          ...authHeaders
+        }
       })
         .then((response) => {
           if (response.ok) {
@@ -58,7 +58,7 @@ export default function ArticleGame() {
             correct_answer: null,
             score: null,
             new_badges: [],
-            state: "idle",
+            state: "idle"
           });
         });
     }
@@ -72,7 +72,7 @@ export default function ArticleGame() {
       correct_answer: null,
       score: null,
       new_badges: [],
-      state: "pending",
+      state: "pending"
     });
 
     let authHeaders = {};
@@ -85,12 +85,12 @@ export default function ArticleGame() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...authHeaders,
+        ...authHeaders
       },
       body: JSON.stringify({
         word_id: word.id,
-        answer: answer,
-      }),
+        answer: answer
+      })
     })
       .then((response) => response.json())
       .then((data) => {
@@ -99,7 +99,7 @@ export default function ArticleGame() {
           correct_answer: data.correct_answer,
           score: data.score,
           new_badges: data.new_badges,
-          state: "succeeded",
+          state: "succeeded"
         });
       });
   }

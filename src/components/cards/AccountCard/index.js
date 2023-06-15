@@ -60,4 +60,4 @@ AccountCard.propTypes = {
     username: PropTypes.string.isRequired,
     bio: PropTypes.string
   }).isRequired
-}
+};

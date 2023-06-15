@@ -38,4 +38,4 @@ GameCard.propTypes = {
     game_name: PropTypes.string.isRequired,
     image: PropTypes.string
   }).isRequired
-}
+};

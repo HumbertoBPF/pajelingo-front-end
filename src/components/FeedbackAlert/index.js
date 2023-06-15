@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default function FeedbackAlert({
   variant,
   children,
-  onClick = () => {},
+  onClick = () => {}
 }) {
   return (
     <>
@@ -25,4 +25,4 @@ FeedbackAlert.propTypes = {
   variant: PropTypes.string,
   children: PropTypes.element,
   onClick: PropTypes.func
-}
+};

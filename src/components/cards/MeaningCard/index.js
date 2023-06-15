@@ -17,4 +17,4 @@ export default function MeaningCard({ index = null, meaning }) {
 MeaningCard.propTypes = {
   index: PropTypes.number,
   meaning: PropTypes.string
-}
+};

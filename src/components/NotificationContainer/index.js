@@ -14,4 +14,4 @@ export default function NotificationContainer({ children }) {
 
 NotificationContainer.propTypes = {
   children: PropTypes.element
-}
+};

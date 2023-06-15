@@ -10,7 +10,7 @@ export default function LabeledInput({
   placeholder = "",
   disabled = false,
   onChange = () => {},
-  validators = [],
+  validators = []
 }) {
   const [errors, setErrors] = useState([]);
 
@@ -83,4 +83,4 @@ LabeledInput.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   validators: PropTypes.array
-}
+};

@@ -14,7 +14,7 @@ export default function Dictionary() {
     (searchPattern, languages, page) => {
       let searchFilters = {
         search: searchPattern,
-        page: page,
+        page: page
       };
 
       languages.forEach((value, key) => {
@@ -28,8 +28,8 @@ export default function Dictionary() {
       if (user) {
         options = {
           headers: {
-            Authorization: `Token ${user.token}`,
-          },
+            Authorization: `Token ${user.token}`
+          }
         };
       }
 

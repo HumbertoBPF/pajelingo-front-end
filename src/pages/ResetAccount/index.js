@@ -5,7 +5,7 @@ import NotificationContainer from "components/NotificationContainer";
 import ShortcutButtons from "components/ShortcutButtons";
 import {
   getPasswordValidators,
-  getConfirmPasswordValidators,
+  getConfirmPasswordValidators
 } from "components/UserForm/validators";
 import { useState } from "react";
 import { Alert, Form } from "react-bootstrap";
@@ -19,7 +19,7 @@ export default function ResetAccount() {
   const [showToast, setShowToast] = useState(false);
   const [feedback, setFeedback] = useState({
     result: null,
-    state: "idle",
+    state: "idle"
   });
 
   function handleFormSubmit(event) {
@@ -32,18 +32,18 @@ export default function ResetAccount() {
       fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          password: password,
-        }),
+          password: password
+        })
       })
         .then((response) => {
           if (response.ok) {
             setIsLoading(false);
             setFeedback({
               result: true,
-              state: "succeeded",
+              state: "succeeded"
             });
             return;
           }

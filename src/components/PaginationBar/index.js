@@ -40,7 +40,7 @@ export default function PaginationBar({
   count,
   resultsPerPage,
   page,
-  callback = () => {},
+  callback = () => {}
 }) {
   const numberPages = Math.ceil(count / resultsPerPage);
   let paginationArray = [];
@@ -71,4 +71,4 @@ PaginationBar.propTypes = {
   resultsPerPage: PropTypes.number.isRequired,
   page: PropTypes.number,
   callback: PropTypes.func
-}
+};

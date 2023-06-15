@@ -29,7 +29,7 @@ export default function FavoriteWords() {
       if (user) {
         let searchFilters = {
           search: searchPattern,
-          page: page,
+          page: page
         };
 
         languages.forEach((value, key) => {
@@ -40,8 +40,8 @@ export default function FavoriteWords() {
 
         fetch(`${baseUrl}/words/favorite-words?${queryParams}`, {
           headers: {
-            Authorization: `Token ${user.token}`,
-          },
+            Authorization: `Token ${user.token}`
+          }
         })
           .then((response) => {
             if (response.ok) {

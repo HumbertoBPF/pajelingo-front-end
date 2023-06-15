@@ -17,7 +17,7 @@ export default function VocabularyGameSetup() {
 
   const [error, setError] = useState({
     showToast: false,
-    message: "",
+    message: ""
   });
   const [baseLanguage, setBaseLanguage] = useState(null);
   const [targetLanguage, setTargetLanguage] = useState(null);
@@ -36,7 +36,7 @@ export default function VocabularyGameSetup() {
     ) {
       setError({
         showToast: true,
-        message: "You must set both base and target languages.",
+        message: "You must set both base and target languages."
       });
       return;
     }
@@ -44,14 +44,14 @@ export default function VocabularyGameSetup() {
     if (baseLanguage === targetLanguage) {
       setError({
         showToast: true,
-        message: "Base and target languages must be different.",
+        message: "Base and target languages must be different."
       });
       return;
     }
 
     const queryParams = new URLSearchParams({
       base_language: baseLanguage,
-      target_language: targetLanguage,
+      target_language: targetLanguage
     });
     navigate(`/vocabulary-game/play?${queryParams}`);
   }

@@ -12,13 +12,13 @@ const userSlice = createSlice({
     deleteUser: () => {
       localStorage.removeItem("user");
       return null;
-    },
+    }
   },
   extraReducers(builder) {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       return action.payload;
     });
-  },
+  }
 });
 
 const tokenSliceReducer = userSlice.reducer;

@@ -6,7 +6,7 @@ export default function HeartIcon({
   height = "1em",
   className = "",
   fill = true,
-  onClick = () => {},
+  onClick = () => {}
 }) {
   if (fill) {
     return (
@@ -46,4 +46,4 @@ HeartIcon.propTypes = {
   className: PropTypes.string,
   fill: PropTypes.bool,
   onClick: PropTypes.func
-}
+};

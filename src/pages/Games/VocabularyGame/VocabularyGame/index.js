@@ -16,7 +16,7 @@ export default function VocabularyGame() {
 
   const [word, setWord] = useState({
     id: null,
-    word: "",
+    word: ""
   });
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState({
@@ -24,7 +24,7 @@ export default function VocabularyGame() {
     correct_answer: null,
     score: null,
     new_badges: [],
-    state: "idle",
+    state: "idle"
   });
 
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function VocabularyGame() {
     if (vocabularyGame.link) {
       const queryParams = new URLSearchParams({
         base_language: searchParams.get("base_language"),
-        target_language: searchParams.get("target_language"),
+        target_language: searchParams.get("target_language")
       });
 
       let authHeaders = {};
@@ -45,8 +45,8 @@ export default function VocabularyGame() {
       fetch(`${baseUrl}/vocabulary-game?${queryParams}`, {
         headers: {
           "Content-Type": "application/json",
-          ...authHeaders,
-        },
+          ...authHeaders
+        }
       })
         .then((response) => {
           if (response.ok) {
@@ -63,7 +63,7 @@ export default function VocabularyGame() {
             correct_answer: null,
             score: null,
             new_badges: [],
-            state: "idle",
+            state: "idle"
           });
         });
     }
@@ -83,20 +83,20 @@ export default function VocabularyGame() {
       correct_answer: null,
       score: null,
       new_badges: [],
-      state: "pending",
+      state: "pending"
     });
 
     fetch(`${baseUrl}/vocabulary-game`, {
       method: "POST",
       headers: {
         ...authHeaders,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         word_id: word.id,
         base_language: searchParams.get("base_language"),
-        answer: answer,
-      }),
+        answer: answer
+      })
     })
       .then((response) => response.json())
       .then((data) => {
@@ -105,7 +105,7 @@ export default function VocabularyGame() {
           correct_answer: data.correct_answer,
           score: data.score,
           new_badges: data.new_badges,
-          state: "succeeded",
+          state: "succeeded"
         });
       });
   }

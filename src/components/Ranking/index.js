@@ -57,4 +57,4 @@ Ranking.propTypes = {
       score: PropTypes.number
     })
   }).isRequired
-}
+};

@@ -8,16 +8,16 @@ export default function Activation() {
   const params = useParams();
   const [feedback, setFeedback] = useState({
     result: null,
-    state: "idle",
+    state: "idle"
   });
 
   useEffect(() => {
     fetch(`${baseUrl}/activate/${params.uid}/${params.token}`, {
-      method: "PUT",
+      method: "PUT"
     }).then((response) =>
       setFeedback({
         result: response.ok,
-        state: "succeeded",
+        state: "succeeded"
       })
     );
   }, [params]);

@@ -13,7 +13,7 @@ export default function RequestResetAccount() {
   const [showToast, setShowToast] = useState(false);
   const [feedback, setFeedback] = useState({
     result: null,
-    state: "idle",
+    state: "idle"
   });
 
   function handleFormSubmit(event) {
@@ -23,18 +23,18 @@ export default function RequestResetAccount() {
     fetch(`${baseUrl}/request-reset-account/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: email,
-      }),
+        email: email
+      })
     })
       .then((response) => {
         if (response.ok) {
           setIsLoading(false);
           setFeedback({
             result: true,
-            state: "succeeded",
+            state: "succeeded"
           });
           return;
         }

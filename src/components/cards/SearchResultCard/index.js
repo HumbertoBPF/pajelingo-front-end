@@ -18,11 +18,11 @@ export default function SearchResultCard({ word, flagImage }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`,
+          Authorization: `Token ${user.token}`
         },
         body: JSON.stringify({
-          is_favorite: !result.is_favorite,
-        }),
+          is_favorite: !result.is_favorite
+        })
       })
         .then((response) => (response.ok ? response.json() : null))
         .then((data) => {
@@ -73,4 +73,4 @@ SearchResultCard.propTypes = {
     language: PropTypes.string.isRequired
   }).isRequired,
   flagImage: PropTypes.string
-}
+};

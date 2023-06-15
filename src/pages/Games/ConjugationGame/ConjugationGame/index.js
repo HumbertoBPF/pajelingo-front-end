@@ -20,7 +20,7 @@ export default function ConjugationGame() {
   const [verb, setVerb] = useState({
     id: null,
     word: "",
-    tense: "",
+    tense: ""
   });
   const [language, setLanguage] = useState({});
   const [conjugation, setConjugation] = useState({
@@ -29,14 +29,14 @@ export default function ConjugationGame() {
     conjugation_3: "",
     conjugation_4: "",
     conjugation_5: "",
-    conjugation_6: "",
+    conjugation_6: ""
   });
   const [feedback, setFeedback] = useState({
     result: null,
     correct_answer: null,
     score: null,
     new_badges: [],
-    state: "idle",
+    state: "idle"
   });
 
   const dispatch = useDispatch();
@@ -53,8 +53,8 @@ export default function ConjugationGame() {
       fetch(`${baseUrl}/conjugation-game?${searchParams}`, {
         headers: {
           "Content-Type": "application/json",
-          ...authHeaders,
-        },
+          ...authHeaders
+        }
       })
         .then((response) => {
           if (response.ok) {
@@ -71,14 +71,14 @@ export default function ConjugationGame() {
             conjugation_3: "",
             conjugation_4: "",
             conjugation_5: "",
-            conjugation_6: "",
+            conjugation_6: ""
           });
           setFeedback({
             result: null,
             correct_answer: null,
             score: null,
             new_badges: [],
-            state: "idle",
+            state: "idle"
           });
         });
     }
@@ -92,7 +92,7 @@ export default function ConjugationGame() {
       correct_answer: null,
       score: null,
       new_badges: [],
-      state: "pending",
+      state: "pending"
     });
 
     let authHeaders = {};
@@ -105,13 +105,13 @@ export default function ConjugationGame() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...authHeaders,
+        ...authHeaders
       },
       body: JSON.stringify({
         word_id: verb.id,
         tense: verb.tense,
-        ...conjugation,
-      }),
+        ...conjugation
+      })
     })
       .then((response) => response.json())
       .then((data) => {
@@ -120,7 +120,7 @@ export default function ConjugationGame() {
           correct_answer: data.correct_answer,
           score: data.score,
           new_badges: data.new_badges,
-          state: "succeeded",
+          state: "succeeded"
         });
       });
   }
@@ -164,7 +164,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_1: event.target.value,
+                conjugation_1: event.target.value
               })
             }
           />
@@ -175,7 +175,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_2: event.target.value,
+                conjugation_2: event.target.value
               })
             }
           />
@@ -186,7 +186,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_3: event.target.value,
+                conjugation_3: event.target.value
               })
             }
           />
@@ -197,7 +197,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_4: event.target.value,
+                conjugation_4: event.target.value
               })
             }
           />
@@ -208,7 +208,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_5: event.target.value,
+                conjugation_5: event.target.value
               })
             }
           />
@@ -219,7 +219,7 @@ export default function ConjugationGame() {
             onChange={(event) =>
               setConjugation({
                 ...conjugation,
-                conjugation_6: event.target.value,
+                conjugation_6: event.target.value
               })
             }
           />

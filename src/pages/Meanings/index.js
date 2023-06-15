@@ -19,8 +19,8 @@ export default function Meanings() {
     if (user) {
       options = {
         headers: {
-          Authorization: `Token ${user.token}`,
-        },
+          Authorization: `Token ${user.token}`
+        }
       };
     }
 
@@ -42,11 +42,11 @@ export default function Meanings() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`,
+          Authorization: `Token ${user.token}`
         },
         body: JSON.stringify({
-          is_favorite: !word.is_favorite,
-        }),
+          is_favorite: !word.is_favorite
+        })
       })
         .then((response) => (response.ok ? response.json() : null))
         .then((data) => {
@@ -86,7 +86,11 @@ export default function Meanings() {
 
       {meanings.length > 1
         ? meanings.map((meaning, index) => (
-            <MeaningCard key={meaning.id} index={index + 1} meaning={meaning.meaning} />
+            <MeaningCard
+              key={meaning.id}
+              index={index + 1}
+              meaning={meaning.meaning}
+            />
           ))
         : meanings.map((meaning) => (
             <MeaningCard key={meaning.id} meaning={meaning.meaning} />

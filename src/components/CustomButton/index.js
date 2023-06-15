@@ -8,7 +8,7 @@ export default function CustomButton({
   disabled = false,
   isLoading = false,
   onClick = () => {},
-  children,
+  children
 }) {
   let styles = {};
 
@@ -38,4 +38,4 @@ CustomButton.propTypes = {
   isLoading: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node
-}
+};

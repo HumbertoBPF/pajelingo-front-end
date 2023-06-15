@@ -8,7 +8,7 @@ const languagesSlice = createSlice({
     builder.addCase(fetchLanguages.fulfilled, (state, action) => {
       return action.payload;
     });
-  },
+  }
 });
 
 const languagesSliceReducers = languagesSlice.reducer;

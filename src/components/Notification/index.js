@@ -6,7 +6,7 @@ export default function Notification({
   onClose = () => {},
   variant,
   title,
-  message,
+  message
 }) {
   return (
     <ToastContainer
@@ -34,4 +34,4 @@ Notification.propTypes = {
   variant: PropTypes.string,
   title: PropTypes.string,
   message: PropTypes.string
-}
+};

@@ -70,4 +70,4 @@ FeedbackPage.propTypes = {
     state: PropTypes.oneOf(["idle", "pending", "succeeded"]).isRequired
   }).isRequired,
   playAgain: PropTypes.func
-}
+};

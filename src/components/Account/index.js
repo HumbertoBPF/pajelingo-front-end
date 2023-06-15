@@ -8,7 +8,7 @@ import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
 import {
   getConfirmDeletionInputValidation,
-  getImageFileValidators,
+  getImageFileValidators
 } from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
 import {
@@ -19,7 +19,7 @@ import {
   Modal,
   OverlayTrigger,
   Popover,
-  Row,
+  Row
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -102,9 +102,9 @@ export default function Account({ user }) {
     fetch(`${baseUrl}/user/picture`, {
       method: "PUT",
       headers: {
-        Authorization: `Token ${user.token}`,
+        Authorization: `Token ${user.token}`
       },
-      body: formData,
+      body: formData
     })
       .then((response) => {
         if (response.ok) {
@@ -188,8 +188,8 @@ export default function Account({ user }) {
     fetch(`${baseUrl}/user`, {
       method: "DELETE",
       headers: {
-        Authorization: `Token ${user.token}`,
-      },
+        Authorization: `Token ${user.token}`
+      }
     })
       .then((response) => {
         if (response.ok) {
@@ -308,7 +308,7 @@ export default function Account({ user }) {
                       <Button
                         style={{
                           backgroundColor: `#${badge.color}`,
-                          borderColor: `#${badge.color}`,
+                          borderColor: `#${badge.color}`
                         }}
                         className="mt-2 ms-2">
                         {badge.image ? (
@@ -365,4 +365,4 @@ Account.propTypes = {
     token: PropTypes.string,
     badges: PropTypes.array
   }).isRequired
-}
+};

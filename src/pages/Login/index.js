@@ -26,12 +26,12 @@ export default function Login() {
     fetch(`${baseUrl}/user-token`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username: username,
-        password: password,
-      }),
+        password: password
+      })
     })
       .then((response) => {
         if (response.ok) {

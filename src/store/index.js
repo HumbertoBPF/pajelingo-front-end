@@ -7,8 +7,8 @@ const store = configureStore({
   reducer: {
     languages: languagesSliceReducers,
     user: tokenSliceReducer,
-    games: gamesSliceReducers,
-  },
+    games: gamesSliceReducers
+  }
 });
 
 export default store;

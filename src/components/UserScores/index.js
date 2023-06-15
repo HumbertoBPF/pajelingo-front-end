@@ -24,4 +24,4 @@ export default function UserScores({ scores }) {
 
 UserScores.propTypes = {
   scores: PropTypes.array.isRequired
-}
+};

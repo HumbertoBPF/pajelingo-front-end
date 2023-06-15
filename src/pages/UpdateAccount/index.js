@@ -38,14 +38,14 @@ export default function UpdateAccount() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`,
+          Authorization: `Token ${user.token}`
         },
         body: JSON.stringify({
           email: personalData.email,
           username: personalData.username,
           bio: personalData.bio,
-          password: personalData.password,
-        }),
+          password: personalData.password
+        })
       })
         .then((response) => {
           if (response.ok) {

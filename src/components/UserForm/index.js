@@ -6,7 +6,7 @@ import {
   getConfirmPasswordValidators,
   getEmailValidators,
   getPasswordValidators,
-  getUsernameValidators,
+  getUsernameValidators
 } from "./validators";
 import PropTypes from "prop-types";
 
@@ -15,13 +15,13 @@ export default function UserForm({
   buttonColorStyle,
   buttonText,
   isLoading = false,
-  onSubmit = () => {},
+  onSubmit = () => {}
 }) {
   const [personalData, setPersonalData] = useState({
     email: user.email,
     username: user.username,
     bio: user.bio ? user.bio : "",
-    password: "",
+    password: ""
   });
 
   return (
@@ -115,4 +115,4 @@ UserForm.propTypes = {
   buttonText: PropTypes.string,
   isLoading: PropTypes.bool,
   onSubmit: PropTypes.func
-}
+};

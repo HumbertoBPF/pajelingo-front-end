@@ -17,7 +17,7 @@ export default function ConjugationGameSetup() {
 
   const [error, setError] = useState({
     showToast: false,
-    message: "",
+    message: ""
   });
   const [language, setLanguage] = useState(null);
 
@@ -33,7 +33,7 @@ export default function ConjugationGameSetup() {
     }
 
     const queryParams = new URLSearchParams({
-      language: language,
+      language: language
     });
     navigate(`${conjugationGame.link}play?${queryParams}`);
   }

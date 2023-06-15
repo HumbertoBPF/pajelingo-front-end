@@ -5,8 +5,8 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const response = await fetch(`${baseUrl}/user/`, {
     headers: {
-      Authorization: `Token ${user.token}`,
-    },
+      Authorization: `Token ${user.token}`
+    }
   });
   if (!response.ok) {
     localStorage.removeItem("user");
@@ -18,7 +18,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
       username: data.username,
       bio: data.bio,
       email: data.email,
-      badges: data.badges,
+      badges: data.badges
     };
     localStorage.setItem("user", JSON.stringify(updatedUser));
     return { ...updatedUser, picture: data.picture };

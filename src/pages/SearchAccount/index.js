@@ -18,7 +18,7 @@ export default function SearchAccount() {
 
       const queryParams = new URLSearchParams({
         q: searchPattern,
-        page: page,
+        page: page
       });
 
       fetch(`${baseUrl}/accounts?${queryParams}`)

@@ -10,7 +10,7 @@ export default function SignUp() {
   const [showToast, setShowToast] = useState(false);
   const [feedback, setFeedback] = useState({
     result: null,
-    state: "idle",
+    state: "idle"
   });
 
   function handleFormSubmit(event, personalData) {
@@ -20,19 +20,19 @@ export default function SignUp() {
     if (form.checkValidity()) {
       setFeedback({
         result: null,
-        state: "pending",
+        state: "pending"
       });
       fetch(`${baseUrl}/user/`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           email: personalData.email,
           username: personalData.username,
           bio: personalData.bio,
-          password: personalData.password,
-        }),
+          password: personalData.password
+        })
       })
         .then((response) => {
           if (response.ok) {
@@ -45,7 +45,7 @@ export default function SignUp() {
           setIsLoading(false);
           setFeedback({
             result: true,
-            state: "succeeded",
+            state: "succeeded"
           });
         })
         .catch(() => {
