@@ -8,7 +8,8 @@ export default function CustomButton({
   disabled = false,
   isLoading = false,
   onClick = () => {},
-  children
+  children,
+  testId = ""
 }) {
   let styles = {};
 
@@ -23,7 +24,8 @@ export default function CustomButton({
       type={type}
       variant={variant}
       disabled={disabled}
-      onClick={(event) => onClick(event)}>
+      onClick={(event) => onClick(event)}
+      data-testid={testId}>
       {isLoading ? <Spinner as="span" animation="border" size="sm" /> : null}
       {children}
     </Button>
@@ -37,5 +39,6 @@ CustomButton.propTypes = {
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  testId: PropTypes.string
 };

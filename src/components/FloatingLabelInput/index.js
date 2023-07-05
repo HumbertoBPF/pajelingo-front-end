@@ -10,7 +10,8 @@ export default function FloatingLabelInput({
   defaultValue = "",
   required = false,
   onChange = () => {},
-  validators = []
+  validators = [],
+  testId = ""
 }) {
   const [errors, setErrors] = useState([]);
 
@@ -36,7 +37,8 @@ export default function FloatingLabelInput({
       label={label}
       onChange={(event) => onChange(event)}
       onInput={(event) => validate(event.target)}
-      onFocus={(event) => validate(event.target)}>
+      onFocus={(event) => validate(event.target)}
+      data-testid={testId}>
       <Form.Control
         className={errors.length === 0 ? "" : "is-invalid"}
         type={type}
@@ -63,5 +65,6 @@ FloatingLabelInput.propTypes = {
   defaultValue: PropTypes.string,
   required: PropTypes.bool,
   onChange: PropTypes.func,
-  validators: PropTypes.array
+  validators: PropTypes.array,
+  testId: PropTypes.string
 };

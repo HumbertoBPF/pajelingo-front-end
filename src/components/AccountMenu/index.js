@@ -28,15 +28,21 @@ export default function AccountMenu({ user }) {
   if (user) {
     return (
       <Dropdown className={`${styles["account-options"]}`}>
-        <Dropdown.Toggle className={`btn btn-account-options ${styles["btn"]}`}>
+        <Dropdown.Toggle
+          data-testid="profile-dropdown"
+          className={`btn btn-account-options ${styles["btn"]}`}>
           {renderProfilePicture()}
           <span> {user.username}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item className="dropdown-item" href="/profile">
+          <Dropdown.Item
+            data-testid="profile-item"
+            className="dropdown-item"
+            href="/profile">
             <UserIcon /> <span>Profile</span>
           </Dropdown.Item>
           <Dropdown.Item
+            data-testid="logout-item"
             className="dropdown-item"
             onClick={() => dispatch(deleteUser())}>
             <LogoutIcon /> <span>Logout</span>
@@ -48,10 +54,18 @@ export default function AccountMenu({ user }) {
 
   return (
     <div className={`${styles["account-options"]}`}>
-      <Link className="btn btn-success" to="/signup" role="button">
+      <Link
+        data-testid="signup-button"
+        className="btn btn-success"
+        to="/signup"
+        role="button">
         <SignUpIcon /> <span>Sign up</span>
       </Link>
-      <Link className="btn btn-primary ms-2" to="/login" role="button">
+      <Link
+        data-testid="signin-button"
+        className="btn btn-primary ms-2"
+        to="/login"
+        role="button">
         <SignInIcon /> <span>Sign in</span>
       </Link>
     </div>

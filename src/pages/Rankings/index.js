@@ -11,7 +11,7 @@ import { fetchLanguages } from "services/languages";
 export default function Rankings() {
   const languages = useSelector((state) => state.languages);
   const user = useSelector((state) => state.user);
-  const [ranking, setRanking] = useState({ results: [], page: 1 });
+  const [ranking, setRanking] = useState({ results: [], page: 1, count: 0 });
   const [language, setLanguage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const getRankings = useCallback((language, page, user = null) => {

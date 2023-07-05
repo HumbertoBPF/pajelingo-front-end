@@ -8,6 +8,7 @@ function getPageButtons(index, page, numberPages, callback) {
     return (
       <Pagination.Item
         key={index}
+        data-testid="current-page"
         active
         onClick={() => {
           callback(index);
@@ -19,18 +20,21 @@ function getPageButtons(index, page, numberPages, callback) {
   // First and last page buttons
   if (index === 1 || index === numberPages) {
     return (
-      <Pagination.Item key={index} onClick={() => callback(index)}>
+      <Pagination.Item
+        key={index}
+        data-testid={`${index}th-page`}
+        onClick={() => callback(index)}>
         {index}
       </Pagination.Item>
     );
   }
   // Button separating the first page and the current page (if necessary)
   if (index === 2 && page > 2) {
-    return <Pagination.Ellipsis key={index} />;
+    return <Pagination.Ellipsis data-testid="ellipsis-start" key={index} />;
   }
   // Button separating the last page and the current page (if necessary)
   if (index === numberPages - 1 && page < numberPages - 1) {
-    return <Pagination.Ellipsis key={index} />;
+    return <Pagination.Ellipsis data-testid="ellipsis-end" key={index} />;
   }
 }
 
@@ -51,14 +55,20 @@ export default function PaginationBar({
 
   return (
     <Pagination className={`mt-4 pagination ${styles["pagination"]}`}>
-      {previous !== null ? (
-        <Pagination.Prev onClick={() => callback(page - 1)} />
+      {previous ? (
+        <Pagination.Prev
+          data-testid="previous-page"
+          onClick={() => callback(page - 1)}
+        />
       ) : null}
       {paginationArray.map((item) =>
         getPageButtons(item, page, numberPages, callback)
       )}
-      {next !== null ? (
-        <Pagination.Next onClick={() => callback(page + 1)} />
+      {next ? (
+        <Pagination.Next
+          data-testid="next-page"
+          onClick={() => callback(page + 1)}
+        />
       ) : null}
     </Pagination>
   );
@@ -67,8 +77,8 @@ export default function PaginationBar({
 PaginationBar.propTypes = {
   previous: PropTypes.string,
   next: PropTypes.string,
-  count: PropTypes.number,
+  count: PropTypes.number.isRequired,
   resultsPerPage: PropTypes.number.isRequired,
-  page: PropTypes.number,
+  page: PropTypes.number.isRequired,
   callback: PropTypes.func
 };

@@ -42,6 +42,7 @@ export default function UserForm({
           setPersonalData({ ...personalData, email: event.target.value })
         }
         validators={getEmailValidators()}
+        testId="email-input"
       />
       <FloatingLabelInput
         controlId="floatingUsername"
@@ -54,6 +55,7 @@ export default function UserForm({
           setPersonalData({ ...personalData, username: event.target.value })
         }
         validators={getUsernameValidators()}
+        testId="username-input"
       />
       <FloatingLabel
         controlId="floatingTextareaBio"
@@ -61,7 +63,8 @@ export default function UserForm({
         className="mb-4"
         onChange={(event) =>
           setPersonalData({ ...personalData, bio: event.target.value })
-        }>
+        }
+        data-testid="bio-input">
         <Form.Control
           as="textarea"
           placeholder="Bio"
@@ -83,6 +86,7 @@ export default function UserForm({
           setPersonalData({ ...personalData, password: event.target.value })
         }
         validators={getPasswordValidators()}
+        testId="password-input"
       />
       <FloatingLabelInput
         controlId="floatingPasswordConfirmation"
@@ -91,13 +95,15 @@ export default function UserForm({
         placeholder="Confirm your password"
         required
         validators={getConfirmPasswordValidators(personalData.password)}
+        testId="password-confirmation-input"
       />
       <div className="text-center">
         <CustomButton
           variant={buttonColorStyle}
           type="submit"
           disabled={isLoading}
-          isLoading={isLoading}>
+          isLoading={isLoading}
+          testId="submit-button">
           {buttonText}
         </CustomButton>
       </div>

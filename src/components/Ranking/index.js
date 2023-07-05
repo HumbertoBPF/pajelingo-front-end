@@ -8,7 +8,7 @@ export default function Ranking({ ranking }) {
 
   return (
     <Table striped>
-      <thead>
+      <thead data-testid="ranking-headers">
         <tr>
           <th scope="col">Position</th>
           <th scope="col">Username</th>
@@ -20,7 +20,8 @@ export default function Ranking({ ranking }) {
           <tr
             className={styles["clickable-row"]}
             onClick={() => navigate(`/accounts/${item.user}`)}
-            key={index}>
+            key={index}
+            data-testid={`${index + 1}th-ranking-record`}>
             <td>{(ranking.page - 1) * 10 + index + 1}</td>
             <td>{item.user}</td>
             <td>{item.score}</td>
@@ -28,14 +29,15 @@ export default function Ranking({ ranking }) {
         ))}
         {ranking.user_score ? (
           <>
-            <tr>
+            <tr data-testid="ranking-separator">
               <td>...</td>
               <td>...</td>
               <td>...</td>
             </tr>
             <tr
               className={styles["clickable-row"]}
-              onClick={() => navigate(`/accounts/${ranking.user_score.user}`)}>
+              onClick={() => navigate(`/accounts/${ranking.user_score.user}`)}
+              data-testid="user-score-record">
               <th scope="row">(You) {ranking.user_score.position}</th>
               <th scope="row">{ranking.user_score.user}</th>
               <th scope="row">{ranking.user_score.score}</th>
