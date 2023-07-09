@@ -23,23 +23,21 @@ export default function WordList({
     setLanguagesFlag(temp);
   }, [languages]);
 
-  return words.count === 0 ? (
-    <div className="row justify-content-center">
-      <div className="text-center col-sm-8 col-md-4">
-        <img
-          id="noResultImg"
-          src="/images/no_result.jpg"
-          className="img-fluid rounded"
-          alt="No results"
-        />
-        <p>No result matching your search was found</p>
-      </div>
-    </div>
-  ) : (
+  return (
     <>
       <Row className="justify-content-center" xs={2} sm={2} md={3}>
         {isLoading ? (
           <CustomSpinner animation="border" />
+        ) : words.count === 0 ? (
+          <div className="text-center">
+            <img
+              src="/images/no_result.jpg"
+              className="img-fluid rounded"
+              alt="No results"
+              data-testid="no-results-img"
+            />
+            <p>No result matching your search was found</p>
+          </div>
         ) : (
           <>
             {words.results.map((word) => (

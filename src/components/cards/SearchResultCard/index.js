@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchResultCard.module.css";
 import { useState } from "react";
-import { baseUrl } from "services/base";
 import { useSelector } from "react-redux";
 import HeartIcon from "components/icons/HeartIcon";
 import { Card, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { toggleFavoriteWord } from "api/words";
 
 export default function SearchResultCard({ word, flagImage }) {
   const navigate = useNavigate();
@@ -14,27 +14,16 @@ export default function SearchResultCard({ word, flagImage }) {
 
   function toogleHeartIcon() {
     if (user) {
-      fetch(`${baseUrl}/words/${word.id}/favorite-word`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`
-        },
-        body: JSON.stringify({
-          is_favorite: !result.is_favorite
-        })
-      })
-        .then((response) => (response.ok ? response.json() : null))
-        .then((data) => {
-          if (data !== null) {
-            setResult(data);
-          }
-        });
+      toggleFavoriteWord(user.token, word.id, !result.is_favorite, (data) => {
+        if (data !== null) {
+          setResult(data);
+        }
+      });
     }
   }
 
   return (
-    <Col className="my-1">
+    <Col className="my-1" data-testid={`${word.id}-word-card`}>
       <Card className={`${styles["search-card"]}`}>
         {result.is_favorite === null ? null : (
           <HeartIcon
