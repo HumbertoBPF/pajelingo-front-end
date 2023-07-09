@@ -6,7 +6,11 @@ import { baseUrl } from "services/base";
 
 export default function Dictionary() {
   const user = useSelector((state) => state.user);
-  const [words, setWords] = useState({ results: [] });
+  const [words, setWords] = useState({
+    results: [],
+    page: 1,
+    count: -1
+  });
   const [isFiltering, setIsFiltering] = useState(false);
   const [isPaginating, setIsPaginating] = useState(false);
 

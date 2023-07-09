@@ -46,9 +46,7 @@ export default function AppRoutes() {
             element={<RequestResetAccount />}
           />
           <Route path="/reset-account/:uid/:token" element={<ResetAccount />} />
-          {
-            // Games routes
-          }
+          {/* Games routes */}
           <Route path="/games" element={<GameMenu />} />
           <Route path="/article-game/setup" element={<ArticleGameSetup />} />
           <Route path="/article-game/play" element={<ArticleGame />} />

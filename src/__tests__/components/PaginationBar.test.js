@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-const { default: PaginationBar } = require("../components/PaginationBar");
+const { default: PaginationBar } = require("../../components/PaginationBar");
 const { getRandomInteger } = require("utils");
 
 it.each([[1], [2], [getRandomInteger(3, 10)]])(

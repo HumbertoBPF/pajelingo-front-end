@@ -1,5 +1,5 @@
 const { render, screen } = require("@testing-library/react");
-const { default: AccountDetails } = require("../components/AccountDetails");
+const { default: AccountDetails } = require("../../components/AccountDetails");
 
 it("should display only username and bio when no email is specified", () => {
   const user = {

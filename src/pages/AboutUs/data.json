@@ -3,27 +3,32 @@
     {
       "id": 0,
       "image": "/images/about_us/onboarding_0.png",
-      "text": "Welcome to Pajelingo!"
+      "text": "Welcome to Pajelingo!",
+      "alt": "Pajelingo logo"
     },
     {
       "id": 1,
       "image": "/images/about_us/onboarding_1.png",
-      "text": "Here you find help to learn foreign languages :)"
+      "text": "Here you find help to learn foreign languages :)",
+      "alt": "Globe"
     },
     {
       "id": 2,
       "image": "/images/about_us/onboarding_2.png",
-      "text": "Use the search tool to expand your vocabulary! In order to keep your imersion in your target language, we provide meanings instead of translations :)"
+      "text": "Use the search tool to expand your vocabulary! In order to keep your imersion in your target language, we provide meanings instead of translations :)",
+      "alt": "Hello in several languages"
     },
     {
       "id": 3,
       "image": "/images/about_us/onboarding_3.png",
-      "text": "We have several games that you can play to practice different competences of your target language!"
+      "text": "We have several games that you can play to practice different competences of your target language!",
+      "alt": "Flags on mobile screen"
     },
     {
       "id": 4,
       "image": "/images/about_us/onboarding_4.png",
-      "text": "No registration is needed to access the search tool neither to play our games! However, by signing up, you can participate in our games rankings and compete with other players."
+      "text": "No registration is needed to access the search tool neither to play our games! However, by signing up, you can participate in our games rankings and compete with other players.",
+      "alt": "Person accessing the app"
     }
   ]
 }

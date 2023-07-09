@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import store from "store";
-const { default: AccountMenu } = require("../components/AccountMenu");
+const { default: AccountMenu } = require("../../components/AccountMenu");
 
 it("should display two buttons when no user props is specified", () => {
   render(

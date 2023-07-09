@@ -11,7 +11,11 @@ import NotificationContainer from "components/NotificationContainer";
 export default function FavoriteWords() {
   const user = useSelector((state) => state.user);
 
-  const [favoriteWords, setFavoriteWords] = useState({ results: [] });
+  const [favoriteWords, setFavoriteWords] = useState({
+    results: [],
+    page: 1,
+    count: -1
+  });
   const [isFiltering, setIsFiltering] = useState(false);
   const [isPaginating, setIsPaginating] = useState(false);
   const [showToast, setShowToast] = useState(false);

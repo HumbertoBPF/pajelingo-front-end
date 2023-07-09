@@ -42,8 +42,7 @@ export default function AccountCard({ user }) {
               <Card.Text>
                 <strong className="text-secondary">Bio:</strong>
                 <span className="text-secondary text-opacity-20">
-                  {" "}
-                  {showFirstCharacters(user.bio, 75)}
+                  {` ${showFirstCharacters(user.bio, 75)}`}
                 </span>
               </Card.Text>
             </Card.Body>
