@@ -13,7 +13,10 @@ export default function FeedbackAlert({
         {children}
       </Alert>
       <div className="text-center">
-        <CustomButton variant="success" onClick={(event) => onClick(event)}>
+        <CustomButton
+          variant="success"
+          data-testid="new-word-button"
+          onClick={(event) => onClick(event)}>
           New word
         </CustomButton>
       </div>

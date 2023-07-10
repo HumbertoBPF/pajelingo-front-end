@@ -22,26 +22,32 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
       <FeedbackAlert
         variant={result ? "success" : "danger"}
         onClick={playAgain}>
-        {`${result ? "Correct answer :)" : "Wrong answer"}`}
-        <br />
-        {correctAnswerFormatted.length > 1 ? (
-          correctAnswerFormatted.map((item, index) =>
-            index === correctAnswerFormatted.length - 1 ? (
-              <span key={index}>{item}</span>
-            ) : (
-              <span key={index}>
-                {item}
-                <br />
+        <>
+          <span data-testid="feedback">{`${
+            result ? "Correct answer :)" : "Wrong answer"
+          }`}</span>
+          <br />
+          {correctAnswerFormatted.length > 1 ? (
+            correctAnswerFormatted.map((item, index) => (
+              <>
+                <span key={index} data-testid={`${index + 1}th-response-item`}>
+                  {item}
+                </span>
+                {index === correctAnswerFormatted.length - 1 ? null : <br />}
+              </>
+            ))
+          ) : (
+            <>
+              <span data-testid="unique-response-item">
+                {correctAnswerFormatted[0]}
               </span>
-            )
-          )
-        ) : (
-          <>
-            {correctAnswerFormatted[0]}
-            <br />
-          </>
-        )}
-        {score ? `Your score is ${score}` : null}
+              <br />
+            </>
+          )}
+          {score ? (
+            <span data-testid="score">{`Your score is ${score}`}</span>
+          ) : null}
+        </>
       </FeedbackAlert>
       {feedback.new_badges ? (
         <NotificationContainer>

@@ -46,7 +46,8 @@ export default function WordListWithFilters({
           variant="info"
           disabled={isFiltering}
           isLoading={isFiltering}
-          onClick={() => setShowFilterWordsModal(true)}>
+          onClick={() => setShowFilterWordsModal(true)}
+          testId="filter-button">
           <FilterIcon /> <span>Filter results</span>
         </CustomButton>
       </div>
@@ -63,7 +64,7 @@ export default function WordListWithFilters({
           }
         />
       )}
-      <Modal show={showFilterWordsModal}>
+      <Modal data-testid="filter-modal" show={showFilterWordsModal}>
         <Modal.Header>
           <Modal.Title>Filter results</Modal.Title>
         </Modal.Header>
@@ -75,6 +76,7 @@ export default function WordListWithFilters({
             placeholder="Search for..."
             defaultValue={searchPattern}
             onChange={(event) => setSearchPattern(event.target.value)}
+            testId="search-input"
           />
           {languages.map((item) => (
             <Form.Check
@@ -93,13 +95,15 @@ export default function WordListWithFilters({
                 }
                 setLanguagesSelected(currentLanguagesSelected);
               }}
+              data-testid={`${item.language_name}-check-item`}
             />
           ))}
         </Modal.Body>
         <Modal.Footer>
           <CustomButton
             variant="secondary"
-            onClick={() => setShowFilterWordsModal(false)}>
+            onClick={() => setShowFilterWordsModal(false)}
+            testId="cancel-button">
             Cancel
           </CustomButton>
           <CustomButton
@@ -107,7 +111,8 @@ export default function WordListWithFilters({
             onClick={() => {
               filterCallback(searchPattern, languagesSelected);
               setShowFilterWordsModal(false);
-            }}>
+            }}
+            testId="apply-filters-button">
             Apply
           </CustomButton>
         </Modal.Footer>
@@ -126,6 +131,6 @@ WordListWithFilters.propTypes = {
   }).isRequired,
   isFiltering: PropTypes.bool,
   isPaginating: PropTypes.bool,
-  filterCallback: PropTypes.func,
-  paginationCallback: PropTypes.func
+  filterCallback: PropTypes.func.isRequired,
+  paginationCallback: PropTypes.func.isRequired
 };
