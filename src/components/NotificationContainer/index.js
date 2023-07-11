@@ -13,5 +13,5 @@ export default function NotificationContainer({ children }) {
 }
 
 NotificationContainer.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element)
+  children: PropTypes.any
 };

@@ -15,7 +15,7 @@ export default function FeedbackAlert({
       <div className="text-center">
         <CustomButton
           variant="success"
-          data-testid="new-word-button"
+          testId="new-word-button"
           onClick={(event) => onClick(event)}>
           New word
         </CustomButton>

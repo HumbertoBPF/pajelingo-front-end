@@ -29,12 +29,10 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
           <br />
           {correctAnswerFormatted.length > 1 ? (
             correctAnswerFormatted.map((item, index) => (
-              <>
-                <span key={index} data-testid={`${index + 1}th-response-item`}>
-                  {item}
-                </span>
+              <div key={index}>
+                <span data-testid={`${index + 1}th-response-item`}>{item}</span>
                 {index === correctAnswerFormatted.length - 1 ? null : <br />}
-              </>
+              </div>
             ))
           ) : (
             <>
@@ -59,6 +57,7 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
               variant="success"
               title={`New achievement: ${badge.name}`}
               message={badge.description}
+              testId={`${badge.id}-notification-badge`}
             />
           ))}
         </NotificationContainer>
@@ -71,7 +70,7 @@ FeedbackPage.propTypes = {
   feedback: PropTypes.shape({
     result: PropTypes.bool.isRequired,
     correct_answer: PropTypes.string.isRequired,
-    score: PropTypes.number.isRequired,
+    score: PropTypes.number,
     new_badges: PropTypes.array.isRequired,
     state: PropTypes.oneOf(["idle", "pending", "succeeded"]).isRequired
   }).isRequired,
