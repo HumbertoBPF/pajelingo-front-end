@@ -3,13 +3,14 @@ import styles from "./GameCard.module.css";
 import { Card, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-export default function GameCard({ game }) {
+export default function GameCard({ game, testId = "" }) {
   const navigate = useNavigate();
 
   return (
     <Card
       className={`${styles["game-card"]} mb-4`}
-      onClick={() => navigate(`${game.link}setup`)}>
+      onClick={() => navigate(`${game.link}setup`)}
+      data-testid={testId}>
       <Row className="g-0">
         <Col
           className="d-flex align-items-center justify-content-center"
@@ -37,5 +38,6 @@ GameCard.propTypes = {
     link: PropTypes.string.isRequired,
     game_name: PropTypes.string.isRequired,
     image: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  testId: PropTypes.string
 };

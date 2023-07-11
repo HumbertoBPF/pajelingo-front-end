@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 export default function SelectLanguage({
   items,
   defaultItem = null,
+  testId = "",
   onClick = () => {}
 }) {
   return (
     <Form.Select
       className="mb-4"
       defaultValue="defaultItem"
+      data-testid={testId}
       onClick={(event) => onClick(event.target)}>
       {defaultItem !== null ? <option value={""}>{defaultItem}</option> : null}
       {items.map((item) => (
@@ -27,5 +29,6 @@ export default function SelectLanguage({
 SelectLanguage.propTypes = {
   items: PropTypes.array.isRequired,
   defaultItem: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  testId: PropTypes.string
 };

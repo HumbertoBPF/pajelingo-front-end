@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "image": "image vocabulary game",
+    "image_uri": "/media/images/models/Game/1/dictionary_sgoXo7b.jpg",
+    "game_name": "Vocabulary Training",
+    "android_game_activity": "VocabularyTrainingActivity",
+    "link": "/vocabulary-game/",
+    "instructions": "This game will test your vocabulary.\n\nWhen learning a language, it is tricky to increase your repertory. For languages different from the languages that you know, everything may seem random and unexpected. Even languages that share similarities, such as Spanish and Portuguese, there are several “false friends”, that is words that seem to be a synonym of a word in other language, but whose meaning is not the same. Let’s start?"
+  },
+  {
+    "id": 2,
+    "image": "image article game",
+    "image_uri": "/media/images/models/Game/2/article_QXFMrwc.jpg",
+    "game_name": "Guess the Article",
+    "android_game_activity": "GuessTheArticleActivity",
+    "link": "/article-game/",
+    "instructions": "As you may have inferred, in this game you must write the definite article that matches the displayed word. The English language is not available for this game since there is only one definite article for this language (the).\n\nFor the languages concerned by this game, the article indicates the gender and the number of the word. This might be a bit weird for English speakers, but it’s just about getting used. Let’s start?"
+  },
+  {
+    "id": 3,
+    "image": "image conjugation game",
+    "image_uri": "/media/images/models/Game/3/verbs_eXKKOYe.jpg",
+    "game_name": "Conjugation Game",
+    "android_game_activity": "ConjugationGameActivity",
+    "link": "/conjugation-game/",
+    "instructions": "A key part of learning a language is about conjugating verbs. Some languages have tenses that are not present in other ones. The conjugation of regular verbs is determined by some rules. On the other hand, irregular verbs are a bit random, but there are still some patterns that can be identified. The common point between all tenses and kind of verbs is that mastering them requires practice, so let’s start!"
+  }
+]

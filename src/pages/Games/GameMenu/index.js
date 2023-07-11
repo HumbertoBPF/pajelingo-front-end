@@ -7,7 +7,11 @@ export default function GameMenu() {
   return (
     <>
       {Object.values(games).map((game) => (
-        <GameCard key={game.game_name} game={game} />
+        <GameCard
+          key={game.game_name}
+          game={game}
+          testId={`${game.id}-game-card`}
+        />
       ))}
     </>
   );
