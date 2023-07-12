@@ -78,6 +78,7 @@ export default function ArticleGameSetup() {
               variant="danger"
               title="Error"
               message={error.message}
+              testId="error-toast"
             />
           </NotificationContainer>
         </>

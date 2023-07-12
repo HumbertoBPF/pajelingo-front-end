@@ -13,14 +13,14 @@ export default function Notification({
     <ToastContainer
       className="p-4"
       position="bottom-end"
-      containerPosition="fixed"
-      data-testid={testId}>
+      containerPosition="fixed">
       <Toast
         bg={variant}
         show={show}
         onClose={() => onClose()}
         delay={5000}
-        autohide>
+        autohide
+        data-testid={testId}>
         <Toast.Header>
           <strong className="me-auto">{title}</strong>
         </Toast.Header>
