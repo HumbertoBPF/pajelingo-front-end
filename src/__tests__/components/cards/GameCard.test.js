@@ -1,6 +1,6 @@
-const { render, screen } = require("@testing-library/react");
+const { screen } = require("@testing-library/react");
 const { default: GameCard } = require("components/cards/GameCard");
-const { MemoryRouter } = require("react-router-dom");
+const { renderWithProviders } = require("utils/test-utils");
 
 it("should represent a game as a card element", () => {
   const game = {
@@ -9,11 +9,7 @@ it("should represent a game as a card element", () => {
     image: "Game image"
   };
 
-  render(
-    <MemoryRouter>
-      <GameCard game={game} />
-    </MemoryRouter>
-  );
+  renderWithProviders(<GameCard game={game} />);
 
   screen.getByAltText(game.game_name);
   const gameName = screen.getByText(game.game_name);

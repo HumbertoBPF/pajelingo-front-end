@@ -1,6 +1,6 @@
 import { baseUrl } from "services/base";
 
-export const toggleFavoriteWord = (token, wordId, isFavorite, callback) => {
+export const toggleFavoriteWord = (token, wordId, isFavorite, onSuccess) => {
   fetch(`${baseUrl}/words/${wordId}/favorite-word`, {
     method: "PUT",
     headers: {
@@ -13,6 +13,6 @@ export const toggleFavoriteWord = (token, wordId, isFavorite, callback) => {
   })
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
-      callback(data);
+      onSuccess(data);
     });
 };

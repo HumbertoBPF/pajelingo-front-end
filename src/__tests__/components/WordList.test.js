@@ -1,9 +1,7 @@
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const { default: WordList } = require("components/WordList");
-const { Provider } = require("react-redux");
-const { default: store } = require("store");
-import { MemoryRouter } from "react-router-dom";
 import wordsPage from "../test-data/words-page.json";
+import { renderWithProviders } from "utils/test-utils";
 
 it("should display 'no result' image when the words props has count = 0", () => {
   const words = {
@@ -12,11 +10,7 @@ it("should display 'no result' image when the words props has count = 0", () => 
     page: 1
   };
 
-  render(
-    <Provider store={store}>
-      <WordList words={words} />
-    </Provider>
-  );
+  renderWithProviders(<WordList words={words} />);
 
   const noResultImg = screen.getByTestId("no-results-img");
   const spinner = screen.queryByTestId("spinner");
@@ -44,11 +38,7 @@ it("should display spinner when the isLoading props is true", () => {
     page: 1
   };
 
-  render(
-    <Provider store={store}>
-      <WordList words={words} isLoading />
-    </Provider>
-  );
+  renderWithProviders(<WordList words={words} isLoading />);
 
   const noResultImg = screen.queryByTestId("no-results-img");
   const spinner = screen.getByTestId("spinner");
@@ -70,13 +60,7 @@ it("should display spinner when the isLoading props is true", () => {
 });
 
 it("should display results when the words props has a non-empty list of results", () => {
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <WordList words={{ ...wordsPage, page: 1 }} />
-      </MemoryRouter>
-    </Provider>
-  );
+  renderWithProviders(<WordList words={{ ...wordsPage, page: 1 }} />);
 
   const noResultImg = screen.queryByTestId("no-results-img");
   const spinner = screen.queryByTestId("spinner");

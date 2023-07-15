@@ -1,18 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import store from "store";
+import { renderWithProviders } from "utils/test-utils";
 const { default: AccountMenu } = require("../../components/AccountMenu");
 
 it("should display two buttons when no user props is specified", () => {
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <AccountMenu />
-      </MemoryRouter>
-    </Provider>
-  );
+  renderWithProviders(<AccountMenu />);
 
   const signUpButton = screen.getByTestId("signup-button");
   const signInButton = screen.getByTestId("signin-button");
@@ -29,13 +21,7 @@ it("should display user profile dropdown when user props is specified", async ()
     picture: null
   };
 
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <AccountMenu user={userData} />
-      </MemoryRouter>
-    </Provider>
-  );
+  renderWithProviders(<AccountMenu user={userData} />);
 
   const dropdownToggle = screen.getByTestId("profile-dropdown");
 

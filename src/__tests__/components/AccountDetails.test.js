@@ -1,5 +1,6 @@
-const { render, screen } = require("@testing-library/react");
+const { screen } = require("@testing-library/react");
 const { default: AccountDetails } = require("../../components/AccountDetails");
+const { renderWithProviders } = require("utils/test-utils");
 
 it("should display only username and bio when no email is specified", () => {
   const user = {
@@ -7,7 +8,7 @@ it("should display only username and bio when no email is specified", () => {
     bio: "My bio"
   };
 
-  render(<AccountDetails user={user} />);
+  renderWithProviders(<AccountDetails user={user} />);
 
   const usernameData = screen.getByTestId("username-data");
   const emailData = screen.queryByTestId("email-data");
@@ -25,7 +26,7 @@ it("should display username, email, and bio when user email data is provided", (
     bio: "My bio"
   };
 
-  render(<AccountDetails user={user} />);
+  renderWithProviders(<AccountDetails user={user} />);
 
   const usernameData = screen.getByTestId("username-data");
   const emailData = screen.getByTestId("email-data");

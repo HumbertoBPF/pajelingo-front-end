@@ -1,44 +1,27 @@
-const { configureStore } = require("@reduxjs/toolkit");
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const {
   default: WordListWithFilters
 } = require("components/WordListWithFilters");
-const { Provider } = require("react-redux");
-const { MemoryRouter } = require("react-router-dom");
-const { default: gamesSliceReducers } = require("store/reducers/games");
-const { default: languagesSliceReducers } = require("store/reducers/languages");
-const { default: tokenSliceReducer } = require("store/reducers/user");
 import wordsPage from "../test-data/words-page.json";
 import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
+import { renderWithProviders } from "utils/test-utils";
 
 it("should display model when the filter button is clicked", async () => {
   const user = userEvent.setup();
 
-  const customStore = configureStore({
-    reducer: {
-      languages: languagesSliceReducers,
-      user: tokenSliceReducer,
-      games: gamesSliceReducers
-    },
-    preloadedState: {
-      languages
-    }
-  });
-
   const paginationCallback = jest.fn(() => {});
   const filterCallback = jest.fn(() => {});
 
-  render(
-    <Provider store={customStore}>
-      <MemoryRouter>
-        <WordListWithFilters
-          words={{ ...wordsPage, page: 1 }}
-          paginationCallback={paginationCallback}
-          filterCallback={filterCallback}
-        />
-      </MemoryRouter>
-    </Provider>
+  renderWithProviders(
+    <WordListWithFilters
+      words={{ ...wordsPage, page: 1 }}
+      paginationCallback={paginationCallback}
+      filterCallback={filterCallback}
+    />,
+    {
+      preloadedState: { languages }
+    }
   );
 
   const filterButton = screen.getByTestId("filter-button");
@@ -78,30 +61,18 @@ it("should call filter callback when clicking on the apply filter button", async
     ["Spanish", true]
   ]);
 
-  const customStore = configureStore({
-    reducer: {
-      languages: languagesSliceReducers,
-      user: tokenSliceReducer,
-      games: gamesSliceReducers
-    },
-    preloadedState: {
-      languages
-    }
-  });
-
   const paginationCallback = jest.fn(() => {});
   const filterCallback = jest.fn(() => {});
 
-  render(
-    <Provider store={customStore}>
-      <MemoryRouter>
-        <WordListWithFilters
-          words={{ ...wordsPage, page: 1 }}
-          paginationCallback={paginationCallback}
-          filterCallback={filterCallback}
-        />
-      </MemoryRouter>
-    </Provider>
+  renderWithProviders(
+    <WordListWithFilters
+      words={{ ...wordsPage, page: 1 }}
+      paginationCallback={paginationCallback}
+      filterCallback={filterCallback}
+    />,
+    {
+      preloadedState: { languages }
+    }
   );
 
   const filterButton = screen.getByTestId("filter-button");

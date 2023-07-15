@@ -1,6 +1,7 @@
-const { render, screen } = require("@testing-library/react");
+const { screen } = require("@testing-library/react");
 const { default: AboutUsCard } = require("components/cards/AboutUsCard");
 const { getRandomInteger } = require("utils");
+const { renderWithProviders } = require("utils/test-utils");
 
 it("should render a card with details about the app", () => {
   const item = {
@@ -10,7 +11,7 @@ it("should render a card with details about the app", () => {
     alt: "This is an alternative text for the image"
   };
 
-  render(<AboutUsCard item={item} />);
+  renderWithProviders(<AboutUsCard item={item} />);
 
   screen.getByTestId(`${item.id}-about-us-card`);
   const aboutUsText = screen.getByText(item.text);

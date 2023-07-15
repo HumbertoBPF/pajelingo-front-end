@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderWithProviders } from "utils/test-utils";
 const { default: PaginationBar } = require("../../components/PaginationBar");
 const { getRandomInteger } = require("utils");
 
@@ -10,7 +11,7 @@ it.each([[1], [2], [getRandomInteger(3, 10)]])(
     const count = getRandomInteger(10 * (n - 1) + 1, 10 * n);
     const resultsPerPage = 10;
 
-    render(
+    renderWithProviders(
       <PaginationBar
         page={page}
         count={count}
@@ -54,7 +55,7 @@ it.each([[1], [2], [getRandomInteger(3, 8)], [9], [10]])(
       resultsPerPage * n
     );
 
-    render(
+    renderWithProviders(
       <PaginationBar
         page={page}
         count={count}
@@ -114,7 +115,7 @@ it.each([[1], [2], [getRandomInteger(3, 8)], [9], [10]])(
     const next = "next url";
     const callback = jest.fn((page) => page);
 
-    render(
+    renderWithProviders(
       <PaginationBar
         page={page}
         count={count}

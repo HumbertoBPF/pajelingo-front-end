@@ -1,17 +1,11 @@
-const { render, screen } = require("@testing-library/react");
-import { configureStore } from "@reduxjs/toolkit";
+const { screen } = require("@testing-library/react");
 import userEvent from "@testing-library/user-event";
 const {
   default: SearchResultCard
 } = require("components/cards/SearchResultCard");
-const { Provider } = require("react-redux");
-const { MemoryRouter } = require("react-router-dom");
-const { default: store } = require("store");
 const { getRandomInteger } = require("utils");
 import { toggleFavoriteWord } from "api/words";
-import gamesSliceReducers from "store/reducers/games";
-import languagesSliceReducers from "store/reducers/languages";
-import tokenSliceReducer from "store/reducers/user";
+import { renderWithProviders } from "utils/test-utils";
 
 jest.mock("api/words", () => {
   return {
@@ -30,13 +24,7 @@ it.each([[true], [false], [null]])(
     };
     const flagImage = "flag image";
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <SearchResultCard word={word} flagImage={flagImage} />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
     const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
     const wordCardHeartNonFilled = screen.queryByTestId(
@@ -70,19 +58,6 @@ it.each([true, false])(
   async (isFavorite) => {
     const user = userEvent.setup();
 
-    const customStore = configureStore({
-      reducer: {
-        languages: languagesSliceReducers,
-        user: tokenSliceReducer,
-        games: gamesSliceReducers
-      },
-      preloadedState: {
-        user: {
-          token: "token"
-        }
-      }
-    });
-
     const word = {
       id: getRandomInteger(1000, 2000),
       word_name: "Word",
@@ -91,12 +66,15 @@ it.each([true, false])(
     };
     const flagImage = "flag image";
 
-    render(
-      <Provider store={customStore}>
-        <MemoryRouter>
-          <SearchResultCard word={word} flagImage={flagImage} />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <SearchResultCard word={word} flagImage={flagImage} />,
+      {
+        preloadedState: {
+          user: {
+            token: "token"
+          }
+        }
+      }
     );
 
     const heartIcon = screen.getByTestId(

@@ -1,37 +1,19 @@
-import { MemoryRouter } from "react-router-dom";
 import mockedGames from "../../../test-data/games.json";
 import languages from "../../../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
-const { configureStore } = require("@reduxjs/toolkit");
-const { render, screen, within } = require("@testing-library/react");
+import { renderWithProviders } from "utils/test-utils";
+const { screen, within } = require("@testing-library/react");
 const {
   default: ArticleGameSetup
 } = require("pages/Games/ArticleGame/ArticleGameSetup");
-const { Provider } = require("react-redux");
-const { default: gamesSliceReducers } = require("store/reducers/games");
-const { default: languagesSliceReducers } = require("store/reducers/languages");
-const { default: tokenSliceReducer } = require("store/reducers/user");
 
 it("should display article game setup form", () => {
-  const customStore = configureStore({
-    reducer: {
-      languages: languagesSliceReducers,
-      user: tokenSliceReducer,
-      games: gamesSliceReducers
-    },
+  renderWithProviders(<ArticleGameSetup />, {
     preloadedState: {
       games: mockedGames,
       languages
     }
   });
-
-  render(
-    <Provider store={customStore}>
-      <MemoryRouter>
-        <ArticleGameSetup />
-      </MemoryRouter>
-    </Provider>
-  );
 
   const selectLanguage = screen.getByTestId("select-language");
   const startButton = screen.getByTestId("start-button");
@@ -55,25 +37,12 @@ it("should display article game setup form", () => {
 it("should display error toast if no language is selected", async () => {
   const user = userEvent.setup();
 
-  const customStore = configureStore({
-    reducer: {
-      languages: languagesSliceReducers,
-      user: tokenSliceReducer,
-      games: gamesSliceReducers
-    },
+  renderWithProviders(<ArticleGameSetup />, {
     preloadedState: {
       games: mockedGames,
       languages
     }
   });
-
-  render(
-    <Provider store={customStore}>
-      <MemoryRouter>
-        <ArticleGameSetup />
-      </MemoryRouter>
-    </Provider>
-  );
 
   const startButton = screen.getByTestId("start-button");
   await user.click(startButton);

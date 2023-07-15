@@ -1,8 +1,9 @@
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const { default: FeedbackPage } = require("pages/FeedbackPage");
 const { getRandomInteger } = require("utils");
 import userEvent from "@testing-library/user-event";
 import newBadges from "../test-data/new-badges.json";
+import { renderWithProviders } from "utils/test-utils";
 
 describe.each([[true], [false]])("should display feedback", (result) => {
   it.each([[true], [false]])("with a unique answer item", (hasScore) => {
@@ -19,7 +20,7 @@ describe.each([[true], [false]])("should display feedback", (result) => {
       feedback.score = getRandomInteger(100, 1000);
     }
 
-    render(<FeedbackPage feedback={feedback} />);
+    renderWithProviders(<FeedbackPage feedback={feedback} />);
 
     const message = screen.getByTestId("feedback");
     expect(message).toBeInTheDocument();
@@ -57,7 +58,7 @@ describe.each([[true], [false]])("should display feedback", (result) => {
       feedback.score = getRandomInteger(100, 1000);
     }
 
-    render(<FeedbackPage feedback={feedback} />);
+    renderWithProviders(<FeedbackPage feedback={feedback} />);
 
     const message = screen.getByTestId("feedback");
     expect(message).toBeInTheDocument();
@@ -102,7 +103,7 @@ it("should display the lastly achieved user badges", () => {
     score: getRandomInteger(100, 1000)
   };
 
-  render(<FeedbackPage feedback={feedback} />);
+  renderWithProviders(<FeedbackPage feedback={feedback} />);
 
   const message = screen.getByTestId("feedback");
   expect(message).toBeInTheDocument();
@@ -154,7 +155,9 @@ it("should call playAgain callback when users click on the new word button", asy
 
   const playAgain = jest.fn(() => {});
 
-  render(<FeedbackPage feedback={feedback} playAgain={playAgain} />);
+  renderWithProviders(
+    <FeedbackPage feedback={feedback} playAgain={playAgain} />
+  );
 
   const message = screen.getByTestId("feedback");
   expect(message).toBeInTheDocument();

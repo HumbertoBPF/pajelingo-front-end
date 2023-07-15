@@ -1,8 +1,6 @@
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const { default: Ranking } = require("components/Ranking");
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-const { default: store } = require("store");
+import { renderWithProviders } from "utils/test-utils";
 const { getRandomInteger } = require("utils");
 
 function getRankingRecords(n) {
@@ -41,13 +39,7 @@ it.each([
 
   const results = ranking.results;
 
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <Ranking ranking={ranking} />
-      </MemoryRouter>
-    </Provider>
-  );
+  renderWithProviders(<Ranking ranking={ranking} />);
 
   const rankingHeaders = screen.getByTestId("ranking-headers");
   const positionRankingHeader = within(rankingHeaders).getByText("Position");

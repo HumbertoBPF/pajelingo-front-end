@@ -1,6 +1,7 @@
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const { default: UserScores } = require("components/UserScores");
 const { getRandomInteger } = require("utils");
+const { renderWithProviders } = require("utils/test-utils");
 
 function getUserScores(n) {
   const userScores = [];
@@ -19,7 +20,7 @@ it("should render the scores of a user", () => {
   const n = getRandomInteger(3, 5);
   const scores = getUserScores(n);
 
-  render(<UserScores scores={scores} />);
+  renderWithProviders(<UserScores scores={scores} />);
 
   const headers = screen.getByTestId("user-scores-headers");
 

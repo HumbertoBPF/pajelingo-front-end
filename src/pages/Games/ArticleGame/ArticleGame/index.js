@@ -1,3 +1,4 @@
+import { setupArticleGame } from "api/games";
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
 import useGame from "hooks/useGame";
@@ -31,26 +32,12 @@ export default function ArticleGame() {
 
   const playAgain = useCallback(() => {
     if (articleGame.link) {
-      const authHeaders = {};
+      const token = user ? user.token : null;
 
-      if (user) {
-        authHeaders["Authorization"] = `Token ${user.token}`;
-      }
-
-      fetch(`${baseUrl}/article-game?${searchParams}`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...authHeaders
-        }
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          navigate(`${articleGame.link}setup`);
-        })
-        .then((data) => {
+      setupArticleGame(
+        token,
+        searchParams,
+        (data) => {
           setWord(data);
           setAnswer("");
           setFeedback({
@@ -60,7 +47,11 @@ export default function ArticleGame() {
             new_badges: [],
             state: "idle"
           });
-        });
+        },
+        () => {
+          navigate(`${articleGame.link}setup`);
+        }
+      );
     }
   }, [searchParams, navigate, articleGame.link, user]);
 
@@ -124,6 +115,7 @@ export default function ArticleGame() {
                     type="text"
                     placeholder="Article"
                     onChange={(event) => setAnswer(event.target.value)}
+                    data-testid="article-input"
                   />
                 </Form.Group>
                 <Form.Group className="col-8 col-lg-10" controlId="wordInput">
@@ -132,6 +124,7 @@ export default function ArticleGame() {
                     type="text"
                     placeholder={word.word}
                     disabled
+                    data-testid="word-disabled-input"
                   />
                 </Form.Group>
               </div>

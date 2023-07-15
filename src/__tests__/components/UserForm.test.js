@@ -1,7 +1,8 @@
-const { render, screen, within } = require("@testing-library/react");
+const { screen, within } = require("@testing-library/react");
 const { default: UserForm } = require("components/UserForm");
 import userEvent from "@testing-library/user-event";
 import signupData from "../test-data/signup-data.json";
+import { renderWithProviders } from "utils/test-utils";
 
 async function enterText(user, element, text) {
   if (text) {
@@ -27,7 +28,7 @@ it.each([
     const expectedUsername = user ? user.username : "";
     const expectedBio = user ? user.bio : "";
 
-    render(<UserForm user={user} buttonText="Submit" />);
+    renderWithProviders(<UserForm user={user} buttonText="Submit" />);
 
     const emailField = screen.getByTestId("email-input");
     const emailLabel = within(emailField).getByLabelText("Email address");
@@ -78,7 +79,7 @@ it("should pass the form content to the callback function", async () => {
 
   const callback = jest.fn((data) => data);
 
-  render(<UserForm buttonText="Submit" onSubmit={callback} />);
+  renderWithProviders(<UserForm buttonText="Submit" onSubmit={callback} />);
 
   const emailField = screen.getByTestId("email-input");
   const usernameField = screen.getByTestId("username-input");
@@ -138,7 +139,7 @@ it.each(signupData.data)(
 
     const callback = jest.fn((data) => data);
 
-    render(<UserForm buttonText="Submit" onSubmit={callback} />);
+    renderWithProviders(<UserForm buttonText="Submit" onSubmit={callback} />);
 
     const emailField = screen.getByTestId("email-input");
     const usernameField = screen.getByTestId("username-input");
