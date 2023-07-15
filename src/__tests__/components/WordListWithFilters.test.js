@@ -7,6 +7,16 @@ import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "utils/test-utils";
 
+jest.mock("api/languages", () => {
+  const originalModule = jest.requireActual("api/games");
+
+  return {
+    __esmodule: true,
+    ...originalModule,
+    getLanguages: jest.fn()
+  };
+});
+
 it("should display model when the filter button is clicked", async () => {
   const user = userEvent.setup();
 

@@ -1,11 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { baseUrl } from "./base";
+import { getLanguages } from "api/languages";
 
 export const fetchLanguages = createAsyncThunk(
   "languages/fetchLanguages",
-  async () => {
-    const response = await fetch(`${baseUrl}/languages`);
-    const data = await response.json();
-    return data;
-  }
+  getLanguages
 );

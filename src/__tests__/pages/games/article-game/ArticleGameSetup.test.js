@@ -7,6 +7,16 @@ const {
   default: ArticleGameSetup
 } = require("pages/Games/ArticleGame/ArticleGameSetup");
 
+jest.mock("api/languages", () => {
+  const originalModule = jest.requireActual("api/games");
+
+  return {
+    __esmodule: true,
+    ...originalModule,
+    getLanguages: jest.fn()
+  };
+});
+
 it("should display article game setup form", () => {
   renderWithProviders(<ArticleGameSetup />, {
     preloadedState: {

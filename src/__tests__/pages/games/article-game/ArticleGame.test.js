@@ -1,13 +1,8 @@
-const { configureStore } = require("@reduxjs/toolkit");
-const { render, screen } = require("@testing-library/react");
+const { screen } = require("@testing-library/react");
 const { default: ArticleGame } = require("pages/Games/ArticleGame/ArticleGame");
-const { Provider } = require("react-redux");
-const { MemoryRouter } = require("react-router-dom");
-const { default: gamesSliceReducers } = require("store/reducers/games");
-const { default: languagesSliceReducers } = require("store/reducers/languages");
-const { default: tokenSliceReducer } = require("store/reducers/user");
 import { setupArticleGame } from "api/games";
 import mockedGames from "../../../test-data/games.json";
+import { renderWithProviders } from "utils/test-utils";
 
 jest.mock("api/games", () => {
   const originalModule = jest.requireActual("api/games");
@@ -27,24 +22,11 @@ it("should display the word returned by the API", () => {
     });
   });
 
-  const customStore = configureStore({
-    reducer: {
-      languages: languagesSliceReducers,
-      user: tokenSliceReducer,
-      games: gamesSliceReducers
-    },
+  renderWithProviders(<ArticleGame />, {
     preloadedState: {
       games: mockedGames
     }
   });
-
-  render(
-    <Provider store={customStore}>
-      <MemoryRouter>
-        <ArticleGame />
-      </MemoryRouter>
-    </Provider>
-  );
 
   const articleInput = screen.getByTestId("article-input");
   expect(articleInput).toBeInTheDocument();
