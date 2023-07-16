@@ -39,6 +39,7 @@ it("should display article game setup form", () => {
     } else {
       expect(languageOption).toBeInTheDocument();
       expect(languageOption).toHaveTextContent(language.language_name);
+      expect(languageOption).toHaveValue(language.language_name);
     }
   });
 

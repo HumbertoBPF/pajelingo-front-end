@@ -1,3 +1,4 @@
+import { setupVocabularyGame, submitAnswerVocabularyGame } from "api/games";
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
 import useGame from "hooks/useGame";
@@ -6,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 
 export default function VocabularyGame() {
   const user = useSelector((state) => state.user);
@@ -36,26 +36,11 @@ export default function VocabularyGame() {
         target_language: searchParams.get("target_language")
       });
 
-      const authHeaders = {};
-
-      if (user) {
-        authHeaders["Authorization"] = `Token ${user.token}`;
-      }
-
-      fetch(`${baseUrl}/vocabulary-game?${queryParams}`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...authHeaders
-        }
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          navigate(`${vocabularyGame.link}setup`);
-        })
-        .then((data) => {
+      const token = user ? user.token : null;
+      setupVocabularyGame(
+        token,
+        queryParams,
+        (data) => {
           setWord(data);
           setAnswer("");
           setFeedback({
@@ -65,18 +50,16 @@ export default function VocabularyGame() {
             new_badges: [],
             state: "idle"
           });
-        });
+        },
+        () => {
+          navigate(`${vocabularyGame.link}setup`);
+        }
+      );
     }
   }, [searchParams, navigate, vocabularyGame.link, user]);
 
   function handleFormSubmit(event) {
     event.preventDefault();
-
-    const authHeaders = {};
-
-    if (user) {
-      authHeaders["Authorization"] = `Token ${user.token}`;
-    }
 
     setFeedback({
       result: null,
@@ -86,20 +69,15 @@ export default function VocabularyGame() {
       state: "pending"
     });
 
-    fetch(`${baseUrl}/vocabulary-game`, {
-      method: "POST",
-      headers: {
-        ...authHeaders,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    const token = user ? user.token : null;
+    submitAnswerVocabularyGame(
+      token,
+      {
         word_id: word.id,
         base_language: searchParams.get("base_language"),
         answer
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
+      },
+      (data) => {
         setFeedback({
           result: data.result,
           correct_answer: data.correct_answer,
@@ -107,7 +85,8 @@ export default function VocabularyGame() {
           new_badges: data.new_badges,
           state: "succeeded"
         });
-      });
+      }
+    );
   }
 
   useEffect(() => playAgain(), [playAgain]);
@@ -132,6 +111,7 @@ export default function VocabularyGame() {
                   type="text"
                   placeholder={word.word}
                   disabled
+                  data-testid="word-input"
                 />
               </Form.Group>
               <Form.Group className="mb-4" controlId="answerInput">
@@ -142,10 +122,14 @@ export default function VocabularyGame() {
                     "base_language"
                   )}`}
                   onChange={(event) => setAnswer(event.target.value)}
+                  data-testid="answer-input"
                 />
               </Form.Group>
               <div className="text-center">
-                <CustomButton variant="success" type="submit">
+                <CustomButton
+                  variant="success"
+                  type="submit"
+                  testId="submit-answer-button">
                   Verify answer
                 </CustomButton>
               </div>

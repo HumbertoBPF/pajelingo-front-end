@@ -34,6 +34,7 @@ it("should display conjugation game setup form", () => {
 
     expect(languageOption).toBeInTheDocument();
     expect(languageOption).toHaveTextContent(language.language_name);
+    expect(languageOption).toHaveValue(language.language_name);
   });
 
   expect(startButton).toBeInTheDocument();

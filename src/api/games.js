@@ -96,3 +96,49 @@ export const submitAnswerConjugationGame = (token, body, onSuccess) => {
       onSuccess(data);
     });
 };
+
+export const setupVocabularyGame = (token, searchParams, onSuccess, onFail) => {
+  const authHeaders = {};
+
+  if (token) {
+    authHeaders["Authorization"] = `Token ${token}`;
+  }
+
+  fetch(`${baseUrl}/vocabulary-game?${searchParams}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...authHeaders
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      onFail();
+    })
+    .then((data) => {
+      onSuccess(data);
+    });
+};
+
+export const submitAnswerVocabularyGame = (token, body, onSuccess) => {
+  const authHeaders = {};
+
+  if (token) {
+    authHeaders["Authorization"] = `Token ${token}`;
+  }
+
+  fetch(`${baseUrl}/vocabulary-game`, {
+    method: "POST",
+    headers: {
+      ...authHeaders,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      onSuccess(data);
+    });
+};

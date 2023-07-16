@@ -58,6 +58,8 @@ it("should display the verb and the tense returned by the API", () => {
     }
   });
 
+  expect(setupConjugationGame).toBeCalledTimes(1);
+
   const verbAndTense = screen.getByTestId("verb-and-tense");
   expect(verbAndTense).toBeInTheDocument();
   const verbAndTenseText = within(verbAndTense).getByPlaceholderText(
@@ -94,7 +96,7 @@ it("should display the verb and the tense returned by the API", () => {
   expect(submitAnswerButton).toHaveTextContent("Verify answer");
 });
 
-describe("should display feedback", () => {
+describe("should display the feedback", () => {
   it("when the answer is correct", async () => {
     const user = userEvent.setup();
 

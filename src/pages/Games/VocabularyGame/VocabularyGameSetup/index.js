@@ -49,11 +49,11 @@ export default function VocabularyGameSetup() {
       return;
     }
 
-    const queryParams = new URLSearchParams({
+    const searchParams = new URLSearchParams({
       base_language: baseLanguage,
       target_language: targetLanguage
     });
-    navigate(`/vocabulary-game/play?${queryParams}`);
+    navigate(`/vocabulary-game/play?${searchParams}`);
   }
 
   useEffect(() => {
@@ -78,14 +78,19 @@ export default function VocabularyGameSetup() {
               items={languages}
               defaultItem="Choose a base language"
               onClick={(target) => setBaseLanguage(target.value)}
+              testId="select-base-language"
             />
             <SelectLanguage
               items={languages}
               defaultItem="Choose a target language"
               onClick={(target) => setTargetLanguage(target.value)}
+              testId="select-target-language"
             />
             <div className="text-center">
-              <CustomButton variant="success" type="submit">
+              <CustomButton
+                variant="success"
+                type="submit"
+                testId="start-button">
                 Start
               </CustomButton>
             </div>
@@ -97,6 +102,7 @@ export default function VocabularyGameSetup() {
               variant="danger"
               title="Error"
               message={error.message}
+              testId="toast-error"
             />
           </NotificationContainer>
         </>

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 export default function SelectLanguage({
   items,
   defaultItem = null,
-  testId = "",
-  onClick = () => {}
+  onClick = () => {},
+  testId = ""
 }) {
   return (
     <Form.Select

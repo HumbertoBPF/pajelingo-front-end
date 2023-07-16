@@ -32,6 +32,8 @@ it("should display the word returned by the API", () => {
     }
   });
 
+  expect(setupArticleGame).toBeCalledTimes(1);
+
   const articleInput = screen.getByTestId("article-input");
   expect(articleInput).toBeInTheDocument();
   screen.getByPlaceholderText("Article");
@@ -41,12 +43,11 @@ it("should display the word returned by the API", () => {
   screen.getByPlaceholderText("Mocked word");
 
   const submitAnswerButton = screen.getByTestId("submit-answer-button");
+  expect(submitAnswerButton).toBeInTheDocument();
   expect(submitAnswerButton).toHaveTextContent("Verify answer");
-
-  expect(setupArticleGame).toBeCalledTimes(1);
 });
 
-describe("should display feedback", () => {
+describe("should display the feedback", () => {
   it("when the answer is correct", async () => {
     const user = userEvent.setup();
 
