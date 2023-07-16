@@ -32,37 +32,66 @@ it.each([
 
     const emailField = screen.getByTestId("email-input");
     const emailLabel = within(emailField).getByLabelText("Email address");
-    const emailPlaceholder =
-      within(emailField).getByPlaceholderText("Email address");
-    const emailInput = within(emailField).getByDisplayValue(expectedEmail);
+    const emailInput = within(emailField).getByPlaceholderText("Email address");
+    expect(emailField).toBeInTheDocument();
+    expect(emailLabel).toBeInTheDocument();
+    expect(emailInput).toBeInTheDocument();
+    expect(emailInput).toHaveAttribute("type", "email");
+    expect(emailInput).toHaveValue(expectedEmail);
+    expect(emailInput).toBeRequired();
 
     const usernameField = screen.getByTestId("username-input");
     const usernameLabel = within(usernameField).getByLabelText("Username");
-    const usernamePlaceholder =
-      within(usernameField).getByPlaceholderText("Username");
     const usernameInput =
-      within(usernameField).getByDisplayValue(expectedUsername);
+      within(usernameField).getByPlaceholderText("Username");
+    expect(usernameField).toBeInTheDocument();
+    expect(usernameLabel).toBeInTheDocument();
+    expect(usernameInput).toBeInTheDocument();
+    expect(usernameInput).toHaveAttribute("type", "text");
+    expect(usernameInput).toHaveValue(expectedUsername);
+    expect(usernameInput).toBeRequired();
 
     const bioField = screen.getByTestId("bio-input");
-    const bioLabel = screen.getByLabelText("Bio");
-    const bioPlaceholder = screen.getByPlaceholderText("Bio");
-    const bioInput = within(bioField).getByDisplayValue(expectedBio);
+    const bioLabel = within(bioField).getByLabelText("Bio");
+    const bioInput = within(bioField).getByPlaceholderText("Bio");
     const bioDescription = within(bioField).getByText(
       `${expectedBio.length}/500 (The bio can have 500 characters at most)`
     );
+    expect(bioField).toBeInTheDocument();
+    expect(bioLabel).toBeInTheDocument();
+    expect(bioInput).toBeInTheDocument();
+    expect(bioInput).toHaveValue(expectedBio);
+    expect(bioDescription).toBeInTheDocument();
+
+    const passwordField = screen.getByTestId("password-input");
+    const passwordLabel = within(passwordField).getByLabelText("Password");
+    const passwordInput =
+      within(passwordField).getByPlaceholderText("Password");
+    expect(passwordField).toBeInTheDocument();
+    expect(passwordLabel).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(passwordInput).toHaveValue("");
+    expect(passwordInput).toHaveAttribute("type", "password");
+    expect(passwordInput).toBeRequired();
+
+    const confirmPasswordField = screen.getByTestId(
+      "password-confirmation-input"
+    );
+    const confirmPasswordLabel = within(confirmPasswordField).getByLabelText(
+      "Confirm your password"
+    );
+    const confirmPasswordInput = within(
+      confirmPasswordField
+    ).getByPlaceholderText("Confirm your password");
+    expect(confirmPasswordField).toBeInTheDocument();
+    expect(confirmPasswordLabel).toBeInTheDocument();
+    expect(confirmPasswordInput).toBeInTheDocument();
+    expect(confirmPasswordInput).toHaveValue("");
+    expect(confirmPasswordInput).toHaveAttribute("type", "password");
+    expect(confirmPasswordInput).toBeRequired();
 
     const button = screen.getByTestId("submit-button");
-
-    expect(emailLabel).toBeInTheDocument();
-    expect(emailPlaceholder).toBeInTheDocument();
-    expect(emailInput).toBeInTheDocument();
-    expect(usernameLabel).toBeInTheDocument();
-    expect(usernamePlaceholder).toBeInTheDocument();
-    expect(usernameInput).toBeInTheDocument();
-    expect(bioLabel).toBeInTheDocument();
-    expect(bioPlaceholder).toBeInTheDocument();
-    expect(bioInput).toBeInTheDocument();
-    expect(bioDescription).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent("Submit");
   }
 );

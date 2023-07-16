@@ -5,11 +5,11 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { baseUrl } from "services/base";
 import { fetchUser } from "services/user";
 import { saveToken } from "store/reducers/user";
 import { getPasswordValidators, getUsernameValidators } from "./validators";
 import NotificationContainer from "components/NotificationContainer";
+import { login } from "api/user";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -23,32 +23,22 @@ export default function Login() {
     event.preventDefault();
     setIsLoading(true);
 
-    fetch(`${baseUrl}/user-token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        throw Error(response);
-      })
-      .then((data) => {
+    login(
+      username,
+      password,
+      (data) => {
         setIsLoading(false);
         if (data.token) {
           dispatch(saveToken(data.token));
           dispatch(fetchUser());
           navigate("/dashboard");
         }
-      })
-      .catch(() => {
+      },
+      () => {
         setIsLoading(false);
         setShowToast(true);
-      });
+      }
+    );
   }
 
   return (
@@ -62,6 +52,7 @@ export default function Login() {
           required
           onChange={(event) => setUsername(event.target.value)}
           validators={getUsernameValidators()}
+          testId="username-input"
         />
         <FloatingLabelInput
           controlId="floatingPassword"
@@ -71,14 +62,18 @@ export default function Login() {
           required
           onChange={(event) => setPassword(event.target.value)}
           validators={getPasswordValidators()}
+          testId="password-input"
         />
-        <Link to="/request-reset-account">I forgot my username/password</Link>
+        <Link to="/request-reset-account" data-testid="link-forgot-password">
+          I forgot my username/password
+        </Link>
         <div className="text-center mt-4">
           <CustomButton
             variant="success"
             disabled={isLoading}
             isLoading={isLoading}
-            type="submit">
+            type="submit"
+            testId="login-button">
             Sign in
           </CustomButton>
         </div>
