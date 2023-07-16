@@ -1,13 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { baseUrl } from "./base";
+import { getUser } from "api/user";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch(`${baseUrl}/user/`, {
-    headers: {
-      Authorization: `Token ${user.token}`
-    }
-  });
+  const response = await getUser(user.token);
   if (!response.ok) {
     localStorage.removeItem("user");
     return null;

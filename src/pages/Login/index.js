@@ -85,6 +85,7 @@ export default function Login() {
           variant="danger"
           title="Error"
           message="It was not possible to log you in. Please check your credentials."
+          testId="toast-error"
         />
       </NotificationContainer>
     </>

@@ -22,3 +22,11 @@ export const login = (username, password, onSuccess, onFail) => {
       onFail();
     });
 };
+
+export const getUser = async (token) => {
+  return await fetch(`${baseUrl}/user/`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  });
+};

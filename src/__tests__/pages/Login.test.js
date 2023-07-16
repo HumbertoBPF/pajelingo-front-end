@@ -6,7 +6,8 @@ import { login } from "api/user";
 
 jest.mock("api/user", () => {
   return {
-    login: jest.fn()
+    login: jest.fn(),
+    getUser: jest.fn()
   };
 });
 
@@ -34,8 +35,14 @@ it("should display the login form", () => {
   expect(submitButton).toHaveTextContent("Sign in");
 });
 
-it("should call login API when the form is submitted", async () => {
+it("should not display error toast when the login is successful", async () => {
   const user = userEvent.setup();
+
+  login.mockImplementation((username, password, onSuccess) => {
+    onSuccess({
+      token: "token"
+    });
+  });
 
   renderWithProviders(<Login />);
 
@@ -56,4 +63,47 @@ it("should call login API when the form is submitted", async () => {
     expect.anything(),
     expect.anything()
   );
+
+  const toastError = screen.queryByTestId("toast-error");
+  expect(toastError).not.toBeInTheDocument();
+});
+
+it("should display toast when the credentials are wrong", async () => {
+  const user = userEvent.setup();
+
+  login.mockImplementation((username, password, onSuccess, onFail) => {
+    onFail();
+  });
+
+  renderWithProviders(<Login />);
+
+  const usernameField = screen.getByTestId("username-input");
+  const usernameInput = within(usernameField).getByPlaceholderText("Username");
+  const passwordField = screen.getByTestId("password-input");
+  const passwordInput = within(passwordField).getByPlaceholderText("Password");
+  const submitButton = screen.getByTestId("login-button");
+
+  await user.type(usernameInput, "HumbertoBPF");
+  await user.type(passwordInput, "str0ng-p4sSw0rd");
+  await user.click(submitButton);
+
+  expect(login).toBeCalledTimes(1);
+  expect(login).toBeCalledWith(
+    "HumbertoBPF",
+    "str0ng-p4sSw0rd",
+    expect.anything(),
+    expect.anything()
+  );
+
+  const toastError = screen.getByTestId("toast-error");
+  expect(toastError).toBeInTheDocument();
+  expect(toastError).toHaveClass("bg-danger");
+
+  const toastTitle = within(toastError).getByText("Error");
+  expect(toastTitle).toBeInTheDocument();
+
+  const toastMessage = within(toastError).getByText(
+    "It was not possible to log you in. Please check your credentials."
+  );
+  expect(toastMessage).toBeInTheDocument();
 });
