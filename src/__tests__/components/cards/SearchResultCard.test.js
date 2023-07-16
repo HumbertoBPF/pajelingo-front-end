@@ -49,7 +49,7 @@ it.each([[true], [false], [null]])(
     }
 
     expect(wordCardFlagImage).toBeInTheDocument();
-    expect(wordCardWordName.textContent).toBe(word.word_name);
+    expect(wordCardWordName).toHaveTextContent(word.word_name);
   }
 );
 

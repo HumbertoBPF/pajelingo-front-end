@@ -21,7 +21,8 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
     <>
       <FeedbackAlert
         variant={result ? "success" : "danger"}
-        onClick={playAgain}>
+        onClick={playAgain}
+        testId="feedback-alert">
         <>
           <span data-testid="feedback">{`${
             result ? "Correct answer :)" : "Wrong answer"

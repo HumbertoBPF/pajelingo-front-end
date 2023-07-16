@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 import PropTypes from "prop-types";
 import { MemoryRouter } from "react-router-dom";
 import { setupStore } from "store/store";
+import mockedGames from "../__tests__/test-data/games.json";
 
 export function renderWithProviders(
   ui,
   {
+    initialEntries,
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
@@ -17,7 +19,7 @@ export function renderWithProviders(
   function Wrapper({ children }) {
     return (
       <Provider store={store}>
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
       </Provider>
     );
   }
@@ -27,3 +29,11 @@ export function renderWithProviders(
   };
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export const getInitialGamesState = () => {
+  return {
+    1: mockedGames[0],
+    2: mockedGames[1],
+    3: mockedGames[2]
+  };
+};

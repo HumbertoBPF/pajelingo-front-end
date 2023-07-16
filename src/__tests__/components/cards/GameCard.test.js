@@ -14,5 +14,5 @@ it("should represent a game as a card element", () => {
   screen.getByAltText(game.game_name);
   const gameName = screen.getByText(game.game_name);
 
-  expect(gameName.textContent).toBe(game.game_name);
+  expect(gameName).toHaveTextContent(game.game_name);
 });

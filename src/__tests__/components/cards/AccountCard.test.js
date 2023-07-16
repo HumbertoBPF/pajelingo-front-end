@@ -16,8 +16,8 @@ describe("should display account public data in a card", () => {
     const accountUsername = screen.getByText(user.username);
     const accountBio = screen.getByText(user.bio);
 
-    expect(accountUsername.textContent).toBe(user.username);
-    expect(accountBio.parentNode.textContent).toBe(`Bio: ${user.bio}`);
+    expect(accountUsername).toHaveTextContent(user.username);
+    expect(accountBio.parentNode).toHaveTextContent(`Bio: ${user.bio}`);
   });
 
   it("with long bio", () => {
@@ -35,7 +35,7 @@ describe("should display account public data in a card", () => {
     const accountUsername = screen.getByText(user.username);
     const accountBio = screen.getByText(`${bioSubstr}...`);
 
-    expect(accountUsername.textContent).toBe(user.username);
-    expect(accountBio.parentNode.textContent).toBe(`Bio: ${bioSubstr}...`);
+    expect(accountUsername).toHaveTextContent(user.username);
+    expect(accountBio.parentNode).toHaveTextContent(`Bio: ${bioSubstr}...`);
   });
 });

@@ -5,11 +5,12 @@ import PropTypes from "prop-types";
 export default function FeedbackAlert({
   variant,
   children,
-  onClick = () => {}
+  onClick = () => {},
+  testId = ""
 }) {
   return (
     <>
-      <Alert className="text-center" variant={variant}>
+      <Alert className="text-center" variant={variant} data-testid={testId}>
         {children}
       </Alert>
       <div className="text-center">
@@ -27,5 +28,6 @@ export default function FeedbackAlert({
 FeedbackAlert.propTypes = {
   variant: PropTypes.string,
   children: PropTypes.element,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  testId: PropTypes.string
 };

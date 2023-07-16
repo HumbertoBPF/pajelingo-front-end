@@ -49,9 +49,9 @@ it.each([
   const rankingSeparator = screen.queryByTestId("ranking-separator");
   const userRecord = screen.queryByTestId("user-score-record");
 
-  expect(positionRankingHeader.textContent).toBe("Position");
-  expect(usernameRankingHeader.textContent).toBe("Username");
-  expect(scoreRankingHeader.textContent).toBe("Score");
+  expect(positionRankingHeader).toHaveTextContent("Position");
+  expect(usernameRankingHeader).toHaveTextContent("Username");
+  expect(scoreRankingHeader).toHaveTextContent("Score");
 
   for (let i = 0; i < n; i++) {
     const result = results[i];
@@ -62,9 +62,9 @@ it.each([
     const recordUsername = within(record).getByText(`${result.user}`);
     const recordScore = within(record).getByText(`${result.score}`);
 
-    expect(recordPosition.textContent).toBe(`${expectedPosition}`);
-    expect(recordUsername.textContent).toBe(`${result.user}`);
-    expect(recordScore.textContent).toBe(`${result.score}`);
+    expect(recordPosition).toHaveTextContent(`${expectedPosition}`);
+    expect(recordUsername).toHaveTextContent(`${result.user}`);
+    expect(recordScore).toHaveTextContent(`${result.score}`);
   }
 
   if (userScore) {
@@ -78,9 +78,9 @@ it.each([
     const userRecordScore = within(userRecord).getByText(`${userScore.score}`);
 
     expect(rankingSeparators.length).toBe(3);
-    expect(userRecordPosition.textContent).toBe(`(You) ${userScore.position}`);
-    expect(userRecordUsername.textContent).toBe(`${userScore.user}`);
-    expect(userRecordScore.textContent).toBe(`${userScore.score}`);
+    expect(userRecordPosition).toHaveTextContent(`(You) ${userScore.position}`);
+    expect(userRecordUsername).toHaveTextContent(`${userScore.user}`);
+    expect(userRecordScore).toHaveTextContent(`${userScore.score}`);
   } else {
     expect(rankingSeparator).not.toBeInTheDocument();
     expect(userRecord).not.toBeInTheDocument();

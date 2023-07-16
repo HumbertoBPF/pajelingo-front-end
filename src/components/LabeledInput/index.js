@@ -10,7 +10,8 @@ export default function LabeledInput({
   placeholder = "",
   disabled = false,
   onChange = () => {},
-  validators = []
+  validators = [],
+  testId = ""
 }) {
   const [errors, setErrors] = useState([]);
 
@@ -51,7 +52,8 @@ export default function LabeledInput({
       controlId={controlId}
       className="mb-4 row"
       onInput={(event) => validate(event.target)}
-      onChange={(event) => onChange(event)}>
+      onChange={(event) => onChange(event)}
+      data-testid={testId}>
       <Form.Label className={extraClasses} column {...extraPropsLabel}>
         {label}
       </Form.Label>
@@ -82,5 +84,6 @@ LabeledInput.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  validators: PropTypes.array
+  validators: PropTypes.array,
+  testId: PropTypes.string
 };

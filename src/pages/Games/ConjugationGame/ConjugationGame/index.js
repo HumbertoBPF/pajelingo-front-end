@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLanguages } from "services/languages";
 import { Form } from "react-bootstrap";
@@ -9,6 +8,7 @@ import CustomButton from "components/CustomButton";
 import useGame from "hooks/useGame";
 import CustomSpinner from "components/CustomSpinner";
 import FeedbackPage from "pages/FeedbackPage";
+import { setupConjugationGame, submitAnswerConjugationGame } from "api/games";
 
 export default function ConjugationGame() {
   const user = useSelector((state) => state.user);
@@ -44,26 +44,12 @@ export default function ConjugationGame() {
 
   const playAgain = useCallback(() => {
     if (conjugationGame.link) {
-      const authHeaders = {};
+      const token = user ? user.token : null;
 
-      if (user) {
-        authHeaders["Authorization"] = `Token ${user.token}`;
-      }
-
-      fetch(`${baseUrl}/conjugation-game?${searchParams}`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...authHeaders
-        }
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          navigate(`${conjugationGame.link}setup`);
-        })
-        .then((data) => {
+      setupConjugationGame(
+        token,
+        searchParams,
+        (data) => {
           setVerb(data);
           setConjugation({
             conjugation_1: "",
@@ -80,7 +66,11 @@ export default function ConjugationGame() {
             new_badges: [],
             state: "idle"
           });
-        });
+        },
+        () => {
+          navigate(`${conjugationGame.link}setup`);
+        }
+      );
     }
   }, [searchParams, navigate, conjugationGame.link, user]);
 
@@ -95,26 +85,16 @@ export default function ConjugationGame() {
       state: "pending"
     });
 
-    const authHeaders = {};
+    const token = user ? user.token : null;
 
-    if (user) {
-      authHeaders["Authorization"] = `Token ${user.token}`;
-    }
-
-    fetch(`${baseUrl}/conjugation-game`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...authHeaders
-      },
-      body: JSON.stringify({
+    submitAnswerConjugationGame(
+      token,
+      {
         word_id: verb.id,
         tense: verb.tense,
         ...conjugation
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
+      },
+      (data) => {
         setFeedback({
           result: data.result,
           correct_answer: data.correct_answer,
@@ -122,7 +102,8 @@ export default function ConjugationGame() {
           new_badges: data.new_badges,
           state: "succeeded"
         });
-      });
+      }
+    );
   }
 
   useEffect(() => {
@@ -156,6 +137,7 @@ export default function ConjugationGame() {
             label=""
             placeholder={`${verb.word} - ${verb.tense}`}
             disabled
+            testId="verb-and-tense"
           />
           <LabeledInput
             controlId="conjugation1"
@@ -167,6 +149,7 @@ export default function ConjugationGame() {
                 conjugation_1: event.target.value
               })
             }
+            testId="conjugation-1"
           />
           <LabeledInput
             controlId="conjugation2"
@@ -178,6 +161,7 @@ export default function ConjugationGame() {
                 conjugation_2: event.target.value
               })
             }
+            testId="conjugation-2"
           />
           <LabeledInput
             controlId="conjugation3"
@@ -189,6 +173,7 @@ export default function ConjugationGame() {
                 conjugation_3: event.target.value
               })
             }
+            testId="conjugation-3"
           />
           <LabeledInput
             controlId="conjugation4"
@@ -200,6 +185,7 @@ export default function ConjugationGame() {
                 conjugation_4: event.target.value
               })
             }
+            testId="conjugation-4"
           />
           <LabeledInput
             controlId="conjugation5"
@@ -211,6 +197,7 @@ export default function ConjugationGame() {
                 conjugation_5: event.target.value
               })
             }
+            testId="conjugation-5"
           />
           <LabeledInput
             controlId="conjugation6"
@@ -222,9 +209,13 @@ export default function ConjugationGame() {
                 conjugation_6: event.target.value
               })
             }
+            testId="conjugation-6"
           />
           <div className="text-center">
-            <CustomButton variant="success" type="submit">
+            <CustomButton
+              variant="success"
+              type="submit"
+              testId="submit-answer-button">
               Verify answer
             </CustomButton>
           </div>

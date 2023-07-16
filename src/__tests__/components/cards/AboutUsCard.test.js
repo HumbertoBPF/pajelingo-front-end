@@ -17,5 +17,5 @@ it("should render a card with details about the app", () => {
   const aboutUsText = screen.getByText(item.text);
   screen.getByAltText(item.alt);
 
-  expect(aboutUsText.textContent).toBe(item.text);
+  expect(aboutUsText).toHaveTextContent(item.text);
 });

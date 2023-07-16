@@ -1,4 +1,4 @@
-import { setupArticleGame } from "api/games";
+import { setupArticleGame, submitAnswerArticleGame } from "api/games";
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
 import useGame from "hooks/useGame";
@@ -7,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 
 export default function ArticleGame() {
   const user = useSelector((state) => state.user);
@@ -66,30 +65,17 @@ export default function ArticleGame() {
       state: "pending"
     });
 
-    const authHeaders = {};
+    const token = user ? user.token : null;
 
-    if (user) {
-      authHeaders["Authorization"] = `Token ${user.token}`;
-    }
-
-    fetch(`${baseUrl}/article-game`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...authHeaders
-      },
-      body: JSON.stringify({ word_id: word.id, answer })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setFeedback({
-          result: data.result,
-          correct_answer: data.correct_answer,
-          score: data.score,
-          new_badges: data.new_badges,
-          state: "succeeded"
-        });
+    submitAnswerArticleGame(token, { word_id: word.id, answer }, (data) => {
+      setFeedback({
+        result: data.result,
+        correct_answer: data.correct_answer,
+        score: data.score,
+        new_badges: data.new_badges,
+        state: "succeeded"
       });
+    });
   }
 
   useEffect(() => playAgain(), [playAgain]);
@@ -129,7 +115,10 @@ export default function ArticleGame() {
                 </Form.Group>
               </div>
               <div className="text-center">
-                <CustomButton variant="success" type="submit">
+                <CustomButton
+                  variant="success"
+                  type="submit"
+                  testId="submit-answer-button">
                   Verify answer
                 </CustomButton>
               </div>

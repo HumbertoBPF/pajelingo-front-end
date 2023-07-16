@@ -10,7 +10,7 @@ describe("should display a word meaning in a card", () => {
     renderWithProviders(<MeaningCard meaning={meaning} />);
 
     const meaningCardText = screen.getByText(`Meaning: ${meaning}`);
-    expect(meaningCardText.textContent).toBe(`Meaning: ${meaning}`);
+    expect(meaningCardText).toHaveTextContent(`Meaning: ${meaning}`);
   });
 
   it("when the word has more than one meaning", () => {
@@ -22,7 +22,7 @@ describe("should display a word meaning in a card", () => {
     const meaningCardText = screen.getByText(
       `Meaning number ${index}: ${meaning}`
     );
-    expect(meaningCardText.textContent).toBe(
+    expect(meaningCardText).toHaveTextContent(
       `Meaning number ${index}: ${meaning}`
     );
   });

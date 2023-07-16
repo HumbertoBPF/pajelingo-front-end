@@ -29,16 +29,16 @@ it.each([[1], [2], [getRandomInteger(3, 10)]])(
     expect(previousPage).not.toBeInTheDocument();
     expect(nextPage).not.toBeInTheDocument();
     expect(ellipsisStart).not.toBeInTheDocument();
-    expect(currentPage.textContent).toBe("1(current)");
+    expect(currentPage).toHaveTextContent("1(current)");
 
     if (n > 1) {
-      expect(lastPage.textContent).toBe(`${n}`);
+      expect(lastPage).toHaveTextContent(`${n}`);
     } else {
       expect(lastPage).not.toBeInTheDocument();
     }
 
     if (n > 2) {
-      expect(ellipsisEnd.textContent).toBe("…More");
+      expect(ellipsisEnd).toHaveTextContent("…More");
     } else {
       expect(ellipsisEnd).not.toBeInTheDocument();
     }
@@ -73,28 +73,28 @@ it.each([[1], [2], [getRandomInteger(3, 8)], [9], [10]])(
 
     expect(previousPage).not.toBeInTheDocument();
     expect(nextPage).not.toBeInTheDocument();
-    expect(currentPage.textContent).toBe(`${page}(current)`);
+    expect(currentPage).toHaveTextContent(`${page}(current)`);
 
     if (page !== 1) {
-      expect(firstPage.textContent).toBe("1");
+      expect(firstPage).toHaveTextContent("1");
     } else {
       expect(firstPage).not.toBeInTheDocument();
     }
 
     if (page > 2) {
-      expect(ellipsisStart.textContent).toBe("…More");
+      expect(ellipsisStart).toHaveTextContent("…More");
     } else {
       expect(ellipsisStart).not.toBeInTheDocument();
     }
 
     if (page < 9) {
-      expect(ellipsisEnd.textContent).toBe("…More");
+      expect(ellipsisEnd).toHaveTextContent("…More");
     } else {
       expect(ellipsisEnd).not.toBeInTheDocument();
     }
 
     if (page !== n) {
-      expect(lastPage.textContent).toBe(`${n}`);
+      expect(lastPage).toHaveTextContent(`${n}`);
     } else {
       expect(lastPage).not.toBeInTheDocument();
     }

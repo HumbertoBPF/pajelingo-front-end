@@ -24,24 +24,24 @@ describe.each([[true], [false]])("should display feedback", (result) => {
 
     const message = screen.getByTestId("feedback");
     expect(message).toBeInTheDocument();
-    expect(message.textContent).toBe(expectedMessage);
+    expect(message).toHaveTextContent(expectedMessage);
 
     const uniqueResponseItem = screen.getByTestId("unique-response-item");
     expect(uniqueResponseItem).toBeInTheDocument();
-    expect(uniqueResponseItem.textContent).toBe("Correct answer");
+    expect(uniqueResponseItem).toHaveTextContent("Correct answer");
 
     const score = screen.queryByTestId("score");
 
     if (hasScore) {
       expect(score).toBeInTheDocument();
-      expect(score.textContent).toBe(`Your score is ${feedback.score}`);
+      expect(score).toHaveTextContent(`Your score is ${feedback.score}`);
     } else {
       expect(score).not.toBeInTheDocument();
     }
 
     const newWordButton = screen.getByTestId("new-word-button");
     expect(newWordButton).toBeInTheDocument();
-    expect(newWordButton.textContent).toBe("New word");
+    expect(newWordButton).toHaveTextContent("New word");
   });
 
   it.each([[true], [false]])("with multiple answer items", (hasScore) => {
@@ -62,35 +62,35 @@ describe.each([[true], [false]])("should display feedback", (result) => {
 
     const message = screen.getByTestId("feedback");
     expect(message).toBeInTheDocument();
-    expect(message.textContent).toBe(expectedMessage);
+    expect(message).toHaveTextContent(expectedMessage);
 
     const uniqueResponseItem = screen.queryByTestId("unique-response-item");
     expect(uniqueResponseItem).not.toBeInTheDocument();
 
     const firstResponseItem = screen.getByTestId("1th-response-item");
     expect(firstResponseItem).toBeInTheDocument();
-    expect(firstResponseItem.textContent).toBe("Correct answer 1");
+    expect(firstResponseItem).toHaveTextContent("Correct answer 1");
 
     const secondResponseItem = screen.getByTestId("2th-response-item");
     expect(secondResponseItem).toBeInTheDocument();
-    expect(secondResponseItem.textContent).toBe("Correct answer 2");
+    expect(secondResponseItem).toHaveTextContent("Correct answer 2");
 
     const threeResponseItem = screen.getByTestId("3th-response-item");
     expect(threeResponseItem).toBeInTheDocument();
-    expect(threeResponseItem.textContent).toBe("Correct answer 3");
+    expect(threeResponseItem).toHaveTextContent("Correct answer 3");
 
     const score = screen.queryByTestId("score");
 
     if (hasScore) {
       expect(score).toBeInTheDocument();
-      expect(score.textContent).toBe(`Your score is ${feedback.score}`);
+      expect(score).toHaveTextContent(`Your score is ${feedback.score}`);
     } else {
       expect(score).not.toBeInTheDocument();
     }
 
     const newWordButton = screen.getByTestId("new-word-button");
     expect(newWordButton).toBeInTheDocument();
-    expect(newWordButton.textContent).toBe("New word");
+    expect(newWordButton).toHaveTextContent("New word");
   });
 });
 
@@ -107,19 +107,19 @@ it("should display the lastly achieved user badges", () => {
 
   const message = screen.getByTestId("feedback");
   expect(message).toBeInTheDocument();
-  expect(message.textContent).toBe("Correct answer :)");
+  expect(message).toHaveTextContent("Correct answer :)");
 
   const uniqueResponseItem = screen.getByTestId("unique-response-item");
   expect(uniqueResponseItem).toBeInTheDocument();
-  expect(uniqueResponseItem.textContent).toBe("Correct answer");
+  expect(uniqueResponseItem).toHaveTextContent("Correct answer");
 
   const score = screen.queryByTestId("score");
   expect(score).toBeInTheDocument();
-  expect(score.textContent).toBe(`Your score is ${feedback.score}`);
+  expect(score).toHaveTextContent(`Your score is ${feedback.score}`);
 
   const newWordButton = screen.getByTestId("new-word-button");
   expect(newWordButton).toBeInTheDocument();
-  expect(newWordButton.textContent).toBe("New word");
+  expect(newWordButton).toHaveTextContent("New word");
 
   newBadges.badges.forEach((badge) => {
     const badgeNotification = screen.getByTestId(
@@ -134,11 +134,11 @@ it("should display the lastly achieved user badges", () => {
 
     expect(badgeNotification).toBeInTheDocument();
     expect(notificationTitle).toBeInTheDocument();
-    expect(notificationTitle.textContent).toBe(
+    expect(notificationTitle).toHaveTextContent(
       `New achievement: ${badge.name}`
     );
     expect(notificationMessage).toBeInTheDocument();
-    expect(notificationMessage.textContent).toBe(badge.description);
+    expect(notificationMessage).toHaveTextContent(badge.description);
   });
 });
 
@@ -161,15 +161,15 @@ it("should call playAgain callback when users click on the new word button", asy
 
   const message = screen.getByTestId("feedback");
   expect(message).toBeInTheDocument();
-  expect(message.textContent).toBe("Correct answer :)");
+  expect(message).toHaveTextContent("Correct answer :)");
 
   const uniqueResponseItem = screen.getByTestId("unique-response-item");
   expect(uniqueResponseItem).toBeInTheDocument();
-  expect(uniqueResponseItem.textContent).toBe("Correct answer");
+  expect(uniqueResponseItem).toHaveTextContent("Correct answer");
 
   const score = screen.queryByTestId("score");
   expect(score).toBeInTheDocument();
-  expect(score.textContent).toBe(`Your score is ${feedback.score}`);
+  expect(score).toHaveTextContent(`Your score is ${feedback.score}`);
 
   const newWordButton = screen.getByTestId("new-word-button");
   await user.click(newWordButton);

@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "utils/test-utils";
 
 jest.mock("api/languages", () => {
-  const originalModule = jest.requireActual("api/games");
+  const originalModule = jest.requireActual("api/languages");
 
   return {
     __esmodule: true,
@@ -48,18 +48,18 @@ it("should display model when the filter button is clicked", async () => {
     );
     expect(checkItem).toBeInTheDocument();
     expect(checkItem.value).toBe(language.language_name);
-    expect(checkItem.checked).toBe(true);
+    expect(checkItem).toBeChecked();
   });
 
   const cancelButton = within(filterModal).getByTestId("cancel-button");
   expect(cancelButton).toBeInTheDocument();
-  expect(cancelButton.textContent).toBe("Cancel");
+  expect(cancelButton).toHaveTextContent("Cancel");
 
   const applyFiltersButton = within(filterModal).getByTestId(
     "apply-filters-button"
   );
   expect(applyFiltersButton).toBeInTheDocument();
-  expect(applyFiltersButton.textContent).toBe("Apply");
+  expect(applyFiltersButton).toHaveTextContent("Apply");
 });
 
 it("should call filter callback when clicking on the apply filter button", async () => {

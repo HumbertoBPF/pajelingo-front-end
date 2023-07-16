@@ -3,14 +3,14 @@ const { default: WordList } = require("components/WordList");
 import wordsPage from "../test-data/words-page.json";
 import { renderWithProviders } from "utils/test-utils";
 
-it("should display 'no result' image when the words props has count = 0", () => {
-  const words = {
-    results: [],
-    count: 0,
-    page: 1
-  };
+const wordsWithoutResults = {
+  results: [],
+  count: 0,
+  page: 1
+};
 
-  renderWithProviders(<WordList words={words} />);
+it("should display 'no result' image when the words props has count = 0", () => {
+  renderWithProviders(<WordList words={wordsWithoutResults} />);
 
   const noResultImg = screen.getByTestId("no-results-img");
   const spinner = screen.queryByTestId("spinner");
@@ -32,13 +32,7 @@ it("should display 'no result' image when the words props has count = 0", () => 
 });
 
 it("should display spinner when the isLoading props is true", () => {
-  const words = {
-    results: [],
-    count: 0,
-    page: 1
-  };
-
-  renderWithProviders(<WordList words={words} isLoading />);
+  renderWithProviders(<WordList words={wordsWithoutResults} isLoading />);
 
   const noResultImg = screen.queryByTestId("no-results-img");
   const spinner = screen.getByTestId("spinner");
@@ -86,7 +80,7 @@ it("should display results when the words props has a non-empty list of results"
     );
 
     expect(wordCard).toBeInTheDocument();
-    expect(wordCardWordName.textContent).toBe(word.word_name);
+    expect(wordCardWordName).toHaveTextContent(word.word_name);
     expect(wordCardFlagImageAlt).toBeInTheDocument();
 
     if (word.is_favorite) {
@@ -100,10 +94,10 @@ it("should display results when the words props has a non-empty list of results"
 
   expect(noResultImg).not.toBeInTheDocument();
   expect(spinner).not.toBeInTheDocument();
-  expect(currentPage.textContent).toBe("1(current)");
+  expect(currentPage).toHaveTextContent("1(current)");
   expect(previousPage).not.toBeInTheDocument();
   expect(nextPage).toBeInTheDocument();
   expect(ellipsisStart).not.toBeInTheDocument();
-  expect(ellipsisEnd.textContent).toBe("…More");
-  expect(lastPage.textContent).toBe("12");
+  expect(ellipsisEnd).toHaveTextContent("…More");
+  expect(lastPage).toHaveTextContent("12");
 });

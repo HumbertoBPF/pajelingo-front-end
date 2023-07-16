@@ -1,10 +1,8 @@
-import languages from "../../../test-data/languages.json";
-import userEvent from "@testing-library/user-event";
 import { getInitialGamesState, renderWithProviders } from "utils/test-utils";
-const { screen, within } = require("@testing-library/react");
-const {
-  default: ArticleGameSetup
-} = require("pages/Games/ArticleGame/ArticleGameSetup");
+import languages from "../../../test-data/languages.json";
+import ConjugationGameSetup from "pages/Games/ConjugationGame/ConjugationGameSetup";
+import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");
@@ -16,8 +14,8 @@ jest.mock("api/languages", () => {
   };
 });
 
-it("should display article game setup form", () => {
-  renderWithProviders(<ArticleGameSetup />, {
+it("should display conjugation game setup form", () => {
+  renderWithProviders(<ConjugationGameSetup />, {
     preloadedState: {
       games: getInitialGamesState(),
       languages
@@ -34,12 +32,8 @@ it("should display article game setup form", () => {
       language.language_name
     );
 
-    if (language.language_name === "English") {
-      expect(languageOption).not.toBeInTheDocument();
-    } else {
-      expect(languageOption).toBeInTheDocument();
-      expect(languageOption).toHaveTextContent(language.language_name);
-    }
+    expect(languageOption).toBeInTheDocument();
+    expect(languageOption).toHaveTextContent(language.language_name);
   });
 
   expect(startButton).toBeInTheDocument();
@@ -49,7 +43,7 @@ it("should display article game setup form", () => {
 it("should display error toast if no language is selected", async () => {
   const user = userEvent.setup();
 
-  renderWithProviders(<ArticleGameSetup />, {
+  renderWithProviders(<ConjugationGameSetup />, {
     preloadedState: {
       games: getInitialGamesState(),
       languages

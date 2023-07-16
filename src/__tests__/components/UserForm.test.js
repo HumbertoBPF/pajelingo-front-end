@@ -63,7 +63,7 @@ it.each([
     expect(bioPlaceholder).toBeInTheDocument();
     expect(bioInput).toBeInTheDocument();
     expect(bioDescription).toBeInTheDocument();
-    expect(button.textContent).toBe("Submit");
+    expect(button).toHaveTextContent("Submit");
   }
 );
 

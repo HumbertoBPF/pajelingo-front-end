@@ -14,9 +14,9 @@ it("should display only username and bio when no email is specified", () => {
   const emailData = screen.queryByTestId("email-data");
   const bioData = screen.getByTestId("bio-data");
 
-  expect(usernameData.textContent).toBe(` Username: ${user.username}`);
+  expect(usernameData).toHaveTextContent(`Username: ${user.username}`);
   expect(emailData).not.toBeInTheDocument();
-  expect(bioData.textContent).toBe(` Bio: ${user.bio}`);
+  expect(bioData).toHaveTextContent(`Bio: ${user.bio}`);
 });
 
 it("should display username, email, and bio when user email data is provided", () => {
@@ -32,7 +32,7 @@ it("should display username, email, and bio when user email data is provided", (
   const emailData = screen.getByTestId("email-data");
   const bioData = screen.getByTestId("bio-data");
 
-  expect(usernameData.textContent).toBe(` Username: ${user.username}`);
-  expect(emailData.textContent).toBe(` Email: ${user.email}`);
-  expect(bioData.textContent).toBe(` Bio: ${user.bio}`);
+  expect(usernameData).toHaveTextContent(`Username: ${user.username}`);
+  expect(emailData).toHaveTextContent(`Email: ${user.email}`);
+  expect(bioData).toHaveTextContent(`Bio: ${user.bio}`);
 });
