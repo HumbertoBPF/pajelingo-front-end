@@ -16,3 +16,25 @@ export const toggleFavoriteWord = (token, wordId, isFavorite, onSuccess) => {
       onSuccess(data);
     });
 };
+
+export const getWord = (token, wordId, onSuccess) => {
+  let options = {};
+
+  if (token) {
+    options = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    };
+  }
+
+  fetch(`${baseUrl}/words/${wordId}`, options)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data));
+};
+
+export const getMeaning = (wordId, onSuccess) => {
+  fetch(`${baseUrl}/meanings/${wordId}`)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data));
+};

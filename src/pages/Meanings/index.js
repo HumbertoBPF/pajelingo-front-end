@@ -2,9 +2,9 @@ import MeaningCard from "components/cards/MeaningCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 import CustomButton from "components/CustomButton";
 import HeartIcon from "components/icons/HeartIcon";
+import { getMeaning, getWord, toggleFavoriteWord } from "api/words";
 
 export default function Meanings() {
   const params = useParams();
@@ -14,46 +14,22 @@ export default function Meanings() {
 
   useEffect(() => {
     // Fetching word
-    let options = {};
-
-    if (user) {
-      options = {
-        headers: {
-          Authorization: `Token ${user.token}`
-        }
-      };
-    }
-
-    fetch(`${baseUrl}/words/${params.pk}`, options)
-      .then((response) => response.json())
-      .then((data) => setWord(data));
+    const token = user ? user.token : null;
+    getWord(token, params.pk, (data) => setWord(data));
   }, [user, params.pk]);
 
   useEffect(() => {
     // Fetching meanings
-    fetch(`${baseUrl}/meanings/${params.pk}`)
-      .then((response) => response.json())
-      .then((data) => setMeanings(data));
+    getMeaning(params.pk, (data) => setMeanings(data));
   }, [params.pk]);
 
   function toggleFavoriteButton() {
     if (user) {
-      fetch(`${baseUrl}/words/${word.id}/favorite-word`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`
-        },
-        body: JSON.stringify({
-          is_favorite: !word.is_favorite
-        })
-      })
-        .then((response) => (response.ok ? response.json() : null))
-        .then((data) => {
-          if (data !== null) {
-            setWord(data);
-          }
-        });
+      toggleFavoriteWord(user.token, word.id, !word.is_favorite, (data) => {
+        if (data !== null) {
+          setWord(data);
+        }
+      });
     }
   }
 
@@ -72,17 +48,20 @@ export default function Meanings() {
 
   return (
     <>
-      <h5 className="mb-4">Meanings of &quot;{word.word_name}&quot;</h5>
+      <h5 className="mb-4" data-testid="title">
+        Meanings of &quot;{word.word_name}&quot;
+      </h5>
 
-      {word.image === null ? null : (
+      {word.image ? (
         <div className="row g-0 justify-content-center mb-4">
           <img
             src={`data:image/jpeg;base64,${word.image}`}
             className="img-fluid rounded col-md-2 col-sm-3 col-6"
             alt="Word meaning"
+            data-testid="word-image"
           />
         </div>
-      )}
+      ) : null}
 
       {meanings.length > 1
         ? meanings.map((meaning, index) => (
@@ -98,7 +77,10 @@ export default function Meanings() {
 
       {user ? (
         <div className="text-center">
-          <CustomButton variant="info" onClick={() => toggleFavoriteButton()}>
+          <CustomButton
+            variant="info"
+            onClick={() => toggleFavoriteButton()}
+            testId="favorite-button">
             {renderFavoriteButton(word)}
           </CustomButton>
         </div>
