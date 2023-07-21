@@ -3,7 +3,7 @@ const { default: Ranking } = require("components/Ranking");
 import { renderWithProviders } from "utils/test-utils";
 const { getRandomInteger } = require("utils");
 
-function getRankingRecords(n) {
+const getRankingRecords = (n) => {
   const records = [];
 
   for (let i = 0; i < n; i++) {
@@ -14,75 +14,113 @@ function getRankingRecords(n) {
   }
 
   return records;
-}
+};
 
-it.each([
-  [undefined],
-  [
-    {
-      position: getRandomInteger(1, 10),
-      user: "HumbertoBPF",
-      score: getRandomInteger(100, 1000)
-    }
-  ]
-])(" should display current page of the ranking", (userScore) => {
-  const n = getRandomInteger(1, 10);
-
-  const ranking = {
-    page: getRandomInteger(1, 10),
-    results: getRankingRecords(n)
-  };
-
-  if (userScore) {
-    ranking.user_score = userScore;
-  }
-
-  const results = ranking.results;
-
-  renderWithProviders(<Ranking ranking={ranking} />);
-
+const assertRankingHeaders = () => {
   const rankingHeaders = screen.getByTestId("ranking-headers");
+
   const positionRankingHeader = within(rankingHeaders).getByText("Position");
-  const usernameRankingHeader = within(rankingHeaders).getByText("Username");
-  const scoreRankingHeader = within(rankingHeaders).getByText("Score");
-
-  const rankingSeparator = screen.queryByTestId("ranking-separator");
-  const userRecord = screen.queryByTestId("user-score-record");
-
+  expect(positionRankingHeader).toBeInTheDocument();
   expect(positionRankingHeader).toHaveTextContent("Position");
+
+  const usernameRankingHeader = within(rankingHeaders).getByText("Username");
+  expect(usernameRankingHeader).toBeInTheDocument();
   expect(usernameRankingHeader).toHaveTextContent("Username");
+
+  const scoreRankingHeader = within(rankingHeaders).getByText("Score");
+  expect(scoreRankingHeader).toBeInTheDocument();
   expect(scoreRankingHeader).toHaveTextContent("Score");
+};
+
+const assertRankingRecords = (page, results) => {
+  const n = results.length;
 
   for (let i = 0; i < n; i++) {
     const result = results[i];
-    const expectedPosition = (ranking.page - 1) * 10 + i + 1;
+    const expectedPosition = (page - 1) * 10 + i + 1;
 
     const record = screen.getByTestId(`${i + 1}th-ranking-record`);
-    const recordPosition = within(record).getByText(`${expectedPosition}`);
-    const recordUsername = within(record).getByText(`${result.user}`);
-    const recordScore = within(record).getByText(`${result.score}`);
 
+    const recordPosition = within(record).getByText(`${expectedPosition}`);
+    expect(recordPosition).toBeInTheDocument();
     expect(recordPosition).toHaveTextContent(`${expectedPosition}`);
+
+    const recordUsername = within(record).getByText(`${result.user}`);
+    expect(recordUsername).toBeInTheDocument();
     expect(recordUsername).toHaveTextContent(`${result.user}`);
+
+    const recordScore = within(record).getByText(`${result.score}`);
+    expect(recordScore).toBeInTheDocument();
     expect(recordScore).toHaveTextContent(`${result.score}`);
   }
+};
 
-  if (userScore) {
+describe("should display the current page of the ranking", () => {
+  it("without the user score", () => {
+    const n = getRandomInteger(1, 10);
+
+    const ranking = {
+      page: getRandomInteger(1, 10),
+      results: getRankingRecords(n)
+    };
+
+    const results = ranking.results;
+
+    renderWithProviders(<Ranking ranking={ranking} />);
+
+    assertRankingHeaders();
+    assertRankingRecords(ranking.page, results);
+
+    const rankingSeparator = screen.queryByTestId("ranking-separator");
+    expect(rankingSeparator).not.toBeInTheDocument();
+
+    const userRecord = screen.queryByTestId("user-score-record");
+    expect(userRecord).not.toBeInTheDocument();
+  });
+
+  it("with user score", () => {
+    const n = getRandomInteger(1, 10);
+
+    const userScore = {
+      position: getRandomInteger(1, 10),
+      user: "HumbertoBPF",
+      score: getRandomInteger(100, 1000)
+    };
+
+    const ranking = {
+      page: getRandomInteger(1, 10),
+      results: getRankingRecords(n),
+      user_score: userScore
+    };
+
+    const results = ranking.results;
+
+    renderWithProviders(<Ranking ranking={ranking} />);
+
+    assertRankingHeaders();
+    assertRankingRecords(ranking.page, results);
+
+    const rankingSeparator = screen.queryByTestId("ranking-separator");
+
     const rankingSeparators = within(rankingSeparator).getAllByText("...");
+    expect(rankingSeparators.length).toBe(3);
+
+    const userRecord = screen.queryByTestId("user-score-record");
+
     const userRecordPosition = within(userRecord).getByText(
       `(You) ${userScore.position}`
     );
+    expect(userRecordPosition).toBeInTheDocument();
+    expect(userRecordPosition).toHaveTextContent(`(You) ${userScore.position}`);
+
     const userRecordUsername = within(userRecord).getByText(
       `${userScore.user}`
     );
-    const userRecordScore = within(userRecord).getByText(`${userScore.score}`);
-
-    expect(rankingSeparators.length).toBe(3);
-    expect(userRecordPosition).toHaveTextContent(`(You) ${userScore.position}`);
+    expect(userRecordUsername).toBeInTheDocument();
     expect(userRecordUsername).toHaveTextContent(`${userScore.user}`);
+
+    const userRecordScore = within(userRecord).getByText(`${userScore.score}`);
+    expect(userRecordScore).toBeInTheDocument();
     expect(userRecordScore).toHaveTextContent(`${userScore.score}`);
-  } else {
-    expect(rankingSeparator).not.toBeInTheDocument();
-    expect(userRecord).not.toBeInTheDocument();
-  }
+  });
 });

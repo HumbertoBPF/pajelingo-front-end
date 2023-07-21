@@ -15,12 +15,8 @@ export const login = (username, password, onSuccess, onFail) => {
 
       throw Error(response);
     })
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch(() => {
-      onFail();
-    });
+    .then((data) => onSuccess(data))
+    .catch(() => onFail());
 };
 
 export const getUser = async (token) => {
@@ -29,4 +25,47 @@ export const getUser = async (token) => {
       Authorization: `Token ${token}`
     }
   });
+};
+
+export const deleteUser = (token, onSuccess, onFail) => {
+  fetch(`${baseUrl}/user`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return;
+      }
+
+      throw Error();
+    })
+    .catch(() => onFail());
+};
+
+export const getUserPicture = (token, body, onSuccess, onFail) => {
+  fetch(`${baseUrl}/user/picture`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Token ${token}`
+    },
+    body
+  })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return;
+      }
+
+      throw Error();
+    })
+    .catch(() => onFail());
+};
+
+export const getUserScores = (language, username, onSuccess) => {
+  fetch(`${baseUrl}/scores/?language=${language}&user=${username}`)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data));
 };

@@ -7,10 +7,14 @@ it("should display two buttons when no user props is specified", () => {
   renderWithProviders(<AccountMenu />);
 
   const signUpButton = screen.getByTestId("signup-button");
-  const signInButton = screen.getByTestId("signin-button");
-
+  expect(signUpButton).toBeInTheDocument();
   expect(signUpButton).toHaveTextContent("Sign up");
+  expect(signUpButton).toHaveClass("btn-success");
+
+  const signInButton = screen.getByTestId("signin-button");
+  expect(signInButton).toBeInTheDocument();
   expect(signInButton).toHaveTextContent("Sign in");
+  expect(signInButton).toHaveClass("btn-primary");
 });
 
 it("should display user profile dropdown when user props is specified", async () => {
@@ -24,14 +28,15 @@ it("should display user profile dropdown when user props is specified", async ()
   renderWithProviders(<AccountMenu user={userData} />);
 
   const dropdownToggle = screen.getByTestId("profile-dropdown");
-
   expect(dropdownToggle).toHaveTextContent(userData.username);
 
   await user.click(dropdownToggle);
 
   const profileItem = screen.getByTestId("profile-item");
-  const logoutItem = screen.getByTestId("logout-item");
-
+  expect(profileItem).toBeInTheDocument();
   expect(profileItem).toHaveTextContent("Profile");
+
+  const logoutItem = screen.getByTestId("logout-item");
+  expect(logoutItem).toBeInTheDocument();
   expect(logoutItem).toHaveTextContent("Logout");
 });

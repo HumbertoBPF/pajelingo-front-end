@@ -1,7 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserForm } = require("components/UserForm");
 import userEvent from "@testing-library/user-event";
-import signupData from "../test-data/signup-data.json";
 import { renderWithProviders } from "utils/test-utils";
 
 async function enterText(user, element, text) {
@@ -12,89 +11,109 @@ async function enterText(user, element, text) {
   }
 }
 
-it.each([
-  [undefined],
-  [
-    {
+const assertEmailField = (expectedValue) => {
+  const emailField = screen.getByTestId("email-input");
+  const emailLabel = within(emailField).getByLabelText("Email address");
+  const emailInput = within(emailField).getByPlaceholderText("Email address");
+  expect(emailField).toBeInTheDocument();
+  expect(emailLabel).toBeInTheDocument();
+  expect(emailInput).toBeInTheDocument();
+  expect(emailInput).toHaveAttribute("type", "email");
+  expect(emailInput).toHaveValue(expectedValue);
+  expect(emailInput).toBeRequired();
+};
+
+const assertUsernameField = (expectedValue) => {
+  const usernameField = screen.getByTestId("username-input");
+  const usernameLabel = within(usernameField).getByLabelText("Username");
+  const usernameInput = within(usernameField).getByPlaceholderText("Username");
+  expect(usernameField).toBeInTheDocument();
+  expect(usernameLabel).toBeInTheDocument();
+  expect(usernameInput).toBeInTheDocument();
+  expect(usernameInput).toHaveAttribute("type", "text");
+  expect(usernameInput).toHaveValue(expectedValue);
+  expect(usernameInput).toBeRequired();
+};
+
+const assertBioField = (expectedValue) => {
+  const bioField = screen.getByTestId("bio-input");
+  const bioLabel = within(bioField).getByLabelText("Bio");
+  const bioInput = within(bioField).getByPlaceholderText("Bio");
+  const bioDescription = within(bioField).getByText(
+    `${expectedValue.length}/500 (The bio can have 500 characters at most)`
+  );
+  expect(bioField).toBeInTheDocument();
+  expect(bioLabel).toBeInTheDocument();
+  expect(bioInput).toBeInTheDocument();
+  expect(bioInput).toHaveValue(expectedValue);
+  expect(bioDescription).toBeInTheDocument();
+};
+
+const assertPasswordField = () => {
+  const passwordField = screen.getByTestId("password-input");
+  const passwordLabel = within(passwordField).getByLabelText("Password");
+  const passwordInput = within(passwordField).getByPlaceholderText("Password");
+  expect(passwordField).toBeInTheDocument();
+  expect(passwordLabel).toBeInTheDocument();
+  expect(passwordInput).toBeInTheDocument();
+  expect(passwordInput).toHaveValue("");
+  expect(passwordInput).toHaveAttribute("type", "password");
+  expect(passwordInput).toBeRequired();
+};
+
+const assertConfirmationPasswordField = () => {
+  const confirmPasswordField = screen.getByTestId(
+    "password-confirmation-input"
+  );
+  const confirmPasswordLabel = within(confirmPasswordField).getByLabelText(
+    "Confirm your password"
+  );
+  const confirmPasswordInput = within(
+    confirmPasswordField
+  ).getByPlaceholderText("Confirm your password");
+  expect(confirmPasswordField).toBeInTheDocument();
+  expect(confirmPasswordLabel).toBeInTheDocument();
+  expect(confirmPasswordInput).toBeInTheDocument();
+  expect(confirmPasswordInput).toHaveValue("");
+  expect(confirmPasswordInput).toHaveAttribute("type", "password");
+  expect(confirmPasswordInput).toBeRequired();
+};
+
+describe("display the user form", () => {
+  it("filled with user data", () => {
+    const userData = {
       username: "HumbertoBPF",
       email: "humberto@test.com",
       bio: "Humberto's bio"
-    }
-  ]
-])(
-  "should display the correct text on the form fields and on the submit button",
-  (user) => {
-    const expectedEmail = user ? user.email : "";
-    const expectedUsername = user ? user.username : "";
-    const expectedBio = user ? user.bio : "";
+    };
 
-    renderWithProviders(<UserForm user={user} buttonText="Submit" />);
+    renderWithProviders(<UserForm user={userData} buttonText="Submit" />);
 
-    const emailField = screen.getByTestId("email-input");
-    const emailLabel = within(emailField).getByLabelText("Email address");
-    const emailInput = within(emailField).getByPlaceholderText("Email address");
-    expect(emailField).toBeInTheDocument();
-    expect(emailLabel).toBeInTheDocument();
-    expect(emailInput).toBeInTheDocument();
-    expect(emailInput).toHaveAttribute("type", "email");
-    expect(emailInput).toHaveValue(expectedEmail);
-    expect(emailInput).toBeRequired();
-
-    const usernameField = screen.getByTestId("username-input");
-    const usernameLabel = within(usernameField).getByLabelText("Username");
-    const usernameInput =
-      within(usernameField).getByPlaceholderText("Username");
-    expect(usernameField).toBeInTheDocument();
-    expect(usernameLabel).toBeInTheDocument();
-    expect(usernameInput).toBeInTheDocument();
-    expect(usernameInput).toHaveAttribute("type", "text");
-    expect(usernameInput).toHaveValue(expectedUsername);
-    expect(usernameInput).toBeRequired();
-
-    const bioField = screen.getByTestId("bio-input");
-    const bioLabel = within(bioField).getByLabelText("Bio");
-    const bioInput = within(bioField).getByPlaceholderText("Bio");
-    const bioDescription = within(bioField).getByText(
-      `${expectedBio.length}/500 (The bio can have 500 characters at most)`
-    );
-    expect(bioField).toBeInTheDocument();
-    expect(bioLabel).toBeInTheDocument();
-    expect(bioInput).toBeInTheDocument();
-    expect(bioInput).toHaveValue(expectedBio);
-    expect(bioDescription).toBeInTheDocument();
-
-    const passwordField = screen.getByTestId("password-input");
-    const passwordLabel = within(passwordField).getByLabelText("Password");
-    const passwordInput =
-      within(passwordField).getByPlaceholderText("Password");
-    expect(passwordField).toBeInTheDocument();
-    expect(passwordLabel).toBeInTheDocument();
-    expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveValue("");
-    expect(passwordInput).toHaveAttribute("type", "password");
-    expect(passwordInput).toBeRequired();
-
-    const confirmPasswordField = screen.getByTestId(
-      "password-confirmation-input"
-    );
-    const confirmPasswordLabel = within(confirmPasswordField).getByLabelText(
-      "Confirm your password"
-    );
-    const confirmPasswordInput = within(
-      confirmPasswordField
-    ).getByPlaceholderText("Confirm your password");
-    expect(confirmPasswordField).toBeInTheDocument();
-    expect(confirmPasswordLabel).toBeInTheDocument();
-    expect(confirmPasswordInput).toBeInTheDocument();
-    expect(confirmPasswordInput).toHaveValue("");
-    expect(confirmPasswordInput).toHaveAttribute("type", "password");
-    expect(confirmPasswordInput).toBeRequired();
+    assertEmailField(userData.email);
+    assertUsernameField(userData.username);
+    assertBioField(userData.bio);
+    assertPasswordField();
+    assertConfirmationPasswordField();
 
     const button = screen.getByTestId("submit-button");
     expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent("Submit");
-  }
-);
+  });
+
+  it("empty", () => {
+    renderWithProviders(<UserForm buttonText="Submit" />);
+
+    assertEmailField("");
+    assertUsernameField("");
+    assertBioField("");
+    assertPasswordField();
+    assertConfirmationPasswordField();
+
+    const button = screen.getByTestId("submit-button");
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent("Submit");
+  });
+});
 
 it("should pass the form content to the callback function", async () => {
   const user = userEvent.setup();
@@ -133,37 +152,23 @@ it("should pass the form content to the callback function", async () => {
   await user.type(confirmPasswordInput, formData.password);
   await user.click(button);
 
-  const newEmailInput = within(emailField).getByDisplayValue(formData.email);
-  const newUsernameInput = within(usernameField).getByDisplayValue(
-    formData.username
-  );
-  const newBioInput = within(bioField).getByDisplayValue(formData.bio);
-  const newPasswordInput = within(passwordField).getByDisplayValue(
-    formData.password
-  );
-  const newConfirmPasswordInput = within(
-    confirmPasswordField
-  ).getByDisplayValue(formData.password);
-
-  expect(newEmailInput).toBeInTheDocument();
-  expect(newUsernameInput).toBeInTheDocument();
-  expect(newBioInput).toBeInTheDocument();
-  expect(newPasswordInput).toBeInTheDocument();
-  expect(newConfirmPasswordInput).toBeInTheDocument();
   expect(callback).toBeCalled();
   expect(callback).toBeCalledWith(expect.anything(), formData);
 });
 
-it.each(signupData.data)(
-  "should validate the form content",
-  async (email, username, bio, password, confirmPassword) => {
+describe("should validate", () => {
+  it.each([
+    ["", "This field is required."],
+    ["humberto", "Enter a valid email address."]
+  ])("the email field", async (email, message) => {
     const user = userEvent.setup();
 
     const formData = {
-      username: username.value,
-      email: email.value,
-      bio: bio.value,
-      password: password.value
+      email,
+      username: "HumbertoBPF",
+      bio: "Humberto's bio",
+      password: "str0ng-P4ssw0rd",
+      confirmPassword: "str0ng-P4ssw0rd"
     };
 
     const callback = jest.fn((data) => data);
@@ -186,59 +191,168 @@ it.each(signupData.data)(
     const confirmPasswordInput =
       within(confirmPasswordField).getByDisplayValue("");
 
-    await enterText(user, emailInput, email.value);
-    await enterText(user, usernameInput, username.value);
-    await enterText(user, bioInput, bio.value);
-    await enterText(user, passwordInput, password.value);
-    await enterText(user, confirmPasswordInput, confirmPassword.value);
-
+    await enterText(user, emailInput, formData.email);
+    await enterText(user, usernameInput, formData.username);
+    await enterText(user, bioInput, formData.bio);
+    await enterText(user, passwordInput, formData.password);
+    await enterText(user, confirmPasswordInput, formData.confirmPassword);
     await user.click(button);
 
-    const newEmailInput = within(emailField).getByDisplayValue(email.value);
-    const newUsernameInput = within(usernameField).getByDisplayValue(
-      username.value
+    const emailError = within(emailField).getByText(message);
+    expect(emailError).toBeInTheDocument();
+    expect(emailError).toHaveTextContent(message);
+  });
+
+  it.each([
+    [
+      "Humberto BPF",
+      "Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters."
+    ],
+    ["Humb", "The username must be at least 8 characters-long."],
+    ["", "This field is required."]
+  ])("the username field", async (username, message) => {
+    const user = userEvent.setup();
+
+    const formData = {
+      email: "humberto@test.com",
+      username,
+      bio: "Humberto's bio",
+      password: "str0ng-P4ssw0rd",
+      confirmPassword: "str0ng-P4ssw0rd"
+    };
+
+    const callback = jest.fn((data) => data);
+
+    renderWithProviders(<UserForm buttonText="Submit" onSubmit={callback} />);
+
+    const emailField = screen.getByTestId("email-input");
+    const usernameField = screen.getByTestId("username-input");
+    const bioField = screen.getByTestId("bio-input");
+    const passwordField = screen.getByTestId("password-input");
+    const confirmPasswordField = screen.getByTestId(
+      "password-confirmation-input"
     );
-    const newBioInput = within(bioField).getByDisplayValue(bio.value);
-    const newPasswordInput = within(passwordField).getByDisplayValue(
-      password.value
+    const button = screen.getByTestId("submit-button");
+
+    const emailInput = within(emailField).getByDisplayValue("");
+    const usernameInput = within(usernameField).getByDisplayValue("");
+    const bioInput = within(bioField).getByDisplayValue("");
+    const passwordInput = within(passwordField).getByDisplayValue("");
+    const confirmPasswordInput =
+      within(confirmPasswordField).getByDisplayValue("");
+
+    await enterText(user, emailInput, formData.email);
+    await enterText(user, usernameInput, formData.username);
+    await enterText(user, bioInput, formData.bio);
+    await enterText(user, passwordInput, formData.password);
+    await enterText(user, confirmPasswordInput, formData.confirmPassword);
+    await user.click(button);
+
+    const usernameError = within(usernameField).getByText(message);
+    expect(usernameError).toBeInTheDocument();
+    expect(usernameError).toHaveTextContent(message);
+  });
+
+  it.each([
+    ["strong-password", "The password must have at least one digit."],
+    ["1234-5678", "The password must have at least one letter."],
+    [
+      "str0ngP4ssw0rd",
+      "The password must have at least one special character."
+    ],
+    ["", "This field is required."],
+    [
+      "str0ng-P4ssw0rd-str0ng-P4ssw0rd",
+      "The password must have a length between 8 and 30."
+    ],
+    ["p@sw0rd", "The password must have a length between 8 and 30."]
+  ])("the password field", async (password, message) => {
+    const user = userEvent.setup();
+
+    const formData = {
+      email: "humberto@test.com",
+      username: "HumbertoBPF",
+      bio: "Humberto's bio",
+      password,
+      confirmPassword: "str0ng-P4ssw0rd"
+    };
+
+    const callback = jest.fn((data) => data);
+
+    renderWithProviders(<UserForm buttonText="Submit" onSubmit={callback} />);
+
+    const emailField = screen.getByTestId("email-input");
+    const usernameField = screen.getByTestId("username-input");
+    const bioField = screen.getByTestId("bio-input");
+    const passwordField = screen.getByTestId("password-input");
+    const confirmPasswordField = screen.getByTestId(
+      "password-confirmation-input"
     );
-    const newPasswordConfirmationInput = within(
-      confirmPasswordField
-    ).getByDisplayValue(confirmPassword.value);
+    const button = screen.getByTestId("submit-button");
 
-    if (email.error) {
-      const emailError = within(emailField).getByText(email.error);
-      expect(emailError).toBeInTheDocument();
-    }
+    const emailInput = within(emailField).getByDisplayValue("");
+    const usernameInput = within(usernameField).getByDisplayValue("");
+    const bioInput = within(bioField).getByDisplayValue("");
+    const passwordInput = within(passwordField).getByDisplayValue("");
+    const confirmPasswordInput =
+      within(confirmPasswordField).getByDisplayValue("");
 
-    if (username.error) {
-      const usernameError = within(usernameField).getByText(username.error);
-      expect(usernameError).toBeInTheDocument();
-    }
+    await enterText(user, emailInput, formData.email);
+    await enterText(user, usernameInput, formData.username);
+    await enterText(user, bioInput, formData.bio);
+    await enterText(user, passwordInput, formData.password);
+    await enterText(user, confirmPasswordInput, formData.confirmPassword);
+    await user.click(button);
 
-    if (bio.error) {
-      const bioError = within(bioField).getByText(bio.error);
-      expect(bioError).toBeInTheDocument();
-    }
+    const passwordError = within(passwordField).getByText(message);
+    expect(passwordError).toBeInTheDocument();
+    expect(passwordError).toHaveTextContent(message);
+  });
 
-    if (password.error) {
-      const passwordError = within(passwordField).getByText(password.error);
-      expect(passwordError).toBeInTheDocument();
-    }
+  it.each([
+    ["str-P4s", "The passwords do not match."],
+    ["", "This field is required."]
+  ])("the password field", async (confirmPassword, message) => {
+    const user = userEvent.setup();
 
-    if (confirmPassword.error) {
-      const confirmPasswordError = within(confirmPasswordField).getByText(
-        confirmPassword.error
-      );
-      expect(confirmPasswordError).toBeInTheDocument();
-    }
+    const formData = {
+      email: "humberto@test.com",
+      username: "HumbertoBPF",
+      bio: "Humberto's bio",
+      password: "str0ng-P4ssw0rd",
+      confirmPassword
+    };
 
-    expect(newEmailInput).toBeInTheDocument();
-    expect(newUsernameInput).toBeInTheDocument();
-    expect(newBioInput).toBeInTheDocument();
-    expect(newPasswordInput).toBeInTheDocument();
-    expect(newPasswordConfirmationInput).toBeInTheDocument();
-    expect(callback).toBeCalled();
-    expect(callback).toBeCalledWith(expect.anything(), formData);
-  }
-);
+    const callback = jest.fn((data) => data);
+
+    renderWithProviders(<UserForm buttonText="Submit" onSubmit={callback} />);
+
+    const emailField = screen.getByTestId("email-input");
+    const usernameField = screen.getByTestId("username-input");
+    const bioField = screen.getByTestId("bio-input");
+    const passwordField = screen.getByTestId("password-input");
+    const confirmPasswordField = screen.getByTestId(
+      "password-confirmation-input"
+    );
+    const button = screen.getByTestId("submit-button");
+
+    const emailInput = within(emailField).getByDisplayValue("");
+    const usernameInput = within(usernameField).getByDisplayValue("");
+    const bioInput = within(bioField).getByDisplayValue("");
+    const passwordInput = within(passwordField).getByDisplayValue("");
+    const confirmPasswordInput =
+      within(confirmPasswordField).getByDisplayValue("");
+
+    await enterText(user, emailInput, formData.email);
+    await enterText(user, usernameInput, formData.username);
+    await enterText(user, bioInput, formData.bio);
+    await enterText(user, passwordInput, formData.password);
+    await enterText(user, confirmPasswordInput, formData.confirmPassword);
+    await user.click(button);
+
+    const confirmPasswordError =
+      within(confirmPasswordField).getByText(message);
+    expect(confirmPasswordError).toBeInTheDocument();
+    expect(confirmPasswordError).toHaveTextContent(message);
+  });
+});

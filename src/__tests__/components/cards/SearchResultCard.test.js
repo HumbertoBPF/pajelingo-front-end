@@ -13,57 +13,84 @@ jest.mock("api/words", () => {
   };
 });
 
-it.each([[true], [false], [null]])(
-  "should display a word in a card",
-  (isFavorite) => {
-    const word = {
-      id: getRandomInteger(1000, 2000),
-      word_name: "Word",
-      language: "English",
-      is_favorite: isFavorite
-    };
-    const flagImage = "flag image";
+const getMockedWord = (isFavorite) => {
+  return {
+    id: getRandomInteger(1000, 2000),
+    word_name: "Word",
+    language: "English",
+    is_favorite: isFavorite
+  };
+};
 
-    renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
+it("should display a favorited word", () => {
+  const word = getMockedWord(true);
+  const flagImage = "flag image";
 
-    const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
-    const wordCardHeartNonFilled = screen.queryByTestId(
-      "heart-icon-non-filled"
-    );
-    const wordCardFlagImage = screen.getByAltText(
-      `${word.language} language flag`
-    );
-    const wordCardWordName = screen.getByText(word.word_name);
+  renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-    if (isFavorite !== null) {
-      if (isFavorite) {
-        expect(wordCardHeartFilled).toBeInTheDocument();
-        expect(wordCardHeartNonFilled).not.toBeInTheDocument();
-      } else {
-        expect(wordCardHeartFilled).not.toBeInTheDocument();
-        expect(wordCardHeartNonFilled).toBeInTheDocument();
-      }
-    } else {
-      expect(wordCardHeartFilled).not.toBeInTheDocument();
-      expect(wordCardHeartNonFilled).not.toBeInTheDocument();
-    }
+  const wordCardHeartFilled = screen.getByTestId("heart-icon-filled");
+  expect(wordCardHeartFilled).toBeInTheDocument();
 
-    expect(wordCardFlagImage).toBeInTheDocument();
-    expect(wordCardWordName).toHaveTextContent(word.word_name);
-  }
-);
+  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon-non-filled");
+  expect(wordCardHeartNonFilled).not.toBeInTheDocument();
+
+  const wordCardFlagImage = screen.getByAltText(
+    `${word.language} language flag`
+  );
+  expect(wordCardFlagImage).toBeInTheDocument();
+
+  const wordCardWordName = screen.getByText(word.word_name);
+  expect(wordCardWordName).toHaveTextContent(word.word_name);
+});
+
+it("should display a non-favorited word", () => {
+  const word = getMockedWord(false);
+  const flagImage = "flag image";
+
+  renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
+
+  const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
+  expect(wordCardHeartFilled).not.toBeInTheDocument();
+
+  const wordCardHeartNonFilled = screen.getByTestId("heart-icon-non-filled");
+  expect(wordCardHeartNonFilled).toBeInTheDocument();
+
+  const wordCardFlagImage = screen.getByAltText(
+    `${word.language} language flag`
+  );
+  expect(wordCardFlagImage).toBeInTheDocument();
+
+  const wordCardWordName = screen.getByText(word.word_name);
+  expect(wordCardWordName).toHaveTextContent(word.word_name);
+});
+
+it("should display a word without a favorite key", () => {
+  const word = getMockedWord(null);
+  const flagImage = "flag image";
+
+  renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
+
+  const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
+  expect(wordCardHeartFilled).not.toBeInTheDocument();
+
+  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon-non-filled");
+  expect(wordCardHeartNonFilled).not.toBeInTheDocument();
+
+  const wordCardWordName = screen.getByText(word.word_name);
+  expect(wordCardWordName).toHaveTextContent(word.word_name);
+
+  const wordCardFlagImage = screen.getByAltText(
+    `${word.language} language flag`
+  );
+  expect(wordCardFlagImage).toBeInTheDocument();
+});
 
 it.each([true, false])(
   "should call API when a click on the heart icon occurs",
   async (isFavorite) => {
     const user = userEvent.setup();
 
-    const word = {
-      id: getRandomInteger(1000, 2000),
-      word_name: "Word",
-      language: "English",
-      is_favorite: isFavorite
-    };
+    const word = getMockedWord(isFavorite);
     const flagImage = "flag image";
 
     renderWithProviders(

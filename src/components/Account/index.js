@@ -23,7 +23,6 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 import { deleteUser } from "store/reducers/user";
 import DeleteUserIcon from "components/icons/DeleteUserIcon";
@@ -33,6 +32,11 @@ import TropheeIcon from "components/icons/TropheeIcon";
 import NotificationContainer from "components/NotificationContainer";
 import { errorDeletionConfirmationText } from "validators/validators";
 import PropTypes from "prop-types";
+import {
+  getUserPicture,
+  getUserScores,
+  deleteUser as deleteUserApi
+} from "api/user";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
@@ -63,11 +67,7 @@ export default function Account({ user }) {
     if (user) {
       const defaultLanguage =
         languages.length > 0 ? languages[0].language_name : null;
-      fetch(
-        `${baseUrl}/scores/?language=${defaultLanguage}&user=${user.username}`
-      )
-        .then((response) => response.json())
-        .then((data) => setScores(data));
+      getUserScores(defaultLanguage, user.username, (data) => setScores(data));
     }
   }, [user, languages]);
 
@@ -79,6 +79,7 @@ export default function Account({ user }) {
           src={`data:image/jpeg;base64,${user.picture}`}
           className="img-fluid rounded"
           alt="User profile"
+          data-testid="profile-picture"
         />
       );
     }
@@ -89,6 +90,7 @@ export default function Account({ user }) {
         src="/images/profile.png"
         className="img-fluid rounded"
         alt="User profile"
+        data-testid="default-picture"
       />
     );
   }
@@ -99,27 +101,19 @@ export default function Account({ user }) {
     const formData = new FormData();
     formData.append("picture", profilePicture);
 
-    fetch(`${baseUrl}/user/picture`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Token ${user.token}`
-      },
-      body: formData
-    })
-      .then((response) => {
-        if (response.ok) {
-          setToastMessage(genericErrorMessage);
-          setIsUpdatingProfilePicture(false);
-          window.location.reload();
-          return;
-        }
-
-        throw Error();
-      })
-      .catch(() => {
+    getUserPicture(
+      user.token,
+      formData,
+      () => {
         setToastMessage(genericErrorMessage);
         setIsUpdatingProfilePicture(false);
-      });
+        window.location.reload();
+      },
+      () => {
+        setToastMessage(genericErrorMessage);
+        setIsUpdatingProfilePicture(false);
+      }
+    );
   }
 
   function renderUpdatePictureSection() {
@@ -128,7 +122,8 @@ export default function Account({ user }) {
         <div className="text-center mt-2">
           <CustomButton
             variant="info"
-            onClick={() => setShowProfilePictureModal(true)}>
+            onClick={() => setShowProfilePictureModal(true)}
+            testId="update-picture-button">
             <UserPictureIcon /> <span>Update picture</span>
           </CustomButton>
           <Modal show={showProfilePictureModal}>
@@ -185,27 +180,19 @@ export default function Account({ user }) {
       return;
     }
 
-    fetch(`${baseUrl}/user`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Token ${user.token}`
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
-          setIsDeletingAccount(false);
-          setToastMessage(genericErrorMessage);
-          dispatch(deleteUser);
-          window.location.reload();
-          return;
-        }
-
-        throw Error();
-      })
-      .catch(() => {
+    deleteUserApi(
+      user.token,
+      () => {
         setIsDeletingAccount(false);
         setToastMessage(genericErrorMessage);
-      });
+        dispatch(deleteUser);
+        window.location.reload();
+      },
+      () => {
+        setIsDeletingAccount(false);
+        setToastMessage(genericErrorMessage);
+      }
+    );
   }
 
   function renderDeleteAccountSection() {
@@ -268,17 +255,20 @@ export default function Account({ user }) {
             <ListGroup>
               <ListGroup.Item
                 action
-                onClick={() => navigate("/update-account")}>
+                onClick={() => navigate("/update-account")}
+                data-testid="update-item">
                 <UpdateUserIcon /> <span>Edit account</span>
               </ListGroup.Item>
               <ListGroup.Item
                 action
-                onClick={() => setShowDeleteAccountModal(true)}>
+                onClick={() => setShowDeleteAccountModal(true)}
+                data-testid="delete-item">
                 <DeleteUserIcon /> <span>Delete account</span>
               </ListGroup.Item>
               <ListGroup.Item
                 action
-                onClick={() => navigate("/profile/favorite-words")}>
+                onClick={() => navigate("/profile/favorite-words")}
+                data-testid="favorite-item">
                 <HeartIcon fill /> <span>Favorite words</span>
               </ListGroup.Item>
             </ListGroup>
@@ -332,11 +322,9 @@ export default function Account({ user }) {
               <SelectLanguage
                 items={languages}
                 onClick={(target) => {
-                  fetch(
-                    `${baseUrl}/scores/?language=${target.value}&user=${user.username}`
-                  )
-                    .then((response) => response.json())
-                    .then((data) => setScores(data));
+                  getUserScores(target.value, user.username, (data) =>
+                    setScores(data)
+                  );
                 }}
               />
               <UserScores scores={scores} />
