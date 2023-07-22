@@ -9,6 +9,31 @@ const wordsWithoutResults = {
   page: 1
 };
 
+const assertWordCard = (word) => {
+  const wordCard = screen.getByTestId(`${word.id}-word-card`);
+  expect(wordCard).toBeInTheDocument();
+
+  const wordCardWordName = within(wordCard).getByText(word.word_name);
+  expect(wordCardWordName).toHaveTextContent(word.word_name);
+
+  const wordCardFlagImageAlt = within(wordCard).getByAltText(
+    `${word.language} language flag`
+  );
+  expect(wordCardFlagImageAlt).toBeInTheDocument();
+
+  const wordCardHeartFilled =
+    within(wordCard).queryByTestId("heart-filled-icon");
+  const wordCardHeartNonFilled = within(wordCard).queryByTestId("heart-icon");
+
+  if (word.is_favorite) {
+    expect(wordCardHeartFilled).toBeInTheDocument();
+    expect(wordCardHeartNonFilled).not.toBeInTheDocument();
+  } else {
+    expect(wordCardHeartFilled).not.toBeInTheDocument();
+    expect(wordCardHeartNonFilled).toBeInTheDocument();
+  }
+};
+
 it("should display 'no result' image when the words props has count = 0", () => {
   renderWithProviders(<WordList words={wordsWithoutResults} />);
 
@@ -67,30 +92,7 @@ it("should display results when the words props has a non-empty list of results"
 
   expect(wordsPage.results.length).toBe(12);
 
-  wordsPage.results.forEach((word) => {
-    const wordCard = screen.getByTestId(`${word.id}-word-card`);
-    const wordCardWordName = within(wordCard).getByText(word.word_name);
-    const wordCardFlagImageAlt = within(wordCard).getByAltText(
-      `${word.language} language flag`
-    );
-    const wordCardHeartFilled =
-      within(wordCard).queryByTestId("heart-icon-filled");
-    const wordCardHeartNonFilled = within(wordCard).queryByTestId(
-      "heart-icon-non-filled"
-    );
-
-    expect(wordCard).toBeInTheDocument();
-    expect(wordCardWordName).toHaveTextContent(word.word_name);
-    expect(wordCardFlagImageAlt).toBeInTheDocument();
-
-    if (word.is_favorite) {
-      expect(wordCardHeartFilled).toBeInTheDocument();
-      expect(wordCardHeartNonFilled).not.toBeInTheDocument();
-    } else {
-      expect(wordCardHeartFilled).not.toBeInTheDocument();
-      expect(wordCardHeartNonFilled).toBeInTheDocument();
-    }
-  });
+  wordsPage.results.forEach((word) => assertWordCard(word));
 
   expect(noResultImg).not.toBeInTheDocument();
   expect(spinner).not.toBeInTheDocument();

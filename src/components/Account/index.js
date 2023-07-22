@@ -11,16 +11,7 @@ import {
   getImageFileValidators
 } from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Form,
-  ListGroup,
-  Modal,
-  OverlayTrigger,
-  Popover,
-  Row
-} from "react-bootstrap";
+import { Col, Form, ListGroup, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -37,6 +28,7 @@ import {
   getUserScores,
   deleteUser as deleteUserApi
 } from "api/user";
+import Badge from "components/Badge";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
@@ -238,20 +230,11 @@ export default function Account({ user }) {
     return null;
   }
 
-  function getPopover(badge) {
-    return (
-      <Popover id="popover-basic">
-        <Popover.Header as="h3">{badge.name}</Popover.Header>
-        <Popover.Body>{badge.description}</Popover.Body>
-      </Popover>
-    );
-  }
-
   return (
     <>
       <Row>
         {user.token ? (
-          <Col className="mb-4" md={4} lg={3}>
+          <Col className="mb-4" md={4} lg={3} data-testid="lateral-menu">
             <ListGroup>
               <ListGroup.Item
                 action
@@ -288,35 +271,21 @@ export default function Account({ user }) {
             <h5 className="mb-2">
               <BadgeIcon /> Badges:
             </h5>
-            <Col>
+            <Col data-testid="user-badges">
               {user.badges
                 ? user.badges.map((badge) => (
-                    <OverlayTrigger
-                      key={badge.name}
-                      placement="top"
-                      overlay={getPopover(badge)}>
-                      <Button
-                        style={{
-                          backgroundColor: `#${badge.color}`,
-                          borderColor: `#${badge.color}`
-                        }}
-                        className="mt-2 ms-2">
-                        {badge.image ? (
-                          <img
-                            src={`data:image/jpeg;base64,${badge.image}`}
-                            alt={badge.name}
-                          />
-                        ) : null}
-                        <span> {badge.name}</span>
-                      </Button>
-                    </OverlayTrigger>
+                    <Badge
+                      key={badge.id}
+                      badge={badge}
+                      testId={`badge-${badge.id}`}
+                    />
                   ))
                 : null}
             </Col>
           </Row>
           <Row className="mt-4">
             <Col>
-              <h5 className="mb-4">
+              <h5 className="mb-4" data-testid="score-section-title">
                 <TropheeIcon /> Performance in our games:
               </h5>
               <SelectLanguage

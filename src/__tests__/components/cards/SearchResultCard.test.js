@@ -28,10 +28,10 @@ it("should display a favorited word", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.getByTestId("heart-icon-filled");
+  const wordCardHeartFilled = screen.getByTestId("heart-filled-icon");
   expect(wordCardHeartFilled).toBeInTheDocument();
 
-  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon-non-filled");
+  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon");
   expect(wordCardHeartNonFilled).not.toBeInTheDocument();
 
   const wordCardFlagImage = screen.getByAltText(
@@ -49,10 +49,10 @@ it("should display a non-favorited word", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
+  const wordCardHeartFilled = screen.queryByTestId("heart-filled-icon");
   expect(wordCardHeartFilled).not.toBeInTheDocument();
 
-  const wordCardHeartNonFilled = screen.getByTestId("heart-icon-non-filled");
+  const wordCardHeartNonFilled = screen.getByTestId("heart-icon");
   expect(wordCardHeartNonFilled).toBeInTheDocument();
 
   const wordCardFlagImage = screen.getByAltText(
@@ -70,10 +70,10 @@ it("should display a word without a favorite key", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.queryByTestId("heart-icon-filled");
+  const wordCardHeartFilled = screen.queryByTestId("heart-filled-icon");
   expect(wordCardHeartFilled).not.toBeInTheDocument();
 
-  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon-non-filled");
+  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon");
   expect(wordCardHeartNonFilled).not.toBeInTheDocument();
 
   const wordCardWordName = screen.getByText(word.word_name);
@@ -105,7 +105,7 @@ it.each([true, false])(
     );
 
     const heartIcon = screen.getByTestId(
-      isFavorite ? "heart-icon-filled" : "heart-icon-non-filled"
+      isFavorite ? "heart-filled-icon" : "heart-icon"
     );
 
     await user.click(heartIcon);
