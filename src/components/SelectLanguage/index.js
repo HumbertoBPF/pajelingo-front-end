@@ -13,11 +13,11 @@ export default function SelectLanguage({
       defaultValue="defaultItem"
       data-testid={testId}
       onClick={(event) => onClick(event.target)}>
-      {defaultItem !== null ? <option value={""}>{defaultItem}</option> : null}
+      {defaultItem !== null ? <option value="">{defaultItem}</option> : null}
       {items.map((item) => (
         <option
           key={item.id}
-          id={`${item.language_name}Item`}
+          id={item.language_name}
           value={item.language_name}>
           {item.language_name}
         </option>

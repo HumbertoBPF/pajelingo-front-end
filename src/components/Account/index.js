@@ -268,7 +268,7 @@ export default function Account({ user }) {
             </Col>
           </Row>
           <Row className="mt-4">
-            <h5 className="mb-2">
+            <h5 className="mb-2" data-testid="badges-section-title">
               <BadgeIcon /> Badges:
             </h5>
             <Col data-testid="user-badges">
@@ -290,6 +290,7 @@ export default function Account({ user }) {
               </h5>
               <SelectLanguage
                 items={languages}
+                testId="language-select"
                 onClick={(target) => {
                   getUserScores(target.value, user.username, (data) =>
                     setScores(data)

@@ -36,12 +36,12 @@ const assertLateralMenu = () => {
 };
 
 const assertBadgeList = async (user) => {
-  const scoresSectionTitle = screen.getByTestId("score-section-title");
-  expect(scoresSectionTitle).toBeInTheDocument();
-  expect(scoresSectionTitle).toHaveTextContent("Performance in our games:");
+  const badgeSectionTitle = screen.getByTestId("badges-section-title");
+  expect(badgeSectionTitle).toBeInTheDocument();
+  expect(badgeSectionTitle).toHaveTextContent("Badges:");
 
-  const tropheeIcon = within(scoresSectionTitle).getByTestId("trophee-icon");
-  expect(tropheeIcon).toBeInTheDocument();
+  const badgeIcon = within(badgeSectionTitle).getByTestId("badge-icon");
+  expect(badgeIcon).toBeInTheDocument();
 
   const badgeList = screen.getByTestId("user-badges");
 
@@ -64,6 +64,18 @@ const assertBadgeList = async (user) => {
     const badgePopoverBody = within(popover).getByText(badge.description);
     expect(badgePopoverBody).toBeInTheDocument();
   });
+};
+
+const assertUserScores = () => {
+  const scoresSectionTitle = screen.getByTestId("score-section-title");
+  expect(scoresSectionTitle).toBeInTheDocument();
+  expect(scoresSectionTitle).toHaveTextContent("Performance in our games:");
+
+  const tropheeIcon = within(scoresSectionTitle).getByTestId("trophee-icon");
+  expect(tropheeIcon).toBeInTheDocument();
+
+  const languageSelect = screen.getByTestId("language-select");
+  expect(languageSelect).toBeInTheDocument();
 };
 
 const getUnauthenticatedUser = (picture) => {
@@ -111,6 +123,8 @@ describe("should display account information", () => {
       expect(defaultPicture).toHaveAccessibleName("User profile");
 
       await assertBadgeList(user);
+
+      assertUserScores();
     });
 
     it("with profile picture", async () => {
@@ -133,6 +147,8 @@ describe("should display account information", () => {
       expect(defaultPicture).not.toBeInTheDocument();
 
       await assertBadgeList(user);
+
+      assertUserScores();
     });
   });
 
@@ -160,6 +176,8 @@ describe("should display account information", () => {
       assertLateralMenu();
 
       await assertBadgeList(user);
+
+      assertUserScores();
     });
 
     it("with profile picture", async () => {
@@ -185,6 +203,8 @@ describe("should display account information", () => {
       assertLateralMenu();
 
       await assertBadgeList(user);
+
+      assertUserScores();
     });
   });
 });
