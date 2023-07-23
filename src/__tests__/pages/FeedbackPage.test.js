@@ -3,7 +3,7 @@ const { default: FeedbackPage } = require("pages/FeedbackPage");
 const { getRandomInteger } = require("utils");
 import userEvent from "@testing-library/user-event";
 import newBadges from "../test-data/new-badges.json";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 
 const getFeedback = (result, correctAnswer, newBadges = []) => {
   return {

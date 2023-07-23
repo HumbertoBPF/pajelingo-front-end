@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: Login } = require("pages/Login");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
 import { login } from "api/user";
 

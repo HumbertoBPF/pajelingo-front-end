@@ -5,7 +5,7 @@ const {
 } = require("components/cards/SearchResultCard");
 const { getRandomInteger } = require("utils");
 import { toggleFavoriteWord } from "api/words";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 
 jest.mock("api/words", () => {
   return {

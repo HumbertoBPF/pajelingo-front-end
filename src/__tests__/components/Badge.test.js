@@ -2,7 +2,7 @@ const { screen, within } = require("@testing-library/react");
 const { default: userEvent } = require("@testing-library/user-event");
 const { default: Badge } = require("components/Badge");
 const { getRandomInteger } = require("utils");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 it("should display badge information", async () => {
   const user = userEvent.setup();

@@ -1,7 +1,7 @@
 const { screen } = require("@testing-library/react");
 const { default: MeaningCard } = require("components/cards/MeaningCard");
 const { getRandomInteger } = require("utils");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 describe("should display a word meaning in a card", () => {
   it("when the word has a unique meaning", () => {

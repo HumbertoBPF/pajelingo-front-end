@@ -1,7 +1,7 @@
 const { screen } = require("@testing-library/react");
 const { default: AboutUsCard } = require("components/cards/AboutUsCard");
 const { getRandomInteger } = require("utils");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 it("should render a card with details about the app", () => {
   const item = {

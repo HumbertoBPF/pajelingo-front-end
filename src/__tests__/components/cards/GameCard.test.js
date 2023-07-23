@@ -1,6 +1,6 @@
 const { screen } = require("@testing-library/react");
 const { default: GameCard } = require("components/cards/GameCard");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 it("should represent a game as a card element", () => {
   const game = {

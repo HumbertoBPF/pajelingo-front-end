@@ -1,7 +1,7 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserForm } = require("components/UserForm");
 import userEvent from "@testing-library/user-event";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 
 async function enterText(user, element, text) {
   if (text) {

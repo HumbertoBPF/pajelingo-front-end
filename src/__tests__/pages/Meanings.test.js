@@ -3,7 +3,7 @@ const { default: userEvent } = require("@testing-library/user-event");
 const { getWord, getMeaning, toggleFavoriteWord } = require("api/words");
 const { default: Meanings } = require("pages/Meanings");
 const { getRandomInteger } = require("utils");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 jest.mock("api/words", () => {
   return {

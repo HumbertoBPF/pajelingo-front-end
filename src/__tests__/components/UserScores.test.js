@@ -1,7 +1,7 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserScores } = require("components/UserScores");
 const { getRandomInteger } = require("utils");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 function getUserScores(n) {
   const userScores = [];

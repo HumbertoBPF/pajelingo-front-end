@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: GameMenu } = require("pages/Games/GameMenu");
-import { getInitialGamesState, renderWithProviders } from "utils/test-utils";
+import { getInitialGamesState, renderWithProviders } from "test-utils/store";
 
 it("should display the list of games", () => {
   const initialGamesState = getInitialGamesState();

@@ -1,7 +1,7 @@
 const { screen, within } = require("@testing-library/react");
 const { default: WordList } = require("components/WordList");
 import wordsPage from "../test-data/words-page.json";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 
 const wordsWithoutResults = {
   results: [],

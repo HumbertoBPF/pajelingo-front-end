@@ -1,7 +1,7 @@
 const { screen } = require("@testing-library/react");
 const { default: ArticleGame } = require("pages/Games/ArticleGame/ArticleGame");
 import { setupArticleGame, submitAnswerArticleGame } from "api/games";
-import { getInitialGamesState, renderWithProviders } from "utils/test-utils";
+import { getInitialGamesState, renderWithProviders } from "test-utils/store";
 import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
 

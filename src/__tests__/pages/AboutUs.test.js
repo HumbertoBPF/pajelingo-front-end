@@ -1,4 +1,4 @@
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 import aboutUsData from "../../pages/AboutUs/data.json";
 const { screen, within } = require("@testing-library/react");
 const { default: AboutUs } = require("pages/AboutUs");

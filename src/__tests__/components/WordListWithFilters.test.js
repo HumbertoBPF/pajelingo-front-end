@@ -5,7 +5,7 @@ const {
 import wordsPage from "../test-data/words-page.json";
 import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");

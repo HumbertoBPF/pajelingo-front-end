@@ -4,7 +4,7 @@ const {
 const {
   renderWithProviders,
   getInitialGamesState
-} = require("utils/test-utils");
+} = require("test-utils/store");
 import { screen, within } from "@testing-library/react";
 import languages from "../../../test-data/languages.json";
 import { getRandomInteger } from "utils";

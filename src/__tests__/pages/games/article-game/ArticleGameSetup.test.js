@@ -1,6 +1,6 @@
 import languages from "../../../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
-import { getInitialGamesState, renderWithProviders } from "utils/test-utils";
+import { getInitialGamesState, renderWithProviders } from "test-utils/store";
 const { screen, within } = require("@testing-library/react");
 const {
   default: ArticleGameSetup

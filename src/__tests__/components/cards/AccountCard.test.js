@@ -1,6 +1,6 @@
 const { screen } = require("@testing-library/react");
 const { default: AccountCard } = require("components/cards/AccountCard");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 describe("should display account public data in a card", () => {
   it("with short bio", () => {

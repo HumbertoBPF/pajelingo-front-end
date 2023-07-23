@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 const { default: AccountMenu } = require("../../components/AccountMenu");
 
 it("should display two buttons when no user props is specified", () => {

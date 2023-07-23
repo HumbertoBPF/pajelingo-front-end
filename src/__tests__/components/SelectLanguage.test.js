@@ -1,5 +1,5 @@
 const { default: SelectLanguage } = require("components/SelectLanguage");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 import { screen, within } from "@testing-library/react";
 import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";

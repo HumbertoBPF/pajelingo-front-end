@@ -1,4 +1,4 @@
-import { getInitialGamesState, renderWithProviders } from "utils/test-utils";
+import { getInitialGamesState, renderWithProviders } from "test-utils/store";
 import languages from "../../../test-data/languages.json";
 import ConjugationGameSetup from "pages/Games/ConjugationGame/ConjugationGameSetup";
 import { screen, within } from "@testing-library/react";

@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: Ranking } = require("components/Ranking");
-import { renderWithProviders } from "utils/test-utils";
+import { renderWithProviders } from "test-utils/store";
 const { getRandomInteger } = require("utils");
 
 const getRankingRecords = (n) => {

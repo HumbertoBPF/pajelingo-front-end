@@ -1,6 +1,6 @@
 const { screen } = require("@testing-library/react");
 const { default: MyProfile } = require("pages/MyProfile");
-const { renderWithProviders } = require("utils/test-utils");
+const { renderWithProviders } = require("test-utils/store");
 
 const mockedUser = {
   token: "token",

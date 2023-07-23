@@ -9,7 +9,7 @@ const {
 const {
   renderWithProviders,
   getInitialGamesState
-} = require("utils/test-utils");
+} = require("test-utils/store");
 import { getRandomInteger } from "utils";
 import languages from "../../../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
