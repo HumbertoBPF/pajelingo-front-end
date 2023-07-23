@@ -63,9 +63,3 @@ export const getUserPicture = (token, body, onSuccess, onFail) => {
     })
     .catch(() => onFail());
 };
-
-export const getUserScores = (language, username, onSuccess) => {
-  fetch(`${baseUrl}/scores/?language=${language}&user=${username}`)
-    .then((response) => response.json())
-    .then((data) => onSuccess(data));
-};

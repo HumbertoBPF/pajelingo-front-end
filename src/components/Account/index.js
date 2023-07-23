@@ -23,12 +23,9 @@ import TropheeIcon from "components/icons/TropheeIcon";
 import NotificationContainer from "components/NotificationContainer";
 import { errorDeletionConfirmationText } from "validators/validators";
 import PropTypes from "prop-types";
-import {
-  getUserPicture,
-  getUserScores,
-  deleteUser as deleteUserApi
-} from "api/user";
+import { getUserPicture, deleteUser as deleteUserApi } from "api/user";
 import Badge from "components/Badge";
+import { getUserScores } from "api/scores";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
@@ -290,7 +287,7 @@ export default function Account({ user }) {
               </h5>
               <SelectLanguage
                 items={languages}
-                testId="language-select"
+                testId="select-language"
                 onClick={(target) => {
                   getUserScores(target.value, user.username, (data) =>
                     setScores(data)

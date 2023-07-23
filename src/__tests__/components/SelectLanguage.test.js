@@ -1,6 +1,6 @@
 const { default: SelectLanguage } = require("components/SelectLanguage");
 const { renderWithProviders } = require("utils/test-utils");
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
 import { getRandomInteger } from "utils";
@@ -58,10 +58,11 @@ it("should call callback passed as props", async () => {
   expect(callback.mock.calls[0][0].value).toBe(languages[0].language_name);
   callback.mockClear();
 
-  const randomIndex = getRandomInteger(0, 4);
-  const randomLanguage = languages[randomIndex];
+  const randomLanguage = languages[getRandomInteger(0, 4)];
 
-  const randomLanguageItem = screen.getByText(randomLanguage.language_name);
+  const randomLanguageItem = within(selectLanguage).getByText(
+    randomLanguage.language_name
+  );
 
   await user.click(randomLanguageItem);
 

@@ -89,7 +89,7 @@ export const submitAnswerConjugationGame = (token, body, onSuccess) => {
       "Content-Type": "application/json",
       ...authHeaders
     },
-    body: JSON.stringify({ body })
+    body: JSON.stringify(body)
   })
     .then((response) => response.json())
     .then((data) => {

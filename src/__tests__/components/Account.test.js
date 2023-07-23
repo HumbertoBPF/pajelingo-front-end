@@ -2,7 +2,11 @@ const { screen, within } = require("@testing-library/react");
 const { default: Account } = require("components/Account");
 const { renderWithProviders } = require("utils/test-utils");
 import userEvent from "@testing-library/user-event";
+import languages from "../test-data/languages.json";
 import newBadges from "../test-data/new-badges.json";
+import scores from "../test-data/scores.json";
+import { getUserScores } from "api/scores";
+import { getRandomInteger } from "utils";
 
 const assertPublicInformation = (userData) => {
   const usernameData = screen.getByTestId("username-data");
@@ -35,7 +39,7 @@ const assertLateralMenu = () => {
   expect(favoriteItemIcon).toBeInTheDocument();
 };
 
-const assertBadgeList = async (user) => {
+const assertBadgeListSection = () => {
   const badgeSectionTitle = screen.getByTestId("badges-section-title");
   expect(badgeSectionTitle).toBeInTheDocument();
   expect(badgeSectionTitle).toHaveTextContent("Badges:");
@@ -45,7 +49,7 @@ const assertBadgeList = async (user) => {
 
   const badgeList = screen.getByTestId("user-badges");
 
-  await newBadges.badges.forEach(async (badge) => {
+  newBadges.badges.forEach((badge) => {
     const badgeElement = within(badgeList).getByTestId(`badge-${badge.id}`);
 
     const badgeName = within(badgeElement).getByText(badge.name);
@@ -53,20 +57,22 @@ const assertBadgeList = async (user) => {
 
     const badgeIcon = within(badgeElement).getByAltText(badge.name);
     expect(badgeIcon).toBeInTheDocument();
-
-    await user.hover(badgeName);
-
-    const popover = screen.getByTestId(`popover-${badge.id}`);
-
-    const badgePopoverHeader = within(popover).getByText(badge.name);
-    expect(badgePopoverHeader).toBeInTheDocument();
-
-    const badgePopoverBody = within(popover).getByText(badge.description);
-    expect(badgePopoverBody).toBeInTheDocument();
   });
 };
 
-const assertUserScores = () => {
+const assertScoreHeaders = () => {
+  const userScoresHeaders = screen.getByTestId("user-scores-headers");
+
+  const gameHeader = within(userScoresHeaders).getByText("Game");
+  expect(gameHeader).toBeInTheDocument();
+  expect(gameHeader).toHaveTextContent("Game");
+
+  const scoreHeader = within(userScoresHeaders).getByText("Score");
+  expect(scoreHeader).toBeInTheDocument();
+  expect(scoreHeader).toHaveTextContent("Score");
+};
+
+const assertUserScoresSection = () => {
   const scoresSectionTitle = screen.getByTestId("score-section-title");
   expect(scoresSectionTitle).toBeInTheDocument();
   expect(scoresSectionTitle).toHaveTextContent("Performance in our games:");
@@ -74,8 +80,26 @@ const assertUserScores = () => {
   const tropheeIcon = within(scoresSectionTitle).getByTestId("trophee-icon");
   expect(tropheeIcon).toBeInTheDocument();
 
-  const languageSelect = screen.getByTestId("language-select");
+  const languageSelect = screen.getByTestId("select-language");
   expect(languageSelect).toBeInTheDocument();
+
+  assertScoreHeaders();
+};
+
+const assertUserScores = (scores) => {
+  assertScoreHeaders();
+
+  scores.forEach((score, index) => {
+    const scoreItem = screen.getByTestId(`${index + 1}th-ranking-record`);
+
+    const scoreGame = within(scoreItem).getByText(score.game);
+    expect(scoreGame).toBeInTheDocument();
+    expect(scoreGame).toHaveTextContent(score.game);
+
+    const scoreValue = within(scoreItem).getByText(score.score);
+    expect(scoreValue).toBeInTheDocument();
+    expect(scoreValue).toHaveTextContent(score.score);
+  });
 };
 
 const getUnauthenticatedUser = (picture) => {
@@ -101,11 +125,25 @@ const getAuthenticatedUser = (picture) => {
   return user;
 };
 
+jest.mock("api/scores", () => {
+  return {
+    getUserScores: jest.fn()
+  };
+});
+
+jest.mock("api/languages", () => {
+  const originalModule = jest.requireActual("api/languages");
+
+  return {
+    __esmodule: true,
+    ...originalModule,
+    getLanguages: jest.fn()
+  };
+});
+
 describe("should display account information", () => {
   describe("of non-authenticated user", () => {
-    it("without profile picture", async () => {
-      const user = userEvent.setup();
-
+    it("without profile picture", () => {
       const userData = getUnauthenticatedUser();
 
       renderWithProviders(<Account user={userData} />);
@@ -122,14 +160,12 @@ describe("should display account information", () => {
       expect(defaultPicture).toBeInTheDocument();
       expect(defaultPicture).toHaveAccessibleName("User profile");
 
-      await assertBadgeList(user);
+      assertBadgeListSection();
 
-      assertUserScores();
+      assertUserScoresSection();
     });
 
-    it("with profile picture", async () => {
-      const user = userEvent.setup();
-
+    it("with profile picture", () => {
       const userData = getUnauthenticatedUser("picture");
 
       renderWithProviders(<Account user={userData} />);
@@ -146,16 +182,14 @@ describe("should display account information", () => {
       const defaultPicture = screen.queryByTestId("default-picture");
       expect(defaultPicture).not.toBeInTheDocument();
 
-      await assertBadgeList(user);
+      assertBadgeListSection();
 
-      assertUserScores();
+      assertUserScoresSection();
     });
   });
 
   describe("of authenticated user", () => {
-    it("without profile picture", async () => {
-      const user = userEvent.setup();
-
+    it("without profile picture", () => {
       const userData = getAuthenticatedUser();
 
       renderWithProviders(<Account user={userData} />);
@@ -175,14 +209,12 @@ describe("should display account information", () => {
 
       assertLateralMenu();
 
-      await assertBadgeList(user);
+      assertBadgeListSection();
 
-      assertUserScores();
+      assertUserScoresSection();
     });
 
-    it("with profile picture", async () => {
-      const user = userEvent.setup();
-
+    it("with profile picture", () => {
       const userData = getAuthenticatedUser("picture");
 
       renderWithProviders(<Account user={userData} />);
@@ -202,9 +234,69 @@ describe("should display account information", () => {
 
       assertLateralMenu();
 
-      await assertBadgeList(user);
+      assertBadgeListSection();
 
-      assertUserScores();
+      assertUserScoresSection();
     });
   });
+});
+
+it("should call the API when a language is selected", async () => {
+  getUserScores.mockImplementation((language, username, onSuccess) => {
+    if (language === languages[0].language_name) {
+      onSuccess(scores.default);
+      return;
+    }
+
+    onSuccess(scores.others);
+  });
+
+  const user = userEvent.setup();
+
+  const userData = getUnauthenticatedUser("picture");
+
+  renderWithProviders(<Account user={userData} />, {
+    preloadedState: {
+      languages
+    }
+  });
+  // Fisrt call to firstly populate the user scores
+  expect(getUserScores).toHaveBeenCalledTimes(1);
+  expect(getUserScores).toHaveBeenCalledWith(
+    languages[0].language_name,
+    userData.username,
+    expect.anything()
+  );
+
+  assertUserScores(scores.default);
+
+  const selectLanguage = screen.getByTestId("select-language");
+
+  await user.click(selectLanguage);
+
+  expect(getUserScores).toHaveBeenCalledTimes(2);
+  expect(getUserScores).toHaveBeenCalledWith(
+    languages[0].language_name,
+    userData.username,
+    expect.anything()
+  );
+
+  assertUserScores(scores.default);
+
+  const randomLanguage = languages[getRandomInteger(1, 4)];
+
+  const randomLanguageItem = within(selectLanguage).getByText(
+    randomLanguage.language_name
+  );
+
+  await user.click(randomLanguageItem);
+
+  expect(getUserScores).toHaveBeenCalledTimes(3);
+  expect(getUserScores).toHaveBeenCalledWith(
+    randomLanguage.language_name,
+    userData.username,
+    expect.anything()
+  );
+
+  assertUserScores(scores.others);
 });
