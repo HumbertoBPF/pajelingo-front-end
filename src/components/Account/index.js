@@ -1,17 +1,12 @@
 import AccountDetails from "components/AccountDetails";
 import CustomButton from "components/CustomButton";
 import HeartIcon from "components/icons/HeartIcon";
-import LabeledInput from "components/LabeledInput";
 import Notification from "components/Notification";
 import UpdateUserIcon from "components/icons/UpdateUserIcon";
 import SelectLanguage from "components/SelectLanguage";
 import UserScores from "components/UserScores";
-import {
-  getConfirmDeletionInputValidation,
-  getImageFileValidators
-} from "pages/MyProfile/validators";
 import { useEffect, useState } from "react";
-import { Col, Form, ListGroup, Modal, Row } from "react-bootstrap";
+import { Col, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLanguages } from "services/languages";
@@ -26,6 +21,8 @@ import PropTypes from "prop-types";
 import { getUserPicture, deleteUser as deleteUserApi } from "api/user";
 import Badge from "components/Badge";
 import { getUserScores } from "api/scores";
+import UpdatePictureModal from "components/dialogs/UpdatePictureModal";
+import DeleteAccountModal from "components/dialogs/DeleteAccountModal";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
@@ -36,13 +33,11 @@ export default function Account({ user }) {
 
   const [toastMessage, setToastMessage] = useState("");
 
-  const [profilePicture, setProfilePicture] = useState();
   const [showProfilePictureModal, setShowProfilePictureModal] = useState(false);
   const [isUpdatingProfilePicture, setIsUpdatingProfilePicture] =
     useState(false);
 
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
-  const [confirmDeletionText, setConfirmDeletionText] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
 
   const genericErrorMessage =
@@ -60,7 +55,7 @@ export default function Account({ user }) {
     }
   }, [user, languages]);
 
-  function renderProfilePicture() {
+  const renderProfilePicture = () => {
     if (user.picture) {
       return (
         <img
@@ -82,9 +77,9 @@ export default function Account({ user }) {
         data-testid="default-picture"
       />
     );
-  }
+  };
 
-  function updateProfilePicture() {
+  const updateProfilePicture = (profilePicture) => {
     setIsUpdatingProfilePicture(true);
 
     const formData = new FormData();
@@ -103,64 +98,9 @@ export default function Account({ user }) {
         setIsUpdatingProfilePicture(false);
       }
     );
-  }
+  };
 
-  function renderUpdatePictureSection() {
-    if (user.token) {
-      return (
-        <div className="text-center mt-2">
-          <CustomButton
-            variant="info"
-            onClick={() => setShowProfilePictureModal(true)}
-            testId="update-picture-button">
-            <UserPictureIcon /> <span>Update picture</span>
-          </CustomButton>
-          <Modal show={showProfilePictureModal}>
-            <Modal.Header>
-              <Modal.Title>Update profile picture</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <LabeledInput
-                controlId="imageFileInput"
-                type="file"
-                onChange={(event) => {
-                  if (event.target.files) {
-                    setProfilePicture(event.target.files[0]);
-                  }
-                }}
-                validators={getImageFileValidators()}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <CustomButton
-                variant="secondary"
-                onClick={() => setShowProfilePictureModal(false)}>
-                Cancel
-              </CustomButton>
-              <Form
-                encType="multipart/form-data"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  updateProfilePicture();
-                }}>
-                <CustomButton
-                  variant="success"
-                  type="submit"
-                  isLoading={isUpdatingProfilePicture}
-                  disabled={isUpdatingProfilePicture}>
-                  Update
-                </CustomButton>
-              </Form>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      );
-    }
-
-    return null;
-  }
-
-  function deleteAccount() {
+  const deleteAccount = (confirmDeletionText) => {
     setIsDeletingAccount(true);
 
     if (confirmDeletionText !== "permanently delete") {
@@ -182,50 +122,45 @@ export default function Account({ user }) {
         setToastMessage(genericErrorMessage);
       }
     );
-  }
+  };
 
-  function renderDeleteAccountSection() {
+  const renderUpdatePictureSection = () => {
     if (user.token) {
       return (
-        <>
-          <Modal show={showDeleteAccountModal}>
-            <Modal.Header>
-              <Modal.Title>Are you sure?</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <LabeledInput
-                controlId="confirmDeletionInput"
-                type="text"
-                labelPosition="up"
-                label={
-                  'Write "permanently delete" to confirm. Notice that personal data such as game scores will be permanently lost!'
-                }
-                placeholder="permanently delete"
-                onChange={(event) => setConfirmDeletionText(event.target.value)}
-                validators={getConfirmDeletionInputValidation()}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <CustomButton
-                variant="secondary"
-                onClick={() => setShowDeleteAccountModal(false)}>
-                Cancel
-              </CustomButton>
-              <CustomButton
-                variant="danger"
-                isLoading={isDeletingAccount}
-                disabled={isDeletingAccount}
-                onClick={deleteAccount}>
-                Yes, I want to delete my profile
-              </CustomButton>
-            </Modal.Footer>
-          </Modal>
-        </>
+        <div className="text-center mt-2">
+          <CustomButton
+            variant="info"
+            onClick={() => setShowProfilePictureModal(true)}
+            testId="update-picture-button">
+            <UserPictureIcon /> <span>Update picture</span>
+          </CustomButton>
+          <UpdatePictureModal
+            show={showProfilePictureModal}
+            isLoading={isUpdatingProfilePicture}
+            onSubmit={updateProfilePicture}
+            onClose={() => setShowProfilePictureModal(false)}
+          />
+        </div>
       );
     }
 
     return null;
-  }
+  };
+
+  const renderDeleteAccountSection = () => {
+    if (user.token) {
+      return (
+        <DeleteAccountModal
+          show={showDeleteAccountModal}
+          isLoading={isDeletingAccount}
+          onSubmit={deleteAccount}
+          onClose={() => setShowDeleteAccountModal(false)}
+        />
+      );
+    }
+
+    return null;
+  };
 
   return (
     <>

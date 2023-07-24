@@ -26,7 +26,14 @@ export default function CustomButton({
       disabled={disabled}
       onClick={(event) => onClick(event)}
       data-testid={testId}>
-      {isLoading ? <Spinner as="span" animation="border" size="sm" /> : null}
+      {isLoading ? (
+        <Spinner
+          as="span"
+          animation="border"
+          size="sm"
+          data-testid="button-spinner"
+        />
+      ) : null}
       {children}
     </Button>
   );
