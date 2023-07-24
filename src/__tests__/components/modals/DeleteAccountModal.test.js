@@ -2,7 +2,7 @@ const { screen, within } = require("@testing-library/react");
 const { default: userEvent } = require("@testing-library/user-event");
 const {
   default: DeleteAccountDialog
-} = require("components/dialogs/DeleteAccountModal");
+} = require("components/modals/DeleteAccountModal");
 const { renderWithProviders } = require("test-utils/store");
 const { errorDeletionConfirmationText } = require("validators/validators");
 

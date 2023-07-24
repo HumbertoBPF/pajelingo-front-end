@@ -21,8 +21,8 @@ import PropTypes from "prop-types";
 import { getUserPicture, deleteUser as deleteUserApi } from "api/user";
 import Badge from "components/Badge";
 import { getUserScores } from "api/scores";
-import UpdatePictureModal from "components/dialogs/UpdatePictureModal";
-import DeleteAccountModal from "components/dialogs/DeleteAccountModal";
+import UpdatePictureModal from "components/modals/UpdatePictureModal";
+import DeleteAccountModal from "components/modals/DeleteAccountModal";
 
 export default function Account({ user }) {
   const languages = useSelector((store) => store.languages);
