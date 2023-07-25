@@ -17,6 +17,8 @@ export const errorTooShortUsername =
 export const errorFileIsNotImage = "The selected file is not an image";
 export const errorDeletionConfirmationText =
   'The text does not match "permanently delete".';
+export const genericErrorMessage =
+  "An error occurred when processing the request. Please try again.";
 
 export class Validator {
   constructor(validate, errorMessage) {

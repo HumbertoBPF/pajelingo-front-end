@@ -45,7 +45,7 @@ export const deleteUser = (token, onSuccess, onFail) => {
     .catch(() => onFail());
 };
 
-export const getUserPicture = (token, body, onSuccess, onFail) => {
+export const updateUserPicture = (token, body, onSuccess, onFail) => {
   fetch(`${baseUrl}/user/picture`, {
     method: "PUT",
     headers: {

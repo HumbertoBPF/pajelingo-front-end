@@ -16,9 +16,12 @@ import UserPictureIcon from "components/icons/UserPictureIcon";
 import BadgeIcon from "components/icons/BadgeIcon";
 import TropheeIcon from "components/icons/TropheeIcon";
 import NotificationContainer from "components/NotificationContainer";
-import { errorDeletionConfirmationText } from "validators/validators";
+import {
+  errorDeletionConfirmationText,
+  genericErrorMessage
+} from "validators/validators";
 import PropTypes from "prop-types";
-import { getUserPicture, deleteUser as deleteUserApi } from "api/user";
+import { updateUserPicture, deleteUser as deleteUserApi } from "api/user";
 import Badge from "components/Badge";
 import { getUserScores } from "api/scores";
 import UpdatePictureModal from "components/modals/UpdatePictureModal";
@@ -39,9 +42,6 @@ export default function Account({ user }) {
 
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
-
-  const genericErrorMessage =
-    "An error occurred when processing the request. Please try again.";
 
   useEffect(() => {
     dispatch(fetchLanguages());
@@ -85,13 +85,12 @@ export default function Account({ user }) {
     const formData = new FormData();
     formData.append("picture", profilePicture);
 
-    getUserPicture(
+    updateUserPicture(
       user.token,
       formData,
       () => {
-        setToastMessage(genericErrorMessage);
         setIsUpdatingProfilePicture(false);
-        window.location.reload();
+        navigate(0);
       },
       () => {
         setToastMessage(genericErrorMessage);
@@ -113,9 +112,8 @@ export default function Account({ user }) {
       user.token,
       () => {
         setIsDeletingAccount(false);
-        setToastMessage(genericErrorMessage);
         dispatch(deleteUser);
-        window.location.reload();
+        navigate(0);
       },
       () => {
         setIsDeletingAccount(false);
@@ -242,6 +240,7 @@ export default function Account({ user }) {
           title="Error"
           message={toastMessage}
           onClose={() => setToastMessage("")}
+          testId="error-toast"
         />
       </NotificationContainer>
     </>

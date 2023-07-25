@@ -121,3 +121,14 @@ export const assertUserScores = (scores) => {
     expect(scoreValue).toHaveTextContent(score.score);
   });
 };
+
+export const assertErrorToast = (errorMessage) => {
+  const errorToast = screen.getByTestId("error-toast");
+  expect(errorToast).toBeInTheDocument();
+
+  const errorToastTitle = within(errorToast).getByText("Error");
+  expect(errorToastTitle).toBeInTheDocument();
+
+  const errorToastMessage = within(errorToast).getByText(errorMessage);
+  expect(errorToastMessage).toBeInTheDocument();
+};

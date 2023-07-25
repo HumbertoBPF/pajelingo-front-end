@@ -77,14 +77,12 @@ it("should display validation message when the uploaded file is not an image fil
   const user = userEvent.setup();
 
   renderWithProviders(<UpdatePictureModal show isLoading={false} />);
-
+  // Uploading non-image file
   const modalBody = screen.getByTestId("update-file-input");
-
   const uploadFileInput = within(modalBody).getByPlaceholderText("");
-
   const file = new File(["text-file"], "text-file.txt");
   await user.upload(uploadFileInput, file);
-
+  // Checking validation error message
   const fileFormatError = within(modalBody).getByText(errorFileIsNotImage);
   expect(fileFormatError).toBeInTheDocument();
   expect(fileFormatError).toHaveTextContent(errorFileIsNotImage);
@@ -100,7 +98,6 @@ it("should call onClose callback when clicking on the cancel button", async () =
   );
 
   const updatePictureModal = screen.queryByTestId("update-picture-modal");
-
   const cancelButton = within(updatePictureModal).getByTestId("cancel-button");
   await user.click(cancelButton);
 
@@ -115,16 +112,16 @@ it("should call onSubmit callback when clicking on the update button", async () 
   renderWithProviders(
     <UpdatePictureModal show isLoading={false} onSubmit={onSubmit} />
   );
-
-  const updatePictureModal = screen.queryByTestId("update-picture-modal");
-
+  // Uploading image file
   const modalBody = screen.getByTestId("update-file-input");
-
   const uploadFileInput = within(modalBody).getByPlaceholderText("");
-
   const file = new File(["python-test-image"], "python-test-image.jpg");
   await user.upload(uploadFileInput, file);
-
+  // Checking that no error is displayed
+  const fileFormatError = within(modalBody).queryByTestId(errorFileIsNotImage);
+  expect(fileFormatError).not.toBeInTheDocument();
+  // Submitting update picture form
+  const updatePictureModal = screen.queryByTestId("update-picture-modal");
   const updateButton = within(updatePictureModal).getByTestId("update-button");
   await user.click(updateButton);
 

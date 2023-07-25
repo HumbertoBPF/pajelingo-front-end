@@ -84,13 +84,12 @@ it("should display validation message when the message does not match 'permanent
   const user = userEvent.setup();
 
   renderWithProviders(<DeleteAccountDialog show isLoading={false} />);
-
+  // Inputting wrong confirmation text
   const modalBody = screen.getByTestId("confirm-delete-input");
-
   const confirmDeletionInput =
     within(modalBody).getByPlaceholderText("permanently delete");
   await user.type(confirmDeletionInput, "Wrong text");
-
+  // Checking validation error message
   const confirmDeletionError = within(modalBody).getByText(
     errorDeletionConfirmationText
   );
@@ -108,7 +107,6 @@ it("should call onClose callback when clicking on the cancel button", async () =
   );
 
   const deleteAccountModal = screen.getByTestId("delete-account-modal");
-
   const cancelButton = within(deleteAccountModal).getByTestId("cancel-button");
   await user.click(cancelButton);
 
@@ -123,20 +121,18 @@ it("should call onSubmit callback when clicking on the delete button", async () 
   renderWithProviders(
     <DeleteAccountDialog show isLoading={false} onSubmit={onSubmit} />
   );
-
-  const deleteAccountModal = screen.getByTestId("delete-account-modal");
-
+  // Inputting confirmation text
   const modalBody = screen.getByTestId("confirm-delete-input");
-
   const confirmDeletionInput =
     within(modalBody).getByPlaceholderText("permanently delete");
   await user.type(confirmDeletionInput, "permanently delete");
-
+  // Checking that no error is displayed
   const confirmDeletionError = within(modalBody).queryByText(
     errorDeletionConfirmationText
   );
   expect(confirmDeletionError).not.toBeInTheDocument();
-
+  // Submitting the delete account form
+  const deleteAccountModal = screen.getByTestId("delete-account-modal");
   const deleteButton = within(deleteAccountModal).getByTestId("delete-button");
   await user.click(deleteButton);
 
