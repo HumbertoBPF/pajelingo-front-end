@@ -1,14 +1,9 @@
 const { screen } = require("@testing-library/react");
 const { default: MyProfile } = require("pages/MyProfile");
 const { renderWithProviders } = require("test-utils/store");
+import { getAuthenticatedUser } from "test-utils/mocking/users";
 
-const mockedUser = {
-  token: "token",
-  email: "humberto@test.com",
-  username: "HumbertoBPF",
-  bio: "My bio",
-  badges: []
-};
+const mockedUser = getAuthenticatedUser("picture");
 
 it("should render authenticated user data", () => {
   renderWithProviders(<MyProfile />, {
@@ -19,15 +14,15 @@ it("should render authenticated user data", () => {
 
   const usernameData = screen.getByTestId("username-data");
   expect(usernameData).toBeInTheDocument();
-  expect(usernameData).toHaveTextContent("HumbertoBPF");
+  expect(usernameData).toHaveTextContent(mockedUser.username);
 
   const emailData = screen.getByTestId("email-data");
   expect(emailData).toBeInTheDocument();
-  expect(emailData).toHaveTextContent("humberto@test.com");
+  expect(emailData).toHaveTextContent(mockedUser.email);
 
   const bioData = screen.getByTestId("bio-data");
   expect(bioData).toBeInTheDocument();
-  expect(bioData).toHaveTextContent("My bio");
+  expect(bioData).toHaveTextContent(mockedUser.bio);
 
   const updatePictureButton = screen.getByTestId("update-picture-button");
   expect(updatePictureButton).toBeInTheDocument();

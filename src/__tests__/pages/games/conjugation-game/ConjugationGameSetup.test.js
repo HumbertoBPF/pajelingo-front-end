@@ -1,8 +1,9 @@
-import { getInitialGamesState, renderWithProviders } from "test-utils/store";
-import languages from "../../../test-data/languages.json";
+import { renderWithProviders } from "test-utils/store";
 import ConjugationGameSetup from "pages/Games/ConjugationGame/ConjugationGameSetup";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { getInitialGamesState } from "test-utils/mocking/games";
+import { languages } from "test-utils/mocking/languages";
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");

@@ -3,6 +3,7 @@ const { default: Login } = require("pages/Login");
 const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
 import { login } from "api/user";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 jest.mock("api/user", () => {
   return {
@@ -44,6 +45,9 @@ it("should not display error toast when the login is successful", async () => {
     });
   });
 
+  const username = faker.internet.userName();
+  const password = "str0ng-p4sSw0rd";
+
   renderWithProviders(<Login />);
 
   const usernameField = screen.getByTestId("username-input");
@@ -52,14 +56,14 @@ it("should not display error toast when the login is successful", async () => {
   const passwordInput = within(passwordField).getByPlaceholderText("Password");
   const submitButton = screen.getByTestId("login-button");
 
-  await user.type(usernameInput, "HumbertoBPF");
-  await user.type(passwordInput, "str0ng-p4sSw0rd");
+  await user.type(usernameInput, username);
+  await user.type(passwordInput, password);
   await user.click(submitButton);
 
   expect(login).toBeCalledTimes(1);
   expect(login).toBeCalledWith(
-    "HumbertoBPF",
-    "str0ng-p4sSw0rd",
+    username,
+    password,
     expect.anything(),
     expect.anything()
   );
@@ -75,6 +79,9 @@ it("should display toast when the credentials are wrong", async () => {
     onFail();
   });
 
+  const username = faker.internet.userName();
+  const password = "str0ng-p4sSw0rd";
+
   renderWithProviders(<Login />);
 
   const usernameField = screen.getByTestId("username-input");
@@ -83,14 +90,14 @@ it("should display toast when the credentials are wrong", async () => {
   const passwordInput = within(passwordField).getByPlaceholderText("Password");
   const submitButton = screen.getByTestId("login-button");
 
-  await user.type(usernameInput, "HumbertoBPF");
-  await user.type(passwordInput, "str0ng-p4sSw0rd");
+  await user.type(usernameInput, username);
+  await user.type(passwordInput, password);
   await user.click(submitButton);
 
   expect(login).toBeCalledTimes(1);
   expect(login).toBeCalledWith(
-    "HumbertoBPF",
-    "str0ng-p4sSw0rd",
+    username,
+    password,
     expect.anything(),
     expect.anything()
   );

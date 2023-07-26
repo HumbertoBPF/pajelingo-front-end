@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import PropTypes from "prop-types";
 import { MemoryRouter } from "react-router-dom";
 import { setupStore } from "store/store";
-import mockedGames from "../__tests__/test-data/games.json";
 
 export function renderWithProviders(
   ui,
@@ -29,11 +28,3 @@ export function renderWithProviders(
   };
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
-
-export const getInitialGamesState = () => {
-  return {
-    1: mockedGames[0],
-    2: mockedGames[1],
-    3: mockedGames[2]
-  };
-};

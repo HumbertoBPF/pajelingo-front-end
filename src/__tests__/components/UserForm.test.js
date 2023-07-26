@@ -1,6 +1,7 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserForm } = require("components/UserForm");
 import userEvent from "@testing-library/user-event";
+import { getAuthenticatedUser } from "test-utils/mocking/users";
 import { renderWithProviders } from "test-utils/store";
 
 async function enterText(user, element, text) {
@@ -81,11 +82,7 @@ const assertConfirmationPasswordField = () => {
 
 describe("display the user form", () => {
   it("filled with user data", () => {
-    const userData = {
-      username: "HumbertoBPF",
-      email: "humberto@test.com",
-      bio: "Humberto's bio"
-    };
+    const userData = getAuthenticatedUser();
 
     renderWithProviders(<UserForm user={userData} buttonText="Submit" />);
 

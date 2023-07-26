@@ -1,12 +1,12 @@
 const { screen } = require("@testing-library/react");
 const { default: MeaningCard } = require("components/cards/MeaningCard");
-const { getRandomInteger } = require("utils");
 const { renderWithProviders } = require("test-utils/store");
+import { faker } from "@faker-js/faker/locale/en_US";
+
+const meaning = faker.lorem.words({ min: 5, max: 15 });
 
 describe("should display a word meaning in a card", () => {
   it("when the word has a unique meaning", () => {
-    const meaning = "This is the meaning of the word";
-
     renderWithProviders(<MeaningCard meaning={meaning} />);
 
     const meaningCardText = screen.getByText(`Meaning: ${meaning}`);
@@ -14,8 +14,7 @@ describe("should display a word meaning in a card", () => {
   });
 
   it("when the word has more than one meaning", () => {
-    const index = getRandomInteger(1, 5);
-    const meaning = "This is the meaning of the word";
+    const index = faker.number.int({ min: 1, max: 5 });
 
     renderWithProviders(<MeaningCard index={index} meaning={meaning} />);
 

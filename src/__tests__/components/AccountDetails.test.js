@@ -1,12 +1,13 @@
 const { screen } = require("@testing-library/react");
 const { default: AccountDetails } = require("../../components/AccountDetails");
 const { renderWithProviders } = require("test-utils/store");
+const {
+  getUnauthenticatedUser,
+  getAuthenticatedUser
+} = require("test-utils/mocking/users");
 
 it("should display only username and bio when no email is specified", () => {
-  const userData = {
-    username: "HumbertoBPF",
-    bio: "My bio"
-  };
+  const userData = getUnauthenticatedUser();
 
   renderWithProviders(<AccountDetails user={userData} />);
 
@@ -23,11 +24,7 @@ it("should display only username and bio when no email is specified", () => {
 });
 
 it("should display username, email, and bio when user email data is provided", () => {
-  const userData = {
-    username: "HumbertoBPF",
-    email: "humberto@test.com",
-    bio: "My bio"
-  };
+  const userData = getAuthenticatedUser();
 
   renderWithProviders(<AccountDetails user={userData} />);
 

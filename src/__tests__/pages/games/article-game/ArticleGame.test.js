@@ -1,9 +1,10 @@
 const { screen } = require("@testing-library/react");
 const { default: ArticleGame } = require("pages/Games/ArticleGame/ArticleGame");
 import { setupArticleGame, submitAnswerArticleGame } from "api/games";
-import { getInitialGamesState, renderWithProviders } from "test-utils/store";
+import { renderWithProviders } from "test-utils/store";
 import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
+import { getInitialGamesState } from "test-utils/mocking/games";
 
 const mockedWord = {
   id: 100,

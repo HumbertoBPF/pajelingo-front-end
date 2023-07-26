@@ -6,13 +6,11 @@ const {
 const {
   default: VocabularyGame
 } = require("pages/Games/VocabularyGame/VocabularyGame");
-const {
-  renderWithProviders,
-  getInitialGamesState
-} = require("test-utils/store");
+const { renderWithProviders } = require("test-utils/store");
 import { getRandomInteger } from "utils";
-import languages from "../../../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
+import { getInitialGamesState } from "test-utils/mocking/games";
+import { languages } from "test-utils/mocking/languages";
 
 const mockedWord = {
   id: 100,

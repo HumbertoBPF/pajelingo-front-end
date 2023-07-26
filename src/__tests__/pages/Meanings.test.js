@@ -2,7 +2,7 @@ const { screen } = require("@testing-library/react");
 const { default: userEvent } = require("@testing-library/user-event");
 const { getWord, getMeaning, toggleFavoriteWord } = require("api/words");
 const { default: Meanings } = require("pages/Meanings");
-const { getRandomInteger } = require("utils");
+import { faker } from "@faker-js/faker/locale/en_US";
 const { renderWithProviders } = require("test-utils/store");
 
 jest.mock("api/words", () => {
@@ -18,8 +18,6 @@ const preloadedStateAuthenticatedUser = {
     token: "token"
   }
 };
-
-const randomWordId = getRandomInteger(100, 1000);
 
 const meanings = [
   {
@@ -38,7 +36,7 @@ const meanings = [
 
 const getMockedWord = (favorite, image) => {
   return {
-    id: randomWordId,
+    id: faker.number.int({ min: 100, max: 1000 }),
     word_name: "mocked word",
     image,
     is_favorite: favorite
@@ -80,7 +78,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`],
+        initialEntries: [`/meanings/${mockedWord.id}`],
         preloadedState: preloadedStateAuthenticatedUser
       });
 
@@ -110,7 +108,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`],
+        initialEntries: [`/meanings/${mockedWord.id}`],
         preloadedState: preloadedStateAuthenticatedUser
       });
 
@@ -141,7 +139,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`],
+        initialEntries: [`/meanings/${mockedWord.id}`],
         preloadedState: preloadedStateAuthenticatedUser
       });
 
@@ -171,7 +169,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`],
+        initialEntries: [`/meanings/${mockedWord.id}`],
         preloadedState: preloadedStateAuthenticatedUser
       });
 
@@ -202,7 +200,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`]
+        initialEntries: [`/meanings/${mockedWord.id}`]
       });
 
       const title = screen.getByTestId("title");
@@ -231,7 +229,7 @@ describe("should render meanings", () => {
       });
 
       renderWithProviders(<Meanings />, {
-        initialEntries: [`/meanings/${randomWordId}`]
+        initialEntries: [`/meanings/${mockedWord.id}`]
       });
 
       const title = screen.getByTestId("title");
@@ -270,7 +268,7 @@ describe("shoukd call API when", () => {
     );
 
     renderWithProviders(<Meanings />, {
-      initialEntries: [`/meanings/${randomWordId}`],
+      initialEntries: [`/meanings/${mockedWord.id}`],
       preloadedState: {
         user: {
           token: "token"
@@ -286,7 +284,7 @@ describe("shoukd call API when", () => {
     expect(toggleFavoriteWord).toBeCalledTimes(1);
     expect(toggleFavoriteWord).toBeCalledWith(
       "token",
-      randomWordId,
+      mockedWord.id,
       !mockedWord.is_favorite,
       expect.anything()
     );
@@ -314,7 +312,7 @@ describe("shoukd call API when", () => {
     );
 
     renderWithProviders(<Meanings />, {
-      initialEntries: [`/meanings/${randomWordId}`],
+      initialEntries: [`/meanings/${mockedWord.id}`],
       preloadedState: {
         user: {
           token: "token"
@@ -330,7 +328,7 @@ describe("shoukd call API when", () => {
     expect(toggleFavoriteWord).toBeCalledTimes(1);
     expect(toggleFavoriteWord).toBeCalledWith(
       "token",
-      randomWordId,
+      mockedWord.id,
       !mockedWord.is_favorite,
       expect.anything()
     );

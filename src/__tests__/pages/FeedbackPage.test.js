@@ -2,7 +2,7 @@ const { screen, within } = require("@testing-library/react");
 const { default: FeedbackPage } = require("pages/FeedbackPage");
 const { getRandomInteger } = require("utils");
 import userEvent from "@testing-library/user-event";
-import newBadges from "../test-data/new-badges.json";
+import { badges } from "test-utils/mocking/badges";
 import { renderWithProviders } from "test-utils/store";
 
 const getFeedback = (result, correctAnswer, newBadges = []) => {
@@ -246,7 +246,7 @@ describe("should display negative feedback", () => {
 });
 
 it("should display the lastly achieved user badges", () => {
-  const feedback = getFeedback(true, "Correct answer", newBadges.badges);
+  const feedback = getFeedback(true, "Correct answer", badges);
   feedback.score = getRandomInteger(100, 1000);
 
   renderWithProviders(<FeedbackPage feedback={feedback} />);
@@ -263,7 +263,7 @@ it("should display the lastly achieved user badges", () => {
 
   assertHasNewWordButton();
 
-  newBadges.badges.forEach((badge) => {
+  badges.forEach((badge) => {
     const badgeNotification = screen.getByTestId(
       `${badge.id}-notification-badge`
     );

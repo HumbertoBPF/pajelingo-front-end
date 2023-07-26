@@ -3,9 +3,9 @@ import userEvent from "@testing-library/user-event";
 const {
   default: SearchResultCard
 } = require("components/cards/SearchResultCard");
-const { getRandomInteger } = require("utils");
 import { toggleFavoriteWord } from "api/words";
 import { renderWithProviders } from "test-utils/store";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 jest.mock("api/words", () => {
   return {
@@ -15,8 +15,8 @@ jest.mock("api/words", () => {
 
 const getMockedWord = (isFavorite) => {
   return {
-    id: getRandomInteger(1000, 2000),
-    word_name: "Word",
+    id: faker.number.int({ min: 1000, max: 2000 }),
+    word_name: faker.word.sample(),
     language: "English",
     is_favorite: isFavorite
   };

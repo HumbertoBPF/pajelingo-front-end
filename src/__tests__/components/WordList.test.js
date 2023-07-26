@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: WordList } = require("components/WordList");
-import wordsPage from "../test-data/words-page.json";
+import { words } from "test-utils/mocking/words";
 import { renderWithProviders } from "test-utils/store";
 
 const wordsWithoutResults = {
@@ -79,7 +79,7 @@ it("should display spinner when the isLoading props is true", () => {
 });
 
 it("should display results when the words props has a non-empty list of results", () => {
-  renderWithProviders(<WordList words={{ ...wordsPage, page: 1 }} />);
+  renderWithProviders(<WordList words={{ ...words, page: 1 }} />);
 
   const noResultImg = screen.queryByTestId("no-results-img");
   const spinner = screen.queryByTestId("spinner");
@@ -90,9 +90,9 @@ it("should display results when the words props has a non-empty list of results"
   const ellipsisEnd = screen.queryByTestId("ellipsis-end");
   const lastPage = screen.queryByTestId("12th-page");
 
-  expect(wordsPage.results.length).toBe(12);
+  expect(words.results.length).toBe(12);
 
-  wordsPage.results.forEach((word) => assertWordCard(word));
+  words.results.forEach((word) => assertWordCard(word));
 
   expect(noResultImg).not.toBeInTheDocument();
   expect(spinner).not.toBeInTheDocument();

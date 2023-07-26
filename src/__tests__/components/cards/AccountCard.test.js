@@ -1,14 +1,12 @@
 const { screen } = require("@testing-library/react");
 const { default: AccountCard } = require("components/cards/AccountCard");
 const { renderWithProviders } = require("test-utils/store");
+import { faker } from "@faker-js/faker/locale/en_US";
+import { getUnauthenticatedUser } from "test-utils/mocking/users";
 
 describe("should display account public data in a card", () => {
   it("with short bio", () => {
-    const user = {
-      picture: "picture",
-      username: "Humberto Borges",
-      bio: "My Bio"
-    };
+    const user = getUnauthenticatedUser("picture");
 
     renderWithProviders(<AccountCard user={user} />);
 
@@ -21,11 +19,8 @@ describe("should display account public data in a card", () => {
   });
 
   it("with long bio", () => {
-    const user = {
-      picture: "picture",
-      username: "Humberto Borges",
-      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc faucibus a pellentesque sit amet porttitor eget dolor morbi. Donec ultrices tincidunt arcu non sodales neque sodales ut. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. Mauris augue neque gravida in fermentum et sollicitudin ac. Lectus magna fringilla urna porttitor rhoncus. Elementum nisi quis eleifend quam. Lectus magna fringilla urna porttitor rhoncus dolor purus non enim. Quam nulla porttitor massa id. Facilisis sed odio morbi quis commodo odio aenean. Pulvinar sapien et ligula ullamcorper malesuada. Rhoncus urna neque viverra justo."
-    };
+    const user = getUnauthenticatedUser("picture");
+    user.bio = faker.string.alphanumeric({ length: { min: 75, max: 500 } });
 
     renderWithProviders(<AccountCard user={user} />);
 

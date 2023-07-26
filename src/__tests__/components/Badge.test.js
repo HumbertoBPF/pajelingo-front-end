@@ -1,18 +1,18 @@
 const { screen, within } = require("@testing-library/react");
 const { default: userEvent } = require("@testing-library/user-event");
 const { default: Badge } = require("components/Badge");
-const { getRandomInteger } = require("utils");
+import { faker } from "@faker-js/faker/locale/en_US";
 const { renderWithProviders } = require("test-utils/store");
 
 it("should display badge information", async () => {
   const user = userEvent.setup();
 
   const badge = {
-    id: getRandomInteger(1, 1000),
-    name: "Badge name",
+    id: faker.number.int({ min: 1, max: 1000 }),
+    name: faker.lorem.words({ min: 1, max: 3 }),
     image: "image",
-    color: "#0000FF",
-    description: "Badge description"
+    color: faker.color.rgb(),
+    description: faker.lorem.sentence(5)
   };
 
   renderWithProviders(<Badge badge={badge} />);

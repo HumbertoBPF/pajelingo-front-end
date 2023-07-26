@@ -2,9 +2,9 @@ const { screen, within } = require("@testing-library/react");
 const {
   default: WordListWithFilters
 } = require("components/WordListWithFilters");
-import wordsPage from "../test-data/words-page.json";
-import languages from "../test-data/languages.json";
 import userEvent from "@testing-library/user-event";
+import { languages } from "test-utils/mocking/languages";
+import { words } from "test-utils/mocking/words";
 import { renderWithProviders } from "test-utils/store";
 
 jest.mock("api/languages", () => {
@@ -25,7 +25,7 @@ it("should display model when the filter button is clicked", async () => {
 
   renderWithProviders(
     <WordListWithFilters
-      words={{ ...wordsPage, page: 1 }}
+      words={{ ...words, page: 1 }}
       paginationCallback={paginationCallback}
       filterCallback={filterCallback}
     />,
@@ -76,7 +76,7 @@ it("should call filter callback when clicking on the apply filter button", async
 
   renderWithProviders(
     <WordListWithFilters
-      words={{ ...wordsPage, page: 1 }}
+      words={{ ...words, page: 1 }}
       paginationCallback={paginationCallback}
       filterCallback={filterCallback}
     />,

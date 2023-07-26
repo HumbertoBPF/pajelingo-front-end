@@ -2,9 +2,6 @@ const { screen, within } = require("@testing-library/react");
 const { default: Account } = require("components/Account");
 const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
-import languages from "../test-data/languages.json";
-import newBadges from "../test-data/new-badges.json";
-import scores from "../test-data/scores.json";
 import { getUserScores } from "api/scores";
 import { getRandomInteger } from "utils";
 import {
@@ -23,29 +20,12 @@ import {
   errorDeletionConfirmationText,
   genericErrorMessage
 } from "validators/validators";
-
-const getUnauthenticatedUser = (picture) => {
-  const user = {
-    username: "HumbertoBPF",
-    bio: "My bio",
-    badges: newBadges.badges
-  };
-
-  if (picture) {
-    user.picture = picture;
-  }
-
-  return user;
-};
-
-const getAuthenticatedUser = (picture) => {
-  const user = getUnauthenticatedUser(picture);
-
-  user.token = "token";
-  user.email = "humberto@test.com";
-
-  return user;
-};
+import {
+  getAuthenticatedUser,
+  getUnauthenticatedUser
+} from "test-utils/mocking/users";
+import { languages } from "test-utils/mocking/languages";
+import { scores } from "test-utils/mocking/scores";
 
 jest.mock("api/scores", () => {
   return {
@@ -83,7 +63,7 @@ describe("should display account information", () => {
       expect(emailData).not.toBeInTheDocument();
 
       assertDefaultPicture();
-      assertBadgeListSection(newBadges.badges);
+      assertBadgeListSection(userData.badges);
       assertUserScoresSection();
     });
 
@@ -98,7 +78,7 @@ describe("should display account information", () => {
       expect(emailData).not.toBeInTheDocument();
 
       assertProfilePicture();
-      assertBadgeListSection(newBadges.badges);
+      assertBadgeListSection(userData.badges);
       assertUserScoresSection();
     });
   });
@@ -118,7 +98,7 @@ describe("should display account information", () => {
       assertDefaultPicture();
       assertUpdatePictureButton();
       assertLateralMenu();
-      assertBadgeListSection(newBadges.badges);
+      assertBadgeListSection(userData.badges);
       assertUserScoresSection();
     });
 
@@ -136,7 +116,7 @@ describe("should display account information", () => {
       assertProfilePicture();
       assertUpdatePictureButton();
       assertLateralMenu();
-      assertBadgeListSection(newBadges.badges);
+      assertBadgeListSection(userData.badges);
       assertUserScoresSection();
     });
   });
