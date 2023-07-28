@@ -19,12 +19,32 @@ export const login = (username, password, onSuccess, onFail) => {
     .catch(() => onFail());
 };
 
-export const getUser = async (token) => {
-  return await fetch(`${baseUrl}/user/`, {
+export const getUser = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const token = user.token;
+
+  const response = await fetch(`${baseUrl}/user/`, {
     headers: {
       Authorization: `Token ${token}`
     }
   });
+
+  if (response.ok) {
+    const data = await response.json();
+    const updatedUser = {
+      token,
+      username: data.username,
+      bio: data.bio,
+      email: data.email,
+      badges: data.badges
+    };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    return { ...updatedUser, picture: data.picture };
+  } else {
+    localStorage.removeItem("user");
+    return null;
+  }
 };
 
 export const deleteUser = (token, onSuccess, onFail) => {
@@ -60,6 +80,21 @@ export const updateUserPicture = (token, body, onSuccess, onFail) => {
       }
 
       throw Error();
+    })
+    .catch(() => onFail());
+};
+
+export const getAccount = (username, onSuccess, onFail) => {
+  fetch(`${baseUrl}/accounts/${username}`)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw Error();
+    })
+    .then((data) => {
+      onSuccess(data);
     })
     .catch(() => onFail());
 };

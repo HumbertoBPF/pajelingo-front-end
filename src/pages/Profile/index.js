@@ -1,7 +1,7 @@
+import { getAccount } from "api/user";
 import Account from "components/Account";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 
 export default function Profile() {
   const params = useParams();
@@ -9,18 +9,13 @@ export default function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${baseUrl}/accounts/${params.username}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        throw Error();
-      })
-      .then((data) => {
+    getAccount(
+      params.username,
+      (data) => {
         setUser(data);
-      })
-      .catch(() => navigate("/accounts"));
+      },
+      () => navigate("/accounts")
+    );
   }, [params, navigate]);
 
   return <Account user={user} />;

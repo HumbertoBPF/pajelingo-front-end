@@ -1,21 +1,16 @@
 import { faker } from "@faker-js/faker/locale/en_US";
 import { badges } from "./badges";
 
-export const getUnauthenticatedUser = (picture) => {
-  const user = {
+export const getUnauthenticatedUser = (picture = null) => {
+  return {
     username: faker.internet.userName(),
     bio: faker.string.alphanumeric({ length: { min: 1, max: 75 } }),
-    badges
+    badges,
+    picture
   };
-
-  if (picture) {
-    user.picture = picture;
-  }
-
-  return user;
 };
 
-export const getAuthenticatedUser = (picture) => {
+export const getAuthenticatedUser = (picture = null) => {
   const user = getUnauthenticatedUser(picture);
 
   user.token = "token";

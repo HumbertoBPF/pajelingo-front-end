@@ -1,4 +1,4 @@
-const { screen, within } = require("@testing-library/react");
+const { screen, within, act } = require("@testing-library/react");
 const { default: Account } = require("components/Account");
 const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
@@ -26,6 +26,7 @@ import {
 } from "test-utils/mocking/users";
 import { languages } from "test-utils/mocking/languages";
 import { scores } from "test-utils/mocking/scores";
+import { getLanguages } from "api/languages";
 
 jest.mock("api/scores", () => {
   return {
@@ -34,11 +35,7 @@ jest.mock("api/scores", () => {
 });
 
 jest.mock("api/languages", () => {
-  const originalModule = jest.requireActual("api/languages");
-
   return {
-    __esmodule: true,
-    ...originalModule,
     getLanguages: jest.fn()
   };
 });
@@ -52,10 +49,16 @@ jest.mock("api/user", () => {
 
 describe("should display account information", () => {
   describe("of non-authenticated user", () => {
-    it("without profile picture", () => {
+    it("without profile picture", async () => {
       const userData = getUnauthenticatedUser();
 
-      renderWithProviders(<Account user={userData} />);
+      getLanguages.mockImplementation(() => {
+        return languages;
+      });
+
+      await act(async () => {
+        renderWithProviders(<Account user={userData} />);
+      });
 
       assertPublicInformation(userData);
 
@@ -65,12 +68,20 @@ describe("should display account information", () => {
       assertDefaultPicture();
       assertBadgeListSection(userData.badges);
       assertUserScoresSection();
+
+      expect(getLanguages).toHaveBeenCalledTimes(1);
     });
 
-    it("with profile picture", () => {
+    it("with profile picture", async () => {
       const userData = getUnauthenticatedUser("picture");
 
-      renderWithProviders(<Account user={userData} />);
+      getLanguages.mockImplementation(() => {
+        return languages;
+      });
+
+      await act(async () => {
+        renderWithProviders(<Account user={userData} />);
+      });
 
       assertPublicInformation(userData);
 
@@ -80,14 +91,22 @@ describe("should display account information", () => {
       assertProfilePicture();
       assertBadgeListSection(userData.badges);
       assertUserScoresSection();
+
+      expect(getLanguages).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("of authenticated user", () => {
-    it("without profile picture", () => {
+    it("without profile picture", async () => {
       const userData = getAuthenticatedUser();
 
-      renderWithProviders(<Account user={userData} />);
+      getLanguages.mockImplementation(() => {
+        return languages;
+      });
+
+      await act(async () => {
+        renderWithProviders(<Account user={userData} />);
+      });
 
       assertPublicInformation(userData);
 
@@ -100,12 +119,20 @@ describe("should display account information", () => {
       assertLateralMenu();
       assertBadgeListSection(userData.badges);
       assertUserScoresSection();
+
+      expect(getLanguages).toHaveBeenCalledTimes(1);
     });
 
-    it("with profile picture", () => {
+    it("with profile picture", async () => {
       const userData = getAuthenticatedUser("picture");
 
-      renderWithProviders(<Account user={userData} />);
+      getLanguages.mockImplementation(() => {
+        return languages;
+      });
+
+      await act(async () => {
+        renderWithProviders(<Account user={userData} />);
+      });
 
       assertPublicInformation(userData);
 
@@ -118,6 +145,8 @@ describe("should display account information", () => {
       assertLateralMenu();
       assertBadgeListSection(userData.badges);
       assertUserScoresSection();
+
+      expect(getLanguages).toHaveBeenCalledTimes(1);
     });
   });
 });

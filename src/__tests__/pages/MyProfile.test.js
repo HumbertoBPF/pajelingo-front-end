@@ -1,43 +1,44 @@
 const { screen } = require("@testing-library/react");
 const { default: MyProfile } = require("pages/MyProfile");
 const { renderWithProviders } = require("test-utils/store");
+import { getUser } from "api/user";
+import {
+  assertBadgeListSection,
+  assertLateralMenu,
+  assertProfilePicture,
+  assertPublicInformation,
+  assertUserScoresSection
+} from "test-utils/custom-assertions/profile";
 import { getAuthenticatedUser } from "test-utils/mocking/users";
 
 const mockedUser = getAuthenticatedUser("picture");
 
+jest.mock("api/user", () => {
+  return {
+    getUser: jest.fn()
+  };
+});
+
 it("should render authenticated user data", () => {
+  getUser.mockImplementation(() => {
+    return mockedUser;
+  });
+
   renderWithProviders(<MyProfile />, {
     preloadedState: {
       user: mockedUser
     }
   });
 
-  const usernameData = screen.getByTestId("username-data");
-  expect(usernameData).toBeInTheDocument();
-  expect(usernameData).toHaveTextContent(mockedUser.username);
-
   const emailData = screen.getByTestId("email-data");
   expect(emailData).toBeInTheDocument();
   expect(emailData).toHaveTextContent(mockedUser.email);
 
-  const bioData = screen.getByTestId("bio-data");
-  expect(bioData).toBeInTheDocument();
-  expect(bioData).toHaveTextContent(mockedUser.bio);
+  assertPublicInformation(mockedUser);
+  assertProfilePicture();
+  assertLateralMenu();
+  assertBadgeListSection(mockedUser.badges);
+  assertUserScoresSection();
 
-  const updatePictureButton = screen.getByTestId("update-picture-button");
-  expect(updatePictureButton).toBeInTheDocument();
-  expect(updatePictureButton).toHaveTextContent("Update picture");
-  expect(updatePictureButton).toHaveClass("btn-info");
-
-  const updateButton = screen.getByTestId("update-item");
-  expect(updateButton).toBeInTheDocument();
-  expect(updateButton).toHaveTextContent("Edit account");
-
-  const deleteButton = screen.getByTestId("delete-item");
-  expect(deleteButton).toBeInTheDocument();
-  expect(deleteButton).toHaveTextContent("Delete account");
-
-  const favoriteButton = screen.getByTestId("favorite-item");
-  expect(favoriteButton).toBeInTheDocument();
-  expect(favoriteButton).toHaveTextContent("Favorite words");
+  expect(getUser).toHaveBeenCalledTimes(1);
 });
