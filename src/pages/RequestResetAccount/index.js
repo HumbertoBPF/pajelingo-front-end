@@ -1,3 +1,4 @@
+import { requestResetAccount } from "api/user";
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import Notification from "components/Notification";
@@ -5,7 +6,6 @@ import NotificationContainer from "components/NotificationContainer";
 import { getEmailValidators } from "components/UserForm/validators";
 import { useState } from "react";
 import { Alert, Form } from "react-bootstrap";
-import { baseUrl } from "services/base";
 
 export default function RequestResetAccount() {
   const [email, setEmail] = useState("");
@@ -20,35 +20,29 @@ export default function RequestResetAccount() {
     event.preventDefault();
     setIsLoading(true);
 
-    fetch(`${baseUrl}/request-reset-account/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+    requestResetAccount(
+      email,
+      () => {
+        setIsLoading(false);
+        setFeedback({
+          result: true,
+          state: "succeeded"
+        });
       },
-      body: JSON.stringify({ email })
-    })
-      .then((response) => {
-        if (response.ok) {
-          setIsLoading(false);
-          setFeedback({
-            result: true,
-            state: "succeeded"
-          });
-          return;
-        }
-
-        throw Error(response);
-      })
-      .catch(() => {
+      () => {
         setIsLoading(false);
         setShowToast(true);
-      });
+      }
+    );
   }
 
   return (
     <>
       {feedback.result ? (
-        <Alert variant="success" className="text-center">
+        <Alert
+          variant="success"
+          className="text-center"
+          data-testid="successful-reset-alert">
           <p>
             Check the specified email to reset your account. If there is an
             email associated with a Pajelingo account, you should have received
@@ -70,13 +64,15 @@ export default function RequestResetAccount() {
             required
             validators={getEmailValidators()}
             onChange={(event) => setEmail(event.target.value)}
+            testId="email-input"
           />
           <div className="text-center">
             <CustomButton
               variant="success"
               type="submit"
               isLoading={isLoading}
-              disabled={isLoading}>
+              disabled={isLoading}
+              testId="submit-button">
               Reset password
             </CustomButton>
           </div>
@@ -89,6 +85,7 @@ export default function RequestResetAccount() {
           variant="danger"
           title="Error"
           message="It was not possible to request the account reset. Please check the information provided."
+          testId="error-toast"
         />
       </NotificationContainer>
     </>

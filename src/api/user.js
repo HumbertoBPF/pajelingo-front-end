@@ -98,3 +98,22 @@ export const getAccount = (username, onSuccess, onFail) => {
     })
     .catch(() => onFail());
 };
+
+export const requestResetAccount = (email, onSuccess, onFail) => {
+  fetch(`${baseUrl}/request-reset-account/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return;
+      }
+
+      throw Error(response);
+    })
+    .catch(() => onFail());
+};
