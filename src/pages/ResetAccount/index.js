@@ -1,3 +1,4 @@
+import { resetAccount } from "api/user";
 import CustomButton from "components/CustomButton";
 import FloatingLabelInput from "components/FloatingLabelInput";
 import Notification from "components/Notification";
@@ -10,7 +11,6 @@ import {
 import { useState } from "react";
 import { Alert, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 
 export default function ResetAccount() {
   const params = useParams();
@@ -29,29 +29,23 @@ export default function ResetAccount() {
     const form = event.currentTarget;
 
     if (form.checkValidity()) {
-      fetch(`${baseUrl}/reset-account/${params.uid}/${params.token}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
+      console.log("HELLO", params);
+      resetAccount(
+        params.uid,
+        params.token,
+        password,
+        () => {
+          setIsLoading(false);
+          setFeedback({
+            result: true,
+            state: "succeeded"
+          });
         },
-        body: JSON.stringify({ password })
-      })
-        .then((response) => {
-          if (response.ok) {
-            setIsLoading(false);
-            setFeedback({
-              result: true,
-              state: "succeeded"
-            });
-            return;
-          }
-
-          throw Error(response);
-        })
-        .catch(() => {
+        () => {
           setIsLoading(false);
           setShowToast(true);
-        });
+        }
+      );
     } else {
       setShowToast(true);
     }
@@ -61,7 +55,10 @@ export default function ResetAccount() {
     <>
       {feedback.result ? (
         <>
-          <Alert variant="success" className="text-center">
+          <Alert
+            variant="success"
+            className="text-center"
+            data-testid="successful-reset-alert">
             <p>Password successfully updated!</p>
           </Alert>
           <ShortcutButtons />
@@ -78,6 +75,7 @@ export default function ResetAccount() {
               required
               onChange={(event) => setPassword(event.target.value)}
               validators={getPasswordValidators()}
+              testId="password-input"
             />
             <FloatingLabelInput
               controlId="floatingPasswordConfirm"
@@ -86,13 +84,15 @@ export default function ResetAccount() {
               required
               placeholder="Confirm your password"
               validators={getConfirmPasswordValidators(password)}
+              testId="confirm-password-input"
             />
             <div className="text-center">
               <CustomButton
                 variant="success"
                 type="submit"
                 isLoading={isLoading}
-                disabled={isLoading}>
+                disabled={isLoading}
+                testId="submit-button">
                 Submit
               </CustomButton>
             </div>
@@ -106,6 +106,7 @@ export default function ResetAccount() {
           variant="danger"
           title="Error"
           message="It was not possible to update account. Please check the information provided."
+          testId="error-toast"
         />
       </NotificationContainer>
     </>

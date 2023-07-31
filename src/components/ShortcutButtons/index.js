@@ -7,7 +7,10 @@ export default function ShortcutButtons() {
   return (
     <section>
       <div className="d-flex justify-content-center">
-        <CustomButton variant="primary" onClick={() => navigate("/dashboard")}>
+        <CustomButton
+          variant="primary"
+          testId="dashboard-button"
+          onClick={() => navigate("/dashboard")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -22,7 +25,10 @@ export default function ShortcutButtons() {
       </div>
       <div className="d-flex justify-content-center my-3">or</div>
       <div className="d-flex justify-content-center">
-        <CustomButton variant="success" onClick={() => navigate("/login")}>
+        <CustomButton
+          variant="success"
+          testId="login-button"
+          onClick={() => navigate("/login")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

@@ -1,16 +1,9 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserForm } = require("components/UserForm");
 import userEvent from "@testing-library/user-event";
+import { enterText } from "test-utils/actions/actions";
 import { getAuthenticatedUser } from "test-utils/mocking/users";
 import { renderWithProviders } from "test-utils/store";
-
-async function enterText(user, element, text) {
-  if (text) {
-    await user.type(element, text);
-  } else {
-    await user.clear(element);
-  }
-}
 
 const assertEmailField = (expectedValue) => {
   const emailField = screen.getByTestId("email-input");

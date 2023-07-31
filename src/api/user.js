@@ -117,3 +117,22 @@ export const requestResetAccount = (email, onSuccess, onFail) => {
     })
     .catch(() => onFail());
 };
+
+export const resetAccount = (uid, token, password, onSuccess, onFail) => {
+  fetch(`${baseUrl}/reset-account/${uid}/${token}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ password })
+  })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return;
+      }
+
+      throw Error(response);
+    })
+    .catch(() => onFail());
+};

@@ -42,7 +42,7 @@ export default function RequestResetAccount() {
         <Alert
           variant="success"
           className="text-center"
-          data-testid="successful-reset-alert">
+          data-testid="successful-request-alert">
           <p>
             Check the specified email to reset your account. If there is an
             email associated with a Pajelingo account, you should have received

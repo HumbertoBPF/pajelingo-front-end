@@ -4,6 +4,7 @@ const { default: RequestResetAccount } = require("pages/RequestResetAccount");
 const { renderWithProviders } = require("test-utils/store");
 import { faker } from "@faker-js/faker/locale/en_US";
 import { requestResetAccount } from "api/user";
+import { enterText } from "test-utils/actions/actions";
 
 jest.mock("api/user", () => {
   return {
@@ -11,13 +12,14 @@ jest.mock("api/user", () => {
   };
 });
 
-it("should render reset account form", () => {
+it("should render request reset account form", () => {
   renderWithProviders(<RequestResetAccount />);
 
   const emailLabeledInput = screen.getByTestId("email-input");
   expect(emailLabeledInput).toBeInTheDocument();
 
   const emailInput = within(emailLabeledInput).getByPlaceholderText("Email");
+  expect(emailInput).toBeInTheDocument();
   expect(emailInput).toHaveAttribute("type", "email");
 
   const submitButton = screen.getByTestId("submit-button");
@@ -26,40 +28,24 @@ it("should render reset account form", () => {
   expect(submitButton).toHaveClass("btn-success");
 });
 
-describe("should validate that email input", () => {
-  it("is not empty", async () => {
-    const user = userEvent.setup();
+it.each([
+  ["", "This field is required."],
+  [faker.internet.userName(), "Enter a valid email address."]
+])("should validate the email input", async (email, message) => {
+  const user = userEvent.setup();
 
-    renderWithProviders(<RequestResetAccount />);
+  renderWithProviders(<RequestResetAccount />);
 
-    const emailLabeledInput = screen.getByTestId("email-input");
-    const emailInput = within(emailLabeledInput).getByPlaceholderText("Email");
+  const emailLabeledInput = screen.getByTestId("email-input");
+  const emailInput = within(emailLabeledInput).getByPlaceholderText("Email");
 
-    await user.clear(emailInput);
+  await enterText(user, emailInput, email);
 
-    const validationError = within(emailLabeledInput).getByText(
-      "This field is required."
-    );
-    expect(validationError).toBeInTheDocument();
-    expect(validationError).toHaveTextContent("This field is required.");
-  });
+  expect(emailInput).toHaveClass("is-invalid");
 
-  it("is an email address", async () => {
-    const user = userEvent.setup();
-
-    renderWithProviders(<RequestResetAccount />);
-
-    const emailLabeledInput = screen.getByTestId("email-input");
-    const emailInput = within(emailLabeledInput).getByPlaceholderText("Email");
-
-    await user.type(emailInput, faker.internet.userName());
-
-    const validationError = within(emailLabeledInput).getByText(
-      "Enter a valid email address."
-    );
-    expect(validationError).toBeInTheDocument();
-    expect(validationError).toHaveTextContent("Enter a valid email address.");
-  });
+  const validationError = within(emailLabeledInput).getByText(message);
+  expect(validationError).toBeInTheDocument();
+  expect(validationError).toHaveTextContent(message);
 });
 
 describe("should call API", () => {
@@ -89,7 +75,7 @@ describe("should call API", () => {
       expect.anything()
     );
 
-    const successfulResetAlert = screen.getByTestId("successful-reset-alert");
+    const successfulResetAlert = screen.getByTestId("successful-request-alert");
     expect(successfulResetAlert).toBeInTheDocument();
     expect(successfulResetAlert).toHaveTextContent(
       "Check the specified email to reset your account. If there is an email associated with a Pajelingo account, you should have received an email with a reset link."
@@ -98,6 +84,9 @@ describe("should call API", () => {
     const successfulResetAlertImage =
       within(successfulResetAlert).getByAltText("Email being sent");
     expect(successfulResetAlertImage).toBeInTheDocument();
+
+    const errorToast = screen.queryByTestId("error-toast");
+    expect(errorToast).not.toBeInTheDocument();
   });
 
   it("and display error toast in case of error", async () => {
@@ -126,7 +115,9 @@ describe("should call API", () => {
       expect.anything()
     );
 
-    const successfulResetAlert = screen.queryByTestId("successful-reset-alert");
+    const successfulResetAlert = screen.queryByTestId(
+      "successful-request-alert"
+    );
     expect(successfulResetAlert).not.toBeInTheDocument();
 
     const errorToast = screen.getByTestId("error-toast");
