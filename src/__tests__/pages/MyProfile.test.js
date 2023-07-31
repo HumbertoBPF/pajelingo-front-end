@@ -8,7 +8,7 @@ import {
   assertProfilePicture,
   assertPublicInformation,
   assertUserScoresSection
-} from "test-utils/custom-assertions/profile";
+} from "test-utils/assertions/profile";
 import { getAuthenticatedUser } from "test-utils/mocking/users";
 
 const mockedUser = getAuthenticatedUser("picture");

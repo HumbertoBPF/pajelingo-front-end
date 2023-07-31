@@ -3,10 +3,11 @@ const {
 } = require("pages/Games/VocabularyGame/VocabularyGameSetup");
 const { renderWithProviders } = require("test-utils/store");
 import { screen, within } from "@testing-library/react";
-import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
 import { languages } from "test-utils/mocking/languages";
+import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");
@@ -18,8 +19,8 @@ jest.mock("api/languages", () => {
   };
 });
 
-const randomLanguage1 = languages[getRandomInteger(0, 2)];
-const randomLanguage2 = languages[getRandomInteger(3, 4)];
+const randomLanguage1 = languages[faker.number.int({ min: 0, max: 2 })];
+const randomLanguage2 = languages[faker.number.int({ min: 3, max: 4 })];
 
 it("should display vocabulary game setup form", () => {
   renderWithProviders(<VocabularyGameSetup />, {
@@ -31,29 +32,11 @@ it("should display vocabulary game setup form", () => {
 
   const selectBaseLanguage = screen.getByTestId("select-base-language");
   expect(selectBaseLanguage).toBeInTheDocument();
-
-  languages.forEach((language) => {
-    const languageItem = within(selectBaseLanguage).getByText(
-      language.language_name
-    );
-
-    expect(languageItem).toBeInTheDocument();
-    expect(languageItem).toHaveTextContent(language.language_name);
-    expect(languageItem).toHaveValue(language.language_name);
-  });
+  assertSelectLanguageItems(selectBaseLanguage, languages);
 
   const selectTargetLanguage = screen.getByTestId("select-target-language");
   expect(selectTargetLanguage).toBeInTheDocument();
-
-  languages.forEach((language) => {
-    const languageItem = within(selectTargetLanguage).getByText(
-      language.language_name
-    );
-
-    expect(languageItem).toBeInTheDocument();
-    expect(languageItem).toHaveTextContent(language.language_name);
-    expect(languageItem).toHaveValue(language.language_name);
-  });
+  assertSelectLanguageItems(selectTargetLanguage, languages);
 
   const startButton = screen.getByTestId("start-button");
   expect(startButton).toBeInTheDocument();

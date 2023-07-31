@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: FeedbackPage } = require("pages/FeedbackPage");
-const { getRandomInteger } = require("utils");
+import { faker } from "@faker-js/faker/locale/en_US";
 import userEvent from "@testing-library/user-event";
 import { badges } from "test-utils/mocking/badges";
 import { renderWithProviders } from "test-utils/store";
@@ -37,7 +37,7 @@ describe("should display positive feedback", () => {
   describe("with a unique answer item", () => {
     it("and with score", () => {
       const feedback = getFeedback(true, "Correct answer");
-      feedback.score = getRandomInteger(100, 1000);
+      feedback.score = faker.number.int({ min: 100, max: 1000 });
 
       renderWithProviders(<FeedbackPage feedback={feedback} />);
 
@@ -78,7 +78,7 @@ describe("should display positive feedback", () => {
         true,
         "Correct answer 1\nCorrect answer 2\nCorrect answer 3"
       );
-      feedback.score = getRandomInteger(100, 1000);
+      feedback.score = faker.number.int({ min: 100, max: 1000 });
 
       renderWithProviders(<FeedbackPage feedback={feedback} />);
 
@@ -143,7 +143,7 @@ describe("should display negative feedback", () => {
   describe("with a unique answer item", () => {
     it("and with score", () => {
       const feedback = getFeedback(false, "Correct answer");
-      feedback.score = getRandomInteger(100, 1000);
+      feedback.score = faker.number.int({ min: 100, max: 1000 });
 
       renderWithProviders(<FeedbackPage feedback={feedback} />);
 
@@ -184,7 +184,7 @@ describe("should display negative feedback", () => {
         false,
         "Correct answer 1\nCorrect answer 2\nCorrect answer 3"
       );
-      feedback.score = getRandomInteger(100, 1000);
+      feedback.score = faker.number.int({ min: 100, max: 1000 });
 
       renderWithProviders(<FeedbackPage feedback={feedback} />);
 
@@ -247,7 +247,7 @@ describe("should display negative feedback", () => {
 
 it("should display the lastly achieved user badges", () => {
   const feedback = getFeedback(true, "Correct answer", badges);
-  feedback.score = getRandomInteger(100, 1000);
+  feedback.score = faker.number.int({ min: 100, max: 1000 });
 
   renderWithProviders(<FeedbackPage feedback={feedback} />);
 

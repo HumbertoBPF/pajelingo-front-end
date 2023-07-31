@@ -6,7 +6,7 @@ const {
   assertProfilePicture,
   assertBadgeListSection,
   assertUserScoresSection
-} = require("test-utils/custom-assertions/profile");
+} = require("test-utils/assertions/profile");
 const { getUnauthenticatedUser } = require("test-utils/mocking/users");
 const { renderWithProviders } = require("test-utils/store");
 

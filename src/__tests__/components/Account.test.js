@@ -3,7 +3,6 @@ const { default: Account } = require("components/Account");
 const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
 import { getUserScores } from "api/scores";
-import { getRandomInteger } from "utils";
 import {
   assertBadgeListSection,
   assertDefaultPicture,
@@ -14,7 +13,7 @@ import {
   assertUpdatePictureButton,
   assertUserScores,
   assertUserScoresSection
-} from "test-utils/custom-assertions/profile";
+} from "test-utils/assertions/profile";
 import { deleteUser, updateUserPicture } from "api/user";
 import {
   errorDeletionConfirmationText,
@@ -27,6 +26,7 @@ import {
 import { languages } from "test-utils/mocking/languages";
 import { scores } from "test-utils/mocking/scores";
 import { getLanguages } from "api/languages";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 jest.mock("api/scores", () => {
   return {
@@ -193,7 +193,7 @@ it("should call the API when a language is selected", async () => {
 
   assertUserScores(scores.default);
 
-  const randomLanguage = languages[getRandomInteger(1, 4)];
+  const randomLanguage = languages[faker.number.int({ min: 1, max: 4 })];
 
   const randomLanguageItem = within(selectLanguage).getByText(
     randomLanguage.language_name

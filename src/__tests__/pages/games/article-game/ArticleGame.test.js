@@ -2,9 +2,9 @@ const { screen } = require("@testing-library/react");
 const { default: ArticleGame } = require("pages/Games/ArticleGame/ArticleGame");
 import { setupArticleGame, submitAnswerArticleGame } from "api/games";
 import { renderWithProviders } from "test-utils/store";
-import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 const mockedWord = {
   id: 100,
@@ -55,7 +55,7 @@ describe("should display the feedback", () => {
     const mockedAnswer = {
       result: true,
       correct_answer: "Mocked correct answer",
-      score: getRandomInteger(100, 1000),
+      score: faker.number.int({ min: 100, max: 1000 }),
       new_badges: []
     };
 

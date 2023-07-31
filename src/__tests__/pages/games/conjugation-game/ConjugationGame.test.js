@@ -7,10 +7,10 @@ const {
   default: ConjugationGame
 } = require("pages/Games/ConjugationGame/ConjugationGame");
 const { renderWithProviders } = require("test-utils/store");
-import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
 import { languages } from "test-utils/mocking/languages";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 const mockedVerb = {
   id: 100,
@@ -18,7 +18,7 @@ const mockedVerb = {
   tense: "Mocked tense"
 };
 
-const randomLanguage = languages[getRandomInteger(0, 4)];
+const randomLanguage = languages[faker.number.int({ min: 0, max: 4 })];
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");
@@ -101,7 +101,7 @@ describe("should display the feedback", () => {
     const mockedAnswer = {
       result: true,
       correct_answer: "Mocked correct answer",
-      score: getRandomInteger(100, 1000),
+      score: faker.number.int({ min: 100, max: 1000 }),
       new_badges: []
     };
 

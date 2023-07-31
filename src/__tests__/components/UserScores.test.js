@@ -1,7 +1,7 @@
 const { screen, within } = require("@testing-library/react");
 const { default: UserScores } = require("components/UserScores");
-const { getRandomInteger } = require("utils");
 const { renderWithProviders } = require("test-utils/store");
+const { faker } = require("@faker-js/faker/locale/en_US");
 
 function getUserScores(n) {
   const userScores = [];
@@ -9,7 +9,7 @@ function getUserScores(n) {
   for (let i = 0; i < n; i++) {
     userScores.push({
       game: "Game name",
-      score: getRandomInteger(100, 1000)
+      score: faker.number.int({ min: 100, max: 100 })
     });
   }
 
@@ -17,7 +17,7 @@ function getUserScores(n) {
 }
 
 it("should render the scores of a user", () => {
-  const n = getRandomInteger(3, 5);
+  const n = faker.number.int({ min: 3, max: 5 });
   const scores = getUserScores(n);
 
   renderWithProviders(<UserScores scores={scores} />);

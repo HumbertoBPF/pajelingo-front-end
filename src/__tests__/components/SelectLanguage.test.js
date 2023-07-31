@@ -1,33 +1,33 @@
 const { default: SelectLanguage } = require("components/SelectLanguage");
 const { renderWithProviders } = require("test-utils/store");
+import { faker } from "@faker-js/faker/locale/en_US";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 import { languages } from "test-utils/mocking/languages";
-import { getRandomInteger } from "utils";
-
-const assertItems = () => {
-  languages.forEach((languageItem) => {
-    const language = languageItem.language_name;
-
-    const languageOption = screen.getByText(language);
-    expect(languageOption).toBeInTheDocument();
-    expect(languageOption).toHaveTextContent(language);
-    expect(languageOption).toHaveValue(language);
-  });
-};
 
 it("should display languages passed as props", () => {
-  renderWithProviders(<SelectLanguage items={languages} />);
+  renderWithProviders(
+    <SelectLanguage items={languages} testId="select-language" />
+  );
 
-  assertItems();
+  const selectLanguage = screen.getByTestId("select-language");
+
+  assertSelectLanguageItems(selectLanguage, languages);
 });
 
 it("should display default option", () => {
   renderWithProviders(
-    <SelectLanguage items={languages} defaultItem="Default item" />
+    <SelectLanguage
+      items={languages}
+      defaultItem="Default item"
+      testId="select-language"
+    />
   );
 
-  assertItems();
+  const selectLanguage = screen.getByTestId("select-language");
+
+  assertSelectLanguageItems(selectLanguage, languages);
 
   const defaultItem = screen.getByText("Default item");
   expect(defaultItem).toBeInTheDocument();
@@ -48,9 +48,9 @@ it("should call callback passed as props", async () => {
     />
   );
 
-  assertItems();
-
   const selectLanguage = screen.getByTestId("select-language");
+
+  assertSelectLanguageItems(selectLanguage, languages);
 
   await user.click(selectLanguage);
 
@@ -58,7 +58,7 @@ it("should call callback passed as props", async () => {
   expect(callback.mock.calls[0][0].value).toBe(languages[0].language_name);
   callback.mockClear();
 
-  const randomLanguage = languages[getRandomInteger(0, 4)];
+  const randomLanguage = languages[faker.number.int({ min: 0, max: 4 })];
 
   const randomLanguageItem = within(selectLanguage).getByText(
     randomLanguage.language_name

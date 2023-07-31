@@ -1,41 +1,22 @@
+import { faker } from "@faker-js/faker/locale/en_US";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  assertIsNthPage,
+  assertPaginationCallbackHasBeenCalled
+} from "test-utils/assertions/pagination";
 import { renderWithProviders } from "test-utils/store";
 const { default: PaginationBar } = require("../../components/PaginationBar");
-const { getRandomInteger } = require("utils");
 
 const resultsPerPage = 10;
 const previous = "previous url";
 const next = "next url";
 
-const assertIsNthPage = (page) => {
-  const previousPage = screen.queryByTestId("previous-page");
-  expect(previousPage).not.toBeInTheDocument();
-
-  const currentPage = screen.getByTestId("current-page");
-  expect(currentPage).toBeInTheDocument();
-  expect(currentPage).toHaveTextContent(`${page}(current)`);
-
-  const nextPage = screen.queryByTestId("next-page");
-  expect(nextPage).not.toBeInTheDocument();
-};
-
-const assertIsFirstPage = () => {
-  assertIsNthPage(1);
-  const ellipsisStart = screen.queryByTestId("ellipsis-start");
-  expect(ellipsisStart).not.toBeInTheDocument();
-};
-
-const assertPaginationCallbackHasBeenCalled = (callback, page) => {
-  expect(callback).toBeCalledTimes(1);
-  expect(callback).toBeCalledWith(page);
-};
-
 describe("should have a number of pages", () => {
   const page = 1;
 
   it("equal to one", () => {
-    const count = getRandomInteger(1, 10);
+    const count = faker.number.int({ min: 1, max: 10 });
 
     renderWithProviders(
       <PaginationBar
@@ -45,7 +26,10 @@ describe("should have a number of pages", () => {
       />
     );
 
-    assertIsFirstPage();
+    assertIsNthPage(1);
+
+    const ellipsisStart = screen.queryByTestId("ellipsis-start");
+    expect(ellipsisStart).not.toBeInTheDocument();
 
     const lastPage = screen.queryByTestId("1th-page");
     expect(lastPage).not.toBeInTheDocument();
@@ -55,7 +39,7 @@ describe("should have a number of pages", () => {
   });
 
   it("equal to two", () => {
-    const count = getRandomInteger(11, 20);
+    const count = faker.number.int({ min: 11, max: 20 });
 
     renderWithProviders(
       <PaginationBar
@@ -65,7 +49,10 @@ describe("should have a number of pages", () => {
       />
     );
 
-    assertIsFirstPage();
+    assertIsNthPage(1);
+
+    const ellipsisStart = screen.queryByTestId("ellipsis-start");
+    expect(ellipsisStart).not.toBeInTheDocument();
 
     const lastPage = screen.queryByTestId("2th-page");
     expect(lastPage).toBeInTheDocument();
@@ -76,8 +63,8 @@ describe("should have a number of pages", () => {
   });
 
   it("greater than two", () => {
-    const n = getRandomInteger(3, 10);
-    const count = getRandomInteger(10 * (n - 1) + 1, 10 * n);
+    const n = faker.number.int({ min: 3, max: 10 });
+    const count = faker.number.int({ min: 10 * (n - 1) + 1, max: 10 * n });
 
     renderWithProviders(
       <PaginationBar
@@ -87,7 +74,10 @@ describe("should have a number of pages", () => {
       />
     );
 
-    assertIsFirstPage();
+    assertIsNthPage(1);
+
+    const ellipsisStart = screen.queryByTestId("ellipsis-start");
+    expect(ellipsisStart).not.toBeInTheDocument();
 
     const lastPage = screen.queryByTestId(`${n}th-page`);
     expect(lastPage).toBeInTheDocument();
@@ -100,7 +90,7 @@ describe("should have a number of pages", () => {
 });
 
 describe("should display as current page", () => {
-  const count = getRandomInteger(91, 100);
+  const count = faker.number.int({ min: 91, max: 100 });
 
   it("the first one", () => {
     const page = 1;
@@ -113,7 +103,13 @@ describe("should display as current page", () => {
       />
     );
 
+    const previousPage = screen.queryByTestId("previous-page");
+    expect(previousPage).not.toBeInTheDocument();
+
     assertIsNthPage(1);
+
+    const nextPage = screen.queryByTestId("next-page");
+    expect(nextPage).not.toBeInTheDocument();
 
     const firstPage = screen.queryByTestId("1th-page");
     expect(firstPage).not.toBeInTheDocument();
@@ -141,7 +137,13 @@ describe("should display as current page", () => {
       />
     );
 
+    const previousPage = screen.queryByTestId("previous-page");
+    expect(previousPage).not.toBeInTheDocument();
+
     assertIsNthPage(page);
+
+    const nextPage = screen.queryByTestId("next-page");
+    expect(nextPage).not.toBeInTheDocument();
 
     const firstPage = screen.queryByTestId("1th-page");
     expect(firstPage).toBeInTheDocument();
@@ -160,7 +162,7 @@ describe("should display as current page", () => {
   });
 
   it("a page between the second and the penultimate", () => {
-    const page = getRandomInteger(3, 8);
+    const page = faker.number.int({ min: 3, max: 8 });
 
     renderWithProviders(
       <PaginationBar
@@ -170,7 +172,13 @@ describe("should display as current page", () => {
       />
     );
 
+    const previousPage = screen.queryByTestId("previous-page");
+    expect(previousPage).not.toBeInTheDocument();
+
     assertIsNthPage(page);
+
+    const nextPage = screen.queryByTestId("next-page");
+    expect(nextPage).not.toBeInTheDocument();
 
     const firstPage = screen.queryByTestId("1th-page");
     expect(firstPage).toBeInTheDocument();
@@ -200,7 +208,13 @@ describe("should display as current page", () => {
       />
     );
 
+    const previousPage = screen.queryByTestId("previous-page");
+    expect(previousPage).not.toBeInTheDocument();
+
     assertIsNthPage(page);
+
+    const nextPage = screen.queryByTestId("next-page");
+    expect(nextPage).not.toBeInTheDocument();
 
     const firstPage = screen.queryByTestId("1th-page");
     expect(firstPage).toBeInTheDocument();
@@ -229,7 +243,13 @@ describe("should display as current page", () => {
       />
     );
 
+    const previousPage = screen.queryByTestId("previous-page");
+    expect(previousPage).not.toBeInTheDocument();
+
     assertIsNthPage(page);
+
+    const nextPage = screen.queryByTestId("next-page");
+    expect(nextPage).not.toBeInTheDocument();
 
     const firstPage = screen.queryByTestId("1th-page");
     expect(firstPage).toBeInTheDocument();
@@ -248,7 +268,7 @@ describe("should display as current page", () => {
 });
 
 describe("should call the callback function", () => {
-  const count = getRandomInteger(91, 100);
+  const count = faker.number.int({ min: 91, max: 100 });
 
   it("on the first page", async () => {
     const page = 1;
@@ -334,7 +354,7 @@ describe("should call the callback function", () => {
   });
 
   it("on a page between the second and the penultimate", async () => {
-    const page = getRandomInteger(3, 8);
+    const page = faker.number.int({ min: 3, max: 8 });
     const user = userEvent.setup();
     const callback = jest.fn((page) => page);
 

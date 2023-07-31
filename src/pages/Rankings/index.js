@@ -1,3 +1,4 @@
+import { getRanking } from "api/scores";
 import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
 import Ranking from "components/Ranking";
@@ -5,7 +6,6 @@ import SelectLanguage from "components/SelectLanguage";
 import TropheeIcon from "components/icons/TropheeIcon";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { baseUrl } from "services/base";
 import { fetchLanguages } from "services/languages";
 
 export default function Rankings() {
@@ -14,34 +14,31 @@ export default function Rankings() {
   const [ranking, setRanking] = useState({ results: [], page: 1, count: 0 });
   const [language, setLanguage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const getRankings = useCallback((language, page, user = null) => {
+  const dispatch = useDispatch();
+
+  const getRankingPage = useCallback((language, page, user = null) => {
     if (language !== null) {
-      let url = `${baseUrl}/rankings?language=${language}&page=${page}`;
+      const additionalParams = { page };
 
       if (user) {
-        url += `&user=${user.username}`;
+        additionalParams.username = user.username;
       }
 
       setIsLoading(true);
 
-      fetch(url)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          throw Error();
-        })
-        .then((data) => {
+      getRanking(
+        language,
+        (data) => {
           setRanking({ ...data, page });
           setTimeout(() => setIsLoading(false), 2000);
-        })
-        .catch(() => {
+        },
+        () => {
           setTimeout(() => setIsLoading(false), 2000);
-        });
+        },
+        additionalParams
+      );
     }
   }, []);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchLanguages());
@@ -54,19 +51,20 @@ export default function Rankings() {
   }, [languages]);
 
   useEffect(
-    () => getRankings(language, 1, user),
-    [language, getRankings, user]
+    () => getRankingPage(language, 1, user),
+    [language, getRankingPage, user]
   );
 
   return (
     <>
-      <h5 className="mb-4">
+      <h5 className="mb-4" data-testid="title">
         <TropheeIcon /> <span>Rankings</span>
       </h5>
       <div className="mb-4">
         <SelectLanguage
           items={languages}
           onClick={(target) => setLanguage(target.value)}
+          testId="select-language"
         />
       </div>
       {isLoading ? (
@@ -82,7 +80,7 @@ export default function Rankings() {
         count={ranking.count}
         resultsPerPage={10}
         page={ranking.page}
-        callback={(page) => getRankings(language, page, user)}
+        callback={(page) => getRankingPage(language, page, user)}
       />
     </>
   );

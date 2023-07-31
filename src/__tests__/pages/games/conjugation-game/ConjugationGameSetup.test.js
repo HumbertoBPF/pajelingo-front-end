@@ -4,6 +4,7 @@ import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
 import { languages } from "test-utils/mocking/languages";
+import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 
 jest.mock("api/languages", () => {
   const originalModule = jest.requireActual("api/languages");
@@ -28,15 +29,7 @@ it("should display conjugation game setup form", () => {
 
   expect(selectLanguage).toBeInTheDocument();
 
-  languages.forEach((language) => {
-    const languageOption = within(selectLanguage).queryByText(
-      language.language_name
-    );
-
-    expect(languageOption).toBeInTheDocument();
-    expect(languageOption).toHaveTextContent(language.language_name);
-    expect(languageOption).toHaveValue(language.language_name);
-  });
+  assertSelectLanguageItems(selectLanguage, languages);
 
   expect(startButton).toBeInTheDocument();
   expect(startButton).toHaveTextContent("Start");

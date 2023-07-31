@@ -1,4 +1,5 @@
 import userEvent from "@testing-library/user-event";
+import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 import { getInitialGamesState } from "test-utils/mocking/games";
 import { languages } from "test-utils/mocking/languages";
 import { renderWithProviders } from "test-utils/store";
@@ -30,19 +31,10 @@ it("should display article game setup form", () => {
 
   expect(selectLanguage).toBeInTheDocument();
 
-  languages.forEach((language) => {
-    const languageOption = within(selectLanguage).queryByText(
-      language.language_name
-    );
-
-    if (language.language_name === "English") {
-      expect(languageOption).not.toBeInTheDocument();
-    } else {
-      expect(languageOption).toBeInTheDocument();
-      expect(languageOption).toHaveTextContent(language.language_name);
-      expect(languageOption).toHaveValue(language.language_name);
-    }
-  });
+  assertSelectLanguageItems(
+    selectLanguage,
+    languages.filter((language) => language.language_name !== "English")
+  );
 
   expect(startButton).toBeInTheDocument();
   expect(startButton).toHaveTextContent("Start");

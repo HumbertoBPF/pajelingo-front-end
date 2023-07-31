@@ -7,10 +7,10 @@ const {
   default: VocabularyGame
 } = require("pages/Games/VocabularyGame/VocabularyGame");
 const { renderWithProviders } = require("test-utils/store");
-import { getRandomInteger } from "utils";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
 import { languages } from "test-utils/mocking/languages";
+import { faker } from "@faker-js/faker/locale/en_US";
 
 const mockedWord = {
   id: 100,
@@ -33,8 +33,8 @@ it("should display the word returned by the API", () => {
     onSuccess(mockedWord);
   });
 
-  const baseLanguage = languages[getRandomInteger(0, 1)];
-  const targetLanguage = languages[getRandomInteger(2, 4)];
+  const baseLanguage = languages[faker.number.int({ min: 0, max: 1 })];
+  const targetLanguage = languages[faker.number.int({ min: 2, max: 4 })];
 
   renderWithProviders(<VocabularyGame />, {
     preloadedState: {
@@ -71,7 +71,7 @@ describe("should display the feedback", () => {
     const mockedAnswer = {
       result: true,
       correct_answer: "Mocked correct answer",
-      score: getRandomInteger(100, 1000),
+      score: faker.number.int({ min: 100, max: 1000 }),
       new_badges: []
     };
 
@@ -83,8 +83,8 @@ describe("should display the feedback", () => {
       onSuccess(mockedAnswer);
     });
 
-    const baseLanguage = languages[getRandomInteger(0, 1)];
-    const targetLanguage = languages[getRandomInteger(2, 4)];
+    const baseLanguage = languages[faker.number.int({ min: 0, max: 1 })];
+    const targetLanguage = languages[faker.number.int({ min: 2, max: 4 })];
 
     renderWithProviders(<VocabularyGame />, {
       preloadedState: {
@@ -148,8 +148,8 @@ describe("should display the feedback", () => {
       onSuccess(mockedAnswer);
     });
 
-    const baseLanguage = languages[getRandomInteger(0, 1)];
-    const targetLanguage = languages[getRandomInteger(2, 4)];
+    const baseLanguage = languages[faker.number.int({ min: 0, max: 1 })];
+    const targetLanguage = languages[faker.number.int({ min: 2, max: 4 })];
 
     renderWithProviders(<VocabularyGame />, {
       preloadedState: {
