@@ -1,3 +1,4 @@
+import { searchAccount } from "api/user";
 import AccountCard from "components/cards/AccountCard";
 import CustomButton from "components/CustomButton";
 import CustomSpinner from "components/CustomSpinner";
@@ -5,7 +6,6 @@ import FloatingLabelInput from "components/FloatingLabelInput";
 import PaginationBar from "components/PaginationBar";
 import { useCallback, useState } from "react";
 import { Form } from "react-bootstrap";
-import { baseUrl } from "services/base";
 
 export default function SearchAccount() {
   const [searchPattern, setSearchPattern] = useState("");
@@ -16,14 +16,10 @@ export default function SearchAccount() {
     (page) => {
       setIsLoading(true);
 
-      const queryParams = new URLSearchParams({ q: searchPattern, page });
-
-      fetch(`${baseUrl}/accounts?${queryParams}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setUsers({ ...data, page });
-          setTimeout(() => setIsLoading(false), 2000);
-        });
+      searchAccount({ q: searchPattern, page }, (data) => {
+        setUsers({ ...data, page });
+        setTimeout(() => setIsLoading(false), 2000);
+      });
     },
     [searchPattern]
   );
@@ -37,7 +33,11 @@ export default function SearchAccount() {
               <CustomSpinner />
             ) : (
               users.results.map((item) => (
-                <AccountCard key={item.username} user={item} />
+                <AccountCard
+                  key={item.username}
+                  user={item}
+                  testId={`${item.username}-card`}
+                />
               ))
             )}
           </div>
@@ -70,9 +70,10 @@ export default function SearchAccount() {
           label="Search an account"
           placeholder="Search an account"
           onChange={(event) => setSearchPattern(event.target.value)}
+          testId="search-input"
         />
         <div className="text-center">
-          <CustomButton variant="success" type="submit">
+          <CustomButton variant="success" type="submit" testId="submit-button">
             Search account
           </CustomButton>
         </div>

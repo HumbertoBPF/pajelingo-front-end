@@ -9,8 +9,7 @@ const { default: Rankings } = require("pages/Rankings");
 const {
   assertRankingHeaders,
   assertRankingRecords,
-  assertMyPosition,
-  assertFirstPageRankingPagination
+  assertMyPosition
 } = require("test-utils/assertions/ranking");
 const {
   assertSelectLanguageItems
@@ -19,6 +18,7 @@ const { languages } = require("test-utils/mocking/languages");
 const { ranking } = require("test-utils/mocking/ranking");
 const { renderWithProviders } = require("test-utils/store");
 import { faker } from "@faker-js/faker/locale/en_US";
+import { assertFirstPageOf } from "test-utils/assertions/pagination";
 
 const userScore = {
   position: faker.number.int({ min: 1, max: 50 }),
@@ -85,7 +85,7 @@ describe("should render ranking page", () => {
       }
     );
 
-    assertFirstPageRankingPagination();
+    assertFirstPageOf(5);
   });
 
   it("with user score", async () => {
@@ -136,6 +136,6 @@ describe("should render ranking page", () => {
       }
     );
 
-    assertFirstPageRankingPagination();
+    assertFirstPageOf(5);
   });
 });

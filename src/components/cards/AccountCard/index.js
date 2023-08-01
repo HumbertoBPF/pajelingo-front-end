@@ -4,7 +4,7 @@ import { Card, Col, Ratio, Row } from "react-bootstrap";
 import { showFirstCharacters } from "utils";
 import PropTypes from "prop-types";
 
-export default function AccountCard({ user }) {
+export default function AccountCard({ user, testId = "" }) {
   const navigate = useNavigate();
 
   function renderProfilePicture() {
@@ -30,7 +30,8 @@ export default function AccountCard({ user }) {
   return (
     <Card
       className={`${styles["account-card"]} mb-4`}
-      onClick={() => navigate(`/accounts/${user.username}`)}>
+      onClick={() => navigate(`/accounts/${user.username}`)}
+      data-testid={testId}>
       <Row className="g-0">
         <Col sm={3} md={2}>
           <Ratio aspectRatio="1x1">{renderProfilePicture()}</Ratio>
@@ -58,5 +59,6 @@ AccountCard.propTypes = {
     picture: PropTypes.string,
     username: PropTypes.string.isRequired,
     bio: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  testId: PropTypes.string
 };

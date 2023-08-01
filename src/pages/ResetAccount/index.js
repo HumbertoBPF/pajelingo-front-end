@@ -29,7 +29,6 @@ export default function ResetAccount() {
     const form = event.currentTarget;
 
     if (form.checkValidity()) {
-      console.log("HELLO", params);
       resetAccount(
         params.uid,
         params.token,

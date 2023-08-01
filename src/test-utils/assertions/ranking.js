@@ -1,5 +1,4 @@
 import { screen, within } from "@testing-library/react";
-import { assertIsNthPage } from "./pagination";
 
 export const assertRankingHeaders = () => {
   const rankingHeaders = screen.getByTestId("ranking-headers");
@@ -56,25 +55,4 @@ export const assertMyPosition = (userScore) => {
   const userRecordScore = within(userRecord).getByText(`${userScore.score}`);
   expect(userRecordScore).toBeInTheDocument();
   expect(userRecordScore).toHaveTextContent(`${userScore.score}`);
-};
-
-export const assertFirstPageRankingPagination = () => {
-  assertIsNthPage(1);
-
-  const lastPage = screen.getByTestId("5th-page");
-  expect(lastPage).toBeInTheDocument();
-  expect(lastPage).toHaveTextContent("5");
-
-  const previousPage = screen.queryByTestId("previous-page");
-  expect(previousPage).not.toBeInTheDocument();
-
-  const nextPage = screen.getByTestId("next-page");
-  expect(nextPage).toBeInTheDocument();
-
-  const ellipsisStart = screen.queryByTestId("ellipsis-start");
-  expect(ellipsisStart).not.toBeInTheDocument();
-
-  const ellipsisEnd = screen.getByTestId("ellipsis-end");
-  expect(ellipsisEnd).toBeInTheDocument();
-  expect(ellipsisEnd).toHaveTextContent("…More");
 };

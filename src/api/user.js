@@ -136,3 +136,11 @@ export const resetAccount = (uid, token, password, onSuccess, onFail) => {
     })
     .catch(() => onFail());
 };
+
+export const searchAccount = (searchParams, onSuccess) => {
+  const queryParams = new URLSearchParams(searchParams);
+
+  fetch(`${baseUrl}/accounts?${queryParams}`)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data));
+};
