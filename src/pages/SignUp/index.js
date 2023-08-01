@@ -1,9 +1,9 @@
+import { signup } from "api/user";
 import Notification from "components/Notification";
 import NotificationContainer from "components/NotificationContainer";
 import UserForm from "components/UserForm";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
-import { baseUrl } from "services/base";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,36 +22,26 @@ export default function SignUp() {
         result: null,
         state: "pending"
       });
-      fetch(`${baseUrl}/user/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+
+      signup(
+        {
           email: personalData.email,
           username: personalData.username,
           bio: personalData.bio,
           password: personalData.password
-        })
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          throw Error(response);
-        })
-        .then(() => {
+        },
+        () => {
           setIsLoading(false);
           setFeedback({
             result: true,
             state: "succeeded"
           });
-        })
-        .catch(() => {
+        },
+        () => {
           setIsLoading(false);
           setShowToast(true);
-        });
+        }
+      );
     } else {
       setIsLoading(false);
       setShowToast(true);
@@ -61,7 +51,10 @@ export default function SignUp() {
   return (
     <>
       {feedback.state === "succeeded" ? (
-        <Alert variant="success" className="text-center">
+        <Alert
+          variant="success"
+          className="text-center"
+          data-testid="success-alert">
           <p>
             Account successfully created. Please check your email to activate
             it.
@@ -89,6 +82,7 @@ export default function SignUp() {
           variant="danger"
           title="Error"
           message="It was not possible to create account. Please check the information provided."
+          testId="error-toast"
         />
       </NotificationContainer>
     </>

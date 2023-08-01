@@ -144,3 +144,22 @@ export const searchAccount = (searchParams, onSuccess) => {
     .then((response) => response.json())
     .then((data) => onSuccess(data));
 };
+
+export const signup = (body, onSuccess, onFail) => {
+  fetch(`${baseUrl}/user/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw Error(response);
+    })
+    .then(() => onSuccess())
+    .catch(() => onFail());
+};
