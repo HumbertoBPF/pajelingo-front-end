@@ -163,3 +163,25 @@ export const signup = (body, onSuccess, onFail) => {
     .then(() => onSuccess())
     .catch(() => onFail());
 };
+
+export const updateAccount = (token, body, onSuccess, onFail) => {
+  fetch(`${baseUrl}/user/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    },
+    body: JSON.stringify(body)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw Error(response);
+    })
+    .then(() => {
+      onSuccess();
+    })
+    .catch(() => onFail());
+};

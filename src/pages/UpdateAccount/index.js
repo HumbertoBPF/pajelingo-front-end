@@ -1,3 +1,4 @@
+import { updateAccount } from "api/user";
 import Notification from "components/Notification";
 import NotificationContainer from "components/NotificationContainer";
 import UserForm from "components/UserForm";
@@ -5,7 +6,6 @@ import Login from "pages/Login";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from "services/base";
 import { fetchUser } from "services/user";
 
 export default function UpdateAccount() {
@@ -34,35 +34,23 @@ export default function UpdateAccount() {
     setIsLoading(true);
 
     if (form.checkValidity()) {
-      fetch(`${baseUrl}/user/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${user.token}`
-        },
-        body: JSON.stringify({
+      updateAccount(
+        user.token,
+        {
           email: personalData.email,
           username: personalData.username,
           bio: personalData.bio,
           password: personalData.password
-        })
-      })
-        .then((response) => {
-          if (response.ok) {
-            setIsLoading(false);
-            navigate("/profile");
-            return;
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          throw Error(data);
-        })
-        .catch(() => {
+        },
+        () => {
+          setIsLoading(false);
+          navigate("/profile");
+        },
+        () => {
           setIsLoading(false);
           setShowToast(true);
-        });
+        }
+      );
     } else {
       setIsLoading(false);
       setShowToast(true);
@@ -87,6 +75,7 @@ export default function UpdateAccount() {
           variant="danger"
           title="Error"
           message="It was not possible to update account. Please check the information provided."
+          testId="error-toast"
         />
       </NotificationContainer>
     </>
