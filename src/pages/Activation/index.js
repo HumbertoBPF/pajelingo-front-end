@@ -1,8 +1,8 @@
+import { activateAccount } from "api/user";
 import ShortcutButtons from "components/ShortcutButtons";
 import { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { baseUrl } from "services/base";
 
 export default function Activation() {
   const params = useParams();
@@ -12,25 +12,39 @@ export default function Activation() {
   });
 
   useEffect(() => {
-    fetch(`${baseUrl}/activate/${params.uid}/${params.token}`, {
-      method: "PUT"
-    }).then((response) =>
-      setFeedback({
-        result: response.ok,
-        state: "succeeded"
-      })
+    activateAccount(
+      params.uid,
+      params.token,
+      () => {
+        setFeedback({
+          result: true,
+          state: "succeeded"
+        });
+      },
+      () => {
+        setFeedback({
+          result: false,
+          state: "succeeded"
+        });
+      }
     );
-  }, [params]);
+  }, [params.uid, params.token]);
 
   return (
     <>
       {feedback.result ? (
-        <Alert variant="success" className="text-center">
+        <Alert
+          variant="success"
+          className="text-center"
+          data-testid="success-alert">
           Thank you for your email confirmation. Now you can sign in your
           account.
         </Alert>
       ) : (
-        <Alert variant="danger" className="text-center">
+        <Alert
+          variant="danger"
+          className="text-center"
+          data-testid="error-alert">
           Invalid token!
         </Alert>
       )}

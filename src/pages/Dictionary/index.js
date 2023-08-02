@@ -1,8 +1,8 @@
+import { searchWords } from "api/words";
 import EyeglassIcon from "components/icons/EyeglassIcon";
 import WordListWithFilters from "components/WordListWithFilters";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { baseUrl } from "services/base";
 
 export default function Dictionary() {
   const user = useSelector((state) => state.user);
@@ -22,28 +22,16 @@ export default function Dictionary() {
         searchFilters[key] = value;
       });
 
-      const queryParams = new URLSearchParams(searchFilters);
+      const token = user ? user.token : null;
 
-      let options = {};
-
-      if (user) {
-        options = {
-          headers: {
-            Authorization: `Token ${user.token}`
-          }
-        };
-      }
-
-      fetch(`${baseUrl}/search?${queryParams}`, options)
-        .then((response) => response.json())
-        .then((data) => {
-          data.page = page;
-          setWords(data);
-          setTimeout(() => {
-            setIsFiltering(false);
-            setIsPaginating(false);
-          }, 2000);
-        });
+      searchWords(searchFilters, token, (data) => {
+        data.page = page;
+        setWords(data);
+        setTimeout(() => {
+          setIsFiltering(false);
+          setIsPaginating(false);
+        }, 2000);
+      });
     },
     [user]
   );
@@ -66,7 +54,7 @@ export default function Dictionary() {
 
   return (
     <>
-      <h5 className="mb-4">
+      <h5 className="mb-4" data-testid="title">
         <EyeglassIcon /> <span>Dictionary</span>
       </h5>
       <WordListWithFilters

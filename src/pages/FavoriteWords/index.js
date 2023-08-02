@@ -3,10 +3,10 @@ import HeartIcon from "components/icons/HeartIcon";
 import Notification from "components/Notification";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { baseUrl } from "services/base";
 import { useNavigate } from "react-router-dom";
 import Login from "pages/Login";
 import NotificationContainer from "components/NotificationContainer";
+import { searchFavoriteWords } from "api/words";
 
 export default function FavoriteWords() {
   const user = useSelector((state) => state.user);
@@ -37,29 +37,19 @@ export default function FavoriteWords() {
           searchFilters[key] = value;
         });
 
-        const queryParams = new URLSearchParams(searchFilters);
-
-        fetch(`${baseUrl}/words/favorite-words?${queryParams}`, {
-          headers: {
-            Authorization: `Token ${user.token}`
-          }
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-
-            throw Error();
-          })
-          .then((data) => {
+        searchFavoriteWords(
+          searchFilters,
+          user.token,
+          (data) => {
             data.page = page;
             setFavoriteWords(data);
             setTimeout(() => {
               setIsFiltering(false);
               setIsPaginating(false);
             }, 2000);
-          })
-          .catch(() => setShowToast(true));
+          },
+          () => setShowToast(true)
+        );
       }
     },
     [user]
@@ -87,7 +77,7 @@ export default function FavoriteWords() {
 
   return (
     <>
-      <h5 className="mb-4">
+      <h5 className="mb-4" data-testid="title">
         <HeartIcon fill /> <span>Favorite words</span>
       </h5>
       <WordListWithFilters
@@ -104,6 +94,7 @@ export default function FavoriteWords() {
           variant="danger"
           title="Error"
           message="An error occurred when processing the request. Please try again."
+          testId="error-toast"
         />
       </NotificationContainer>
     </>

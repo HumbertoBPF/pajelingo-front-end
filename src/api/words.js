@@ -18,13 +18,11 @@ export const toggleFavoriteWord = (token, wordId, isFavorite, onSuccess) => {
 };
 
 export const getWord = (token, wordId, onSuccess) => {
-  let options = {};
+  const options = {};
 
   if (token) {
-    options = {
-      headers: {
-        Authorization: `Token ${token}`
-      }
+    options.headers = {
+      Authorization: `Token ${token}`
     };
   }
 
@@ -37,4 +35,44 @@ export const getMeaning = (wordId, onSuccess) => {
   fetch(`${baseUrl}/meanings/${wordId}`)
     .then((response) => response.json())
     .then((data) => onSuccess(data));
+};
+
+export const searchWords = (searchFilters, token, onSuccess) => {
+  const queryParams = new URLSearchParams(searchFilters);
+
+  const options = {};
+
+  if (token) {
+    options.headers = {
+      Authorization: `Token ${token}`
+    };
+  }
+
+  fetch(`${baseUrl}/search?${queryParams}`, options)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data));
+};
+
+export const searchFavoriteWords = (
+  searchFilters,
+  token,
+  onSuccess,
+  onFail
+) => {
+  const queryParams = new URLSearchParams(searchFilters);
+
+  fetch(`${baseUrl}/words/favorite-words?${queryParams}`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw Error();
+    })
+    .then((data) => onSuccess(data))
+    .catch(() => onFail());
 };

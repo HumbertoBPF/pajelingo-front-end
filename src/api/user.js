@@ -93,9 +93,7 @@ export const getAccount = (username, onSuccess, onFail) => {
 
       throw Error();
     })
-    .then((data) => {
-      onSuccess(data);
-    })
+    .then((data) => onSuccess(data))
     .catch(() => onFail());
 };
 
@@ -180,8 +178,21 @@ export const updateAccount = (token, body, onSuccess, onFail) => {
 
       throw Error(response);
     })
-    .then(() => {
-      onSuccess();
+    .then(() => onSuccess())
+    .catch(() => onFail());
+};
+
+export const activateAccount = (uid, token, onSuccess, onFail) => {
+  fetch(`${baseUrl}/activate/${uid}/${token}`, {
+    method: "PUT"
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw Error(response);
     })
+    .then(() => onSuccess())
     .catch(() => onFail());
 };

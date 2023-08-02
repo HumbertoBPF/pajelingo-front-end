@@ -6,6 +6,10 @@ const {
 import { toggleFavoriteWord } from "api/words";
 import { renderWithProviders } from "test-utils/store";
 import { faker } from "@faker-js/faker/locale/en_US";
+import {
+  assertWordCardWithFavoriteOption,
+  assertWordCardWithoutFavoriteOption
+} from "test-utils/assertions/word-cards";
 
 jest.mock("api/words", () => {
   return {
@@ -28,19 +32,7 @@ it("should display a favorited word", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.getByTestId("heart-filled-icon");
-  expect(wordCardHeartFilled).toBeInTheDocument();
-
-  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon");
-  expect(wordCardHeartNonFilled).not.toBeInTheDocument();
-
-  const wordCardFlagImage = screen.getByAltText(
-    `${word.language} language flag`
-  );
-  expect(wordCardFlagImage).toBeInTheDocument();
-
-  const wordCardWordName = screen.getByText(word.word_name);
-  expect(wordCardWordName).toHaveTextContent(word.word_name);
+  assertWordCardWithFavoriteOption(word);
 });
 
 it("should display a non-favorited word", () => {
@@ -49,19 +41,7 @@ it("should display a non-favorited word", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.queryByTestId("heart-filled-icon");
-  expect(wordCardHeartFilled).not.toBeInTheDocument();
-
-  const wordCardHeartNonFilled = screen.getByTestId("heart-icon");
-  expect(wordCardHeartNonFilled).toBeInTheDocument();
-
-  const wordCardFlagImage = screen.getByAltText(
-    `${word.language} language flag`
-  );
-  expect(wordCardFlagImage).toBeInTheDocument();
-
-  const wordCardWordName = screen.getByText(word.word_name);
-  expect(wordCardWordName).toHaveTextContent(word.word_name);
+  assertWordCardWithFavoriteOption(word);
 });
 
 it("should display a word without a favorite key", () => {
@@ -70,19 +50,7 @@ it("should display a word without a favorite key", () => {
 
   renderWithProviders(<SearchResultCard word={word} flagImage={flagImage} />);
 
-  const wordCardHeartFilled = screen.queryByTestId("heart-filled-icon");
-  expect(wordCardHeartFilled).not.toBeInTheDocument();
-
-  const wordCardHeartNonFilled = screen.queryByTestId("heart-icon");
-  expect(wordCardHeartNonFilled).not.toBeInTheDocument();
-
-  const wordCardWordName = screen.getByText(word.word_name);
-  expect(wordCardWordName).toHaveTextContent(word.word_name);
-
-  const wordCardFlagImage = screen.getByAltText(
-    `${word.language} language flag`
-  );
-  expect(wordCardFlagImage).toBeInTheDocument();
+  assertWordCardWithoutFavoriteOption(word);
 });
 
 it.each([true, false])(

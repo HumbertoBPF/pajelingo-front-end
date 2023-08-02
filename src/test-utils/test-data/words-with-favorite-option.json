@@ -7,7 +7,7 @@
       "id": 126,
       "language": "German",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "Alptraum",
       "article": 13,
       "synonyms": [122, 123, 124, 125]
@@ -16,7 +16,7 @@
       "id": 4,
       "language": "French",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "ami",
       "article": 16,
       "synonyms": [1, 2, 3, 5]
@@ -25,7 +25,7 @@
       "id": 1,
       "language": "Portuguese",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "amigo",
       "article": 2,
       "synonyms": [2, 3, 4, 5]
@@ -34,7 +34,7 @@
       "id": 3,
       "language": "Spanish",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "amigo",
       "article": 9,
       "synonyms": [1, 2, 4, 5]
@@ -44,7 +44,7 @@
       "language": "English",
       "category": "nature",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "animal",
       "article": 1,
       "synonyms": [18, 20, 21, 22]
@@ -54,7 +54,7 @@
       "language": "French",
       "category": "nature",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "animal",
       "article": 16,
       "synonyms": [18, 19, 20, 22]
@@ -64,7 +64,7 @@
       "language": "Portuguese",
       "category": "nature",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "animal",
       "article": 2,
       "synonyms": [19, 20, 21, 22]
@@ -74,7 +74,7 @@
       "language": "Spanish",
       "category": "nature",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "animal",
       "article": 9,
       "synonyms": [18, 19, 21, 22]
@@ -84,7 +84,7 @@
       "language": "English",
       "category": "housing",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "bed",
       "article": 1,
       "synonyms": [47, 49, 50, 51]
@@ -94,7 +94,7 @@
       "language": "German",
       "category": "housing",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": false,
       "word_name": "Bett",
       "article": 15,
       "synonyms": [47, 48, 49, 50]
@@ -104,7 +104,7 @@
       "language": "German",
       "category": "nature",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "Blume",
       "article": 14,
       "synonyms": [82, 83, 84, 85]
@@ -113,7 +113,7 @@
       "id": 29,
       "language": "English",
       "image": null,
-      "is_favorite": null,
+      "is_favorite": true,
       "word_name": "book",
       "article": 1,
       "synonyms": [28, 30, 31, 32]
