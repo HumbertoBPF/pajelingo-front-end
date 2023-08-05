@@ -182,26 +182,11 @@ it("should call the API when a language is selected", async () => {
 
   const selectLanguage = screen.getByTestId("select-language");
 
-  await user.click(selectLanguage);
-
-  expect(getUserScores).toHaveBeenCalledTimes(2);
-  expect(getUserScores).toHaveBeenCalledWith(
-    languages[0].language_name,
-    userData.username,
-    expect.anything()
-  );
-
-  assertUserScores(scores.default);
-
   const randomLanguage = languages[faker.number.int({ min: 1, max: 4 })];
 
-  const randomLanguageItem = within(selectLanguage).getByText(
-    randomLanguage.language_name
-  );
+  await user.selectOptions(selectLanguage, randomLanguage.language_name);
 
-  await user.click(randomLanguageItem);
-
-  expect(getUserScores).toHaveBeenCalledTimes(3);
+  expect(getUserScores).toHaveBeenCalledTimes(2);
   expect(getUserScores).toHaveBeenCalledWith(
     randomLanguage.language_name,
     userData.username,

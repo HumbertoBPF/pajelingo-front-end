@@ -57,7 +57,7 @@ export default function ConjugationGameSetup() {
             <SelectLanguage
               items={languages}
               defaultItem="Choose a language"
-              onClick={(target) => setLanguage(target.value)}
+              onChange={(target) => setLanguage(target.value)}
               testId="select-language"
             />
             <div className="text-center">

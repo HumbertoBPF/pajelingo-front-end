@@ -77,13 +77,13 @@ export default function VocabularyGameSetup() {
             <SelectLanguage
               items={languages}
               defaultItem="Choose a base language"
-              onClick={(target) => setBaseLanguage(target.value)}
+              onChange={(target) => setBaseLanguage(target.value)}
               testId="select-base-language"
             />
             <SelectLanguage
               items={languages}
               defaultItem="Choose a target language"
-              onClick={(target) => setTargetLanguage(target.value)}
+              onChange={(target) => setTargetLanguage(target.value)}
               testId="select-target-language"
             />
             <div className="text-center">

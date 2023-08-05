@@ -221,7 +221,7 @@ export default function Account({ user }) {
               <SelectLanguage
                 items={languages}
                 testId="select-language"
-                onClick={(target) => {
+                onChange={(target) => {
                   getUserScores(target.value, user.username, (data) =>
                     setScores(data)
                   );

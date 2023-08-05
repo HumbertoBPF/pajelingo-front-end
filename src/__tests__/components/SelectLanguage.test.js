@@ -1,7 +1,7 @@
 const { default: SelectLanguage } = require("components/SelectLanguage");
 const { renderWithProviders } = require("test-utils/store");
 import { faker } from "@faker-js/faker/locale/en_US";
-import { screen, within } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 import { languages } from "test-utils/mocking/languages";
@@ -43,7 +43,7 @@ it("should call callback passed as props", async () => {
   renderWithProviders(
     <SelectLanguage
       items={languages}
-      onClick={callback}
+      onChange={callback}
       testId="select-language"
     />
   );
@@ -52,19 +52,9 @@ it("should call callback passed as props", async () => {
 
   assertSelectLanguageItems(selectLanguage, languages);
 
-  await user.click(selectLanguage);
-
-  expect(callback).toHaveBeenCalledTimes(1);
-  expect(callback.mock.calls[0][0].value).toBe(languages[0].language_name);
-  callback.mockClear();
-
   const randomLanguage = languages[faker.number.int({ min: 0, max: 4 })];
 
-  const randomLanguageItem = within(selectLanguage).getByText(
-    randomLanguage.language_name
-  );
-
-  await user.click(randomLanguageItem);
+  await user.selectOptions(selectLanguage, randomLanguage.language_name);
 
   expect(callback).toHaveBeenCalledTimes(1);
   expect(callback.mock.calls[0][0].value).toBe(randomLanguage.language_name);

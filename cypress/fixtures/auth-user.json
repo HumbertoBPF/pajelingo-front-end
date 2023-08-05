@@ -1,0 +1,43 @@
+{
+  "email": "humberto@test.com",
+  "username": "HumbertoBPF",
+  "bio": "Software developer, aspiring polyglot",
+  "picture": null,
+  "badges": [
+    {
+      "id": 1,
+      "name": "Explorer",
+      "description": "Discover all the games in one language",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAzUlEQVQoz5XSu5HCQBCE4XVk8XKIAgssiAN8FSGoIAVFIAdCICxBYeAogLU+DC13ku7qSjfm7L/dUz0Twn/L3MHZ2cH8d2DpKvpUdLUcIiu1qLIzNbVTiWqrvkrtad37tvZSd9RcxC4ik7vZiC6f1kJUfQEThQfyEFSiRdveY5uQowbcZSHYYt8+nDBLKo1SiSKEEMxwGkIFSqXGZAglO5k7aByTeccuDS7HQ9GqhNAbPEWwcZPLekl9R5DCfP0I89kLc9RaRi545Kn8VW8FJfUV0JX8rwAAAABJRU5ErkJggg==",
+      "color": "008000"
+    },
+    {
+      "id": 2,
+      "name": "Linguistic mastery",
+      "description": "Score more than 100 in all games in one language",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAuklEQVQoz7XRrYoCYRQG4IM/sJZJXsUmi23ClwzW6YbpgtmL8CoW9ga2GaaZDVMEi2DzHnwM/uCgCwPLnnZenrecE/FPY2BpafA76CodwVGp+45M1djI5TaoTZtgrMJO8UgKO1TG1/XDlzMWeo1izwJn34YR4dMPDmY6D9Ixc0CNdA9LsDWJiDCxBaX0jBJW9lhbY2+F9IqSvrmTk7n+LXlFEREy2VOtgfK3J8iNVEbtj9n6LS0f/Me5AHD5334+Q234AAAAAElFTkSuQmCC",
+      "color": "0000FF"
+    },
+    {
+      "id": 3,
+      "name": "Bilingual",
+      "description": "Score than 100 in all games and two languages",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAA5ElEQVQoFZXBvS5DcRwA0F9Z7iAx1AOoWSIW800MBgaTgUhZvIANyd/Hg3S0WqS2jt3sBsJmMXWQcHOPRktTruCc+DdJHr9Biipy1ToxYlaSJEmSJKdeXUma8TMbCo2oYklpPcKkaxfxE+ce1J14sRB9thyoxTh1964VjqLPlB7y+MohnkxHn6bSo1aMs6nQ9axrOkJHx7GeqRixrdCWWfHsTENpx5xSMz7YVWjLos+KRUlhTe5GJwZMuNSWxZCaOx9KjRiQyeKTHHtyuWU9KapouVWLd1ru1OI7+1ZjyLxkJv7iDU4t0X+EZymDAAAAAElFTkSuQmCC",
+      "color": "CD7F32"
+    },
+    {
+      "id": 4,
+      "name": "Trilingual",
+      "description": "Score more than 100 in all games and three languages",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAA20lEQVQoFb3BoU5CYRgA0I+ZGIUkjAmTRrQRSBQSm81A+aeFhBnegNcg+QY8A0xfgKKBchOBWdmRuyu7m8Gm58Tfcecufmclt4qfXJl4dh2h56IX4dqziavIeZHbq+u66Krby71EhJqTwkOEpdwywoPCSS1UZAr9ONPQiDN9hUwlIgztHCw0zK29+7A217BwsDOMgo5bN558uvj0qO1WJ3IqNgpb945yR2NbhY1KaCq9GZmaGnlVaoaWUoZMhkypFVpKYwMzMwNjpVaoSpIkSdrxTVuSJElSjf/1BaNxKdUYYkUqAAAAAElFTkSuQmCC",
+      "color": "C0C0C0"
+    },
+    {
+      "id": 5,
+      "name": "Polyglot",
+      "description": "Score more than 100 in all games and four languages",
+      "image": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAp0lEQVQoz5XSMQ4BYRCG4TkBW3AJFOsqiIPQ6PYSEiTKvYTWCRxhNc7gV3gUG4kI8nvrNzNfvpmIf9E1s7Q01fks9OzcPEk2eu/K0FlS4+CAWtIYvCp9jYvSyt3IyN1K6aJ5mWbrqoxwcoyIcHSKMHa1eSqF5BtJt5UmWKvU2KtU9qhV1pi00gJFhDltVAPMIxRY/CFlrcsJnlVBZplZZ8k8cOar/OIBN707PvCB7IAAAAAASUVORK5CYII=",
+      "color": "FFD700"
+    }
+  ]
+}

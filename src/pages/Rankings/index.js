@@ -63,7 +63,7 @@ export default function Rankings() {
       <div className="mb-4">
         <SelectLanguage
           items={languages}
-          onClick={(target) => setLanguage(target.value)}
+          onChange={(target) => setLanguage(target.value)}
           testId="select-language"
         />
       </div>
