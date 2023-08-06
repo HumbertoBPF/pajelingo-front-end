@@ -6,7 +6,7 @@ const { faker } = require("@faker-js/faker/locale/en_US");
 const languageIndex = faker.number.int({ min: 1, max: 4 });
 const language = languages[languageIndex].language_name;
 
-describe("vocabulary game spec", () => {
+describe("article game spec", () => {
   beforeEach(() => {
     cy.intercept("GET", "/api/languages", {
       statusCode: 200,

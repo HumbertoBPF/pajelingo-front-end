@@ -183,12 +183,13 @@ export const updateAccount = (token, body, onSuccess, onFail) => {
 };
 
 export const activateAccount = (uid, token, onSuccess, onFail) => {
+  console.log(uid, token, onSuccess, onFail);
   fetch(`${baseUrl}/activate/${uid}/${token}`, {
     method: "PUT"
   })
     .then((response) => {
       if (response.ok) {
-        return response.json();
+        return;
       }
 
       throw Error(response);

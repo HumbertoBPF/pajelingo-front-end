@@ -1,4 +1,5 @@
 import { activateAccount } from "api/user";
+import CustomSpinner from "components/CustomSpinner";
 import ShortcutButtons from "components/ShortcutButtons";
 import { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -30,25 +31,37 @@ export default function Activation() {
     );
   }, [params.uid, params.token]);
 
+  const displayFeedback = (feedback) => {
+    return (
+      <>
+        {feedback ? (
+          <Alert
+            variant="success"
+            className="text-center"
+            data-testid="success-alert">
+            Thank you for your email confirmation. Now you can sign in your
+            account.
+          </Alert>
+        ) : (
+          <Alert
+            variant="danger"
+            className="text-center"
+            data-testid="error-alert">
+            Invalid token!
+          </Alert>
+        )}
+        <ShortcutButtons />
+      </>
+    );
+  };
+
   return (
     <>
-      {feedback.result ? (
-        <Alert
-          variant="success"
-          className="text-center"
-          data-testid="success-alert">
-          Thank you for your email confirmation. Now you can sign in your
-          account.
-        </Alert>
+      {feedback.state === "succeeded" ? (
+        displayFeedback(feedback.result)
       ) : (
-        <Alert
-          variant="danger"
-          className="text-center"
-          data-testid="error-alert">
-          Invalid token!
-        </Alert>
+        <CustomSpinner />
       )}
-      <ShortcutButtons />
     </>
   );
 }

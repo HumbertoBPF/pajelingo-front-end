@@ -27,7 +27,7 @@ export default function WordList({
     <>
       <Row className="justify-content-center" xs={2} sm={2} md={3}>
         {isLoading ? (
-          <CustomSpinner animation="border" />
+          <CustomSpinner />
         ) : words.count === 0 ? (
           <div className="text-center">
             <img

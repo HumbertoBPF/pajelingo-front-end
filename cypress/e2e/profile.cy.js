@@ -44,5 +44,7 @@ describe("profile spec", () => {
     cy.visit("/profile");
 
     cy.url().should("include", "/login");
+    cy.getByTestId("signup-button").should("have.text", " Sign up");
+    cy.getByTestId("signin-button").should("have.text", " Sign in");
   });
 });

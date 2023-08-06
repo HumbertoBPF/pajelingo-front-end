@@ -53,7 +53,7 @@ export default function WordListWithFilters({
       </div>
       {isFiltering ? (
         <div className="text-center">
-          <CustomSpinner animation="border" />
+          <CustomSpinner />
         </div>
       ) : (
         <WordList
