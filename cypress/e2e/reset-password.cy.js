@@ -1,12 +1,8 @@
 import { faker } from "@faker-js/faker/locale/en_US";
-import games from "../fixtures/games.json";
 
 describe("reset password spec", () => {
   it("should request reset password and effectively reset it", () => {
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
+    cy.interceptGetGames();
 
     cy.intercept("POST", "/api/request-reset-account", {
       statusCode: 204
@@ -21,7 +17,12 @@ describe("reset password spec", () => {
     cy.visit("/dashboard");
 
     cy.getByTestId("signin-button").click();
+
+    cy.url().should("include", "/login");
+
     cy.getByTestId("link-forgot-password").click();
+
+    cy.url().should("include", "/request-reset-account");
 
     cy.getByTestId("email-input").find("input").type(email);
     cy.getByTestId("submit-button").click();

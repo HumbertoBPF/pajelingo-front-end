@@ -1,5 +1,4 @@
 import user from "../../fixtures/auth-user.json";
-import games from "../../fixtures/games.json";
 import languages from "../../fixtures/languages.json";
 const { faker } = require("@faker-js/faker/locale/en_US");
 
@@ -11,23 +10,20 @@ const targetLanguage = languages[targetLanguageIndex].language_name;
 
 describe("vocabulary game spec", () => {
   beforeEach(() => {
-    cy.intercept("GET", "/api/languages", {
-      statusCode: 200,
-      body: languages
-    });
+    cy.interceptGetLanguages();
+    cy.interceptGetGames();
 
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
-
-    cy.intercept("GET", "/api/vocabulary-game*", {
-      statusCode: 200,
-      body: {
-        id: 100,
-        word: "Mocked word"
+    cy.intercept(
+      "GET",
+      `/api/vocabulary-game?base_language=${baseLanguage}&target_language=${targetLanguage}`,
+      {
+        statusCode: 200,
+        body: {
+          id: 100,
+          word: "Mocked word"
+        }
       }
-    });
+    );
   });
 
   describe("for non-authenticated users", () => {

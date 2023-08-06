@@ -1,19 +1,13 @@
 import user from "../fixtures/auth-user.json";
-import languages from "../fixtures/languages.json";
-import games from "../fixtures/games.json";
 import scores from "../fixtures/scores.json";
 
 describe("profile spec", () => {
-  it("should see personal data when accessing profile", () => {
-    cy.intercept("GET", "/api/languages", {
-      statusCode: 200,
-      body: languages
-    });
+  beforeEach(() => {
+    cy.interceptGetGames();
+  });
 
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
+  it("should see personal data when accessing profile", () => {
+    cy.interceptGetLanguages();
 
     cy.intercept("GET", "/api/scores/*", {
       statusCode: 200,
@@ -36,11 +30,6 @@ describe("profile spec", () => {
   });
 
   it("should redirect unauthenticated users to /login", () => {
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
-
     cy.visit("/profile");
 
     cy.url().should("include", "/login");

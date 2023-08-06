@@ -17,7 +17,7 @@ export default function AccountDetails({ user }) {
         </p>
       ) : null}
       <p data-testid="bio-data">
-        <BioIcon /> <span>Bio: {user.bio}</span>
+        <BioIcon /> <span>Bio: {user.bio ? user.bio : "-"}</span>
       </p>
     </section>
   );

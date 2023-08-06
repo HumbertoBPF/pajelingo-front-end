@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker/locale/en_US";
-import games from "../fixtures/games.json";
 
 describe("create account spec", () => {
   it("should fill the signin form and activate account", () => {
@@ -7,10 +6,7 @@ describe("create account spec", () => {
     const username = faker.string.alphanumeric({ length: { min: 8, max: 64 } });
     const bio = faker.person.bio();
 
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
+    cy.interceptGetGames();
 
     cy.intercept("POST", "/api/user", {
       statusCode: 201,

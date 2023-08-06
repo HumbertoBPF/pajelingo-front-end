@@ -1,19 +1,10 @@
 import user from "../fixtures/auth-user.json";
-import languages from "../fixtures/languages.json";
-import games from "../fixtures/games.json";
 import scores from "../fixtures/scores.json";
 
 describe("delete profile spec", () => {
   it("should delete account when clicking on the delete button and confirming the action", () => {
-    cy.intercept("GET", "/api/languages", {
-      statusCode: 200,
-      body: languages
-    });
-
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
+    cy.interceptGetLanguages();
+    cy.interceptGetGames();
 
     cy.intercept("GET", "/api/scores/*", {
       statusCode: 200,
@@ -30,12 +21,12 @@ describe("delete profile spec", () => {
     cy.getByTestId("profile-item").click();
     cy.getByTestId("delete-item").click();
 
-    cy.getByTestId("confirm-delete-input").type("permanently delete");
-    cy.getByTestId("delete-button").click();
-
     cy.intercept("GET", "/api/user", {
       statusCode: 403
     });
+
+    cy.getByTestId("confirm-delete-input").type("permanently delete");
+    cy.getByTestId("delete-button").click();
 
     cy.url().should("include", "/login");
   });

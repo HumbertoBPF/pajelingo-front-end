@@ -28,17 +28,27 @@ export default function Menu() {
             <Nav className="me-auto">
               <NavDropdown
                 title="Search"
-                className={`${styles["nav-link"]} text-center`}>
-                <NavDropdown.Item href="/dictionary">
+                className={`${styles["nav-link"]} text-center`}
+                data-testid="search-dropdown">
+                <NavDropdown.Item
+                  href="/dictionary"
+                  data-testid="dictionary-item">
                   Dictionary
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/accounts">Account</NavDropdown.Item>
+                <NavDropdown.Item href="/accounts" data-testid="account-item">
+                  Account
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 title="Games"
-                className={`${styles["nav-link"]} text-center`}>
-                <NavDropdown.Item href="/games">Play</NavDropdown.Item>
-                <NavDropdown.Item href="/rankings">Rankings</NavDropdown.Item>
+                className={`${styles["nav-link"]} text-center`}
+                data-testid="games-dropdown">
+                <NavDropdown.Item href="/games" data-testid="play-item">
+                  Play
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/rankings" data-testid="rankings-item">
+                  Rankings
+                </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link
                 href="/about-us"

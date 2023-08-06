@@ -1,5 +1,4 @@
 import user from "../../fixtures/auth-user.json";
-import games from "../../fixtures/games.json";
 import languages from "../../fixtures/languages.json";
 const { faker } = require("@faker-js/faker/locale/en_US");
 
@@ -8,17 +7,10 @@ const language = languages[languageIndex].language_name;
 
 describe("article game spec", () => {
   beforeEach(() => {
-    cy.intercept("GET", "/api/languages", {
-      statusCode: 200,
-      body: languages
-    });
+    cy.interceptGetLanguages();
+    cy.interceptGetGames();
 
-    cy.intercept("GET", "/api/games", {
-      statusCode: 200,
-      body: games
-    });
-
-    cy.intercept("GET", "/api/article-game*", {
+    cy.intercept("GET", `/api/article-game?language=${language}`, {
       statusCode: 200,
       body: {
         id: 100,
