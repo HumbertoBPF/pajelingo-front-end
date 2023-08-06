@@ -54,5 +54,7 @@ describe("create account spec", () => {
       "have.text",
       "Thank you for your email confirmation. Now you can sign in your account."
     );
+    cy.getByTestId("login-button").should("have.text", " Login");
+    cy.getByTestId("dashboard-button").should("have.text", " Go to dashboard");
   });
 });
