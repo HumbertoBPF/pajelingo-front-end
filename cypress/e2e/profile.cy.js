@@ -9,7 +9,7 @@ describe("profile spec", () => {
   it("should see personal data when accessing profile", () => {
     cy.interceptGetLanguages();
 
-    cy.intercept("GET", "/api/scores/*", {
+    cy.intercept("GET", `/api/scores?language=English&user=${user.username}`, {
       statusCode: 200,
       body: scores
     });

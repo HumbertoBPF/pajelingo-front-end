@@ -48,10 +48,11 @@ export default function Account({ user }) {
   }, [dispatch]);
 
   useEffect(() => {
-    if (user) {
-      const defaultLanguage =
-        languages.length > 0 ? languages[0].language_name : null;
-      getUserScores(defaultLanguage, user.username, (data) => setScores(data));
+    const username = user ? user.username : null;
+    const defaultLanguage =
+      languages.length > 0 ? languages[0].language_name : null;
+    if (username !== null && defaultLanguage !== null) {
+      getUserScores(defaultLanguage, username, (data) => setScores(data));
     }
   }, [user, languages]);
 

@@ -19,6 +19,7 @@ const { ranking } = require("test-utils/mocking/ranking");
 const { renderWithProviders } = require("test-utils/store");
 import { faker } from "@faker-js/faker/locale/en_US";
 import { assertFirstPageOf } from "test-utils/assertions/pagination";
+import { getAuthenticatedUser } from "test-utils/mocking/users";
 
 const userScore = {
   position: faker.number.int({ min: 1, max: 50 }),
@@ -89,6 +90,8 @@ describe("should render ranking page", () => {
   });
 
   it("with user score", async () => {
+    const mockedUser = getAuthenticatedUser();
+
     getLanguages.mockImplementation(() => {
       return languages;
     });
@@ -99,7 +102,8 @@ describe("should render ranking page", () => {
 
     renderWithProviders(<Rankings />, {
       preloadedState: {
-        languages
+        languages,
+        user: mockedUser
       }
     });
 
@@ -132,7 +136,8 @@ describe("should render ranking page", () => {
       expect.anything(),
       expect.anything(),
       {
-        page: 1
+        page: 1,
+        username: mockedUser.username
       }
     );
 

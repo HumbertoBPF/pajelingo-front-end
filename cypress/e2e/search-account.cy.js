@@ -4,7 +4,6 @@ import scores from "../fixtures/scores.json";
 
 describe("search account spec", () => {
   it("should search account and select one", () => {
-    const username = faker.internet.userName();
     const randomIndex = faker.number.int({ min: 0, max: 9 });
 
     const randomAccount = accounts.results[randomIndex];
@@ -12,12 +11,16 @@ describe("search account spec", () => {
     cy.interceptGetGames();
     cy.interceptGetLanguages();
 
-    cy.intercept("GET", "/api/scores/*", {
-      statusCode: 200,
-      body: scores
-    });
+    cy.intercept(
+      "GET",
+      `/api/scores?language=English&user=${randomAccount.username}`,
+      {
+        statusCode: 200,
+        body: scores
+      }
+    );
 
-    cy.intercept("GET", `/api/accounts?q=${username}&page=1`, {
+    cy.intercept("GET", `/api/accounts?q=${randomAccount.username}&page=1`, {
       statusCode: 200,
       body: accounts
     });
@@ -34,7 +37,7 @@ describe("search account spec", () => {
 
     cy.url().should("include", "/accounts");
 
-    cy.getByTestId("search-input").find("input").type(username);
+    cy.getByTestId("search-input").find("input").type(randomAccount.username);
     cy.getByTestId("submit-button").click();
 
     cy.getByTestId(`${randomAccount.username}-card`).click();

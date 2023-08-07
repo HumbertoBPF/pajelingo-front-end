@@ -1,0 +1,58 @@
+{
+  "count": 44,
+  "next": "http://localhost:8000/api/rankings/?language=Spanish&page=2",
+  "previous": null,
+  "results": [
+    {
+      "position": 1,
+      "user": "IS0Bl4gCQmyeLNTZuq2bvH5hxR2NzNQTzOFOeLtBi4lwjfQcoEdGJyIJKt06cMk2eHAmeeUVacHlliAIAQTg8SZg5O8EhW57b0bu",
+      "score": 2511
+    },
+    {
+      "position": 2,
+      "user": "NgyYPrjJSZR3znRGYTL7z6VFC7DfoFWI5qUVsOBHD8EKjmPWZs7XGPG2RyrCFsqbvM3UYLeoB0BFksVORigoTw5KSRDF1R5xuYNW",
+      "score": 2447
+    },
+    {
+      "position": 3,
+      "user": "qdXIsYhbRNhU7mj9vmjHqwulAJWC3FgYldBSS0gIYMurZm9RaAawyI9u0gUIkJ1s2MWdML7fpOxFod1dPWkUjTk37Dp9ZGaEQjA0",
+      "score": 2358
+    },
+    {
+      "position": 4,
+      "user": "5AXuWjPJ7b6V9Q3oImtWAEiDCJ3t2bKaNAcRTt1N1gA4pPpKK9qJNf4GCWsmbvgU0324n4actrLj2Hd7te5y8kVoTdBJ2h1ERvMz",
+      "score": 2260
+    },
+    {
+      "position": 5,
+      "user": "IcsT4i7WnVftWMqcLexaF7clwIPWKsoL82ay3X8wj4zdpzPfAQMKGDp9ChIbvW40gjhjFBNg6rKnFPbLhA3sLBKtFVYPQkKu31Zp",
+      "score": 2203
+    },
+    {
+      "position": 6,
+      "user": "4m7ug4HQdCGL7PjUT8mRFQVK9vyouHmIHkodniEPU1gS2kAx0frmZPtLPie9aW437uyf15oV6w9hbmLhCFpvLOFAfoKPxlwtFwZb",
+      "score": 1951
+    },
+    {
+      "position": 7,
+      "user": "XmanBPuQaFtu1hUVZ5ok7unuq3hUBCNxF4XtyXe7jD6GiEHQZfUULSdsVYIwKDWnF2ZJCTTmDdNpqYnbjmxNZfKzmaSiaVhQrwLk",
+      "score": 1895
+    },
+    {
+      "position": 8,
+      "user": "7C1Mw195xVO5hCtKtfezJNhJtuA6XUBgnpvRiispBGW0yBuGnackUY9AstdIkl0GUmgExFB4sYjP1sSn6qmGwJspV3JUash2PUWP",
+      "score": 1875
+    },
+    {
+      "position": 9,
+      "user": "Yw2hS3l0LPj0WT8iQyvEFzAsNw5iQ1egIfENTAr4tmcvpfwlbrQmAJVkZggsilpfKGx7M0Fr36g1OP6URmTydl8bepKBFQ635ZAx",
+      "score": 1835
+    },
+    {
+      "position": 10,
+      "user": "Ohk4F4wU4sltVPjCfef7GYkHXKm2Wy1a1VqWg3y5xWTY4qsDMQEYd1gFb9gjHJXhtXC62IWGH3CCBCI3iRRhvTDyYm4LRx3r0xJX",
+      "score": 1806
+    }
+  ],
+  "user_score": null
+}

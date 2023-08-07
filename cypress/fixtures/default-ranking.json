@@ -1,0 +1,58 @@
+{
+  "count": 50,
+  "next": "http://localhost:8000/api/rankings/?language=English&page=2",
+  "previous": null,
+  "results": [
+    {
+      "position": 1,
+      "user": "z8KDMPkRYnNzYLvPvMnAb1avQPoyuCxrl2ffstz8wWzw5WUR7MNwG3tSVUtM68Upm4bo0VvVmwv7aHyTQBPujIR1vHUW8o9XmWH6",
+      "score": 2931
+    },
+    {
+      "position": 2,
+      "user": "OgR45F38QSGQ0JTX182y9tdgiInb8VEAbglI7uYqW2c7V6BRO7ffEZowrDjSbkvQwdtHxtwwnLQdmv3ZjyHyYiy2RJd0VXE0xwcD",
+      "score": 2491
+    },
+    {
+      "position": 3,
+      "user": "vUVTQfA0FoQ6o41uyfnOlKYlEcfZe3L73uNgqSenT9WQtf6duUQBPizbfNu6IX2wprK3Y0tiYTS02XZooO3gtHn8XuR8Gob1p4N4",
+      "score": 2079
+    },
+    {
+      "position": 4,
+      "user": "YQosg7ZFTHH1mBPiq1VeZh6RsU0fwoOjTLLE3GVpMvMY6RW3KPzS5tb4pVFRRb3jpANzzcRW4wKwKXKSRCRJnqwc6JfrXDj1bftI",
+      "score": 2063
+    },
+    {
+      "position": 5,
+      "user": "0FfgXHyCGQURLYi8L6nkgDMweV2cLnIuvXxnNWeONuKUAxuRYzdaE1Wutn3CHwJYRJuq8OP88OzEdKCli01FyyDa9TxqRhCH41E1",
+      "score": 2004
+    },
+    {
+      "position": 6,
+      "user": "7C1Mw195xVO5hCtKtfezJNhJtuA6XUBgnpvRiispBGW0yBuGnackUY9AstdIkl0GUmgExFB4sYjP1sSn6qmGwJspV3JUash2PUWP",
+      "score": 1880
+    },
+    {
+      "position": 7,
+      "user": "SY5kCiEQTEQgHVJsDsBLXRcMRUIxGaA1OOoQNeIgVgdX9u8mUc6HmpcACuhQJ9AACkF7L5xe18vgHzAxf8PIMn7gIALY6Fd2QTxS",
+      "score": 1867
+    },
+    {
+      "position": 8,
+      "user": "sFszrmuYinkw1LmoGzEmg0DvoN5bBai26OKsSjujTzxhBhJOVn4BZIGvfxegdLSWtLnnsasxlaOF3g5ZnVvAqc8VRjqI4NCdG0V0",
+      "score": 1848
+    },
+    {
+      "position": 9,
+      "user": "2engB3m3DPKOD0PHEybsapLyjBungsD1WWRRcLApbqhmLF9wLpPLWiethxp0SVRnJU6FH3wqK6sx6tpnLn8uA3R7Wfzcxmn7pw5k",
+      "score": 1848
+    },
+    {
+      "position": 10,
+      "user": "NgyYPrjJSZR3znRGYTL7z6VFC7DfoFWI5qUVsOBHD8EKjmPWZs7XGPG2RyrCFsqbvM3UYLeoB0BFksVORigoTw5KSRDF1R5xuYNW",
+      "score": 1842
+    }
+  ],
+  "user_score": null
+}

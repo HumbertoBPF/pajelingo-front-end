@@ -64,3 +64,14 @@ Cypress.Commands.add("interceptGetLanguages", () => {
     body: languages
   });
 });
+
+Cypress.Commands.add("assertRankingRecordsAreDisplayed", (rankingRecords) => {
+  rankingRecords.forEach((record, index) => {
+    cy.getByTestId(`${index + 1}th-ranking-record`)
+      .find("td")
+      .as("cols");
+    cy.get("@cols").eq(0).should("have.text", `${record.position}`);
+    cy.get("@cols").eq(1).should("have.text", `${record.user}`);
+    cy.get("@cols").eq(2).should("have.text", `${record.score}`);
+  });
+});
