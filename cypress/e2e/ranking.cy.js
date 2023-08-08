@@ -73,8 +73,6 @@ describe("ranking spec", () => {
 
       cy.login(user.username, "str0ng-P4ssw0rd");
 
-      cy.visit("/dashboard");
-
       cy.getByTestId("games-dropdown").click();
       cy.getByTestId("rankings-item").click();
 

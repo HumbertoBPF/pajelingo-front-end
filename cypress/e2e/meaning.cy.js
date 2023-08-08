@@ -92,8 +92,6 @@ describe("meaning spec", () => {
 
       cy.login(user.username, "str0ng-P@ssw0rd");
 
-      cy.visit("/dashboard");
-
       cy.getByTestId("search-dropdown").click();
       cy.getByTestId("dictionary-item").click();
 
