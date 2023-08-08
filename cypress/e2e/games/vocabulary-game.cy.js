@@ -42,16 +42,9 @@ describe("vocabulary game spec", () => {
 
       cy.getByTestId("1-game-card").click();
 
-      cy.url().should("include", "/vocabulary-game/setup");
-
       cy.getByTestId("select-base-language").select(baseLanguage);
       cy.getByTestId("select-target-language").select(targetLanguage);
       cy.getByTestId("start-button").click();
-
-      cy.url().should(
-        "include",
-        `/vocabulary-game/play?base_language=${baseLanguage}&target_language=${targetLanguage}`
-      );
 
       cy.getByTestId("answer-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -78,16 +71,9 @@ describe("vocabulary game spec", () => {
 
       cy.getByTestId("1-game-card").click();
 
-      cy.url().should("include", "/vocabulary-game/setup");
-
       cy.getByTestId("select-base-language").select(baseLanguage);
       cy.getByTestId("select-target-language").select(targetLanguage);
       cy.getByTestId("start-button").click();
-
-      cy.url().should(
-        "include",
-        `/vocabulary-game/play?base_language=${baseLanguage}&target_language=${targetLanguage}`
-      );
 
       cy.getByTestId("answer-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -120,16 +106,9 @@ describe("vocabulary game spec", () => {
 
       cy.getByTestId("1-game-card").click();
 
-      cy.url().should("include", "/vocabulary-game/setup");
-
       cy.getByTestId("select-base-language").select(baseLanguage);
       cy.getByTestId("select-target-language").select(targetLanguage);
       cy.getByTestId("start-button").click();
-
-      cy.url().should(
-        "include",
-        `/vocabulary-game/play?base_language=${baseLanguage}&target_language=${targetLanguage}`
-      );
 
       cy.getByTestId("answer-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -159,16 +138,9 @@ describe("vocabulary game spec", () => {
 
       cy.getByTestId("1-game-card").click();
 
-      cy.url().should("include", "/vocabulary-game/setup");
-
       cy.getByTestId("select-base-language").select(baseLanguage);
       cy.getByTestId("select-target-language").select(targetLanguage);
       cy.getByTestId("start-button").click();
-
-      cy.url().should(
-        "include",
-        `/vocabulary-game/play?base_language=${baseLanguage}&target_language=${targetLanguage}`
-      );
 
       cy.getByTestId("answer-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();

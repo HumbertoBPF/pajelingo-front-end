@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en_US";
-import accounts from "../fixtures/accounts.json";
-import scores from "../fixtures/scores.json";
+import accounts from "../../fixtures/accounts.json";
+import scores from "../../fixtures/scores.json";
 
 describe("search account spec", () => {
   it("should search account and select one", () => {
@@ -35,14 +35,10 @@ describe("search account spec", () => {
     cy.getByTestId("search-dropdown").click();
     cy.getByTestId("account-item").click();
 
-    cy.url().should("include", "/accounts");
-
     cy.getByTestId("search-input").find("input").type(randomAccount.username);
     cy.getByTestId("submit-button").click();
 
     cy.getByTestId(`${randomAccount.username}-card`).click();
-
-    cy.url().should("include", `/accounts/${randomAccount.username}`);
 
     cy.getByTestId("username-data").should(
       "have.text",

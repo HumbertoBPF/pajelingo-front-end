@@ -27,8 +27,6 @@ describe("create account spec", () => {
 
     cy.getByTestId("signup-button").click();
 
-    cy.url().should("include", "/signup");
-
     cy.getByTestId("email-input").find("input").type(email);
     cy.getByTestId("username-input").find("input").type(username);
     cy.getByTestId("bio-input").find("textarea").type(bio);

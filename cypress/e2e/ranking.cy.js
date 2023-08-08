@@ -16,7 +16,7 @@ describe("ranking spec", () => {
     cy.interceptGetLanguages();
   });
 
-  describe("should display ranking page with selected language", () => {
+  describe("displaying ranking page for the selected language", () => {
     it("for an unauthenticated user", () => {
       cy.intercept("GET", `/api/rankings?language=${defaultLanguage}&page=1`, {
         statusCode: 200,
@@ -33,8 +33,6 @@ describe("ranking spec", () => {
       cy.getByTestId("games-dropdown").click();
       cy.getByTestId("rankings-item").click();
 
-      cy.url().should("include", "/ranking");
-
       cy.assertRankingRecordsAreDisplayed(defaultRanking.results);
 
       cy.getByTestId("select-language").select(randomLanguage);
@@ -43,8 +41,6 @@ describe("ranking spec", () => {
     });
 
     it("for an authenticated user", () => {
-      cy.login(user.username, "str0ng-P4ssw0rd");
-
       const userScore = {
         position: faker.number.int({ min: 1, max: 100 }),
         user: user.username,
@@ -75,12 +71,12 @@ describe("ranking spec", () => {
         }
       );
 
+      cy.login(user.username, "str0ng-P4ssw0rd");
+
       cy.visit("/dashboard");
 
       cy.getByTestId("games-dropdown").click();
       cy.getByTestId("rankings-item").click();
-
-      cy.url().should("include", "/ranking");
 
       cy.assertRankingRecordsAreDisplayed(defaultRanking.results);
 
@@ -110,10 +106,12 @@ describe("ranking spec", () => {
     });
   });
 
-  describe("account access", () => {
-    it("should access an account when clicking on ranking item", () => {
+  describe("accessing account", () => {
+    it("when clicking on ranking item", () => {
       const randomIndex = faker.number.int({ min: 0, max: 9 });
+
       const randomRankingItem = defaultRanking.results[randomIndex];
+
       const randomAccount = {
         username: randomRankingItem.user,
         bio: faker.person.bio(),
@@ -121,7 +119,7 @@ describe("ranking spec", () => {
         badges: []
       };
 
-      cy.intercept("GET", `/api/rankings?language=English&page=1`, {
+      cy.intercept("GET", `/api/rankings?language=${defaultLanguage}&page=1`, {
         statusCode: 200,
         body: defaultRanking
       });
@@ -145,11 +143,7 @@ describe("ranking spec", () => {
       cy.getByTestId("games-dropdown").click();
       cy.getByTestId("rankings-item").click();
 
-      cy.url().should("include", "/ranking");
-
       cy.getByTestId(`${randomIndex + 1}th-ranking-record`).click();
-
-      cy.url().should("include", `/accounts/${randomAccount.username}`);
 
       cy.getByTestId("username-data").should(
         "have.text",

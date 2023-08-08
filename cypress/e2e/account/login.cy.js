@@ -1,4 +1,4 @@
-import user from "../fixtures/auth-user.json";
+import user from "../../fixtures/auth-user.json";
 
 describe("login spec", () => {
   it("should redirect user to the dashboard after a successful login", () => {

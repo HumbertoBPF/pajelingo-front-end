@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 
 export default function MeaningCard({ index = null, meaning }) {
   return (
-    <Card className={`mb-4 ${styles["meaning-card"]}`}>
+    <Card
+      className={`mb-4 ${styles["meaning-card"]}`}
+      data-testid={`${meaning.id}-meaning-card`}>
       <Card.Body>
         <Card.Text>
-          Meaning{index === null ? "" : ` number ${index}`}: {meaning}
+          Meaning{index === null ? "" : ` number ${index}`}: {meaning.meaning}
         </Card.Text>
       </Card.Body>
     </Card>
@@ -16,5 +18,9 @@ export default function MeaningCard({ index = null, meaning }) {
 
 MeaningCard.propTypes = {
   index: PropTypes.number,
-  meaning: PropTypes.string
+  meaning: PropTypes.shape({
+    id: PropTypes.number,
+    meaning: PropTypes.string,
+    word: PropTypes.number
+  }).isRequired
 };

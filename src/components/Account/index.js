@@ -51,7 +51,7 @@ export default function Account({ user }) {
     const username = user ? user.username : null;
     const defaultLanguage =
       languages.length > 0 ? languages[0].language_name : null;
-    if (username !== null && defaultLanguage !== null) {
+    if (username && defaultLanguage) {
       getUserScores(defaultLanguage, username, (data) => setScores(data));
     }
   }, [user, languages]);

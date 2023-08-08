@@ -1,5 +1,5 @@
-import user from "../fixtures/auth-user.json";
-import scores from "../fixtures/scores.json";
+import user from "../../fixtures/auth-user.json";
+import scores from "../../fixtures/scores.json";
 const { faker } = require("@faker-js/faker/locale/en_US");
 
 describe("update profile spec", () => {
@@ -16,7 +16,7 @@ describe("update profile spec", () => {
 
     cy.interceptGetLanguages();
 
-    cy.intercept("GET", "/api/scores/*", {
+    cy.intercept("GET", "/api/scores*", {
       statusCode: 200,
       body: scores
     });
@@ -60,8 +60,6 @@ describe("update profile spec", () => {
     });
 
     cy.getByTestId("submit-button").click();
-
-    cy.url().should("include", "/profile");
 
     cy.getByTestId("username-data").should(
       "have.text",

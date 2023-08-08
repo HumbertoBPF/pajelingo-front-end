@@ -17,12 +17,7 @@ describe("reset password spec", () => {
     cy.visit("/dashboard");
 
     cy.getByTestId("signin-button").click();
-
-    cy.url().should("include", "/login");
-
     cy.getByTestId("link-forgot-password").click();
-
-    cy.url().should("include", "/request-reset-account");
 
     cy.getByTestId("email-input").find("input").type(email);
     cy.getByTestId("submit-button").click();

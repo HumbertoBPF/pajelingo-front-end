@@ -31,6 +31,14 @@ Cypress.Commands.add("getByTestId", (testId) => {
   cy.get(`[data-testid="${testId}"]`);
 });
 
+Cypress.Commands.add(
+  "findByTestId",
+  { prevSubject: true },
+  (subject, testId) => {
+    return subject.find(`[data-testid="${testId}"]`);
+  }
+);
+
 Cypress.Commands.add("login", (username, password) => {
   cy.intercept("POST", "/api/user-token", {
     statusCode: 200,
@@ -73,5 +81,30 @@ Cypress.Commands.add("assertRankingRecordsAreDisplayed", (rankingRecords) => {
     cy.get("@cols").eq(0).should("have.text", `${record.position}`);
     cy.get("@cols").eq(1).should("have.text", `${record.user}`);
     cy.get("@cols").eq(2).should("have.text", `${record.score}`);
+  });
+});
+
+Cypress.Commands.add("assertWordCardsAreDisplayed", (words) => {
+  words.forEach((word) => {
+    cy.getByTestId(`${word.id}-word-card`).as("wordCard");
+
+    cy.get("@wordCard")
+      .contains(word.word_name)
+      .should("have.text", word.word_name);
+
+    if (word.is_favorite === null) {
+      cy.get("@wordCard").findByTestId("heart-filled-icon").should("not.exist");
+      cy.get("@wordCard").findByTestId("heart-icon").should("not.exist");
+    } else {
+      if (word.is_favorite) {
+        cy.get("@wordCard").findByTestId("heart-filled-icon").should("exist");
+        cy.get("@wordCard").findByTestId("heart-icon").should("not.exist");
+      } else {
+        cy.get("@wordCard")
+          .findByTestId("heart-filled-icon")
+          .should("not.exist");
+        cy.get("@wordCard").findByTestId("heart-icon").should("exist");
+      }
+    }
   });
 });

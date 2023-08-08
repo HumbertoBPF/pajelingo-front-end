@@ -65,14 +65,10 @@ export default function Meanings() {
 
       {meanings.length > 1
         ? meanings.map((meaning, index) => (
-            <MeaningCard
-              key={meaning.id}
-              index={index + 1}
-              meaning={meaning.meaning}
-            />
+            <MeaningCard key={meaning.id} index={index + 1} meaning={meaning} />
           ))
         : meanings.map((meaning) => (
-            <MeaningCard key={meaning.id} meaning={meaning.meaning} />
+            <MeaningCard key={meaning.id} meaning={meaning} />
           ))}
 
       {user ? (

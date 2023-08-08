@@ -7,7 +7,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { toggleFavoriteWord } from "api/words";
 
-export default function SearchResultCard({ word, flagImage }) {
+export default function WordCard({ word, flagImage }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [result, setResult] = useState(word);
@@ -55,7 +55,7 @@ export default function SearchResultCard({ word, flagImage }) {
   );
 }
 
-SearchResultCard.propTypes = {
+WordCard.propTypes = {
   word: PropTypes.shape({
     id: PropTypes.number.isRequired,
     word_name: PropTypes.string.isRequired,

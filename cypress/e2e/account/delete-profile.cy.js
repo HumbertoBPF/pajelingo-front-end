@@ -1,12 +1,12 @@
-import user from "../fixtures/auth-user.json";
-import scores from "../fixtures/scores.json";
+import user from "../../fixtures/auth-user.json";
+import scores from "../../fixtures/scores.json";
 
 describe("delete profile spec", () => {
   it("should delete account when clicking on the delete button and confirming the action", () => {
     cy.interceptGetLanguages();
     cy.interceptGetGames();
 
-    cy.intercept("GET", "/api/scores/*", {
+    cy.intercept("GET", "/api/scores*", {
       statusCode: 200,
       body: scores
     });

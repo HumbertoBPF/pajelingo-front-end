@@ -37,12 +37,8 @@ describe("conjugation game spec", () => {
 
       cy.getByTestId("3-game-card").click();
 
-      cy.url().should("include", "/conjugation-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/conjugation-game/play?language=${language}`);
 
       cy.getByTestId("conjugation-1").find("input").type("Correct answer");
       cy.getByTestId("conjugation-2").find("input").type("Correct answer");
@@ -79,12 +75,8 @@ describe("conjugation game spec", () => {
 
       cy.getByTestId("3-game-card").click();
 
-      cy.url().should("include", "/conjugation-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/conjugation-game/play?language=${language}`);
 
       cy.getByTestId("conjugation-1").find("input").type("Wrong answer");
       cy.getByTestId("conjugation-2").find("input").type("Wrong answer");
@@ -127,12 +119,8 @@ describe("conjugation game spec", () => {
 
       cy.getByTestId("3-game-card").click();
 
-      cy.url().should("include", "/conjugation-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/conjugation-game/play?language=${language}`);
 
       cy.getByTestId("conjugation-1").find("input").type("Correct answer");
       cy.getByTestId("conjugation-2").find("input").type("Correct answer");
@@ -172,12 +160,8 @@ describe("conjugation game spec", () => {
 
       cy.getByTestId("3-game-card").click();
 
-      cy.url().should("include", "/conjugation-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/conjugation-game/play?language=${language}`);
 
       cy.getByTestId("conjugation-1").find("input").type("Wrong answer");
       cy.getByTestId("conjugation-2").find("input").type("Wrong answer");

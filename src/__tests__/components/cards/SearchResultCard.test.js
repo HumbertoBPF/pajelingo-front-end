@@ -1,8 +1,6 @@
 const { screen } = require("@testing-library/react");
 import userEvent from "@testing-library/user-event";
-const {
-  default: SearchResultCard
-} = require("components/cards/SearchResultCard");
+const { default: SearchResultCard } = require("components/cards/WordCard");
 import { toggleFavoriteWord } from "api/words";
 import { renderWithProviders } from "test-utils/store";
 import { faker } from "@faker-js/faker/locale/en_US";

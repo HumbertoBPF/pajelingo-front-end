@@ -1,6 +1,6 @@
 import CustomSpinner from "components/CustomSpinner";
 import PaginationBar from "components/PaginationBar";
-import SearchResultCard from "components/cards/SearchResultCard";
+import WordCard from "components/cards/WordCard";
 import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -41,7 +41,7 @@ export default function WordList({
         ) : (
           <>
             {words.results.map((word) => (
-              <SearchResultCard
+              <WordCard
                 key={word.id}
                 word={word}
                 flagImage={languagesFlag.get(word.language)}

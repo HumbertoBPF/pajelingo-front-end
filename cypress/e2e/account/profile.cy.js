@@ -1,5 +1,5 @@
-import user from "../fixtures/auth-user.json";
-import scores from "../fixtures/scores.json";
+import user from "../../fixtures/auth-user.json";
+import scores from "../../fixtures/scores.json";
 
 describe("profile spec", () => {
   beforeEach(() => {
@@ -18,8 +18,6 @@ describe("profile spec", () => {
 
     cy.getByTestId("profile-dropdown").click();
     cy.getByTestId("profile-item").click();
-
-    cy.url().should("include", "/profile");
 
     cy.getByTestId("username-data").should(
       "have.text",

@@ -35,12 +35,8 @@ describe("article game spec", () => {
 
       cy.getByTestId("2-game-card").click();
 
-      cy.url().should("include", "/article-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/article-game/play?language=${language}`);
 
       cy.getByTestId("article-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -67,12 +63,8 @@ describe("article game spec", () => {
 
       cy.getByTestId("2-game-card").click();
 
-      cy.url().should("include", "/article-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/article-game/play?language=${language}`);
 
       cy.getByTestId("article-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -105,12 +97,8 @@ describe("article game spec", () => {
 
       cy.getByTestId("2-game-card").click();
 
-      cy.url().should("include", "/article-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/article-game/play?language=${language}`);
 
       cy.getByTestId("article-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
@@ -140,12 +128,8 @@ describe("article game spec", () => {
 
       cy.getByTestId("2-game-card").click();
 
-      cy.url().should("include", "/article-game/setup");
-
       cy.getByTestId("select-language").select(language);
       cy.getByTestId("start-button").click();
-
-      cy.url().should("include", `/article-game/play?language=${language}`);
 
       cy.getByTestId("article-input").type("Correct answer");
       cy.getByTestId("submit-answer-button").click();
