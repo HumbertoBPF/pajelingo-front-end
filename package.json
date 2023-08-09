@@ -27,7 +27,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules/(?!react-markdown)/]"
+      "node_modules/(?!react-markdown)/"
     ]
   },
   "browserslist": {
