@@ -1,3 +1,3 @@
-import rankingPage from "../test-data/ranking.json";
+import rankingPage from "../../../cypress/fixtures/default-ranking.json";
 
 export const ranking = rankingPage;

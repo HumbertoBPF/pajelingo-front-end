@@ -1,3 +1,5 @@
-import scoresList from "../test-data/scores.json";
+import defaultScoresList from "../../../cypress/fixtures/default-scores.json";
+import otherScoresList from "../../../cypress/fixtures/other-scores.json";
 
-export const scores = scoresList;
+export const defaultScores = defaultScoresList;
+export const otherScores = otherScoresList;

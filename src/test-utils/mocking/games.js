@@ -1,9 +1,9 @@
-import mockedGames from "../test-data/games.json";
+import games from "../../../cypress/fixtures/games.json";
 
 export const getInitialGamesState = () => {
   return {
-    1: mockedGames[0],
-    2: mockedGames[1],
-    3: mockedGames[2]
+    1: games[0],
+    2: games[1],
+    3: games[2]
   };
 };

@@ -1,3 +1,3 @@
-import badgesList from "../test-data/badges.json";
+import badgesList from "../../../cypress/fixtures/badges.json";
 
 export const badges = badgesList;

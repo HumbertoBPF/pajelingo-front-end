@@ -24,9 +24,9 @@ import {
   getUnauthenticatedUser
 } from "test-utils/mocking/users";
 import { languages } from "test-utils/mocking/languages";
-import { scores } from "test-utils/mocking/scores";
 import { getLanguages } from "api/languages";
 import { faker } from "@faker-js/faker/locale/en_US";
+import { defaultScores, otherScores } from "test-utils/mocking/scores";
 
 jest.mock("api/scores", () => {
   return {
@@ -154,11 +154,11 @@ describe("should display account information", () => {
 it("should call the API when a language is selected", async () => {
   getUserScores.mockImplementation((language, username, onSuccess) => {
     if (language === languages[0].language_name) {
-      onSuccess(scores.default);
+      onSuccess(defaultScores);
       return;
     }
 
-    onSuccess(scores.others);
+    onSuccess(otherScores);
   });
 
   const user = userEvent.setup();
@@ -178,7 +178,7 @@ it("should call the API when a language is selected", async () => {
     expect.anything()
   );
 
-  assertUserScores(scores.default);
+  assertUserScores(defaultScores);
 
   const selectLanguage = screen.getByTestId("select-language");
 
@@ -193,7 +193,7 @@ it("should call the API when a language is selected", async () => {
     expect.anything()
   );
 
-  assertUserScores(scores.others);
+  assertUserScores(otherScores);
 });
 
 describe("should display update picture modal", () => {
