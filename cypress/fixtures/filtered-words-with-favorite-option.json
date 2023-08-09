@@ -1,0 +1,123 @@
+{
+  "count": 60,
+  "next": "http://localhost:8000/api/search?French=true&German=true&Portuguese=true&Spanish=true&page=2&search=a",
+  "previous": null,
+  "results": [
+    {
+      "id": 126,
+      "language": "German",
+      "image": null,
+      "is_favorite": true,
+      "word_name": "Alptraum",
+      "article": 13,
+      "synonyms": [122, 123, 124, 125]
+    },
+    {
+      "id": 4,
+      "language": "French",
+      "image": null,
+      "is_favorite": true,
+      "word_name": "ami",
+      "article": 16,
+      "synonyms": [1, 2, 3, 5]
+    },
+    {
+      "id": 1,
+      "language": "Portuguese",
+      "image": null,
+      "is_favorite": false,
+      "word_name": "amigo",
+      "article": 2,
+      "synonyms": [2, 3, 4, 5]
+    },
+    {
+      "id": 3,
+      "language": "Spanish",
+      "image": null,
+      "is_favorite": false,
+      "word_name": "amigo",
+      "article": 9,
+      "synonyms": [1, 2, 4, 5]
+    },
+    {
+      "id": 21,
+      "language": "French",
+      "category": "nature",
+      "image": null,
+      "is_favorite": false,
+      "word_name": "animal",
+      "article": 16,
+      "synonyms": [18, 19, 20, 22]
+    },
+    {
+      "id": 18,
+      "language": "Portuguese",
+      "category": "nature",
+      "image": null,
+      "is_favorite": false,
+      "word_name": "animal",
+      "article": 2,
+      "synonyms": [19, 20, 21, 22]
+    },
+    {
+      "id": 20,
+      "language": "Spanish",
+      "category": "nature",
+      "image": null,
+      "is_favorite": true,
+      "word_name": "animal",
+      "article": 9,
+      "synonyms": [18, 19, 21, 22]
+    },
+    {
+      "id": 33,
+      "language": "Portuguese",
+      "category": "nature",
+      "image": "/media/images/models/Word/33/dog.jpg",
+      "is_favorite": false,
+      "word_name": "cachorro",
+      "article": 2,
+      "synonyms": [34, 35, 36, 37]
+    },
+    {
+      "id": 62,
+      "language": "Portuguese",
+      "category": "housing",
+      "image": "/media/images/models/Word/62/chair.jpg",
+      "is_favorite": false,
+      "word_name": "cadeira",
+      "article": 3,
+      "synonyms": [63, 64, 65, 66]
+    },
+    {
+      "id": 26,
+      "language": "French",
+      "category": "food",
+      "image": null,
+      "is_favorite": true,
+      "word_name": "café",
+      "article": 6,
+      "synonyms": [23, 24, 25, 27]
+    },
+    {
+      "id": 23,
+      "language": "Portuguese",
+      "category": "food",
+      "image": null,
+      "is_favorite": false,
+      "word_name": "café",
+      "article": 2,
+      "synonyms": [24, 25, 26, 27]
+    },
+    {
+      "id": 25,
+      "language": "Spanish",
+      "category": "food",
+      "image": null,
+      "is_favorite": true,
+      "word_name": "café",
+      "article": 9,
+      "synonyms": [23, 24, 26, 27]
+    }
+  ]
+}
