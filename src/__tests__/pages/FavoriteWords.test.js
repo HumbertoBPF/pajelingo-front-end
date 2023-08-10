@@ -10,9 +10,9 @@ const { assertFirstPageOf } = require("test-utils/assertions/pagination");
 const {
   assertWordCardWithFavoriteOption
 } = require("test-utils/assertions/word-cards");
-const { languages } = require("test-utils/mocking/languages");
+import languages from "../../../cypress/fixtures/languages.json";
+import favoriteWords from "../../../cypress/fixtures/words-with-favorite-option.json";
 const { getAuthenticatedUser } = require("test-utils/mocking/users");
-const { favoriteWords } = require("test-utils/mocking/words");
 const { renderWithProviders } = require("test-utils/store");
 
 jest.mock("api/languages", () => {

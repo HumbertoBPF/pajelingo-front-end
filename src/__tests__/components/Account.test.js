@@ -23,10 +23,11 @@ import {
   getAuthenticatedUser,
   getUnauthenticatedUser
 } from "test-utils/mocking/users";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../cypress/fixtures/languages.json";
 import { getLanguages } from "api/languages";
 import { faker } from "@faker-js/faker/locale/en_US";
-import { defaultScores, otherScores } from "test-utils/mocking/scores";
+import defaultScores from "../../../cypress/fixtures/default-scores.json";
+import otherScores from "../../../cypress/fixtures/filtered-scores.json";
 
 jest.mock("api/scores", () => {
   return {

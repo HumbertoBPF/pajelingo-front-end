@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker/locale/en_US";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../cypress/fixtures/languages.json";
 
 it("should display languages passed as props", () => {
   renderWithProviders(

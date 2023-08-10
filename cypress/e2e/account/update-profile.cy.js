@@ -1,5 +1,5 @@
 import user from "../../fixtures/auth-user.json";
-import scores from "../../fixtures/scores.json";
+import scores from "../../fixtures/default-scores.json";
 const { faker } = require("@faker-js/faker/locale/en_US");
 
 describe("update profile spec", () => {

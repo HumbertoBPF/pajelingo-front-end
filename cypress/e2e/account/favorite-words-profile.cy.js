@@ -1,5 +1,5 @@
 import user from "../../fixtures/auth-user.json";
-import scores from "../../fixtures/scores.json";
+import scores from "../../fixtures/filtered-scores.json";
 import favoriteWords from "../../fixtures/favorite-words.json";
 import filteredFavoriteWords from "../../fixtures/filtered-favorite-words.json";
 import languages from "../../fixtures/languages.json";

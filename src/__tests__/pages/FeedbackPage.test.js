@@ -2,7 +2,7 @@ const { screen, within } = require("@testing-library/react");
 const { default: FeedbackPage } = require("pages/FeedbackPage");
 import { faker } from "@faker-js/faker/locale/en_US";
 import userEvent from "@testing-library/user-event";
-import { badges } from "test-utils/mocking/badges";
+import badges from "../../../cypress/fixtures/badges.json";
 import { renderWithProviders } from "test-utils/store";
 
 const getFeedback = (result, correctAnswer, newBadges = []) => {

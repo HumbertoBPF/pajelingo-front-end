@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en_US";
-import { badges } from "./badges";
+import badges from "../../../cypress/fixtures/badges.json";
 
 export const getUnauthenticatedUser = (picture = null) => {
   return {

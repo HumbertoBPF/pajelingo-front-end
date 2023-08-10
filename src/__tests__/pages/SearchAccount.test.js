@@ -8,7 +8,7 @@ const { default: userEvent } = require("@testing-library/user-event");
 const { searchAccount } = require("api/user");
 const { default: SearchAccount } = require("pages/SearchAccount");
 const { assertFirstPageOf } = require("test-utils/assertions/pagination");
-const { accounts } = require("test-utils/mocking/accounts");
+import accounts from "../../../cypress/fixtures/accounts.json";
 const { renderWithProviders } = require("test-utils/store");
 
 jest.mock("api/user", () => {

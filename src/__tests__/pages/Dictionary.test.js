@@ -11,9 +11,10 @@ const {
   assertWordCardWithoutFavoriteOption,
   assertWordCardWithFavoriteOption
 } = require("test-utils/assertions/word-cards");
-const { languages } = require("test-utils/mocking/languages");
+import languages from "../../../cypress/fixtures/languages.json";
 const { getAuthenticatedUser } = require("test-utils/mocking/users");
-const { words, favoriteWords } = require("test-utils/mocking/words");
+import words from "../../../cypress/fixtures/words.json";
+import favoriteWords from "../../../cypress/fixtures/words-with-favorite-option.json";
 const { renderWithProviders } = require("test-utils/store");
 
 jest.mock("api/languages", () => {

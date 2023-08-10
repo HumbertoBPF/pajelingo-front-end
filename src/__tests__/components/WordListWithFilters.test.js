@@ -3,8 +3,8 @@ const {
   default: WordListWithFilters
 } = require("components/WordListWithFilters");
 import userEvent from "@testing-library/user-event";
-import { languages } from "test-utils/mocking/languages";
-import { favoriteWords } from "test-utils/mocking/words";
+import languages from "../../../cypress/fixtures/languages.json";
+import favoriteWords from "../../../cypress/fixtures/words-with-favorite-option.json";
 import { renderWithProviders } from "test-utils/store";
 
 jest.mock("api/languages", () => {

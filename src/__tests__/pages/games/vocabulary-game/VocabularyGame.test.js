@@ -9,7 +9,7 @@ const {
 const { renderWithProviders } = require("test-utils/store");
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../../../cypress/fixtures/languages.json";
 import { faker } from "@faker-js/faker/locale/en_US";
 
 const mockedWord = {

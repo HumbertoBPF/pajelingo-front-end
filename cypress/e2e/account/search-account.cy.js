@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en_US";
 import accounts from "../../fixtures/accounts.json";
-import scores from "../../fixtures/scores.json";
+import scores from "../../fixtures/default-scores.json";
 
 describe("search account spec", () => {
   it("should search account and select one", () => {

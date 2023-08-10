@@ -1,6 +1,6 @@
 const { screen, within } = require("@testing-library/react");
 const { default: WordList } = require("components/WordList");
-import { favoriteWords } from "test-utils/mocking/words";
+import favoriteWords from "../../../cypress/fixtures/words-with-favorite-option.json";
 import { renderWithProviders } from "test-utils/store";
 
 const wordsWithoutResults = {

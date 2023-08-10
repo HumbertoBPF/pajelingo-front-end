@@ -1,5 +1,5 @@
 import user from "../../fixtures/auth-user.json";
-import scores from "../../fixtures/scores.json";
+import scores from "../../fixtures/default-scores.json";
 import favoriteWords from "../../fixtures/favorite-words.json";
 import { faker } from "@faker-js/faker/locale/en_US";
 

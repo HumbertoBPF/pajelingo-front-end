@@ -1,5 +1,5 @@
 import user from "../../fixtures/auth-user.json";
-import scores from "../../fixtures/scores.json";
+import scores from "../../fixtures/default-scores.json";
 
 describe("delete profile spec", () => {
   it("should delete account when clicking on the delete button and confirming the action", () => {

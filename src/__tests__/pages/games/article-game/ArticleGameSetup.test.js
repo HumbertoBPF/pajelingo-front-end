@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 import { getInitialGamesState } from "test-utils/mocking/games";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../../../cypress/fixtures/languages.json";
 import { renderWithProviders } from "test-utils/store";
 const { screen, within } = require("@testing-library/react");
 const {

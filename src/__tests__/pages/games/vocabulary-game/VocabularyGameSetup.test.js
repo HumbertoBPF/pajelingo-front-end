@@ -5,7 +5,7 @@ const { renderWithProviders } = require("test-utils/store");
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../../../cypress/fixtures/languages.json";
 import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 import { faker } from "@faker-js/faker/locale/en_US";
 

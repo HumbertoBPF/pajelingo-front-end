@@ -3,7 +3,7 @@ import ConjugationGameSetup from "pages/Games/ConjugationGame/ConjugationGameSet
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getInitialGamesState } from "test-utils/mocking/games";
-import { languages } from "test-utils/mocking/languages";
+import languages from "../../../../../cypress/fixtures/languages.json";
 import { assertSelectLanguageItems } from "test-utils/assertions/select-language";
 
 jest.mock("api/languages", () => {

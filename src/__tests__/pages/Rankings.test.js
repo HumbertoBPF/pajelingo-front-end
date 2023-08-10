@@ -14,8 +14,8 @@ const {
 const {
   assertSelectLanguageItems
 } = require("test-utils/assertions/select-language");
-const { languages } = require("test-utils/mocking/languages");
-const { ranking } = require("test-utils/mocking/ranking");
+import languages from "../../../cypress/fixtures/languages.json";
+import ranking from "../../../cypress/fixtures/default-ranking.json";
 const { renderWithProviders } = require("test-utils/store");
 import { faker } from "@faker-js/faker/locale/en_US";
 import { assertFirstPageOf } from "test-utils/assertions/pagination";
