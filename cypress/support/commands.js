@@ -108,3 +108,17 @@ Cypress.Commands.add("assertWordCardsAreDisplayed", (words) => {
     }
   });
 });
+
+Cypress.Commands.add("assertUserScores", (scores) => {
+  cy.getByTestId("user-scores-headers").find("th").as("headers");
+  cy.get("@headers").eq(0).should("have.text", "Game");
+  cy.get("@headers").eq(1).should("have.text", "Score");
+
+  scores.forEach((score, index) => {
+    cy.getByTestId(`${index + 1}th-ranking-record`)
+      .find("td")
+      .as("cols");
+    cy.get("@cols").eq(0).should("have.text", `${score.game}`);
+    cy.get("@cols").eq(1).should("have.text", `${score.score}`);
+  });
+});

@@ -48,5 +48,7 @@ describe("search account spec", () => {
       "have.text",
       ` Bio: ${randomAccount.bio ? randomAccount.bio : "-"}`
     );
+
+    cy.assertUserScores(scores);
   });
 });

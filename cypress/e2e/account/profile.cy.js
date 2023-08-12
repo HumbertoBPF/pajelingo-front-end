@@ -25,6 +25,8 @@ describe("profile spec", () => {
     );
     cy.getByTestId("email-data").should("have.text", ` Email: ${user.email}`);
     cy.getByTestId("bio-data").should("have.text", ` Bio: ${user.bio}`);
+
+    cy.assertUserScores(scores);
   });
 
   it("should redirect unauthenticated users to /login", () => {

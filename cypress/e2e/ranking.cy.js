@@ -151,6 +151,8 @@ describe("ranking spec", () => {
         "have.text",
         ` Bio: ${randomAccount.bio}`
       );
+
+      cy.assertUserScores(scores);
     });
   });
 });
