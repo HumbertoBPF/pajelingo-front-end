@@ -19,11 +19,11 @@
     "web-vitals": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:coverage": "npm run test -- --coverage --watchAll=false"
+    "test:coverage": "npm run test -- --coverage --watchAll=false --coverageDirectory=jest-coverage"
   },
   "jest": {
     "transformIgnorePatterns": [
@@ -42,8 +42,13 @@
       "last 1 safari version"
     ]
   },
+  "nyc": {
+    "report-dir": "cypress-coverage"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@cypress/code-coverage": "^3.11.0",
+    "@cypress/instrument-cra": "^1.4.0",
     "@faker-js/faker": "^8.0.2",
     "cypress": "^12.17.3",
     "eslint": "^8.42.0",
