@@ -20,7 +20,7 @@ describe("should display account public data in a card", () => {
 
   it("with long bio", () => {
     const user = getUnauthenticatedUser("picture");
-    user.bio = faker.string.alphanumeric({ length: { min: 75, max: 500 } });
+    user.bio = faker.string.alphanumeric({ length: { min: 76, max: 500 } });
 
     renderWithProviders(<AccountCard user={user} />);
 

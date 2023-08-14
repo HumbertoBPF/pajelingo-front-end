@@ -19,8 +19,13 @@ export default function Menu() {
     <header className={styles["custom-menu"]}>
       <Navbar className="mb-4" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="/dashboard">
-            <img src="/images/brand.png" alt="Pajelingo logo" height="48" />
+          <Navbar.Brand href="/dashboard" data-testid="brand-logo">
+            <img
+              src="/images/brand.png"
+              alt="Pajelingo logo"
+              height="48"
+              data-testid="logo-img"
+            />
           </Navbar.Brand>
           <AccountMenu user={user} />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,7 +57,8 @@ export default function Menu() {
               </NavDropdown>
               <Nav.Link
                 href="/about-us"
-                className={`${styles["nav-link"]} text-center`}>
+                className={`${styles["nav-link"]} text-center`}
+                data-testid="about-us-link">
                 About us
               </Nav.Link>
             </Nav>

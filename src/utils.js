@@ -5,7 +5,7 @@ export function showFirstCharacters(text, n) {
     return "-";
   }
 
-  if (len < n) {
+  if (len <= n) {
     return text;
   }
 

@@ -1,5 +1,10 @@
 import { baseUrl } from "services/base";
 
+export const getGames = async () => {
+  const response = await fetch(`${baseUrl}/games`);
+  return await response.json();
+};
+
 export const setupArticleGame = (token, searchParams, onSuccess, onFail) => {
   const authHeaders = {};
 

@@ -55,17 +55,17 @@ export default function AccountMenu({ user }) {
   return (
     <div className={`${styles["account-options"]}`}>
       <Link
-        data-testid="signup-button"
         className="btn btn-success"
         to="/signup"
-        role="button">
+        role="button"
+        data-testid="signup-button">
         <SignUpIcon /> <span>Sign up</span>
       </Link>
       <Link
-        data-testid="signin-button"
         className="btn btn-primary ms-2"
         to="/login"
-        role="button">
+        role="button"
+        data-testid="signin-button">
         <SignInIcon /> <span>Sign in</span>
       </Link>
     </div>
