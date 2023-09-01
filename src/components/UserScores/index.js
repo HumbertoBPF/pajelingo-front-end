@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default function UserScores({ scores }) {
   return (
-    <Table striped className="mt-4">
+    <Table striped className="mt-4" data-testid="user-scores">
       <thead>
         <tr data-testid="user-scores-headers">
           <th scope="col">Game</th>

@@ -265,7 +265,7 @@ it("should display the lastly achieved user badges", () => {
 
   badges.forEach((badge) => {
     const badgeNotification = screen.getByTestId(
-      `${badge.id}-notification-badge`
+      `notification-badge-${badge.id}`
     );
     expect(badgeNotification).toBeInTheDocument();
 

@@ -29,7 +29,7 @@ export default function WordList({
         {isLoading ? (
           <CustomSpinner />
         ) : words.count === 0 ? (
-          <div className="text-center">
+          <div className="text-center" data-testid="no-results">
             <img
               src="/images/no_result.jpg"
               className="img-fluid rounded"

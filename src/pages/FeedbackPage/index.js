@@ -58,7 +58,7 @@ export default function FeedbackPage({ feedback, playAgain = () => {} }) {
               variant="success"
               title={`New achievement: ${badge.name}`}
               message={badge.description}
-              testId={`${badge.id}-notification-badge`}
+              testId={`notification-badge-${badge.id}`}
             />
           ))}
         </NotificationContainer>
