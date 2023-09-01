@@ -22,6 +22,7 @@ import SignUp from "pages/SignUp";
 import UpdateAccount from "pages/UpdateAccount";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchAccount from "pages/SearchAccount";
+import NotFound from "pages/NotFound";
 
 export default function AppRoutes() {
   return (
@@ -60,6 +61,7 @@ export default function AppRoutes() {
             element={<VocabularyGameSetup />}
           />
           <Route path="/vocabulary-game/play" element={<VocabularyGame />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
