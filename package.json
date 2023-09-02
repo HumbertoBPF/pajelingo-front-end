@@ -3,20 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.2",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.2",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.1",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^3.3.2"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts -r @cypress/instrument-cra start",
@@ -50,11 +50,11 @@
     "@cypress/code-coverage": "^3.11.0",
     "@cypress/instrument-cra": "^1.4.0",
     "@faker-js/faker": "^8.0.2",
-    "cypress": "^12.17.3",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-cypress": "^2.13.3",
-    "eslint-plugin-react": "^7.32.2",
-    "prettier": "2.8.8"
+    "cypress": "^13.1.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.0.3"
   }
 }
